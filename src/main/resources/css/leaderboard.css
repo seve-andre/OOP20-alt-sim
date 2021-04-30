@@ -1,23 +1,5 @@
 
-#leaderboard {
-    -fx-background-color: #ad9380;
-}
-
-#text-field {
-    -fx-background-color: transparent;
-}
-
-
 .color-opacity {
     -fx-opacity: 1;
     -fx-text-fill: #d6d6cb;
-}
-
-#go-back {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-#go-back:pressed {
-    -fx-translate-y: 2px;
 }

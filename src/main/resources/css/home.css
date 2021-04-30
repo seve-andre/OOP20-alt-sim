@@ -1,42 +1,15 @@
 
-#home {
-    -fx-background-color: #ad9380;
-}
-
 #book{
     -fx-background-image: url(../images/openbook.png);
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
     -fx-background-size: 100% 140%;
 }
 
 #hostess {
     -fx-background-image: url(../images/hostess.png);
-    -fx-background-position: center;
     -fx-background-size: 200% 100%;
 }
 
-#button {
-    -fx-border-style: solid;
-    -fx-min-width: 153;
-    -fx-min-height: 40;
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-opacity: 0.8;
-}
-
-.red-btn {
-    -fx-background-color: #b6393a;
-}
-
-.blue-btn {
-    -fx-background-color: #4e8ad5;
-}
-
-#button:hover {
-    -fx-opacity: 1;
-}
-
-#button:pressed {
-    -fx-translate-y: 2px;
+.center {
+    -fx-background-position: center;
 }

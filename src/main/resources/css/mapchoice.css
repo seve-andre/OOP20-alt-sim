@@ -1,23 +1,5 @@
 
-#mapchoice {
-    -fx-background-color: #ad9380;
-}
-
 #info-btn {
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
-    -fx-background-color: transparent;
-}
-
-#button {
-    -fx-border-style: solid;
-    -fx-min-width: 100;
-    -fx-min-height: 40;
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-opacity: 0.8;
-}
-
-.blue-btn {
-    -fx-background-color: #4e8ad5;
 }
