@@ -7,7 +7,6 @@ doc/
 .gitattributes
 .DS_Store
 .DS_store
-.project
 
 # Ignore Gradle project-specific cache directory
 .gradle
