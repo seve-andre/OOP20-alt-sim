@@ -15,11 +15,10 @@
     <children>
         <Pane prefHeight="506.0" prefWidth="822.0" stylesheets="@../css/mapchoice.css">
             <children>
-                <Button id="go-back" fx:id="goBackBtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false"
-                        prefHeight="21.0" prefWidth="26.0" styleClass="transparent"
-                        stylesheets="@../css/leaderboard.css">
+                <Button id="go-back" fx:id="goBackBtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" 
+                        prefHeight="21.0" prefWidth="26.0" styleClass="transparent" stylesheets="@../css/leaderboard.css">
                     <graphic>
-                        <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
+                        <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true" 
                                    preserveRatio="true">
                             <image>
                                 <Image url="@../images/go-back.png" />
@@ -27,46 +26,62 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <TextField layoutX="308.0" layoutY="99.0" prefHeight="34.0" prefWidth="168.0"
+                <TextField layoutX="308.0" layoutY="99.0" prefHeight="34.0" prefWidth="168.0" 
                            promptText="Enter a name...">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font></TextField>
-                <ImageView fitHeight="143.0" fitWidth="149.0" layoutX="132.0" layoutY="144.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <image>
-                        <Image url="@../images/airplane.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="465.0" layoutY="144.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <image>
-                        <Image url="@../images/airplane.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="129.0" layoutY="320.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <image>
-                        <Image url="@../images/airplane.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="465.0" layoutY="320.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <image>
-                        <Image url="@../images/airplane.png" />
-                    </image>
-                </ImageView>
-                <Label layoutX="175.0" layoutY="290.0" text="RIVERSIDE" textFill="#d6d6cb">
+            <Button id="map" layoutX="105.0" layoutY="159.0" mnemonicParsing="false" prefHeight="120.0" 
+                    prefWidth="198.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+               <graphic>
+                      <ImageView fitHeight="108.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/seaside_mapchoice.png" />
+                          </image>
+                      </ImageView>
+               </graphic>
+            </Button>
+            <Button id="map" layoutX="457.0" layoutY="140.0" mnemonicParsing="false" styleClass="transparent" 
+                    stylesheets="@../css/mapchoice.css">
+               <graphic>
+                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/airplane.png" />
+                          </image>
+                      </ImageView>
+               </graphic>
+            </Button>
+            <Button id="map" layoutX="129.0" layoutY="314.0" mnemonicParsing="false" styleClass="transparent" 
+                    stylesheets="@../css/mapchoice.css">
+               <graphic>
+                      <ImageView fitHeight="141.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/airplane.png" />
+                          </image>
+                      </ImageView>
+               </graphic>
+            </Button>
+            <Button id="map" layoutX="457.0" layoutY="310.0" mnemonicParsing="false" prefHeight="132.0" 
+                    prefWidth="166.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+               <graphic>
+                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/airplane.png" />
+                          </image>
+                      </ImageView>
+               </graphic>
+            </Button>
+                <Label layoutX="511.0" layoutY="290.0" text="RIVERSIDE" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="12.0" />
                     </font></Label>
-                <ImageView fitHeight="206.0" fitWidth="478.0" layoutX="164.0" layoutY="29.0" pickOnBounds="true"
+                <ImageView fitHeight="206.0" fitWidth="478.0" layoutX="164.0" layoutY="29.0" pickOnBounds="true" 
                            preserveRatio="true">
                     <image>
                         <Image url="@../images/logo.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="518.0" layoutY="290.0" text="SEASIDE" textFill="#d6d6cb">
+                <Label layoutX="184.0" layoutY="291.0" text="SEASIDE" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="12.0" />
                     </font>
@@ -81,20 +96,20 @@
                         <Font name="Consolas Bold" size="12.0" />
                     </font>
                 </Label>
-                <Button id="info-btn" layoutX="484.0" layoutY="99.0" mnemonicParsing="false" prefHeight="7.0"
+                <Button id="info-btn" layoutX="484.0" layoutY="99.0" mnemonicParsing="false" prefHeight="7.0" 
                         prefWidth="7.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
                     <font>
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
                     <tooltip>
-                        <Tooltip text="Name must have at most 12 chars&#10;and can only contain numbers and letters">
+                        <Tooltip text="Name must have at most 12 chars &#10;and must contain only numbers and letters">
                             <font>
                                 <Font name="Consolas Bold" size="12.0" />
                             </font>
                         </Tooltip>
                     </tooltip>
                     <graphic>
-                        <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="38.0" pickOnBounds="true"
+                        <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="38.0" pickOnBounds="true" 
                                    preserveRatio="true">
                             <image>
                                 <Image url="@../images/info.png" />
@@ -102,8 +117,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="button" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="143.0" prefHeight="34.0"
-                        prefWidth="143.0" styleClass="blue-btn" stylesheets="@../css/base.css" text="PLAY"
+                <Button id="button" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="143.0" prefHeight="34.0" 
+                        prefWidth="143.0" styleClass="blue-btn" stylesheets="@../css/base.css" text="PLAY" 
                         textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
