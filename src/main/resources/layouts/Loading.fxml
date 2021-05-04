@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="bg" prefHeight="506.0" prefWidth="822.0" stylesheets="@../css/base.css"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="alt.sim.controller.Loading">
+   <children>
+      <Pane prefHeight="506.0" prefWidth="822.0">
+         <children>
+            <ImageView fitHeight="176.0" fitWidth="440.0" layoutX="178.0" layoutY="64.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo_loading.png" />
+               </image>
+            </ImageView>
+            <ProgressBar layoutX="128.0" layoutY="376.0" prefHeight="20.0" prefWidth="567.0" progress="0.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

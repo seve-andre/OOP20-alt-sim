@@ -1,0 +1,37 @@
+
+#bg {
+    -fx-background-color: #ad9380;
+}
+
+#button {
+    -fx-border-style: solid;
+    -fx-min-width: 153;
+    -fx-min-height: 40;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-opacity: 0.8;
+}
+
+#button:hover {
+    -fx-opacity: 1;
+}
+
+.red-btn {
+    -fx-background-color: #b6393a;
+}
+
+.blue-btn {
+    -fx-background-color: #4e8ad5;
+}
+
+#go-back {
+    -fx-border-color: transparent;
+}
+
+#button:pressed, #go-back:pressed {
+    -fx-translate-y: 2px;
+}
+
+.transparent {
+    -fx-background-color: transparent;
+}
