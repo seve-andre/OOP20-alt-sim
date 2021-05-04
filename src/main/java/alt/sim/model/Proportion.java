@@ -82,11 +82,10 @@ public class Proportion {
      * @return Return the resultOfProportion object converted for the Point2D type
      */
     public Point2D getResultOfProportionInConvertedType() {
-        Point2D conversionType;
         double antecedent = this.resultOfProportion.getAntecedent();
         double consequent = this.resultOfProportion.getConsequent();
 
-        conversionType = new Point2D(antecedent, consequent);
+        Point2D conversionType = new Point2D.Double(antecedent, consequent);
 
         return conversionType;
     }
