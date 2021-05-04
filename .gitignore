@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-bin/
-doc/
-*.log
-*.pdf
-=======
 bin/
 doc/
 *.log
@@ -19,4 +13,3 @@ doc/
 
 # Ignore Gradle build output directory
 build
->>>>>>> 90540147d5c0e8c41e099d18105f2fde8b1c25b1
