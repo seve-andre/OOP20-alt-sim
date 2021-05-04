@@ -13,3 +13,5 @@ doc/
 
 # Ignore Gradle build output directory
 build
+
+.settings\org.eclipse.jdt.ui.prefs
