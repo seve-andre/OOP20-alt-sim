@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
+      prefWidth="1920.0" stylesheets="@../css/seaside.css" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.controller.MapChoice">
+   <children>
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" layoutY="197.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/helipad.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1209.0" layoutY="854.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/helipad.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="270.0" layoutY="363.0" preserveRatio="true"
+                       rotate="120.0">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="1150.0" layoutY="922.0" preserveRatio="true"
+                       rotate="190.0">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="1508.0" layoutY="428.0" preserveRatio="true"
+                       rotate="150.0">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="221.0" layoutY="865.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="908.0" fitWidth="1132.0" layoutX="425.0" layoutY="-60.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/airstrip.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="899.0" layoutY="287.0" preserveRatio="true"
+                       rotate="30.0">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="848.0" layoutY="509.0" preserveRatio="true"
+                       rotate="90.0">
+               <image>
+                  <Image url="@../images/boat.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</VBox>
