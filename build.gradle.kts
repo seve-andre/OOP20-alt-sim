@@ -9,22 +9,19 @@ repositories {
 }
 
 dependencies {
-	/* for cross-platform jar: */
+	// For cross-platform jar:
 	runtimeOnly("org.openjfx:javafx-graphics:$javafx.version:linux")
-	
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:28.2-jre'
+    implementation ("com.google.guava:guava:28.2-jre");
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation ("junit:junit:4.12");
 }
 
 javafx {
 	version = "14"
-	modules("javafx.controls", "javafx.xml")
+	modules("javafx.controls", "javafx.fxml")
 }
 
 application.mainClassName = "application.Main"
