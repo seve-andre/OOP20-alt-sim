@@ -12,10 +12,8 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="bg" minHeight="506.0" minWidth="822.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.controller.Leaderboard">
-    <children>
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Leaderboard">
         <Pane minHeight="506.0" minWidth="822.0">
-            <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="48.0" prefHeight="58.0"
                        prefWidth="225.0" text="LEADERBOARD" textFill="#d6d6cb">
                     <font>
@@ -125,9 +123,7 @@
                     <graphic>
                         <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
                                    preserveRatio="true">
-                            <image>
                                 <Image url="@../images/go-back.png" />
-                            </image>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -193,7 +189,5 @@
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
                 </Label>
-            </children>
         </Pane>
-    </children>
 </VBox>
