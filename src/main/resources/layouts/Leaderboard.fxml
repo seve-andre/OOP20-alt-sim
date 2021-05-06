@@ -123,7 +123,7 @@
                     <graphic>
                         <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
                                    preserveRatio="true">
-                                <Image url="@../images/go-back.png" />
+                                <Image url="@../images/base/go-back.png" />
                         </ImageView>
                     </graphic>
                 </Button>

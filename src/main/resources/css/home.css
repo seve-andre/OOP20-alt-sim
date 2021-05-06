@@ -1,15 +1,4 @@
 
-#book{
-    -fx-background-image: url(../images/openbook.png);
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: 100% 140%;
-}
-
-#hostess {
-    -fx-background-image: url(../images/hostess.png);
-    -fx-background-size: 200% 100%;
-}
-
-.center {
-    -fx-background-position: center;
+#home-bg {
+    -fx-background-image: url(../images/home/home_bg.png);
 }

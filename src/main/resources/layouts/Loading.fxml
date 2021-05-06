@@ -11,7 +11,7 @@
       <Pane prefHeight="506.0" prefWidth="822.0">
             <ImageView fitHeight="176.0" fitWidth="440.0" layoutX="178.0" layoutY="64.0" pickOnBounds="true"
                        preserveRatio="true">
-                  <Image url="@../images/logo_loading.png" />
+                  <Image url="@../images/logos/logo_loading.png" />
             </ImageView>
             <ProgressBar id="progress-bar" layoutX="128.0" layoutY="376.0" prefHeight="20.0" prefWidth="567.0"
                          progress="0.0" stylesheets="@../css/loading.css" />

@@ -19,7 +19,7 @@
                     <graphic>
                         <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
                                    preserveRatio="true">
-                                <Image url="@../images/go-back.png" />
+                                <Image url="@../images/base/go-back.png" />
                         </ImageView>
                     </graphic>
                 </Button>
@@ -32,7 +32,7 @@
                     prefWidth="198.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="108.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
-                              <Image url="@../images/seaside_mapchoice.png" />
+                              <Image url="@../images/map_choice/seaside_mapchoice.png" />
                       </ImageView>
                </graphic>
             </Button>
@@ -40,7 +40,7 @@
                     stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                              <Image url="@../images/airplane.png" />
+                              <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
             </Button>
@@ -48,7 +48,7 @@
                     stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="141.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                              <Image url="@../images/airplane.png" />
+                              <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
             </Button>
@@ -56,7 +56,7 @@
                     prefWidth="166.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                              <Image url="@../images/airplane.png" />
+                              <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
             </Button>
@@ -66,7 +66,7 @@
                     </font></Label>
                 <ImageView fitHeight="206.0" fitWidth="478.0" layoutX="164.0" layoutY="29.0" pickOnBounds="true"
                            preserveRatio="true">
-                        <Image url="@../images/logo.png" />
+                        <Image url="@../images/logos/logo.png" />
                 </ImageView>
                 <Label layoutX="184.0" layoutY="291.0" text="SEASIDE" textFill="#d6d6cb">
                     <font>
@@ -98,7 +98,7 @@
                     <graphic>
                         <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="38.0" pickOnBounds="true"
                                    preserveRatio="true">
-                                <Image url="@../images/info.png" />
+                                <Image url="@../images/map_choice/info.png" />
                         </ImageView>
                     </graphic>
                 </Button>

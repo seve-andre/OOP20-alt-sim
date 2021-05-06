@@ -10,36 +10,36 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.MapChoice">
       <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="275.0" layoutY="197.0" preserveRatio="true">
-                  <Image url="@../images/helipad.png" />
+                  <Image url="@../images/map_components/helipad.png" />
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1209.0" layoutY="854.0" preserveRatio="true">
-                  <Image url="@../images/helipad.png" />
+                  <Image url="@../images/map_components/helipad.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="270.0" layoutY="363.0" preserveRatio="true"
                        rotate="120.0">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="1150.0" layoutY="922.0" preserveRatio="true"
                        rotate="190.0">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="1508.0" layoutY="428.0" preserveRatio="true"
                        rotate="150.0">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="221.0" layoutY="865.0" preserveRatio="true">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
             <ImageView fitHeight="908.0" fitWidth="1132.0" layoutX="425.0" layoutY="-60.0" preserveRatio="true">
-                  <Image url="@../images/airstrip.png" />
+                  <Image url="@../images/map_components/airstrip.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="899.0" layoutY="287.0" preserveRatio="true"
                        rotate="30.0">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
             <ImageView fitHeight="15.0" fitWidth="48.0" layoutX="848.0" layoutY="509.0" preserveRatio="true"
                        rotate="90.0">
-                  <Image url="@../images/boat.png" />
+                  <Image url="@../images/map_components/boat.png" />
             </ImageView>
       </Pane>
 </VBox>
