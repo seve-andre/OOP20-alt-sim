@@ -91,6 +91,6 @@ public class Dimension2DImpl implements Dimension2D {
 
     @Override
     public String toString() {
-        return "Dimension2DImpl [width=" + width + ", height=" + height + "]";
+        return "Dimension2D [width=" + width + ", height=" + height + "]";
     }
 }
