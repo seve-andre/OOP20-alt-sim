@@ -20,7 +20,7 @@ public interface Dimension2D {
      *
      * @return the Dimension2D object itself
      */
-    double getDimension2D();
+    Dimension2D getDimension2D();
     /**
      *
      * @return a point2D witch corresponds to the center of the Point2D
