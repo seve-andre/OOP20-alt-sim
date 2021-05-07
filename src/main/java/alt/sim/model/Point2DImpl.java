@@ -74,7 +74,6 @@ public class Point2DImpl implements Point2D {
 
     @Override
     public String toString() {
-        return "Point2D:x[" + this.x + "], y[" + this.y + "]";
+        return "Point2DImpl [x=" + x + ", y=" + y + "]";
     }
-
 }

@@ -56,4 +56,41 @@ public class Dimension2DImpl implements Dimension2D {
         return new Point2DImpl(this.width / HALF, this.height / HALF);
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(height);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(width);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Dimension2DImpl other = (Dimension2DImpl) obj;
+        if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Dimension2DImpl [width=" + width + ", height=" + height + "]";
+    }
 }
