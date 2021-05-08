@@ -1,4 +1,4 @@
-package test;
+package alt.sim.model;
 
 /** 
  * Class to calculate the scaling of an image that we want to be scaled,

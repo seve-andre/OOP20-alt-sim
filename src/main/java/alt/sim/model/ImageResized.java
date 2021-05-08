@@ -1,6 +1,6 @@
-package test;
+package alt.sim.model;
 
-import application.MainPlaneView;
+import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

@@ -1,4 +1,4 @@
-package test;
+package alt.sim.model;
 
 /**
  * Utility class to use for Resize calculation and for other counts

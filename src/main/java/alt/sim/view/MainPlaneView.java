@@ -1,8 +1,8 @@
-package application;
+package alt.sim.view;
 
+import alt.sim.model.ImageResized;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import test.ImageResized;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
