@@ -3,7 +3,7 @@ package alt.sim.model.user;
 import java.io.File;
 
 /**
- * Utility class for records file purposes.
+ * Class for records file purposes.
  */
 public final class RecordsFolderConfig {
 
@@ -12,8 +12,6 @@ public final class RecordsFolderConfig {
     private static final String RECORDS_DIRECTORY_NAME = "user_records";
     private static final String RECORDS_FILE_NAME = "users.json";
     private static final String SEPARATOR = File.separator;
-
-    private RecordsFolderConfig() { }
 
     public enum Records {
 
