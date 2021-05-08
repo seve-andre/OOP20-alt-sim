@@ -1,84 +1,128 @@
-package alt.sim.model;
+package test;
 
 /**
  * Represent the Mathematical concept of Ratio with an antecedent value e consequent value.
  * 
- * Linking it to the ProportionCount class for finalize the Count of 2 Ratio object
+ * Linking it to the ProportionCount class for finalize the Count of 2 Ratio object.
  * 
  */
 public class Ratio {
-
-    private double antecedent;
-    private double consequent;
-
-    /** */
-    public Ratio() { 
-        this.antecedent = 0;
-        this.consequent = 0;
-    }
-
-    /** Initialization of the class with 2 parameter needed to represent a Mathematical Ratio.
-     * @param antecedent the Antecedent in a Ratio x:Antecedent
-     * @param consequent the Consequent in a Ratio Consequent:x
-     */
-    public Ratio(final double antecedent, final double consequent) {
-        this.antecedent = antecedent;
-        this.consequent = consequent;
-    }
-
-    /**
-     * @return Return the check result about if the antecedent value was passed or initialized
-     */
-    public boolean isAntedentKnowed() {
-        if (this.antecedent > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return Return the check result about if the consequent value was passed or initialized
-     */
-    public boolean isConsequentKnowed() {
-        if (this.consequent > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return Return the antecedent value
-     */
-    public double getAntecedent() {
-        return this.antecedent;
-    }
-
-    /**
-     * @return Return the consequent value
-     */
-    public double getConsequent() {
-        return this.consequent;
-    }
-
-    /** Set the value of antecedent.
-     * @param antecedent is the new parameter to Set
-     */
-    public void setAntecedent(final double antecedent) {
-        this.antecedent = antecedent;
-    }
-
-    /** Set the value of consequent.
-     * @param consequent is the new parameter to Set
-    */
-    public void setConsequent(final double consequent) {
-        this.consequent = consequent;
-    }
-
-    /** Summary method of Ratio class nature.
-     * @return string representation of Ratio
-     */
-    public String toString() {
-        return ("Ratio = " + this.getAntecedent() + ":" + this.getConsequent() + " isAntedentKnowed? = " + this.isAntedentKnowed() + " isConsequentKnowed? = " + this.isConsequentKnowed());
-    }
-
+	private double antecedent;
+	private double consequent;
+	private boolean antecedentPresence;
+	private boolean consequentPresence;
+	private boolean antecedentHighter;
+	
+	/** */
+	public Ratio() { 
+		this.antecedent = 0;
+		this.consequent = 0;
+	}
+	
+	/** Initialization of the class with 2 parameter needed to represent a Mathematical Ratio.
+	 * @param antecedent the Antecedent in a Ratio (x:Antecedent).
+	 * @param consequent the Consequent in a Ratio (Consequent:x).
+	 */
+	public Ratio(final double antecedent, final double consequent) {
+		this();
+		if(antecedent > 0 && consequent > 0) {
+			this.antecedent = antecedent;
+			this.consequent = consequent;
+		}
+	}
+	
+	/**
+	 * @return Return the check result about if the antecedent value was passed or initialized.
+	 */
+	public boolean isAntedentKnowed() {
+		if(this.antecedent > 0) {
+			antecedentPresence = true;
+			return antecedentPresence;
+		}
+		
+		antecedentPresence = false;
+		return false;
+	}
+	
+	/**
+	 * @return Return the check result about if the consequent value was passed or initialized.
+	 */
+	public boolean isConsequentKnowed() {
+		if(this.consequent > 0) {
+			consequentPresence = true;
+			return consequentPresence;
+		}
+		
+		consequentPresence = false;
+		return consequentPresence;
+	}
+	
+	/**
+	 * Compare antecedent value with consequent for set the low or the high.
+	 */
+	public void sizeCompare() {
+		if(this.antecedent < this.consequent) {
+			antecedentHighter = false;
+		}else {
+			this.antecedentHighter = true;
+		}
+	}
+	
+	/**
+	 * Execute the scale of the Ratio.
+	 */
+	public void scale() {
+		this.antecedent = UtilityCalculation.persentageCalculation(this.antecedent, UtilityCalculation.PERCENT_VALUE);
+		this.consequent = UtilityCalculation.persentageCalculation(this.consequent, UtilityCalculation.PERCENT_VALUE);
+	}
+	
+	/**
+	 * @return true if the antecedent is more high to consequent, false vice versa.  
+	 */
+	public boolean isAntecedentHighter() {
+		return this.antecedentHighter;
+	}
+	
+	/**
+	 * @return Return the antecedent value.
+	 */
+	public double getAntecedent() {
+		return this.antecedent;
+	}
+	
+	/**
+	 * @return Return the consequent value.
+	 */
+	public double getConsequent() {
+		return this.consequent;
+	}
+	
+	/** Set the value of antecedent.
+	 * @param antecedent is the new parameter to Set.
+	 */
+	public void setAntecedent(final double antecedent) {
+		this.antecedent = antecedent;
+	}
+	
+	/** Set the value of consequent.
+	 * @param consequent is the new parameter to Set.
+	 */
+	public void setConsequent(final double consequent) {
+		this.consequent = consequent;
+	}
+	
+	/**
+	 * @param antecedent the value of antecedent in the Ratio.
+	 * @param consequent the value of consequent in the Ratio.
+	 */
+	public void setRatioValue(final double antecedent, final double consequent) {
+		this.antecedent = antecedent;
+		this.consequent = consequent;
+	}
+	
+	/** Summary method of Ratio class nature. */
+	public String toString() {
+		return ("Ratio = " + this.getAntecedent() + ":" + this.getConsequent() + " isAntedentKnowed? = " + this.isAntedentKnowed() + " isConsequentKnowed? = " + this.isConsequentKnowed());
+	}
+	
 }
