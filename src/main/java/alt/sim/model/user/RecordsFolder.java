@@ -32,7 +32,7 @@ public final class RecordsFolder {
 
         private final String path;
 
-        Records(final String path) {
+        Path(final String path) {
             this.path = path;
         }
 
