@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Class for records file purposes.
  */
-public final class RecordsFolderConfig {
+public final class RecordsFolder {
 
     private static final String USER_HOME_DIR = System.getProperty("user.home");
     private static final String RECORDS_FOLDER_NAME = ".altsim";
@@ -13,7 +13,7 @@ public final class RecordsFolderConfig {
     private static final String RECORDS_FILE_NAME = "users.json";
     private static final String SEPARATOR = File.separator;
 
-    public enum Records {
+    public enum Path {
 
         /**
          * Path to records directory.
