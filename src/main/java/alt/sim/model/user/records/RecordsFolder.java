@@ -1,6 +1,6 @@
-package alt.sim.model.user;
+package alt.sim.model.user.records;
 
-import java.io.File;
+import alt.sim.utility.MultiplatformUtility;
 
 /**
  * Class for records file purposes.
@@ -11,7 +11,7 @@ public final class RecordsFolder {
     private static final String RECORDS_FOLDER_NAME = ".altsim";
     private static final String RECORDS_DIRECTORY_NAME = "user_records";
     private static final String RECORDS_FILE_NAME = "users.json";
-    private static final String SEPARATOR = File.separator;
+    private static final String SEPARATOR = MultiplatformUtility.SEPARATOR;
 
     public enum Path {
 
