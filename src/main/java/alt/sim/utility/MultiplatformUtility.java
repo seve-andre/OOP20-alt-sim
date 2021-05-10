@@ -14,5 +14,10 @@ public final class MultiplatformUtility {
      */
     public static final String SEPARATOR = File.separator;
 
+    /**
+     * Get user home directory.
+     */
+    public static final String USER_HOME = System.getProperty("user.home");
+
     private MultiplatformUtility() { }
 }
