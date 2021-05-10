@@ -13,7 +13,7 @@ public final class RecordsFolder {
     private static final String RECORDS_DIRECTORY_NAME = "user_records";
     private static final String RECORDS_FILE_NAME = "users.json";
 
-    public enum Path {
+    public enum RecordsPath {
 
         /**
          * Path to records directory.
@@ -32,7 +32,7 @@ public final class RecordsFolder {
 
         private final String path;
 
-        Path(final String path) {
+        RecordsPath(final String path) {
             this.path = path;
         }
 
