@@ -7,11 +7,11 @@ package alt.sim.model;
  * 
  */
 public class Ratio {
-	private double antecedent;
-	private double consequent;
-	private boolean antecedentPresence;
-	private boolean consequentPresence;
-	private boolean antecedentHighter;
+    private double antecedent;
+    private double consequent;
+    private boolean antecedentPresence;
+    private boolean consequentPresence;
+    private boolean antecedentHighter;
 	
 	/** */
 	public Ratio() { 
@@ -25,7 +25,7 @@ public class Ratio {
 	 */
 	public Ratio(final double antecedent, final double consequent) {
 		this();
-		if(antecedent > 0 && consequent > 0) {
+		if (antecedent > 0 && consequent > 0) {
 			this.antecedent = antecedent;
 			this.consequent = consequent;
 		}
@@ -35,11 +35,11 @@ public class Ratio {
 	 * @return Return the check result about if the antecedent value was passed or initialized.
 	 */
 	public boolean isAntedentKnowed() {
-		if(this.antecedent > 0) {
+		if (this.antecedent > 0) {
 			antecedentPresence = true;
 			return antecedentPresence;
 		}
-		
+
 		antecedentPresence = false;
 		return false;
 	}
@@ -48,11 +48,11 @@ public class Ratio {
 	 * @return Return the check result about if the consequent value was passed or initialized.
 	 */
 	public boolean isConsequentKnowed() {
-		if(this.consequent > 0) {
+		if (this.consequent > 0) {
 			consequentPresence = true;
 			return consequentPresence;
 		}
-		
+
 		consequentPresence = false;
 		return consequentPresence;
 	}
@@ -61,9 +61,9 @@ public class Ratio {
 	 * Compare antecedent value with consequent for set the low or the high.
 	 */
 	public void sizeCompare() {
-		if(this.antecedent < this.consequent) {
+		if (this.antecedent < this.consequent) {
 			antecedentHighter = false;
-		}else {
+		} else {
 			this.antecedentHighter = true;
 		}
 	}
@@ -77,7 +77,7 @@ public class Ratio {
 	}
 	
 	/**
-	 * @return true if the antecedent is more high to consequent, false vice versa.  
+	 * @return true if the antecedent is more high to consequent, false vice versa.
 	 */
 	public boolean isAntecedentHighter() {
 		return this.antecedentHighter;
@@ -120,7 +120,9 @@ public class Ratio {
 		this.consequent = consequent;
 	}
 	
-	/** Summary method of Ratio class nature. */
+	/**
+	 * @return summary method of Ratio class informations.
+	*/
 	public String toString() {
 		return ("Ratio = " + this.getAntecedent() + ":" + this.getConsequent() + " isAntedentKnowed? = " + this.isAntedentKnowed() + " isConsequentKnowed? = " + this.isConsequentKnowed());
 	}

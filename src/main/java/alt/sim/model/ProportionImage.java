@@ -7,23 +7,21 @@ package alt.sim.model;
  *  Example:
  *  Screen [1024 x 768]
  *  Sprite [424 x 393] raw dimension of the image loaded.
- *  
  *  Image must be the 15% of Screen dimension.
- *  
  *  dimensioneSprite after the count = [64 x 64].
  */
 public class ProportionImage {
-	//Pane section:
-	/** Min range of Screen dimension */
-	public final static double DIMENSION_MIN_RANGE = 60;
-	/** Max range of Screen dimension  */
-	public final static double DIMENSION_MAX_RANGE = 2560;
+    //Pane section:
+    /** Min range of Screen dimension. */
+    public static final double DIMENSION_MIN_RANGE = 60;
+    /** Max range of Screen dimension.  */
+    public static final double DIMENSION_MAX_RANGE = 2560;
 	
 	//Sprite section:
-	/** Max range of Sprite dimension */
-	public final static double SPRITE_MAX_RANGE = 512;
-	/** Min range of Sprite dimension */
-	public final static double SPRITE_MIN_RANGE = 16;
+	/** Max range of Sprite dimension. */
+	public static final double SPRITE_MAX_RANGE = 512;
+	/** Min range of Sprite dimension. */
+	public static final double SPRITE_MIN_RANGE = 16;
 	
 	private Ratio ratioImage;
 	private Ratio ratioScreen;
@@ -55,7 +53,7 @@ public class ProportionImage {
 		double antecedentToKnow = Math.floor(ratioScreen.getAntecedent());
 		double consequentToKnow = Math.floor((antecedentToKnow * ratioImage.getConsequent()) / ratioImage.getAntecedent());
 
-		if(antecedentToKnow == Double.POSITIVE_INFINITY || consequentToKnow == Double.POSITIVE_INFINITY){
+		if (antecedentToKnow == Double.POSITIVE_INFINITY || consequentToKnow == Double.POSITIVE_INFINITY){
 			antecedentToKnow = 0;
 			consequentToKnow = 0;
 		}
@@ -73,11 +71,11 @@ public class ProportionImage {
 		double consequentToKnow = Math.floor(ratioScreen.getConsequent());
 		double antecedentToKnow = Math.floor((consequentToKnow * ratioImage.getAntecedent()) / ratioImage.getConsequent());
 
-		if(Double.isNaN(antecedentToKnow) == true || Double.isNaN(consequentToKnow) == true){
+		if (Double.isNaN(antecedentToKnow) || Double.isNaN(consequentToKnow)){
 			antecedentToKnow = 0;
 			consequentToKnow = 0;
 		}
-		
+
 		this.resultOfProportion.setAntecedent(antecedentToKnow);
 		this.resultOfProportion.setConsequent(consequentToKnow);
 	}
@@ -89,22 +87,22 @@ public class ProportionImage {
 	public void comparisonLowExponentForImage() {
 		double resultWidth = 0;
 		double resultHeight = 0;
-		
+
 		int exponent = 0;
-		
-		if(this.resultOfProportion.getAntecedent() < this.resultOfProportion.getConsequent()) {
-			exponent = UtilityCalculation.exponentCalcultation((int)resultOfProportion.getAntecedent());
-					
+
+		if (this.resultOfProportion.getAntecedent() < this.resultOfProportion.getConsequent()) {
+			exponent = UtilityCalculation.exponentCalcultation((int) resultOfProportion.getAntecedent());
+
 			resultHeight = Math.pow(UtilityCalculation.BASE_POWER, exponent);
 			resultWidth = resultHeight;
-			
-		}else {
-			exponent = UtilityCalculation.exponentCalcultation((int)resultOfProportion.getConsequent()); 
-						
+
+		} else {
+			exponent = UtilityCalculation.exponentCalcultation((int) resultOfProportion.getConsequent()); 
+
 			resultWidth = Math.pow(UtilityCalculation.BASE_POWER, exponent);
 			resultHeight = resultWidth;
 		}
-		
+
 		this.resultOfProportion.setRatioValue(resultWidth, resultHeight);
 	}
 	
@@ -112,10 +110,11 @@ public class ProportionImage {
 	 * Summary method that regroup the 2 type of calculation: for the Image and for the Screen.
 	 */
 	public void calculationProportion() {
-		if(this.ratioScreen.isAntedentKnowed() == true) {
+		if (this.ratioScreen.isAntedentKnowed()) {
 			this.calculationWidthAntecedentKnowed();
+		} else { 
+		    this.calculationWidthConsequentKnowed(); 
 		}
-		else { this.calculationWidthConsequentKnowed(); }
 	}
 	
 	/**
@@ -124,12 +123,12 @@ public class ProportionImage {
 	public void calculationProportionCaseEquality() {
 		// Check who the 2 members are the lower, for use it in calculation.
 		ratioScreen.sizeCompare();
-		
-		if(this.ratioScreen.isAntecedentHighter() == true) {
+
+		if (this.ratioScreen.isAntecedentHighter()) {
 			this.calculationWidthConsequentKnowed();
+		} else { 
+		    this.calculationWidthAntecedentKnowed(); 
 		}
-		
-		else { this.calculationWidthAntecedentKnowed(); }
 	}
 	
 	/**
@@ -138,7 +137,7 @@ public class ProportionImage {
 	public void renderingProportionImage() {
 		ratioImage.scale();
 		ratioScreen.scale();
-		
+
 		calculationProportionCaseEquality();
 		comparisonLowExponentForImage();
 	}

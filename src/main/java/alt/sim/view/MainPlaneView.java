@@ -1,11 +1,10 @@
 package alt.sim.view;
 
-import org.graalvm.compiler.phases.common.NodeCounterPhase.Stage;
-
 import alt.sim.model.ImageResized;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * View class for show the Plane.
@@ -19,7 +18,7 @@ public class MainPlaneView extends Application {
     private static final int SCREEN_HEIGHT = 768;
 
     @Override
-    public void start(final Stage stage) {
+    public void start(final Stage stage) throws Exception {
 
         try {
             Pane paneRoot = new Pane();

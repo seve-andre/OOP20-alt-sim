@@ -1,10 +1,8 @@
 package alt.sim.model;
 
-import java.awt.Image;
-
-import javax.swing.text.html.ImageView;
-
 import alt.sim.view.MainPlaneView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Class for managing the Image of the Plane and calculate his ProportionImage.
