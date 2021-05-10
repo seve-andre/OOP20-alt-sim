@@ -1,5 +1,9 @@
 package alt.sim.model;
 
-public class MultiplatformUtility {
-	public static final String KERNEL_SEPARATOR = System.getProperty("file.separator");
+import java.io.File;
+
+public final class MultiplatformUtility {
+    public static final String KERNEL_SEPARATOR = File.separator;
+
+    private MultiplatformUtility() { }
 }
