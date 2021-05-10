@@ -5,9 +5,9 @@ import java.util.Objects;
 public class UserImpl implements User {
 
     private final String name;
-    private final String score;
+    private final int score;
 
-    public UserImpl(final String name, final String score) {
+    public UserImpl(final String name, final int score) {
         this.name = Objects.requireNonNull(name);
         this.score = score;
     }
@@ -26,7 +26,7 @@ public class UserImpl implements User {
      * {@inheritDoc}
      */
     @Override
-    public String getScore() {
+    public int getScore() {
         return this.score;
     }
 

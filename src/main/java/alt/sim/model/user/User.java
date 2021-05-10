@@ -13,5 +13,5 @@ public interface User {
      *
      * @return score of the user.
      */
-    String getScore();
+    int getScore();
 }
