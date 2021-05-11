@@ -9,15 +9,27 @@ import java.io.File;
  */
 public final class MultiplatformUtility {
 
-    /**
-     * Get OS file separator.
-     */
-    public static final String SEPARATOR = File.separator;
+    public enum Utility {
 
-    /**
-     * Get user home directory.
-     */
-    public static final String USER_HOME = System.getProperty("user.home");
+        /**
+         * Gets OS file separator.
+         */
+        SEPARATOR(File.separator),
 
-    private MultiplatformUtility() { }
+        /**
+         * Gets user home directory.
+         */
+        USER_HOME(System.getProperty("user.home"));
+
+        private final String property;
+
+        Utility(final String property) {
+            this.property = property;
+        }
+
+        public String getProperty() {
+            return this.property;
+
+        }
+    }
 }
