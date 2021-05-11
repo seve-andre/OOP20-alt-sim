@@ -44,9 +44,7 @@ public final class UtilityCalculation {
         }
 
         //value for simplicity ceiled
-        Math.floor(persentage);
-
-        return persentage;
+        return Math.floor(persentage);
     }
 
     /**
