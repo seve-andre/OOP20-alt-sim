@@ -2,7 +2,7 @@ package alt.sim.controller;
 
 public class GameEngineImpl implements GameEngine {
 
-    GameEngineImpl(){
+    GameEngineImpl() {
     }
     @Override
     public void mainLoop() {
