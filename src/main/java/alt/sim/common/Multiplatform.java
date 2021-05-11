@@ -1,15 +1,15 @@
-package alt.sim.utility;
+package alt.sim.common;
 
 import java.io.File;
 
 /**
  *
- * Utility class to ensure multi-platform software.
+ * Class to ensure multi-platform software.
  *
  */
-public final class MultiplatformUtility {
+public final class Multiplatform {
 
-    public enum Utility {
+    public enum OSDependent {
 
         /**
          * Gets OS file separator.
@@ -23,7 +23,7 @@ public final class MultiplatformUtility {
 
         private final String property;
 
-        Utility(final String property) {
+        OSDependent(final String property) {
             this.property = property;
         }
 
