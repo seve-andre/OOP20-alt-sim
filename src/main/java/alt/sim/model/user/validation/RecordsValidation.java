@@ -13,13 +13,17 @@ public class RecordsValidation {
     private static final Path RECORDS_DIR_PATH = Path.of(RecordsPath.RECORDS_DIR_PATH.getPath());
 
     /**
-     * Validates directory
-     * that contains json file.
+     * Checks "hidden" folder existence by path.
      *
      * @throws IOException
      */
-    public void userRecordsDirValidation() throws IOException {
-        this.dirValidation(USER_RECORDS_DIR_PATH);
+    public void checkDirExistence() throws IOException {
+        if (!Files.isDirectory(RECORDS_DIR_PATH)) {
+            Files.deleteIfExists(RECORDS_DIR_PATH);
+        }
+        if (Files.notExists(RECORDS_DIR_PATH)) {
+            Files.createDirectory(RECORDS_DIR_PATH);
+        }
     }
 
     /**
@@ -40,26 +44,13 @@ public class RecordsValidation {
     }
 
     /**
-     * Checks "hidden" folder existence by path.
+     * Validates directory
+     * that contains json file.
      *
      * @throws IOException
      */
-    public void checkDirExistence() throws IOException {
-        if (!Files.isDirectory(RECORDS_DIR_PATH)) {
-            Files.deleteIfExists(RECORDS_DIR_PATH);
-        }
-        if (Files.notExists(RECORDS_DIR_PATH)) {
-            Files.createDirectory(RECORDS_DIR_PATH);
-        }
-    }
-
-    /**
-     * Validates json file path.
-     *
-     * @throws IOException
-     */
-    public void userRecordsFileValidation() throws IOException {
-        this.fileValidation(USER_RECORDS_FILE_PATH);
+    public void userRecordsDirValidation() throws IOException {
+        this.dirValidation(USER_RECORDS_DIR_PATH);
     }
 
     /**
@@ -76,5 +67,14 @@ public class RecordsValidation {
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
+    }
+
+    /**
+     * Validates json file path.
+     *
+     * @throws IOException
+     */
+    public void userRecordsFileValidation() throws IOException {
+        this.fileValidation(USER_RECORDS_FILE_PATH);
     }
 }
