@@ -1,14 +1,14 @@
 package alt.sim.model.user.records;
 
-import alt.sim.utility.MultiplatformUtility;
+import alt.sim.utility.MultiplatformUtility.Utility;
 
 /**
  * Class for records file purposes.
  */
 public final class RecordsFolder {
 
-    private static final String USER_HOME_DIR = MultiplatformUtility.USER_HOME;
-    private static final String SEPARATOR = MultiplatformUtility.SEPARATOR;
+    private static final String USER_HOME_DIR = Utility.USER_HOME.getProperty();
+    private static final String SEPARATOR = Utility.SEPARATOR.getProperty();
     private static final String RECORDS_FOLDER_NAME = ".altsim";
     private static final String RECORDS_DIRECTORY_NAME = "user_records";
     private static final String RECORDS_FILE_NAME = "users.json";

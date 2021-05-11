@@ -1,6 +1,5 @@
 package alt.sim.model;
 
-import alt.sim.utility.MultiplatformUtility;
 import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,12 +10,9 @@ import javafx.scene.image.ImageView;
 public class ImageResized {
 
     /** URL Path of the image to load. */
-    private static final String URL_SPRITE = "file:" + MultiplatformUtility.SEPARATOR
-            + MultiplatformUtility.SEPARATOR + MultiplatformUtility.SEPARATOR + "Users"
-            + MultiplatformUtility.SEPARATOR + "daniel" + MultiplatformUtility.SEPARATOR
-            + "eclipse-workspace" + MultiplatformUtility.SEPARATOR + "PlaneModel"
-            + MultiplatformUtility.SEPARATOR  + "src" + MultiplatformUtility.SEPARATOR
-            + "application.resources" + MultiplatformUtility.SEPARATOR + "Plane.png";
+    private static final String URL_SPRITE = ClassLoader
+            .getSystemResource("images/map_components/airplane.png")
+            .toExternalForm();
 
     private ProportionImage proportionImageResized;
     private Image loadImage;
