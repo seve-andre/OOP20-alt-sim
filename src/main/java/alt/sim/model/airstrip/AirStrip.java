@@ -1,4 +1,5 @@
 package alt.sim.model.airstrip;
+
 import alt.sim.model.calculation.Dimension2D;
 import javafx.scene.image.ImageView;
 
@@ -13,8 +14,8 @@ public interface AirStrip {
     Dimension2D getLandSpot();
 
     /**
-     *
+     * changes the image of the airstrip.
      * @param view the graphical representation of the AirStrip
      */
-    void setAirStripImage(ImageView view);
+    void changeAirStripImage(ImageView view);
 }
