@@ -23,8 +23,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <TextField layoutX="308.0" layoutY="99.0" prefHeight="34.0" prefWidth="168.0"
-                           promptText="Enter a name...">
+                <TextField id="name-txt" layoutX="308.0" layoutY="99.0" prefHeight="34.0" prefWidth="168.0"
+                           promptText="Enter a name..." stylesheets="@../css/mapchoice.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font></TextField>
@@ -114,5 +114,11 @@
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Label>
+      <TextField id="error-txt" disable="true" editable="false" layoutX="328.0" layoutY="131.0" prefHeight="5.0"
+                 prefWidth="129.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+         <font>
+            <Font name="Consolas Bold" size="10.0" />
+         </font>
+      </TextField>
         </Pane>
 </VBox>

@@ -3,3 +3,17 @@
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
 }
+
+#map:hover{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-scale-z: 1.2;
+}
+
+#name-txt:focused {
+    -fx-faint-focus-color: #d6d6cb;
+}
+
+#error-txt {
+    -fx-text-fill: #fd0000;
+}
