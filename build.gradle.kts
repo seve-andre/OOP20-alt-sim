@@ -1,39 +1,67 @@
 plugins {
-	java
-	application
-    id ("org.openjfx.javafxplugin") version "0.0.9"
+    // Apply the java plugin to add support for Java
+    java
+
+    // Apply the application plugin to add support for building a CLI application
+    // You can run your app via task "run": ./gradlew run
+    application
+
+    /*
+     * Adds tasks to export a runnable jar.
+     * In order to create it, launch the "shadowJar" task.
+     * The runnable jar will be found in build/libs/projectname-all.jar
+     */
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 repositories {
-	jcenter()
+	mavenCentral()
 }
+
+val javaFXModules = listOf(
+    "base",
+    "controls",
+    "fxml",
+    "swing",
+    "graphics"
+)
+
+val supportedPlatforms = listOf("linux", "mac", "win") // All required for OOP
+
+val javaFxVersion = "15.0.1"
+
+val jUnitVersion = "5.7.1"
 
 dependencies {
-	// For cross-platform jar:
-	runtimeOnly("org.openjfx:javafx-graphics:$javafx.version:linux")
 
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation ("com.google.guava:guava:28.2-jre");
-
-    // Use JUnit test framework
-    testImplementation ("junit:junit:4.12");
+    for (platform in supportedPlatforms) {
+        for (module in javaFXModules) {
+            implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
+        }
+    }
+    
+    // JUnit API and testing engine
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+    
+    implementation("com.google.code.gson:gson:2.8.6")
 }
 
-javafx {
-	version = "14"
-	modules("javafx.controls", "javafx.fxml")
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
 }
 
-application.mainClassName = "application.Main"
+tasks.withType<Test> {
+    // Enables JUnit 5 Jupiter module
+    useJUnitPlatform()
+}
 
-tasks.withType<Jar> {
-	manifest {
-		attributes["Main-Class"] = "application.Main"
-		}
-		
-	from(sourceSets.main.get().output)
-	dependsOn(configurations.runtimeClasspath)
-	from({
-		configurations["runtimeClasspath"].map { if(it.isDirectory) it else zipTree(it) }
-	})
+application {
+    // Define the main class for the application
+    mainClass.set("alt.sim.view.BasicView")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
