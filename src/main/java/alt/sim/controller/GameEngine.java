@@ -6,15 +6,16 @@ public interface GameEngine {
      */
     void mainLoop();
     /**
-     * Detect the action executed by the mouse. 
+     * Detect the action executed by the mouse.
      */
     void processInput();
     /**
-     * Update model state following input commands. 
+     * Update model state following input commands.
+     * @param elapsed
      */
-    void update();
+    void update(int elapsed);
     /**
-     * Update view interface. 
+     * Update view interface.
      */
     void render();
 
