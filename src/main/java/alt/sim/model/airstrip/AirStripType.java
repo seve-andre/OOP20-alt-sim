@@ -12,21 +12,21 @@ public enum AirStripType {
      */
     HELIPAD("Helipad Airstrip");
 
-    private final String property;
+    private final String type;
 
     /**
      *
-     * @param property the property of the airstrip
+     * @param type the property of the airstrip
      */
     AirStripType(final String type) {
-        this.property = type;
+        this.type = type;
     }
 
     /**
      *
      * @return the property of the airstrip
      */
-    public String getProperty() {
-        return this.property;
+    public String getType() {
+        return this.type;
     }
 }
