@@ -25,7 +25,12 @@ public class GameEngineImpl implements GameEngine {
             lastTime = current;
         }
     }
-
+    /**
+     * method that calculates how many milliseconds has to wait for next frame
+     * @param current
+     * @throws InterruptedException
+     * @throws IllegalArgumentException
+     */
     protected void waitForNextFrame(final long current) throws InterruptedException, IllegalArgumentException {
         long dt = System.currentTimeMillis() - current;
         if (dt < PERIOD) {
