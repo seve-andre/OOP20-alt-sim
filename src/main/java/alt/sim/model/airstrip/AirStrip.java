@@ -1,4 +1,5 @@
-package alt.sim.model;
+package alt.sim.model.airstrip;
+import alt.sim.model.calculation.Dimension2D;
 import javafx.scene.image.ImageView;
 
 public interface AirStrip {

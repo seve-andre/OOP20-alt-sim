@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
 
 public class Dimension2DImpl implements Dimension2D {
 
