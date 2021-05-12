@@ -26,7 +26,7 @@ public class GameEngineImpl implements GameEngine {
         }
     }
     /**
-     * method that calculates how many milliseconds has to wait for next frame
+     * method that calculates how many milliseconds has to wait for next frame.
      * @param current
      * @throws InterruptedException
      * @throws IllegalArgumentException
@@ -37,9 +37,9 @@ public class GameEngineImpl implements GameEngine {
             try {
                 Thread.sleep(PERIOD - dt);
             } catch (IllegalArgumentException ex) {
-                    ex.printStackTrace();
+                ex.printStackTrace();
             } catch (InterruptedException ex) {
-                    ex.printStackTrace();
+                ex.printStackTrace();
             }
         }
     }
