@@ -15,10 +15,12 @@ import com.google.gson.reflect.TypeToken;
 import alt.sim.model.user.User;
 import alt.sim.model.user.UserImpl;
 import alt.sim.model.user.records.RecordsFolder.RecordsPath;
+import alt.sim.model.user.validation.RecordsValidation;
 
 public class UserRecordsImpl implements UserRecords {
 
     private final Path jsonPath = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
+    private RecordsValidation recordsValidation = new RecordsValidation();
 
     private Map<String, User> users = new HashMap<>();
 
@@ -29,6 +31,7 @@ public class UserRecordsImpl implements UserRecords {
      * @throws IOException
      */
     public void loadFile() throws IOException {
+        this.recordsValidation.userRecordsFileValidation();
         final String jsonString = Files.readString(this.jsonPath);
         this.users = new Gson().fromJson(jsonString, this.jsonTypeToken);
     }
@@ -39,10 +42,12 @@ public class UserRecordsImpl implements UserRecords {
      * @throws IOException
      */
     public void updateFile() throws IOException {
+        this.loadFile();
         final String json = new GsonBuilder()
                 .setPrettyPrinting()
                 .create()
                 .toJson(this.users, this.jsonTypeToken);
+        this.recordsValidation.userRecordsFileValidation();
         Files.writeString(this.jsonPath, json);
     }
 
@@ -55,6 +60,7 @@ public class UserRecordsImpl implements UserRecords {
         if (!this.users.containsKey(user.getName())) {
             this.users.put(user.getName(), user);
         }
+        this.updateFile();
     }
 
     /**
