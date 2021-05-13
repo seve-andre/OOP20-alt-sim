@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Class that defines regex pattern.
  */
-public final class NameValidationFunction {
+public final class NameQuality {
 
     /**
      * Only numbers and letters are accepted.
@@ -16,7 +16,7 @@ public final class NameValidationFunction {
     private String name;
     private static final int MAX_LENGTH = 12;
 
-    public NameValidationFunction(final String name) {
+    public NameQuality(final String name) {
         this.name  = name;
     }
 
