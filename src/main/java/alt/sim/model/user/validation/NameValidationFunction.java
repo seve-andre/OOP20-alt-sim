@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 /**
  * Class that defines regex pattern.
  */
-public class NameValidationFunction {
+public final class NameValidationFunction {
 
     /**
      * Only numbers and letters are accepted.
