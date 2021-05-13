@@ -1,9 +1,9 @@
 package alt.sim.model;
 
-/** 
+/**
  * Class to calculate the scaling of an image that we want to be scaled,
  * in proportion to the size of the screen on which it will be positioned.
- * 
+ *
  *  Example:
  *  Screen [1024 x 768]
  *  Sprite [424 x 393] raw dimension of the image loaded.
@@ -11,6 +11,7 @@ package alt.sim.model;
  *  dimensioneSprite after the count = [64 x 64].
  */
 public class ProportionImage {
+
     //Pane section:
     /** Min range of Screen dimension. */
     public static final double DIMENSION_MIN_RANGE = 60;
@@ -49,9 +50,11 @@ public class ProportionImage {
     /**
      * UnknownValue calculation, in this case we have only the antecedent value.
     */
-    private void calculationWidthAntecedentKnowed() {
+    private void calculationWidthAntecedentKnown() {
         double antecedentToKnow = Math.floor(ratioScreen.getAntecedent());
-        double consequentToKnow = Math.floor((antecedentToKnow * ratioImage.getConsequent()) / ratioImage.getAntecedent());
+        double consequentToKnow = Math.floor(
+                (antecedentToKnow * ratioImage.getConsequent()) / ratioImage.getAntecedent()
+        );
 
         if (antecedentToKnow == Double.POSITIVE_INFINITY || consequentToKnow == Double.POSITIVE_INFINITY) {
             antecedentToKnow = 0;
@@ -67,9 +70,11 @@ public class ProportionImage {
      *
      * Double.isNan() check if result was divided for 0, causing the NotANumber value.
      */
-    private void calculationWidthConsequentKnowed() {
+    private void calculationWidthConsequentKnown() {
         double consequentToKnow = Math.floor(ratioScreen.getConsequent());
-        double antecedentToKnow = Math.floor((consequentToKnow * ratioImage.getAntecedent()) / ratioImage.getConsequent());
+        double antecedentToKnow = Math.floor(
+                (consequentToKnow * ratioImage.getAntecedent()) / ratioImage.getConsequent()
+        );
 
         if (Double.isNaN(antecedentToKnow) || Double.isNaN(consequentToKnow)) {
             antecedentToKnow = 0;
@@ -80,7 +85,7 @@ public class ProportionImage {
         this.resultOfProportion.setConsequent(consequentToKnow);
     }
 
-    /** 
+    /**
      * Calculating and comparing the result of Screen proportion scaled because the count.
      * of imageResized depends from it.
      */
@@ -97,7 +102,7 @@ public class ProportionImage {
             resultWidth = resultHeight;
 
         } else {
-            exponent = UtilityCalculation.exponentCalcultation((int) resultOfProportion.getConsequent()); 
+            exponent = UtilityCalculation.exponentCalcultation((int) resultOfProportion.getConsequent());
 
             resultWidth = Math.pow(UtilityCalculation.BASE_POWER, exponent);
             resultHeight = resultWidth;
@@ -111,9 +116,9 @@ public class ProportionImage {
      */
     public void calculationProportion() {
         if (this.ratioScreen.isAntedentKnown()) {
-            this.calculationWidthAntecedentKnowed();
-        } else { 
-            this.calculationWidthConsequentKnowed(); 
+            this.calculationWidthAntecedentKnown();
+        } else {
+            this.calculationWidthConsequentKnown();
         }
     }
 
@@ -125,9 +130,9 @@ public class ProportionImage {
         ratioScreen.compareSize();
 
         if (this.ratioScreen.isAntecedentHigher()) {
-            this.calculationWidthConsequentKnowed();
-        } else { 
-            this.calculationWidthAntecedentKnowed(); 
+            this.calculationWidthConsequentKnown();
+        } else {
+            this.calculationWidthAntecedentKnown();
         }
     }
 
@@ -171,5 +176,4 @@ public class ProportionImage {
     public void setRatioScreen(final Ratio ratioScreen) {
         this.ratioScreen = ratioScreen;
     }
-
 }
