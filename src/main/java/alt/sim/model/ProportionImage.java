@@ -110,7 +110,7 @@ public class ProportionImage {
      * Summary method that regroup the 2 type of calculation: for the Image and for the Screen.
      */
     public void calculationProportion() {
-        if (this.ratioScreen.isAntedentKnowed()) {
+        if (this.ratioScreen.isAntedentKnown()) {
             this.calculationWidthAntecedentKnowed();
         } else { 
             this.calculationWidthConsequentKnowed(); 
@@ -122,9 +122,9 @@ public class ProportionImage {
      */
     public void calculationProportionCaseEquality() {
         // Check who the 2 members are the lower, for use it in calculation.
-        ratioScreen.sizeCompare();
+        ratioScreen.compareSize();
 
-        if (this.ratioScreen.isAntecedentHighter()) {
+        if (this.ratioScreen.isAntecedentHigher()) {
             this.calculationWidthConsequentKnowed();
         } else { 
             this.calculationWidthAntecedentKnowed(); 

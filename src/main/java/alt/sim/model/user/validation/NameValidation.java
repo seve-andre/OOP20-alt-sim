@@ -22,7 +22,7 @@ public enum NameValidation {
      */
     WRONG("wrong");
 
-    private final String result;
+    private String result;
 
     NameValidation(final String result) {
         this.result = result;

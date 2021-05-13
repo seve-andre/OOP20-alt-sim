@@ -33,7 +33,8 @@ public final class UtilityCalculation {
 
         // Check of the Screen Dimension Range
         try {
-            if (indexPersentage >= UtilityCalculation.PERCENT_MIN_RANGE && indexPersentage <= UtilityCalculation.PERCENT_MAX_RANGE) {
+            if (indexPersentage >= UtilityCalculation.PERCENT_MIN_RANGE
+                    && indexPersentage <= UtilityCalculation.PERCENT_MAX_RANGE) {
                 persentage = (int) ((number * indexPersentage) / UtilityCalculation.BASE_PERCENT);
             } else {
                 persentage = 0;

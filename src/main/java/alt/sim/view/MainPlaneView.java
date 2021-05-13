@@ -11,10 +11,7 @@ import javafx.stage.Stage;
  */
 public class MainPlaneView extends Application {
 
-    /** width value of the Screen. */
     private static final int SCREEN_WIDTH = 1280;
-
-    /** height value of the Screen. */
     private static final int SCREEN_HEIGHT = 768;
 
     @Override
@@ -24,7 +21,7 @@ public class MainPlaneView extends Application {
             Pane paneRoot = new Pane();
             ImageResized planeImageResized = new ImageResized();
 
-            //Calculating the Proportion --> (Image:Screen)
+            // Calculating the Proportion --> (Image:Screen)
             planeImageResized.resizeImageSprite();
 
             // View Plane demonstrating:

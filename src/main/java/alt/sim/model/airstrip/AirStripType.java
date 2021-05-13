@@ -16,7 +16,7 @@ public enum AirStripType {
 
     /**
      *
-     * @param type the property of the airstrip
+     * @param type of the airstrip
      */
     AirStripType(final String type) {
         this.type = type;
@@ -24,7 +24,7 @@ public enum AirStripType {
 
     /**
      *
-     * @return the property of the airstrip
+     * @return type of the airstrip
      */
     public String getType() {
         return this.type;

@@ -8,7 +8,7 @@ public interface AirStrip {
 
     /**
      *
-     * @return the area witch planes can land
+     * @return the area planes can land on
      */
     Dimension2D getLandSpot();
 }

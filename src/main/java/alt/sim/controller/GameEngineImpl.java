@@ -2,10 +2,8 @@ package alt.sim.controller;
 
 public class GameEngineImpl implements GameEngine {
 
-    private static final long PERIOD = 1000;
+    private static final long PERIOD = 1000L;
 
-    GameEngineImpl() {
-    }
     @Override
     public void mainLoop() throws IllegalArgumentException {
         long lastTime = System.currentTimeMillis();
@@ -26,7 +24,7 @@ public class GameEngineImpl implements GameEngine {
         }
     }
     /**
-     * method that calculates how many milliseconds has to wait for next frame.
+     * Calculates how many milliseconds has to wait for next frame.
      * @param current
      * @throws InterruptedException
      * @throws IllegalArgumentException

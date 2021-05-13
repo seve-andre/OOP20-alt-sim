@@ -36,7 +36,7 @@ public class ImageResized {
     }
 
     /**
-     * executed the renderingProportionImage() method to apply the resize calculation for this ImageView values.
+     * executes the renderingProportionImage() method to apply the resize calculation for this ImageView values.
      * after do that, it update the width and height values of imageSprite.
      */
     public void resizeImageSprite() {
@@ -52,7 +52,7 @@ public class ImageResized {
     }
 
     /**
-     * @return return the imageSprite proportioned with the Screen.
+     * @return the imageSprite proportioned to the Screen.
      */
     public ImageView getImageSprite() {
         return this.imageSprite;

@@ -30,7 +30,7 @@ public final class RecordsFolder {
          */
         USER_RECORDS_FILE_PATH(USER_RECORDS_DIR_PATH.getPath() + SEPARATOR + RECORDS_FILE_NAME);
 
-        private final String path;
+        private String path;
 
         RecordsPath(final String path) {
             this.path = path;

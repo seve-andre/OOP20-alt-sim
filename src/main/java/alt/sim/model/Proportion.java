@@ -64,7 +64,7 @@ public class Proportion {
      * Summary method that regroup the 2 type of UnknownValue calculation.
      */
     public void calculationProportion() {
-        if (this.ratioToKnow.isAntedentKnowed()) {
+        if (this.ratioToKnow.isAntedentKnown()) {
             this.calculationWidthAntecedentKnowed();
         } else {
             this.calculationWidthConsequentKnowed();

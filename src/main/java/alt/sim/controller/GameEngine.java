@@ -1,6 +1,7 @@
 package alt.sim.controller;
 
 public interface GameEngine {
+
     /**
      * Capture frames of view once every "Period".
      */
@@ -18,5 +19,4 @@ public interface GameEngine {
      * Update view interface.
      */
     void render();
-
 }

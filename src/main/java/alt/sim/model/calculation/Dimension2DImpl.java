@@ -6,18 +6,19 @@ import javafx.geometry.Point2D;
 public class Dimension2DImpl extends javafx.geometry.Dimension2D {
 
     private static final double HALF = 2;
+
     /**
      *
-     * @param witdh the width of Dimension2D object
+     * @param width the width of Dimension2D object
      * @param height the height of Dimension2D object
      */
-    public Dimension2DImpl(final double witdh, final double height) {
-        super(witdh, height);
+    public Dimension2DImpl(final double width, final double height) {
+        super(width, height);
     }
 
     /**
-     * method that calculates the area of the rectangle.
-     * @return the area calculated
+     * Calculates the area of the rectangle.
+     * @return the calculated area
      */
     public double computeArea() {
         return super.getHeight() * super.getWidth();
