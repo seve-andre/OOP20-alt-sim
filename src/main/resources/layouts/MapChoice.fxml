@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="alt.sim.view.MapChoice">
+      fx:controller="alt.sim.view.MapChoiceView">
         <Pane prefHeight="506.0" prefWidth="822.0" stylesheets="@../css/mapchoice.css">
                 <Button id="go-back" fx:id="goBackBtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false"
                         prefHeight="21.0" prefWidth="26.0" styleClass="transparent"

@@ -20,7 +20,7 @@ import alt.sim.model.user.validation.RecordsValidation;
 public class UserRecordsImpl implements UserRecords {
 
     private final Path jsonPath = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
-    private RecordsValidation recordsValidation = new RecordsValidation();
+    private final RecordsValidation recordsValidation = new RecordsValidation();
 
     private Map<String, User> users = new HashMap<>();
 
