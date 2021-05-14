@@ -58,7 +58,7 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("alt.sim.view.BasicView")
+    mainClass.set("alt.sim.Main")
 }
 
 java {
