@@ -11,11 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="bg" minHeight="506.0" minWidth="822.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Leaderboard">
-        <Pane minHeight="506.0" minWidth="822.0">
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="48.0" prefHeight="58.0"
-                       prefWidth="225.0" text="LEADERBOARD" textFill="#d6d6cb">
+<VBox id="bg" minHeight="540.0" minWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Leaderboard">
+        <Pane minHeight="540.0" minWidth="960.0">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="48.0" prefHeight="58.0" prefWidth="225.0" text="LEADERBOARD" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="36.0" />
                     </font>
@@ -63,8 +61,7 @@
                         <DropShadow />
                     </effect>
                 </Label>
-                <TextField fx:id="nameFirstPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0"
-                           layoutY="138.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
+                <TextField fx:id="nameFirstPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="138.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
                            stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -74,8 +71,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameSecondPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0"
-                           layoutY="215.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
+                <TextField fx:id="nameSecondPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="215.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
                            stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -85,8 +81,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameThirdPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0"
-                           layoutY="292.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
+                <TextField fx:id="nameThirdPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="292.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
                            stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -96,8 +91,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameFourthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0"
-                           layoutY="369.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
+                <TextField fx:id="nameFourthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="369.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
                            stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -107,8 +101,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameFifthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0"
-                           layoutY="446.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
+                <TextField fx:id="nameFifthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="446.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
                            stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -127,8 +120,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <TextField fx:id="pointsFirstPlace" disable="true" editable="false" layoutX="320.0" layoutY="138.0"
-                           prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="pointsFirstPlace" disable="true" editable="false" layoutX="320.0" layoutY="138.0" prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -137,8 +129,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="pointsSecondPlace" disable="true" editable="false" layoutX="320.0" layoutY="215.0"
-                           prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="pointsSecondPlace" disable="true" editable="false" layoutX="320.0" layoutY="215.0" prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -147,8 +138,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="pointsThirdPlace" disable="true" editable="false" layoutX="320.0" layoutY="292.0"
-                           prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="pointsThirdPlace" disable="true" editable="false" layoutX="320.0" layoutY="292.0" prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -157,8 +147,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="pointsFourthPlace" disable="true" editable="false" layoutX="320.0" layoutY="369.0"
-                           prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="pointsFourthPlace" disable="true" editable="false" layoutX="320.0" layoutY="369.0" prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -167,8 +156,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="pointsFifthPlace" disable="true" editable="false" layoutX="320.0" layoutY="446.0"
-                           prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="pointsFifthPlace" disable="true" editable="false" layoutX="320.0" layoutY="446.0" prefWidth="240.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -177,14 +165,12 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <Label layoutX="124.0" layoutY="102.0" styleClass="color-opacity" stylesheets="@../css/leaderboard.css"
-                       text="NAME">
+                <Label layoutX="124.0" layoutY="102.0" styleClass="color-opacity" stylesheets="@../css/leaderboard.css" text="NAME">
                     <font>
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label layoutX="332.0" layoutY="102.0" styleClass="color-opacity" stylesheets="@../css/leaderboard.css"
-                       text="SCORE">
+                <Label layoutX="332.0" layoutY="102.0" styleClass="color-opacity" stylesheets="@../css/leaderboard.css" text="SCORE">
                     <font>
                         <Font name="Consolas Bold" size="14.0" />
                     </font>

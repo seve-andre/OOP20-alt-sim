@@ -6,14 +6,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="bg" prefHeight="506.0" prefWidth="822.0" stylesheets="@../css/base.css"
+<VBox id="bg" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/base.css"
       xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Loading">
-      <Pane prefHeight="506.0" prefWidth="822.0">
-            <ImageView fitHeight="176.0" fitWidth="440.0" layoutX="178.0" layoutY="64.0" pickOnBounds="true"
-                       preserveRatio="true">
+      <Pane prefHeight="540.0" prefWidth="960.0">
+            <ImageView fitHeight="176.0" fitWidth="440.0" layoutX="250.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../images/logos/logo_loading.png" />
             </ImageView>
-            <ProgressBar id="progress-bar" layoutX="128.0" layoutY="376.0" prefHeight="20.0" prefWidth="567.0"
+            <ProgressBar id="progress-bar" layoutX="182.0" layoutY="377.0" prefHeight="20.0" prefWidth="567.0"
                          progress="0.0" stylesheets="@../css/loading.css" />
       </Pane>
 </VBox>
