@@ -4,11 +4,11 @@ import alt.sim.model.plane.Plane;
 import javafx.geometry.Dimension2D;
 
 /**
- * This class represents the standard airstrip which accepts classic planes.
+ * This class represents the helipad airstrip where only helipads can land on it.
  */
-public class BasicAirStrip extends AbstractAirStrip {
+public class HelipadAirStrip extends AbstractAirStrip {
 
-    public BasicAirStrip() {
+    public HelipadAirStrip() {
         super();
     }
 
@@ -25,6 +25,6 @@ public class BasicAirStrip extends AbstractAirStrip {
 
     @Override
     public String toString() {
-        return "BasicAirStrip [status=" + this.getStatus() + "]";
+        return "HelipadAirStrip [getStatus()=" + getStatus() + "]";
     }
 }
