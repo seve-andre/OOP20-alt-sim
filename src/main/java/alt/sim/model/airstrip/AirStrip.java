@@ -1,10 +1,14 @@
 package alt.sim.model.airstrip;
 
+import alt.sim.model.plane.Plane;
 import javafx.geometry.Dimension2D;
 
+/**
+ * This interface manage main methods for all airstrips.
+ */
 public interface AirStrip {
 
-    //TO DO: void acceptPlane(Plane plane);
+    void acceptPlane(Plane plane);
 
     /**
      *
