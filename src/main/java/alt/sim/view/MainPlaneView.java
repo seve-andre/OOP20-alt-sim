@@ -12,9 +12,9 @@ import javafx.stage.Stage;
  */
 public class MainPlaneView extends Application {
     /** Screen width of the view, calling Screen class that return the size of the Primary screen.  */
-    public static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
+    protected static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     /** Screen height of the view.  */
-    public static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+    protected static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -45,13 +45,5 @@ public class MainPlaneView extends Application {
      */
     public static void main(final String[] args) {
         launch(args);
-    }
-
-    public static double getScreenWidth() {
-        return SCREEN_WIDTH;
-    }
-
-    public static double getScreenHeight() {
-        return SCREEN_HEIGHT;
     }
 }
