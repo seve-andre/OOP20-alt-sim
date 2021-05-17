@@ -4,15 +4,17 @@ import alt.sim.model.ImageResized;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
  * View class for show the Plane.
  */
 public class MainPlaneView extends Application {
-
-    private static final int SCREEN_WIDTH = 1280;
-    private static final int SCREEN_HEIGHT = 768;
+    /** Screen width of the view, calling Screen class that return the size of the Primary screen.  */
+    public static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
+    /** Screen height of the view.  */
+    public static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -38,18 +40,18 @@ public class MainPlaneView extends Application {
     }
 
     /**
-     * Launch a standalone application calling the JavaFx mainThread.
+     * Launch a standalone application calling the JavaFx application-Thread.
      * @param args the command line arguments.
      */
     public static void main(final String[] args) {
         launch(args);
     }
 
-    public static int getScreenWidth() {
+    public static double getScreenWidth() {
         return SCREEN_WIDTH;
     }
 
-    public static int getScreenHeight() {
+    public static double getScreenHeight() {
         return SCREEN_HEIGHT;
     }
 }
