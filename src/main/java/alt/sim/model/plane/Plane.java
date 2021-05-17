@@ -43,7 +43,7 @@ public class Plane {
      */
     public ImageView getImagePlane() {
         //initializing the Sprite object
-        return this.spritePlane.getImagePlane();
+        return this.spritePlane.getImage();
     }
 
     @Override
