@@ -39,7 +39,7 @@ public class Sprite {
 
     }
 
-    public ImageView getImagePlane() {
+    public ImageView getImage() {
         return this.imageSprite;
     }
 
