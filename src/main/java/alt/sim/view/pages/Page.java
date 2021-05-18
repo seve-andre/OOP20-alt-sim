@@ -13,6 +13,11 @@ public enum Page {
     HOME("Home"),
 
     /**
+     * Map choice page.
+     */
+    MAP_CHOICE("MapChoice"),
+
+    /**
      * Leaderboard page.
      */
     LEADERBOARD("Leaderboard"),
