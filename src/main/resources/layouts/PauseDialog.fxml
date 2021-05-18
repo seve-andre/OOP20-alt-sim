@@ -8,7 +8,7 @@
 
 
 <VBox id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
-      prefWidth="370.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1"
+      prefWidth="370.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.PauseDialog">
     <Pane prefHeight="480.0" prefWidth="370.0">
         <Button id="button" layoutX="108.0" layoutY="165.0" mnemonicParsing="false" styleClass="blue-btn"

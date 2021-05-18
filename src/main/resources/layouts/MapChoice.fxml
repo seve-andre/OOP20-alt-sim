@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="alt.sim.view.mapchoice.MapChoiceView">
         <Pane prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/mapchoice.css">
                 <Button id="go-back" layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="21.0"

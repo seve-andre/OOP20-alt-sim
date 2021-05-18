@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox id="bg" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/base.css"
-      xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Loading">
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Loading">
       <Pane prefHeight="540.0" prefWidth="960.0">
             <ImageView fitHeight="176.0" fitWidth="440.0" layoutX="178.0" layoutY="64.0" pickOnBounds="true"
                        preserveRatio="true">
