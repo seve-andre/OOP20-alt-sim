@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="bg" minHeight="540.0" minWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Leaderboard">
+<VBox id="bg" minHeight="540.0" minWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1" 
+		xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.leaderboard.LeaderboardView">
         <Pane minHeight="540.0" minWidth="960.0">
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="48.0" prefHeight="58.0"
                        prefWidth="225.0" text="LEADERBOARD" textFill="#d6d6cb">

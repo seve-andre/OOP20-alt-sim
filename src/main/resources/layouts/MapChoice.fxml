@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="alt.sim.view.MapChoice">
+      fx:controller="alt.sim.view.mapchoice.MapChoiceView">
         <Pane prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/mapchoice.css">
                 <Button id="go-back" layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="21.0"
                         prefWidth="26.0" styleClass="transparent" stylesheets="@../css/leaderboard.css">
@@ -28,7 +28,8 @@
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font></TextField>
-            <Button id="map" layoutX="105.0" layoutY="159.0" onAction="#onMapClick" prefHeight="120.0" prefWidth="198.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+            <Button id="map" layoutX="105.0" layoutY="159.0" onAction="#onMapClick" prefHeight="120.0" prefWidth="198.0" 
+            styleClass="transparent" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="108.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_choice/seaside_mapchoice.png" />
@@ -50,7 +51,8 @@
                       </ImageView>
                </graphic>
             </Button>
-            <Button id="map" layoutX="577.0" layoutY="310.0" onAction="#onMapClick" prefHeight="132.0" prefWidth="166.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+            <Button id="map" layoutX="577.0" layoutY="310.0" onAction="#onMapClick" prefHeight="132.0" prefWidth="166.0" 
+            styleClass="transparent" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />

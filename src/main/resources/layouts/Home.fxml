@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="home-bg" alignment="CENTER" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/home.css"
-      xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.HomeView">
+      xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="alt.sim.view.home.HomeView">
         <Pane prefHeight="540.0" prefWidth="960.0">
                 <GridPane alignment="CENTER" layoutX="242.0" layoutY="113.0" prefHeight="328.0" prefWidth="561.0"
                           rotate="-2.0">

@@ -11,7 +11,7 @@
 
 <VBox id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0"
       prefWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/15.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.Credits">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.credits.CreditsView">
       <Pane prefHeight="540.0" prefWidth="960.0">
             <Text fill="#d6d6cb" layoutX="411.0" layoutY="58.0" text="CREDITS">
                <font>
