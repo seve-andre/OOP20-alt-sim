@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
  * A Plane can have a State during the Game (Running, Exploded, Landed, ecc.).
  * Each plane must had its own Image
  *
-*/
+ */
 
 public class Plane {
 
@@ -27,12 +27,13 @@ public class Plane {
 
     public Plane() {
         this.spritePlane = new Sprite(new Point2D(0, 0));
+        Sprite.setURLSprite("images/airplane.png");
     }
 
     /**
      * @param type defined the Plane tipology.
      * @param status defined the Plane state.
-    */
+     */
     public Plane(final Tipology type, final State status) {
         this();
         this.type = type;
