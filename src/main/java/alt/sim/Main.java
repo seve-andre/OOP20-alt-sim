@@ -16,7 +16,6 @@ public class Main extends Application {
     public void start(final Stage stage) throws Exception {
 
         setStage(stage);
-        pStage = stage;
 
         final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/Home.fxml"));
         stage.setTitle("AirLine Traffic Simulator");
