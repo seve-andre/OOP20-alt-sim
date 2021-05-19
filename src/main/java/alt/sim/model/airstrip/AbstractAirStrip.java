@@ -3,6 +3,7 @@ package alt.sim.model.airstrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.Sprite;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
 /**
@@ -18,6 +19,7 @@ public abstract class AbstractAirStrip implements AirStrip {
      * When an airstrip is created, is ready to accept planes.
      */
     public AbstractAirStrip() {
+        this.airstripSprite = new Sprite(new Point2D(0, 0));
         this.status = AirStripStatus.FREE;
     }
 
