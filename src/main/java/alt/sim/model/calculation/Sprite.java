@@ -1,4 +1,4 @@
-package alt.sim.model.plane;
+package alt.sim.model.calculation;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;

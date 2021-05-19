@@ -1,7 +1,7 @@
 package alt.sim.model.airstrip;
 
+import alt.sim.model.calculation.Sprite;
 import alt.sim.model.plane.Plane;
-import alt.sim.model.plane.Sprite;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;

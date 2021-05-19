@@ -1,5 +1,6 @@
 package alt.sim.model.plane;
 
+import alt.sim.model.calculation.Sprite;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
