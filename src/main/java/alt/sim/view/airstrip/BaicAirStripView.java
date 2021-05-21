@@ -12,6 +12,7 @@ public class BaicAirStripView extends Application {
     private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     /** Screen height of the view.  */
     private static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+    private static final double SCREEN_PROPORTION = 0.6;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -19,15 +20,13 @@ public class BaicAirStripView extends Application {
             Pane paneRoot = new Pane();
             ImageResized planeAirStripResized = new ImageResized("images/map_components/airstrip.png");
 
-            // Calculating the Proportion --> (Image:Screen)
-            planeAirStripResized.resizeImageSprite();
-
             // View Plane demonstrating:
-            paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            paneRoot.resize(SCREEN_WIDTH * SCREEN_PROPORTION, SCREEN_HEIGHT * SCREEN_PROPORTION);
             paneRoot.getChildren().add(planeAirStripResized.getImageSprite());
 
             Scene scene = new Scene(paneRoot, SCREEN_WIDTH, SCREEN_HEIGHT);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (final Exception e) {
             e.printStackTrace();
