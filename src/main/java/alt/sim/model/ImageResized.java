@@ -10,9 +10,7 @@ import javafx.scene.image.ImageView;
 public class ImageResized {
 
     /** URL Path of the image to load. */
-    private static final String URL_SPRITE = ClassLoader
-            .getSystemResource("images/map_components/airplane.png")
-            .toExternalForm();
+    private static String urlSprite;
 
     private ProportionImage proportionImageResized;
     private Image loadImage;
@@ -20,9 +18,13 @@ public class ImageResized {
 
     /**
      * Initializes a newly created ImageResized object.
+     * @param url
      */
-    public ImageResized() {
-        this.loadImage = new Image(URL_SPRITE);
+    public ImageResized(final String url) {
+        urlSprite = ClassLoader
+                .getSystemResource(url)
+                .toExternalForm();
+        this.loadImage = new Image(urlSprite);
         this.imageSprite = new ImageView(loadImage);
 
         double widthImage = loadImage.getWidth();
