@@ -7,18 +7,23 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class BaicAirStripView extends Application {
+public class AirStripView extends Application {
     /** Screen width of the view, calling Screen class that return the size of the Primary screen.  */
     private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
     /** Screen height of the view.  */
     private static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
     private static final double SCREEN_PROPORTION = 0.8;
+    private String url;
+
+    AirStripView(final String url) {
+        this.url = url;
+    }
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
         try {
             Pane paneRoot = new Pane();
-            ImageResized planeAirStripResized = new ImageResized("images/map_components/airstrip.png");
+            ImageResized planeAirStripResized = new ImageResized(this.url);
 
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
