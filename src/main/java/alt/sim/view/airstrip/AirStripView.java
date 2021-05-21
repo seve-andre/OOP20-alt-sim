@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * This class is the view for the airstrips.
+ */
 public class AirStripView extends Application {
     /** Screen width of the view, calling Screen class that return the size of the Primary screen.  */
     private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
@@ -15,6 +18,10 @@ public class AirStripView extends Application {
     private static final double SCREEN_PROPORTION = 0.8;
     private String url;
 
+    /**
+     * Constructor method for AirStripView.
+     * @param url the url of the airstrip
+     */
     AirStripView(final String url) {
         this.url = url;
     }
