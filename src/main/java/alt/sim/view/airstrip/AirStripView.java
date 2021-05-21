@@ -37,7 +37,4 @@ public class AirStripView extends Application {
             e.printStackTrace();
         }
     }
-    public static void main(final String[] args) {
-        launch(args);
-    }
 }
