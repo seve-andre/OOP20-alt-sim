@@ -27,7 +27,10 @@ public class Plane {
 
     public Plane() {
         this.spritePlane = new Sprite(new Point2D(0, 0));
-        Sprite.setURLSprite("images/airplane.png");
+    }
+
+    public Plane(final String urlImagePlane) {
+       this.spritePlane = new Sprite(urlImagePlane);
     }
 
     /**
