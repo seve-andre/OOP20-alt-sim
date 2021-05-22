@@ -27,11 +27,23 @@ public class Sprite {
     }
 
     public Sprite(final Point2D point) {
-        this.imageSprite = new ImageView(new Image(urlSprite));
         this.point = point;
-
     }
 
+    /** 
+     * @param url of the image to load
+     */
+    public Sprite(final String url) {
+        setURLSprite(url);
+        // loading the image into imageSpriteToLoad
+        this.loadImageSprite();
+    }
+
+    /**
+     * 
+     * @param imageSpriteToLoad to add in the imageSprite
+     * @param point where place the Sprite 
+     */
     public Sprite(final Image imageSpriteToLoad, final Point2D point) {
         this.imageSpriteToLoad = imageSpriteToLoad;
         this.imageSprite = new ImageView(this.imageSpriteToLoad);
@@ -53,5 +65,11 @@ public class Sprite {
 
     public static void setURLSprite(final String url) {
         Sprite.urlSprite = ClassLoader.getSystemResource(url).toExternalForm();
+    }
+
+    /** loading the Image specified from URL into ImageView. */
+    public void loadImageSprite() {
+        this.imageSpriteToLoad = new Image(Sprite.urlSprite);
+        this.imageSprite = new ImageView(this.imageSpriteToLoad);
     }
 }
