@@ -1,6 +1,7 @@
 package alt.sim.view;
 
 import alt.sim.model.ImageResized;
+import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -25,12 +26,15 @@ public class MainPlaneView extends Application {
             Pane paneRoot = new Pane();
             ImageResized planeImageResized = new ImageResized("images/map_components/airplane.png");
 
+            Plane p1 = new Plane("images/map_components/airplane.png");
             // Calculating the Proportion --> (Image:Screen)
             planeImageResized.resizeImageSprite();
 
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
             paneRoot.getChildren().add(planeImageResized.getImageSprite());
+            // Insert Plane test into view:
+            paneRoot.getChildren().add(p1.getImagePlane());
 
             Scene scene = new Scene(paneRoot, SCREEN_WIDTH, SCREEN_HEIGHT);
             stage.setScene(scene);
