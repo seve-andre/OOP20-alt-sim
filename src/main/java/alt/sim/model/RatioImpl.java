@@ -6,7 +6,7 @@ package alt.sim.model;
  * Linking it to the ProportionCount class for finalize the Count of 2 Ratio object.
  *
  */
-public class RatioImpl implements RatioInterface{
+public class RatioImpl implements RatioInterface {
 
     private double antecedent;
     private double consequent;
