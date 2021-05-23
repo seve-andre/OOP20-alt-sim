@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 /** Class that manage 2 Ratio object for calculate the unknownValue 10:40 = x:50.
  *
  */
-public class Proportion {
+public class ProportionImpl implements ProportionInterface {
 
     private Ratio ratioKnown;
     private Ratio ratioToKnow;
@@ -16,7 +16,7 @@ public class Proportion {
      * @param ratioKnown Ratio of the proportion that we knowed
      * @param ratioToKnow Ratio need to know
      */
-    public Proportion(final Ratio ratioKnown, final Ratio ratioToKnow) {
+    public ProportionImpl(final Ratio ratioKnown, final Ratio ratioToKnow) {
         this.ratioKnown = ratioKnown;
         this.ratioToKnow = ratioToKnow;
         this.resultOfProportion = new Ratio();
@@ -25,7 +25,7 @@ public class Proportion {
     /**
      * UnknownValue calculation, in this case we have only the antecedent value.
      */
-    private void calculationWidthAntecedentKnowed() {
+    public void calculationWidthAntecedentKnowed() {
         double antecedentToKnow = Math.floor(ratioToKnow.getAntecedent());
         double consequentToKnow = Math.floor(
                 (antecedentToKnow * ratioKnown.getConsequent()) / ratioKnown.getAntecedent()
@@ -45,7 +45,7 @@ public class Proportion {
      *
      * Double.isNan() check if result was divided for 0, causing the NotANumber value.
      */
-    private void calculationWidthConsequentKnowed() {
+    public void calculationWidthConsequentKnowed() {
         double consequentToKnow = Math.floor(ratioToKnow.getConsequent());
         double antecedentToKnow = Math.floor(
                 (consequentToKnow * ratioKnown.getAntecedent()) / ratioKnown.getConsequent()
