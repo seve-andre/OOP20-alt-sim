@@ -13,4 +13,10 @@ public interface SpawnObject {
      * Create the new GameObject to spawn.
      */
     void spawnGameObject();
+    
+    /**
+     * Check if all objects are spawned.
+     * @return true if all objects are spawned.
+     */
+    boolean checkGameObjects();
 }
