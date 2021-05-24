@@ -22,6 +22,7 @@ public class Main extends Application {
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image(ClassLoader.getSystemResource("images/logos/icon.png").toExternalForm()));
         stage.sizeToScene();
+        stage.setResizable(false);
         stage.show();
     }
 
