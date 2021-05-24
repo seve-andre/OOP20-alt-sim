@@ -5,17 +5,17 @@ public class SpawnObjectImpl implements SpawnObject {
     private static final int OBJECT_NUMBER = 20;
     private boolean spawned;
     private int objects;
-    
+
     public SpawnObjectImpl() {
         spawned = false;
         objects = 0;
     }
     @Override
     public void startSpawn() {
-         class SpawnRunner implements Runnable{
+         class SpawnRunner implements Runnable {
             @Override
             public void run() {
-                while(objects < OBJECT_NUMBER) {
+                while (objects < OBJECT_NUMBER) {
                     spawnGameObject();
                     try {
                         Thread.sleep(SPAWN_FREQUENCY);
