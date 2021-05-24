@@ -8,12 +8,10 @@ public interface SpawnObject {
      * Start thread that spawns game objects and manages time..
      */
     void startSpawn();
-    
     /**
      * Create the new GameObject to spawn.
      */
     void spawnGameObject();
-    
     /**
      * Check if all objects are spawned.
      * @return true if all objects are spawned.
