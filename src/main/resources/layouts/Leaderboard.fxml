@@ -23,7 +23,7 @@
                         <DropShadow />
                     </effect>
                 </Label>
-                <Label fx:id="labelFirstPlace" layoutX="54.0" layoutY="140.0" text="1." textFill="#d6d6cb">
+                <Label layoutX="54.0" layoutY="140.0" text="1." textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="24.0" />
                     </font>
