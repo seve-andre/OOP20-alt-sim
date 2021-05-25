@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -14,13 +15,17 @@
       fx:controller="alt.sim.view.mapchoice.MapChoiceView">
         <Pane prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/mapchoice.css">
                 <Button id="go-back" layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="21.0"
-                        prefWidth="26.0" styleClass="transparent" stylesheets="@../css/leaderboard.css">
+                        prefWidth="26.0" stylesheets="@../css/leaderboard.css">
                     <graphic>
                         <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
                                    preserveRatio="true">
                                 <Image url="@../images/base/go-back.png" />
                         </ImageView>
                     </graphic>
+         <styleClass>
+            <String fx:value="img-btn" />
+            <String fx:value="transparent" />
+         </styleClass>
                 </Button>
                 <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0" onAction="#onNameEnter"
                            prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..."
@@ -28,36 +33,52 @@
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font></TextField>
-            <Button id="map" layoutX="105.0" layoutY="159.0" onAction="#onMapClick" prefHeight="120.0" prefWidth="198.0" 
-            styleClass="transparent" stylesheets="@../css/mapchoice.css">
+            <Button id="map" fx:id="seasideBtn" layoutX="105.0" layoutY="159.0" onAction="#onSeasideClick"
+                    prefHeight="120.0" prefWidth="198.0" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="108.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_choice/seaside_mapchoice.png" />
                       </ImageView>
                </graphic>
+         <styleClass>
+            <String fx:value="transparent" />
+            <String fx:value="img-btn" />
+         </styleClass>
             </Button>
-            <Button id="map" layoutX="577.0" layoutY="140.0" onAction="#onMapClick" styleClass="transparent"
+            <Button id="map" fx:id="riversideBtn" layoutX="577.0" layoutY="140.0" onAction="#onRiversideClick"
                     stylesheets="@../css/mapchoice.css">
          <graphic>
                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
-         </graphic></Button>
-            <Button id="map" layoutX="129.0" layoutY="328.0" onAction="#onMapClick" styleClass="transparent"
+         </graphic>
+         <styleClass>
+            <String fx:value="transparent" />
+            <String fx:value="img-btn" />
+         </styleClass></Button>
+            <Button id="map" fx:id="citysideBtn" layoutX="129.0" layoutY="328.0" onAction="#onCitysideClick"
                     stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="141.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
+         <styleClass>
+            <String fx:value="transparent" />
+            <String fx:value="img-btn" />
+         </styleClass>
             </Button>
-            <Button id="map" layoutX="577.0" layoutY="310.0" onAction="#onMapClick" prefHeight="132.0" prefWidth="166.0" 
-            styleClass="transparent" stylesheets="@../css/mapchoice.css">
+            <Button id="map" fx:id="countrysideBtn" layoutX="577.0" layoutY="310.0" onAction="#onCountrysideClick"
+                    prefHeight="132.0" prefWidth="166.0" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
+         <styleClass>
+            <String fx:value="transparent" />
+            <String fx:value="img-btn" />
+         </styleClass>
             </Button>
                 <Label layoutX="630.0" layoutY="298.0" text="RIVERSIDE" textFill="#d6d6cb">
                     <font>
