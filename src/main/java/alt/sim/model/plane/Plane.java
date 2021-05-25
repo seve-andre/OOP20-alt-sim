@@ -33,6 +33,12 @@ public class Plane {
        this.spritePlane = new Sprite(urlImagePlane);
     }
 
+    public Plane(final String urlImagePlane, final Point2D point) {
+        this(urlImagePlane);
+
+        this.spritePlane.setPoint2D(point);
+    }
+
     /**
      * @param type defined the Plane tipology.
      * @param status defined the Plane state.
@@ -51,8 +57,20 @@ public class Plane {
         return this.spritePlane.getImage();
     }
 
+    public double getX() {
+        return this.spritePlane.getPoint().getX();
+    }
+
+    public double getY() {
+        return this.spritePlane.getPoint().getY();
+    }
+
     @Override
     public String toString() {
         return "Plane [type=" + type + ", status=" + status + "]";
+    }
+
+    public Sprite getSpritePlane() {
+        return this.spritePlane;
     }
 }
