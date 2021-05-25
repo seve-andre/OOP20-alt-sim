@@ -8,18 +8,18 @@ import java.awt.geom.Point2D;
  */
 public class ProportionImpl implements ProportionInterface {
 
-    private Ratio ratioKnown;
-    private Ratio ratioToKnow;
-    private Ratio resultOfProportion;
+    private RatioImpl ratioKnown;
+    private RatioImpl ratioToKnow;
+    private RatioImpl resultOfProportion;
 
     /**
      * @param ratioKnown Ratio of the proportion that we knowed
      * @param ratioToKnow Ratio need to know
      */
-    public ProportionImpl(final Ratio ratioKnown, final Ratio ratioToKnow) {
+    public ProportionImpl(final RatioImpl ratioKnown, final RatioImpl ratioToKnow) {
         this.ratioKnown = ratioKnown;
         this.ratioToKnow = ratioToKnow;
-        this.resultOfProportion = new Ratio();
+        this.resultOfProportion = new RatioImpl();
     }
 
     /**
@@ -74,7 +74,7 @@ public class ProportionImpl implements ProportionInterface {
     /**
      * @return Return the resultOfProportion object, it contains the 2 UnknowValues researched
      */
-    public Ratio getResultOfProportion() {
+    public RatioImpl getResultOfProportion() {
         return this.resultOfProportion;
     }
 
