@@ -9,6 +9,11 @@
     -fx-scale-y: 1.2;
     -fx-scale-z: 1.2;
 }
+#map:focused{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-scale-z: 1.2;
+}
 
 #name-txt:focused {
     -fx-faint-focus-color: #d6d6cb;

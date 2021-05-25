@@ -10,6 +10,7 @@
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-opacity: 0.8;
+	-fx-cursor: hand;
 }
 
 #button:hover {
