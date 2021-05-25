@@ -24,24 +24,24 @@ public class ProportionImage {
     /** Min range of Sprite dimension. */
     public static final double SPRITE_MIN_RANGE = 16;
 
-    private Ratio ratioImage;
-    private Ratio ratioScreen;
-    private Ratio resultOfProportion;
+    private RatioImpl ratioImage;
+    private RatioImpl ratioScreen;
+    private RatioImpl resultOfProportion;
 
     /**
      * Constructor initial method.
     */
     public ProportionImage() {
-        this.ratioImage = new Ratio();
-        this.ratioScreen = new Ratio();
-        this.resultOfProportion = new Ratio();
+        this.ratioImage = new RatioImpl();
+        this.ratioScreen = new RatioImpl();
+        this.resultOfProportion = new RatioImpl();
     }
 
     /**
     * @param ratioImage Ratio of the proportion that we knowed.
     * @param ratioScreen Ratio need to know.
     */
-    public ProportionImage(final Ratio ratioImage, final Ratio ratioScreen) {
+    public ProportionImage(final RatioImpl ratioImage, final RatioImpl ratioScreen) {
         this();
         this.ratioImage = ratioImage;
         this.ratioScreen = ratioScreen;
@@ -152,28 +152,28 @@ public class ProportionImage {
     /**
      * @return Return the resultOfProportion object.
      */
-    public Ratio getResultOfProportion() {
+    public RatioImpl getResultOfProportion() {
         return this.resultOfProportion;
     }
 
     /**
      * @param resultOfProportion Set the new values of resultOfProportion.
      */
-    public void setResultOfProportion(final Ratio resultOfProportion) {
+    public void setResultOfProportion(final RatioImpl resultOfProportion) {
         this.resultOfProportion = resultOfProportion;
     }
 
     /**
      * @param ratioImage Set the new values of ratioImage.
      */
-    public void setRatioImage(final Ratio ratioImage) {
+    public void setRatioImage(final RatioImpl ratioImage) {
         this.ratioImage = ratioImage;
     }
 
     /**
      * @param ratioScreen Set the new values of ratioScreen.
      */
-    public void setRatioScreen(final Ratio ratioScreen) {
+    public void setRatioScreen(final RatioImpl ratioScreen) {
         this.ratioScreen = ratioScreen;
     }
 }
