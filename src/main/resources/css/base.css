@@ -36,3 +36,7 @@
 .transparent {
     -fx-background-color: transparent;
 }
+
+.img-btn {
+    -fx-cursor: hand;
+}
