@@ -31,8 +31,8 @@ public class ImageResized {
         double heightImage = loadImage.getHeight();
 
         proportionImageResized = new ProportionImage();
-        proportionImageResized.setRatioImage(new Ratio(widthImage, heightImage));
-        proportionImageResized.setRatioScreen(new Ratio(
+        proportionImageResized.setRatioImage(new RatioImpl(widthImage, heightImage));
+        proportionImageResized.setRatioScreen(new RatioImpl(
                 MainPlaneView.getScreenWidth(), MainPlaneView.getScreenWidth()
         ));
     }
@@ -58,5 +58,17 @@ public class ImageResized {
      */
     public ImageView getImageSprite() {
         return this.imageSprite;
+    }
+
+    public void setImageSprite(final ImageView imageSprite) {
+        this.imageSprite = imageSprite;
+    }
+
+    public Image getLoadImage() {
+        return this.loadImage;
+    }
+
+    public void setLoadImage(final Image loadImage) {
+        this.loadImage = loadImage;
     }
 }
