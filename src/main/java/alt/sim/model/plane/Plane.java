@@ -58,11 +58,19 @@ public class Plane {
     }
 
     public double getX() {
-        return this.spritePlane.getPoint().getX();
+        return this.spritePlane.getX();
     }
 
     public double getY() {
-        return this.spritePlane.getPoint().getY();
+        return this.spritePlane.getY();
+    }
+
+    public void setX(final double x) {
+        this.spritePlane.setX(x);
+    }
+
+    public void setY(final double y) {
+        this.spritePlane.setY(y);
     }
 
     @Override
