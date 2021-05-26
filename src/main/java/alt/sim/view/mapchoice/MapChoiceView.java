@@ -10,8 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 
 public class MapChoiceView {
@@ -30,11 +32,14 @@ public class MapChoiceView {
     private Button playBtn = new Button();
     @FXML
     private TextField infoTextField = new TextField();
+    @FXML
+    private Tooltip infoTooltip = new Tooltip();
 
     private GameMap mapToPlay = GameMap.getRandomMap();
 
     @FXML
     public void initialize() {
+        infoTooltip.setShowDelay(Duration.millis(100));
     }
 
     @FXML
