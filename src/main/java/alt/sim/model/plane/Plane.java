@@ -57,6 +57,10 @@ public class Plane {
         return this.spritePlane.getImage();
     }
 
+    public Sprite getSpritePlane() {
+        return this.spritePlane;
+    }
+
     public double getX() {
         return this.spritePlane.getX();
     }
@@ -78,7 +82,4 @@ public class Plane {
         return "Plane [type=" + type + ", status=" + status + "]";
     }
 
-    public Sprite getSpritePlane() {
-        return this.spritePlane;
-    }
 }
