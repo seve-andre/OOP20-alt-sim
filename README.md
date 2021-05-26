@@ -1,7 +1,7 @@
 <h1>C-AirLine Traffic Simulator</h1>
 <img align="left"src="https://github.com/andreafoschi00/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
 <p align="right">
-    <a href=""><strong>English Version »</strong></a>
+    <a href="https://github.com/andreafoschi00/OOP20-alt-sim/blob/master/README_ENG.md"><strong>English Version »</strong></a>
 </p>
 <br />
 <p>
