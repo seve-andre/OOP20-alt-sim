@@ -21,9 +21,9 @@
                </font>
             </Text>
       <Hyperlink fx:id="readMeLink" layoutX="901.0" layoutY="503.0" text="More..." textFill="#d6d6cb" />
-      <Button layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="21.0" prefWidth="26.0">
+      <Button layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="20.0" prefWidth="51.0">
          <graphic>
-            <ImageView fitHeight="39.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../images/base/go-back.png" />
             </ImageView>
          </graphic>
@@ -61,8 +61,7 @@
       </Text>
       <Circle fill="#d6d6cb" layoutX="188.0" layoutY="222.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
               strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="200.0" layoutY="229.0" text="AIRPLANE INDICATORS WHEN ENTERING THE MAP"
-            wrappingWidth="200.0">
+      <Text fill="#d6d6cb" layoutX="200.0" layoutY="229.0" text="AIRPLANE INDICATORS WHEN ENTERING THE MAP" wrappingWidth="200.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
@@ -99,8 +98,7 @@
       </Text>
       <Circle fill="#d6d6cb" layoutX="636.0" layoutY="423.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
               strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="648.0" layoutY="429.0" text="PAUSE MENU THREADS MANAGEMENT THROUGHOUT THE GAME"
-            wrappingWidth="230.0">
+      <Text fill="#d6d6cb" layoutX="648.0" layoutY="429.0" text="PAUSE MENU THREADS MANAGEMENT THROUGHOUT THE GAME" wrappingWidth="230.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
