@@ -136,10 +136,9 @@
                </font>
             </Label>
       <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="328.0" layoutY="131.0" 
-      			 prefHeight="5.0"
-                 prefWidth="129.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+      			 prefHeight="22.0" prefWidth="137.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
          <font>
-            <Font name="Consolas Bold" size="10.0" />
+            <Font name="Consolas Bold" size="12.0" />
          </font>
       </TextField>
         </Pane>
