@@ -1,5 +1,7 @@
 package alt.sim.view.mapchoice;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public enum GameMap {
 
     /**
@@ -30,5 +32,15 @@ public enum GameMap {
 
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Gets a random GameMap from values.
+     * @return GameMap randomly between values
+     */
+    public static GameMap getRandomMap() {
+        final GameMap[] values = values();
+        int index = ThreadLocalRandom.current().nextInt(values.length);
+        return values[index];
     }
 }
