@@ -10,7 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-
+/**
+ * Sets up leaderboard view with names and points.
+ */
 public class LeaderboardView {
 
     @FXML
@@ -56,7 +58,7 @@ public class LeaderboardView {
             nameFifthPlace.setText(names.get(4));
             pointsFifthPlace.setText(users.get(names.get(4)).toString());
         } catch (final IndexOutOfBoundsException e) {
-
+            // DO NOTHING HERE!
         }
     }
 
