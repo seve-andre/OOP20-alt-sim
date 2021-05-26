@@ -27,7 +27,8 @@
             <String fx:value="transparent" />
          </styleClass>
                 </Button>
-                <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0" onAction="#onNameEnter"
+                <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0" 
+                		   onKeyPressed="#onNameEnter"
                            prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..."
                            stylesheets="@../css/mapchoice.css">
                     <font>
@@ -122,9 +123,9 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="button" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="143.0"
+                <Button id="button" fx:id="playBtn" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="143.0"
                         onAction="#onPlayClick" prefHeight="34.0" prefWidth="143.0" styleClass="blue-btn"
-                        stylesheets="@../css/base.css" text="PLAY" textFill="#d6d6cb">
+                        stylesheets="@../css/base.css" text="PLAY RANDOM" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -134,7 +135,8 @@
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Label>
-      <TextField id="error-txt" disable="true" editable="false" layoutX="328.0" layoutY="131.0" prefHeight="5.0"
+      <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="328.0" layoutY="131.0" 
+      			 prefHeight="5.0"
                  prefWidth="129.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
          <font>
             <Font name="Consolas Bold" size="10.0" />
