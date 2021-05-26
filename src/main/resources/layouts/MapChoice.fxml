@@ -124,8 +124,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="button" fx:id="playBtn" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="143.0"
-                        onAction="#onPlayClick" prefHeight="34.0" prefWidth="143.0" styleClass="blue-btn"
+                <Button id="button" fx:id="playBtn" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="200.0"
+                        onAction="#onPlayClick" prefHeight="34.0" prefWidth="200.0" styleClass="blue-btn"
                         stylesheets="@../css/base.css" text="PLAY RANDOM" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
