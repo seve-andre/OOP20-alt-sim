@@ -1,5 +1,7 @@
 package alt.sim.view.mapchoice;
 
+import java.util.ArrayList;
+
 import alt.sim.Main;
 import alt.sim.model.user.validation.NameQuality;
 import alt.sim.model.user.validation.NameValidation;
@@ -36,9 +38,14 @@ public class MapChoiceView {
     private Tooltip infoTooltip = new Tooltip();
 
     private GameMap mapToPlay = GameMap.getRandomMap();
+    private final ArrayList<Button> buttons = new ArrayList<> (4);
 
     @FXML
     public void initialize() {
+        this.buttons.add(seasideBtn);
+        this.buttons.add(riversideBtn);
+        this.buttons.add(citysideBtn);
+        this.buttons.add(countrysideBtn);
         infoTooltip.setShowDelay(Duration.millis(100));
     }
 
@@ -53,6 +60,7 @@ public class MapChoiceView {
      */
     @FXML
     public void onNameEnter(final KeyEvent event) {
+        this.seasideBtn.requestFocus();
         if (event.getCode() == KeyCode.ENTER) {
             final NameValidation result = new NameQuality().checkName(nameTextField.getText());
             if (!result.equals(NameValidation.CORRECT)) {
@@ -77,25 +85,41 @@ public class MapChoiceView {
         }
     }
 
+    /**
+     * Could be generic method for all maps?
+     * NEED TO CHANGE LINE 97!!
+     */
+    public void onMapClick() {
+        for (final Button b : this.buttons) {
+            if (b.isPressed()) {
+                this.playBtn.setText("PLAY " + b.getText().toUpperCase());
+                if (GameMap.getNamesList().contains(b.getText())) {
+                    this.mapToPlay = GameMap.SEASIDE;
+                }
+            }
+        }
+    }
+
+
     @FXML
     public void onSeasideClick(final ActionEvent event) {
-        this.playBtn.setText("PLAY");
+        this.playBtn.setText("PLAY SEASIDE");
         this.mapToPlay = GameMap.SEASIDE;
     }
 
     @FXML
     public void onRiversideClick(final ActionEvent event) {
-        this.playBtn.setText("PLAY");
+        this.playBtn.setText("PLAY RIVERSIDE");
         this.mapToPlay = GameMap.RIVERSIDE;
     }
     @FXML
     public void onCitysideClick(final ActionEvent event) {
-        this.playBtn.setText("PLAY");
+        this.playBtn.setText("PLAY CITYSIDE");
         this.mapToPlay = GameMap.CITYSIDE;
     }
     @FXML
     public void onCountrysideClick(final ActionEvent event) {
-        this.playBtn.setText("PLAY");
+        this.playBtn.setText("PLAY COUNTRYSIDE");
         this.mapToPlay = GameMap.COUNTRYSIDE;
     }
 }
