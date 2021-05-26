@@ -35,6 +35,7 @@ public class MapChoiceView {
 
     @FXML
     public void initialize() {
+        System.out.println(mapToPlay);
     }
 
     @FXML
@@ -68,7 +69,7 @@ public class MapChoiceView {
         if (result.equals(NameValidation.CORRECT)) {
             new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
         } else {
-            infoTextField.setText("NAME IS MANDATORY!");
+            infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
         }
     }
 
