@@ -42,21 +42,34 @@ public class MapChoiceView {
         CommonView.goBack();
     }
 
+    /**
+     * If ENTER key is pressed, name quality will be checked.
+     * @param event
+     */
     @FXML
     public void onNameEnter(final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             final NameValidation result = new NameQuality().checkName(nameTextField.getText());
             if (!result.equals(NameValidation.CORRECT)) {
-                infoTextField.setText("Name is " + result.getResult());
+                infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
                 infoTextField.setText("");
             }
         }
     }
 
+    /**
+     * Loads GameMap fxml when button is clicked.
+     * @param event
+     */
     @FXML
     public void onPlayClick(final ActionEvent event) {
-        new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
+        final NameValidation result = new NameQuality().checkName(nameTextField.getText());
+        if (result.equals(NameValidation.CORRECT)) {
+            new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
+        } else {
+            infoTextField.setText("NAME IS MANDATORY!");
+        }
     }
 
     @FXML
@@ -80,5 +93,4 @@ public class MapChoiceView {
         this.playBtn.setText("PLAY");
         this.mapToPlay = GameMap.COUNTRYSIDE;
     }
-
 }
