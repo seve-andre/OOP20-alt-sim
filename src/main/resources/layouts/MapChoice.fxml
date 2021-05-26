@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="alt.sim.view.mapchoice.MapChoiceView">
+<VBox id="bg" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" 
+		fx:controller="alt.sim.view.mapchoice.MapChoiceView">
         <Pane prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/mapchoice.css">
                 <Button id="go-back" layoutX="14.0" layoutY="26.0" onAction="#onGoBackClick" prefHeight="21.0"
                         prefWidth="26.0" stylesheets="@../css/leaderboard.css">
                     <graphic>
-                        <ImageView id="go-back" fitHeight="38.0" fitWidth="93.0" pickOnBounds="true"
+                        <ImageView id="go-back" fitHeight="21.0" fitWidth="41.0" pickOnBounds="true"
                                    preserveRatio="true">
                                 <Image url="@../images/base/go-back.png" />
                         </ImageView>
@@ -28,7 +28,7 @@
          </styleClass>
                 </Button>
                 <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0"
-                           onKeyPressed="#onNameEnter" prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..."
+                           onKeyPressed="#onNameEnter" prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..." 
                            stylesheets="@../css/mapchoice.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -77,8 +77,8 @@
             <Font size="1.0" />
          </font>
             </Button>
-            <Button id="map" fx:id="countrysideBtn" layoutX="577.0" layoutY="340.0" onAction="#onCountrysideClick"
-                    prefHeight="132.0" prefWidth="166.0" stylesheets="@../css/mapchoice.css">
+            <Button id="map" fx:id="countrysideBtn" layoutX="577.0" layoutY="340.0" onAction="#onCountrysideClick" 
+            	prefHeight="132.0" prefWidth="166.0" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
@@ -96,8 +96,8 @@
                     <font>
                         <Font name="Consolas Bold" size="12.0" />
                     </font></Label>
-                <ImageView fitHeight="206.0" fitWidth="478.0" layoutX="164.0" layoutY="29.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="206.0" fitWidth="478.0" layoutX="164.0" layoutY="29.0" pickOnBounds="true" 
+                	preserveRatio="true">
                         <Image url="@../images/logos/logo.png" />
                 </ImageView>
                 <Label layoutX="184.0" layoutY="298.0" text="SEASIDE" textFill="#d6d6cb">
@@ -115,8 +115,8 @@
                         <Font name="Consolas Bold" size="12.0" />
                     </font>
                 </Label>
-                <Button id="info-btn" layoutX="484.0" layoutY="99.0" prefHeight="7.0" prefWidth="7.0"
-                        styleClass="transparent" stylesheets="@../css/mapchoice.css">
+                <Button id="info-btn" layoutX="480.0" layoutY="102.0" prefHeight="7.0" prefWidth="7.0" 
+                	styleClass="transparent" stylesheets="@../css/mapchoice.css">
                     <font>
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
@@ -128,15 +128,15 @@
                         </Tooltip>
                     </tooltip>
                     <graphic>
-                        <ImageView accessibleRole="BUTTON" fitHeight="25.0" fitWidth="38.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView accessibleRole="BUTTON" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" 
+                        	preserveRatio="true">
                                 <Image url="@../images/map_choice/info.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="button" fx:id="playBtn" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="200.0"
-                        onAction="#onPlayClick" prefHeight="34.0" prefWidth="200.0" styleClass="blue-btn"
-                        stylesheets="@../css/base.css" text="PLAY RANDOM" textFill="#d6d6cb">
+                <Button id="button" fx:id="playBtn" layoutX="571.0" layoutY="96.0" minHeight="34.0" minWidth="200.0" 
+                	onAction="#onPlayClick" prefHeight="34.0" prefWidth="200.0" styleClass="blue-btn" 
+                		stylesheets="@../css/base.css" text="PLAY RANDOM" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -146,8 +146,8 @@
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Label>
-      <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="320.0" layoutY="131.0"
-                 prefHeight="22.0" prefWidth="137.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+      <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="320.0" layoutY="131.0" 
+      	prefHeight="22.0" prefWidth="137.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
          <font>
             <Font name="Consolas Bold" size="12.0" />
          </font>
