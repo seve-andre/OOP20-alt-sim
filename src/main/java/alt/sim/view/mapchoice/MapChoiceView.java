@@ -35,7 +35,6 @@ public class MapChoiceView {
 
     @FXML
     public void initialize() {
-        System.out.println(mapToPlay);
     }
 
     @FXML
