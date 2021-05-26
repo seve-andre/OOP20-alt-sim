@@ -27,9 +27,8 @@
             <String fx:value="transparent" />
          </styleClass>
                 </Button>
-                <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0" 
-                		   onKeyPressed="#onNameEnter"
-                           prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..."
+                <TextField id="name-txt" fx:id="nameTextField" layoutX="308.0" layoutY="99.0"
+                           onKeyPressed="#onNameEnter" prefHeight="34.0" prefWidth="168.0" promptText="Enter a name..."
                            stylesheets="@../css/mapchoice.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
@@ -45,22 +44,28 @@
             <String fx:value="transparent" />
             <String fx:value="img-btn" />
          </styleClass>
+         <font>
+            <Font size="1.0" />
+         </font>
             </Button>
-            <Button id="map" fx:id="riversideBtn" layoutX="577.0" layoutY="140.0" onAction="#onRiversideClick"
+            <Button id="map" fx:id="riversideBtn" layoutX="590.0" layoutY="159.0" onAction="#onRiversideClick"
                     stylesheets="@../css/mapchoice.css">
          <graphic>
-                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
          </graphic>
          <styleClass>
             <String fx:value="transparent" />
             <String fx:value="img-btn" />
-         </styleClass></Button>
-            <Button id="map" fx:id="citysideBtn" layoutX="129.0" layoutY="328.0" onAction="#onCitysideClick"
+         </styleClass>
+         <font>
+            <Font size="1.0" />
+         </font></Button>
+            <Button id="map" fx:id="citysideBtn" layoutX="137.0" layoutY="346.0" onAction="#onCitysideClick"
                     stylesheets="@../css/mapchoice.css">
                <graphic>
-                      <ImageView fitHeight="141.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
@@ -68,11 +73,14 @@
             <String fx:value="transparent" />
             <String fx:value="img-btn" />
          </styleClass>
+         <font>
+            <Font size="1.0" />
+         </font>
             </Button>
-            <Button id="map" fx:id="countrysideBtn" layoutX="577.0" layoutY="310.0" onAction="#onCountrysideClick"
+            <Button id="map" fx:id="countrysideBtn" layoutX="577.0" layoutY="340.0" onAction="#onCountrysideClick"
                     prefHeight="132.0" prefWidth="166.0" stylesheets="@../css/mapchoice.css">
                <graphic>
-                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
                               <Image url="@../images/map_components/airplane.png" />
                       </ImageView>
                </graphic>
@@ -80,6 +88,9 @@
             <String fx:value="transparent" />
             <String fx:value="img-btn" />
          </styleClass>
+         <font>
+            <Font size="1.0" />
+         </font>
             </Button>
                 <Label layoutX="630.0" layoutY="298.0" text="RIVERSIDE" textFill="#d6d6cb">
                     <font>
@@ -94,7 +105,7 @@
                         <Font name="Consolas Bold" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="186.0" layoutY="484.0" text="CITYSIDE" textFill="#d6d6cb">
+                <Label layoutX="178.0" layoutY="484.0" text="CITYSIDE" textFill="#d6d6cb">
                     <font>
                         <Font name="Consolas Bold" size="12.0" />
                     </font>
@@ -110,8 +121,8 @@
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
                     <tooltip>
-                        <Tooltip fx:id="infoTooltip" 
-                        	text="Name must have at most 12 chars &#10;and must contain only numbers and letters">
+                        <Tooltip fx:id="infoTooltip" text="Name must have at most 12 chars &#10;and must contain only
+                            numbers and letters">
                             <font>
                                 <Font name="Consolas Bold" size="12.0" />
                             </font>
@@ -136,8 +147,8 @@
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Label>
-      <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="328.0" layoutY="131.0" 
-      			 prefHeight="22.0" prefWidth="137.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
+      <TextField id="error-txt" fx:id="infoTextField" disable="true" editable="false" layoutX="320.0" layoutY="131.0"
+                 prefHeight="22.0" prefWidth="137.0" styleClass="transparent" stylesheets="@../css/mapchoice.css">
          <font>
             <Font name="Consolas Bold" size="12.0" />
          </font>
