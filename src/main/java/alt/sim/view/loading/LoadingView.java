@@ -1,5 +1,7 @@
 package alt.sim.view.loading;
 
+import alt.sim.Main;
+import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -9,19 +11,19 @@ public class LoadingView {
 
     @FXML
     private ProgressBar loadingBar = new ProgressBar();
-    private volatile boolean done = false;
+    private static final int LOADING_TIME = 2000;
     private PageLoader pageLoader = new PageLoader();
 
     @FXML
     public void initialize() {
         loadingBar.progressProperty().bind(task.progressProperty());
+        loadingBar.progressProperty().addListener(observable -> {
+            pageLoader.loadPage(Main.getStage(), Page.HOME);
+        });
+
         Thread th = new Thread(task);
         th.setDaemon(true);
         th.start();
-
-        /*Platform.runLater(() -> {
-            pageLoader.loadPage(Main.getStage(), Page.HOME);
-        });*/
     }
 
     private Task<Void> task = new Task<Void>() {
@@ -29,12 +31,11 @@ public class LoadingView {
         public Void call() {
             for (int i = 0; i < 10; i++) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(LOADING_TIME);
                 } catch (final InterruptedException e) {
                       Thread.interrupted();
                       break;
                 }
-                System.out.println(i + 1);
                 updateProgress(i + 1, 10);
             }
             return null;
