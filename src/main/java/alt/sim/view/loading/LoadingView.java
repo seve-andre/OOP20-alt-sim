@@ -11,21 +11,26 @@ public class LoadingView {
 
     @FXML
     private ProgressBar loadingBar = new ProgressBar();
-    private static final int LOADING_TIME = 2000;
+    private static final int LOADING_TIME = 100;
     private PageLoader pageLoader = new PageLoader();
 
     @FXML
     public void initialize() {
         loadingBar.progressProperty().bind(task.progressProperty());
-        loadingBar.progressProperty().addListener(observable -> {
-            pageLoader.loadPage(Main.getStage(), Page.HOME);
-        });
 
         Thread th = new Thread(task);
         th.setDaemon(true);
         th.start();
+
+        // After loading is done, goes to HOME Page.
+        task.setOnSucceeded(e -> {
+            pageLoader.loadPage(Main.getStage(), Page.HOME);
+        });
     }
 
+    /**
+     * Updates loading bar every 0.1 s.
+     */
     private Task<Void> task = new Task<Void>() {
         @Override
         public Void call() {
