@@ -1,4 +1,6 @@
 
 #bg {
     -fx-background-image: url(../images/maps/seaside.png);
+	-fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
 }
