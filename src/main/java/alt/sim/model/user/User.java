@@ -22,7 +22,7 @@ public interface User {
     void setScore(int score);
 
     /**
-     * Reset the score of the player
+     * Reset the score of the player.
      */
     void resetScore();
 }

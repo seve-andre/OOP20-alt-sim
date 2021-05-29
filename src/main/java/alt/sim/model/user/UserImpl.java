@@ -32,7 +32,9 @@ public class UserImpl implements User {
 
     @Override
     public void setScore(final int score) {
-        this.score += score;
+        if (score > 0) {
+            this.score += score;
+        }
     }
 
     @Override
