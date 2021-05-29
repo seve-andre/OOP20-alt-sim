@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
 
 import java.awt.geom.Point2D;
 

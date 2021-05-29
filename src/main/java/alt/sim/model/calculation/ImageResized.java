@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
 
 import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;

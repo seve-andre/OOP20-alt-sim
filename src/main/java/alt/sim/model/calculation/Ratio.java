@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
 
 /**
  * Represent the Mathematical concept of Ratio with an antecedent value e consequent value.

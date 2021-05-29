@@ -1,6 +1,6 @@
 package alt.sim.view;
 
-import alt.sim.model.ImageResized;
+import alt.sim.model.calculation.ImageResized;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.scene.Scene;
