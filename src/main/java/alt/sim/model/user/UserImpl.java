@@ -36,6 +36,11 @@ public class UserImpl implements User {
     }
 
     @Override
+    public void resetScore() {
+        this.score = 0;
+    }
+
+    @Override
     public String toString() {
         return "UserImpl [name=" + name + ", score=" + score + "]";
     }

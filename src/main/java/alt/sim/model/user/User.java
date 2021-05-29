@@ -20,4 +20,9 @@ public interface User {
      * @param score of the user
      */
     void setScore(int score);
+
+    /**
+     * Reset the score of the player
+     */
+    void resetScore();
 }
