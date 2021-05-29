@@ -2,7 +2,7 @@ package alt.sim.model.airstrip;
 
 import alt.sim.model.calculation.Sprite;
 import alt.sim.model.plane.Plane;
-import alt.sim.model.user.UserImpl;
+import alt.sim.model.user.User;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
@@ -31,7 +31,7 @@ public abstract class AbstractAirStrip implements AirStrip {
     public abstract void acceptPlane(Plane plane);
 
     @Override
-    public void setScore(final UserImpl user, final int score) {
+    public void setScore(final User user, final int score) {
         user.setScore(score);
     }
     /**
