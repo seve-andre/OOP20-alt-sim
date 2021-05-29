@@ -1,6 +1,5 @@
 package alt.sim.model.airstrip;
 
-import alt.sim.model.calculation.Sprite;
 import alt.sim.model.plane.Plane;
 import javafx.geometry.Dimension2D;
 
@@ -9,9 +8,10 @@ import javafx.geometry.Dimension2D;
  */
 public class BasicAirStrip extends AbstractAirStrip {
 
-    public BasicAirStrip() {
-        super();
-        Sprite.setURLSprite("images/airstrip.png");
+    private static final String IMAGE_URL = "images/map_components/airstrip.png";
+
+    public void loadImage() {
+        super.loadImage(IMAGE_URL);
     }
 
     @Override
