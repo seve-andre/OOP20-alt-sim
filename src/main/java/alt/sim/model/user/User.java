@@ -14,4 +14,10 @@ public interface User {
      * @return score of the user.
      */
     int getScore();
+
+    /**
+     *
+     * @param score of the user
+     */
+    void setScore(int score);
 }

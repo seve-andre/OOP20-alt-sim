@@ -1,6 +1,7 @@
 package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
+import alt.sim.model.user.UserImpl;
 import javafx.geometry.Dimension2D;
 
 /**
@@ -15,4 +16,11 @@ public interface AirStrip {
      * @return the area planes can land on
      */
     Dimension2D getLandSpot();
+
+    /**
+     *
+     * @param user the user who is playing
+     * @param score the score made when a plane is landed
+     */
+    void setScore(UserImpl user, int score);
 }
