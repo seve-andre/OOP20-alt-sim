@@ -28,10 +28,15 @@ public class SpriteRedimensioned {
         this.selectTheHightValueResize = false;
     }
 
-    public SpriteRedimensioned(final RatioImpl ratioScreen, final RatioImpl ratioSprite, final double isSelectTheHightValueResize) {
+    public SpriteRedimensioned(final RatioImpl ratioScreen, final RatioImpl ratioSprite, final boolean isSelectTheHightValueResize) {
         this();
         this.ratioScreen = ratioScreen;
         this.ratioSprite = ratioScreen;
+    }
+
+    public void resizedBoundsSprite() {
+        scaleSprite(UtilityCalculation.PERCENT_VALUE);
+        selectSpriteBoundsLow(); 
     }
 
     // l'immagine da scalare viene calcolata sulla dimensione della Mappa
@@ -39,7 +44,6 @@ public class SpriteRedimensioned {
         double spriteWidthScaled = UtilityCalculation.persentageCalculation(ratioScreen.getAntecedent(), percentageScale);
         double spriteHeightScaled = UtilityCalculation.persentageCalculation(ratioScreen.getConsequent(), percentageScale);
 
-        System.out.println("scaleSprite(): " + spriteWidthScaled + " , " + spriteHeightScaled);
         this.ratioSprite.setRatioValue(spriteWidthScaled, spriteHeightScaled);
     }
 
@@ -55,31 +59,6 @@ public class SpriteRedimensioned {
         // Calcolo domensione finale dall'esponente
         this.resultBoundsSprite.setAntecedent(Math.pow(UtilityCalculation.BASE_POWER, exponent));
         this.resultBoundsSprite.setConsequent(Math.pow(UtilityCalculation.BASE_POWER, exponent));
-    }
-
-    public void selectSpriteBoundsHight() {
-        int exponent = 0;
-
-        if (ratioSprite.getAntecedent() >= ratioSprite.getConsequent()) {
-            exponent = UtilityCalculation.exponentCalcultation((int) ratioSprite.getAntecedent());
-        } else {
-            exponent = UtilityCalculation.exponentCalcultation((int) ratioSprite.getConsequent());
-        }
-
-        // Calcolo domensione finale dall'esponente
-        this.resultBoundsSprite.setAntecedent(Math.pow(UtilityCalculation.BASE_POWER, exponent));
-        this.resultBoundsSprite.setConsequent(Math.pow(UtilityCalculation.BASE_POWER, exponent));
-    }
-
-
-    public void resizedSelectedLowBounds() {
-        scaleSprite(UtilityCalculation.PERCENT_VALUE);
-
-        if (this.selectTheHightValueResize) {
-            selectSpriteBoundsHight();
-        } else {
-            selectSpriteBoundsLow();
-        }
     }
 
     public void setRatioScreenValue(final double widthScreen, final double heightScreen) {
@@ -104,14 +83,16 @@ public class SpriteRedimensioned {
         return this.selectTheHightValueResize;
     }
 
-    public static void main(final String[] args) {
-        SpriteRedimensioned sprtTest = new SpriteRedimensioned();
 
-        sprtTest.setRatioSpriteValue(153, 288);
-        sprtTest.setRatioScreenValue(1920, 1024);
-        sprtTest.setSelectTheHightValueResize(false);
-
-        sprtTest.resizedSelectedLowBounds();
-        //System.out.println("Sprite resized width: " + sprtTest.getResultBoundsSprite().getAntecedent() + " ,height: " + sprtTest.getResultBoundsSprite().getConsequent());
-    }
+    /*
+     * public static void main(final String[] args) { SpriteRedimensioned sprtTest =
+     * new SpriteRedimensioned();
+     * 
+     * sprtTest.setRatioSpriteValue(600, 600); sprtTest.setRatioScreenValue(1920,
+     * 1080); sprtTest.setSelectTheHightValueResize(false);
+     * 
+     * sprtTest.resizedBoundsSprite(); System.out.println("Sprite resized width: " +
+     * sprtTest.getResultBoundsSprite().getAntecedent() + " ,height: " +
+     * sprtTest.getResultBoundsSprite().getConsequent()); }
+     */
 }
