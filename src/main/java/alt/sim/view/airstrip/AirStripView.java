@@ -1,6 +1,6 @@
 package alt.sim.view.airstrip;
 
-import alt.sim.model.ImageResized;
+import alt.sim.model.calculation.ImageResized;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

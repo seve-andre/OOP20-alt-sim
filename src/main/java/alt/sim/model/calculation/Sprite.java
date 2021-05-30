@@ -1,6 +1,5 @@
 package alt.sim.model.calculation;
 
-import alt.sim.model.ImageResized;
 import alt.sim.view.MainPlaneView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;

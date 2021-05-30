@@ -1,4 +1,7 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
+
+import alt.sim.model.RatioImpl;
+import alt.sim.model.UtilityCalculation;
 
 /**
  * Class to calculate the scaling of an image that we want to be scaled,
