@@ -1,6 +1,5 @@
 package alt.sim.model;
 
-import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,48 +8,55 @@ import javafx.scene.image.ImageView;
  */
 public class ImageResized {
 
-    /** URL Path of the image to load. */
-    private static String urlSprite;
-
-    private ProportionImage proportionImageResized;
+    private SpriteRedimensioned spriteResized;
     private Image loadImage;
     private ImageView imageSprite;
 
     /**
      * Initializes a newly created ImageResized object.
-     * @param url
+     * @param urlSprite
+     * @param widthScreenConfrontation
+     * @param heightScreenConfrontation
+     * @param isPreserveRatio
      */
-    public ImageResized(final String url) {
-        urlSprite = ClassLoader
-                .getSystemResource(url)
-                .toExternalForm();
+    public ImageResized(final String urlSprite, final double widthScreenConfrontation, final double heightScreenConfrontation, final boolean isPreserveRatio) {
         this.loadImage = new Image(urlSprite);
         this.imageSprite = new ImageView(loadImage);
 
-        double widthImage = loadImage.getWidth();
-        double heightImage = loadImage.getHeight();
+        RatioImpl ratioSprite = new RatioImpl();
+        RatioImpl ratioScreen = new RatioImpl();
 
-        proportionImageResized = new ProportionImage();
-        proportionImageResized.setRatioImage(new RatioImpl(widthImage, heightImage));
-        proportionImageResized.setRatioScreen(new RatioImpl(
-                MainPlaneView.getScreenWidth(), MainPlaneView.getScreenWidth()
-        ));
+        ratioSprite.setAntecedent(imageSprite.getBoundsInParent().getWidth());
+        ratioSprite.setConsequent(imageSprite.getBoundsInParent().getHeight());
+        ratioScreen.setAntecedent(widthScreenConfrontation);
+        ratioScreen.setConsequent(heightScreenConfrontation);
+
+        //Set the Ratio Sprite && Ratio Screen
+        this.spriteResized = new SpriteRedimensioned(ratioScreen, ratioSprite, isPreserveRatio);
     }
 
     /**
+     * @param isPreserveRatio indicate that the original dimension of the image is preserve.
      * executes the renderingProportionImage() method to apply the resize calculation for this ImageView values.
      * after do that, it update the width and height values of imageSprite.
      */
-    public void resizeImageSprite() {
-        double widthResized = 0;
-        double heightResized = 0;
+    public void resizeImageSprite(final boolean isPreserveRatio) {
+        this.spriteResized.resizedBoundsSprite();
 
-        this.proportionImageResized.renderingProportionImage();
-        widthResized = proportionImageResized.getResultOfProportion().getAntecedent();
-        heightResized = proportionImageResized.getResultOfProportion().getConsequent();
+        this.imageSprite.setPreserveRatio(isPreserveRatio);
+        this.imageSprite.setFitWidth(spriteResized.getResultBoundsSprite().getAntecedent());
+        this.imageSprite.setFitHeight(spriteResized.getResultBoundsSprite().getConsequent());
 
-        this.imageSprite.setFitWidth(widthResized);
-        this.imageSprite.setFitHeight(heightResized);
+    }
+
+    /**
+     * Modify the setPreserveRatio method of class ImageView that maintein the Ratio size of
+     * an Image after the resize.
+     * 
+     * @param isPreserveRatio set the preserve ratio of the image when change the size.
+     */
+    public void setPreserveRatioSprite(final boolean isPreserveRatio) {
+        this.imageSprite.setPreserveRatio(isPreserveRatio);
     }
 
     /**
