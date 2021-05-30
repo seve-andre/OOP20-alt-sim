@@ -1,0 +1,38 @@
+package alt.sim.model;
+
+
+/**
+ * Organization of the URL link of the Image with the Enum.
+ */
+public enum ImageClassification {
+
+    /** Plane image path.*/
+    AIRPLANE("airplane", "images/map_components/airplane.png"),
+    /** Airstrip image path.*/
+    AIRSTRIP("airstrip", "images/map_components/airstrip.png"),
+    /** Boat image path.*/
+    BOAT("boat", "images/map_components/boat.png"),
+    /** Helicopter image path.*/
+    HELICOPTER("helicopter", "images/map_components/helicopter.png"),
+    /** Helipad image path.*/
+    HELIPAD("helipad", "images/map_components/helipad.png");
+
+    private String imageCategory;
+    private String urlImage;
+
+    ImageClassification(final String imageCategory, final String urlImage) {
+        this.urlImage = urlImage;
+        this.imageCategory = imageCategory;
+    }
+
+    public String getImageCategory() {
+        return this.imageCategory;
+    }
+
+    public String getURLImage() {
+        // adding path of the Enum the absolutePath of the same object researched
+        String absolutePath = ClassLoader.getSystemResource(urlImage).toExternalForm();
+
+        return absolutePath;
+    }
+}
