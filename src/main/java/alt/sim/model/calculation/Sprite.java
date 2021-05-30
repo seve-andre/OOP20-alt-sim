@@ -1,6 +1,7 @@
 package alt.sim.model.calculation;
 
 import alt.sim.model.ImageResized;
+import alt.sim.view.MainPlaneView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,56 +26,22 @@ public class Sprite {
     private double x;
     private double y;
 
-    public Sprite() {
-        this(new Point2D(0, 0));
-
-        this.x = 0;
-        this.y = 0;
-    }
-
-    public Sprite(final Point2D point) {
-        this.point = point;
-
-        this.x = point.getX();
-        this.y = point.getY();
-    }
-
     /** 
-     * @param url of the image to load
+     * @param urlSprite contains url of the image to load
+     * @param isPreserveRatio specific if the preserveRatio of the image is active
      */
-    public Sprite(final String url) {
+    public Sprite(final String urlSprite, final boolean isPreserveRatio) {
         this.x = 0;
         this.y = 0;
 
-        setURLSprite(url);
-
-        imageSpriteResized = new ImageResized(url);
-        // loading the image into imageSpriteToLoad
-        // this.loadImageSprite();
-
-        ImageView imageSpriteView = new ImageView(new Image(url));
-
-        this.imageSpriteResized.setLoadImage(imageSpriteView.getImage());
-        this.imageSpriteResized.setImageSprite(imageSpriteView);
+        imageSpriteResized = new ImageResized(urlSprite, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight(), isPreserveRatio);
     }
 
     /**
-     * 
      * @param imageSpriteToLoad to add in the imageSprite
      * @param point where place the Sprite 
      */
     public Sprite(final Image imageSpriteToLoad, final Point2D point) {
-        /*
-         * this.imageSpriteToLoad = imageSpriteToLoad; this.imageSprite = new
-         * ImageView(this.imageSpriteToLoad);
-         */
-
-        /*
-         * ImageView imageSpriteView = new ImageView(imageSpriteToLoad);
-         * 
-         * this.imageSpriteResized.setLoadImage(imageSpriteToLoad);
-         * this.imageSpriteResized.setImageSprite(imageSpriteView);
-         */
         this.point = point;
 
         this.x = point.getX();
@@ -116,11 +83,4 @@ public class Sprite {
     public static void setURLSprite(final String url) {
         Sprite.urlSprite = ClassLoader.getSystemResource(url).toExternalForm();
     }
-
-    /** loading the Image specified from URL into ImageView. */
-    /*
-     * public void loadImageSprite() { this.imageSpriteToLoad = new
-     * Image(Sprite.urlSprite); this.imageSprite = new
-     * ImageView(this.imageSpriteToLoad); }
-     */
 }
