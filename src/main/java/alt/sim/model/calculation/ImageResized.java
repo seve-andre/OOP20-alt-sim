@@ -1,7 +1,7 @@
 package alt.sim.model.calculation;
 
 import alt.sim.model.RatioImpl;
-import alt.sim.model.SpriteRedimensioned;
+import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,55 +10,57 @@ import javafx.scene.image.ImageView;
  */
 public class ImageResized {
 
-    private SpriteRedimensioned spriteResized;
+    /** URL Path of the image to load. */
+    private static String urlSprite;
+
+    private ProportionImage proportionImageResized;
     private Image loadImage;
     private ImageView imageSprite;
 
     /**
      * Initializes a newly created ImageResized object.
-     * @param urlSprite
-     * @param widthScreenConfrontation
-     * @param heightScreenConfrontation
-     * @param isPreserveRatio
+     * @param url
      */
-    public ImageResized(final String urlSprite, final double widthScreenConfrontation, final double heightScreenConfrontation, final boolean isPreserveRatio) {
+    public ImageResized(final String url) {
+        urlSprite = ClassLoader
+                .getSystemResource(url)
+                .toExternalForm();
         this.loadImage = new Image(urlSprite);
         this.imageSprite = new ImageView(loadImage);
 
-        RatioImpl ratioSprite = new RatioImpl();
-        RatioImpl ratioScreen = new RatioImpl();
+        double widthImage = loadImage.getWidth();
+        double heightImage = loadImage.getHeight();
 
-        ratioSprite.setAntecedent(imageSprite.getBoundsInParent().getWidth());
-        ratioSprite.setConsequent(imageSprite.getBoundsInParent().getHeight());
-        ratioScreen.setAntecedent(widthScreenConfrontation);
-        ratioScreen.setConsequent(heightScreenConfrontation);
+        proportionImageResized = new ProportionImage();
+        proportionImageResized.setRatioImage(new RatioImpl(widthImage, heightImage));
+        proportionImageResized.setRatioScreen(new RatioImpl(
+                MainPlaneView.getScreenWidth(), MainPlaneView.getScreenWidth()
+        ));
+    }
 
-        //Set the Ratio Sprite && Ratio Screen
-        this.spriteResized = new SpriteRedimensioned(ratioScreen, ratioSprite, isPreserveRatio);
+    public ImageResized(final String url, final double screenWidth, final double screenHeight, final boolean isPreserveRatio) {
+        this(url);
     }
 
     /**
-     * @param isPreserveRatio indicate that the original dimension of the image is preserve.
      * executes the renderingProportionImage() method to apply the resize calculation for this ImageView values.
      * after do that, it update the width and height values of imageSprite.
      */
-    public void resizeImageSprite(final boolean isPreserveRatio) {
-        this.spriteResized.resizedBoundsSprite();
+    public void resizeImageSprite() {
+        double widthResized = 0;
+        double heightResized = 0;
 
-        this.imageSprite.setPreserveRatio(isPreserveRatio);
-        this.imageSprite.setFitWidth(spriteResized.getResultBoundsSprite().getAntecedent());
-        this.imageSprite.setFitHeight(spriteResized.getResultBoundsSprite().getConsequent());
+        this.proportionImageResized.renderingProportionImage();
+        widthResized = proportionImageResized.getResultOfProportion().getAntecedent();
+        heightResized = proportionImageResized.getResultOfProportion().getConsequent();
 
+        this.imageSprite.setFitWidth(widthResized);
+        this.imageSprite.setFitHeight(heightResized);
     }
 
-    /**
-     * Modify the setPreserveRatio method of class ImageView that maintein the Ratio size of
-     * an Image after the resize.
-     * 
-     * @param isPreserveRatio set the preserve ratio of the image when change the size.
-     */
-    public void setPreserveRatioSprite(final boolean isPreserveRatio) {
-        this.imageSprite.setPreserveRatio(isPreserveRatio);
+    // terminated
+    public void resizeImageSprite(final boolean isResizedImage) {
+
     }
 
     /**
@@ -66,17 +68,5 @@ public class ImageResized {
      */
     public ImageView getImageSprite() {
         return this.imageSprite;
-    }
-
-    public void setImageSprite(final ImageView imageSprite) {
-        this.imageSprite = imageSprite;
-    }
-
-    public Image getLoadImage() {
-        return this.loadImage;
-    }
-
-    public void setLoadImage(final Image loadImage) {
-        this.loadImage = loadImage;
     }
 }

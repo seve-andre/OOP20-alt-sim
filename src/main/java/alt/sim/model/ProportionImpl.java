@@ -2,7 +2,6 @@ package alt.sim.model;
 
 import java.awt.geom.Point2D;
 
-
 /** Class that manage 2 Ratio object for calculate the unknownValue 10:40 = x:50.
  *
  */

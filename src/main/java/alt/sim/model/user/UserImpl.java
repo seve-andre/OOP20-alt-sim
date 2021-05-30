@@ -5,7 +5,7 @@ import java.util.Objects;
 public class UserImpl implements User {
 
     private final String name;
-    private final int score;
+    private int score;
 
     public UserImpl(final String name, final int score) {
         this.name = Objects.requireNonNull(name);
@@ -28,6 +28,18 @@ public class UserImpl implements User {
     @Override
     public int getScore() {
         return this.score;
+    }
+
+    @Override
+    public void setScore(final int score) {
+        if (score > 0) {
+            this.score += score;
+        }
+    }
+
+    @Override
+    public void resetScore() {
+        this.score = 0;
     }
 
     @Override

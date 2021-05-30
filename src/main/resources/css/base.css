@@ -10,9 +10,10 @@
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-opacity: 0.8;
+	-fx-cursor: hand;
 }
 
-#button:hover {
+#button:hover, #pause-btn:hover {
     -fx-opacity: 1;
 }
 
@@ -28,10 +29,28 @@
     -fx-border-color: transparent;
 }
 
-#button:pressed, #go-back:pressed {
+#button:pressed, #go-back:pressed, #pause-btn:pressed {
     -fx-translate-y: 2px;
 }
 
 .transparent {
     -fx-background-color: transparent;
+}
+
+.img-btn {
+    -fx-cursor: hand;
+}
+
+.hyperlink {
+    -fx-border-color: transparent;
+}
+
+#pause-btn {
+    -fx-border-style: solid;
+    -fx-min-width: 20;
+    -fx-min-height: 20;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-opacity: 0.8;
+    -fx-cursor: hand;
 }

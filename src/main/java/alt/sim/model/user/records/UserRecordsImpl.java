@@ -6,14 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import alt.sim.model.user.User;
-import alt.sim.model.user.UserImpl;
 import alt.sim.model.user.records.RecordsFolder.RecordsPath;
 import alt.sim.model.user.validation.RecordsValidation;
 
@@ -22,9 +20,9 @@ public class UserRecordsImpl implements UserRecords {
     private final Path jsonPath = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
     private final RecordsValidation recordsValidation = new RecordsValidation();
 
-    private Map<String, User> users = new HashMap<>();
+    private Map<String, Integer> users = new HashMap<>();
 
-    private final Type jsonTypeToken = new TypeToken<Map<String, UserImpl>>() { }.getType();
+    private final Type jsonTypeToken = new TypeToken<Map<String, Integer>>() { }.getType();
 
     /**
      * Loads users from file.
@@ -58,18 +56,9 @@ public class UserRecordsImpl implements UserRecords {
     public void addUser(final User user) throws IOException {
         this.loadFile();
         if (!this.users.containsKey(user.getName())) {
-            this.users.put(user.getName(), user);
+            this.users.put(user.getName(), user.getScore());
         }
         this.updateFile();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<User> getUserByName(final String name) throws IOException {
-        this.loadFile();
-        return Optional.ofNullable(this.users.get(name));
     }
 
     /**
@@ -81,7 +70,12 @@ public class UserRecordsImpl implements UserRecords {
         return this.users.containsKey(name);
     }
 
-    public Map<String, User> getUsers() {
+    public Map<String, Integer> getUsers() {
+        try {
+            this.loadFile();
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
         return this.users;
     }
 }

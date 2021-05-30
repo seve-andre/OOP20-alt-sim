@@ -1,6 +1,7 @@
 package alt.sim.view;
 
 import alt.sim.model.ImageClassification;
+import alt.sim.model.calculation.ImageResized;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;

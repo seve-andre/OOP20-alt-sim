@@ -1,5 +1,7 @@
 package alt.sim.model;
 
+import alt.sim.model.calculation.UtilityCalculation;
+
 public class SpriteRedimensioned {
     //Pane section:
     /** Min range of Screen dimension. */

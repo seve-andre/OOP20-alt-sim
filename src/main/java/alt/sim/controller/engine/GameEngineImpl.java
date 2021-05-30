@@ -1,4 +1,4 @@
-package alt.sim.controller;
+package alt.sim.controller.engine;
 
 public class GameEngineImpl implements GameEngine {
 

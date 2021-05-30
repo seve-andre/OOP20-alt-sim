@@ -36,6 +36,20 @@ public class Sprite {
         imageSpriteResized = new ImageResized(urlSprite, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight(), isPreserveRatio);
     }
 
+    public Sprite(final String urlSprite) {
+        this.x = 0;
+        this.y = 0;
+
+        imageSpriteResized = new ImageResized(urlSprite);
+    }
+
+    public Sprite(final Point2D positionSprite) {
+        this.x = positionSprite.getX();
+        this.y = positionSprite.getY();
+
+        this.point = new Point2D(positionSprite.getX(), positionSprite.getY());
+    }
+
     /**
      * @param imageSpriteToLoad to add in the imageSprite
      * @param point where place the Sprite 

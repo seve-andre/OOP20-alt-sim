@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.calculation;
 
 import alt.sim.model.calculation.ProportionImage;
 
