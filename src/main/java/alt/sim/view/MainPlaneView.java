@@ -1,9 +1,12 @@
 package alt.sim.view;
 
+import alt.sim.model.ImageClassification;
 import alt.sim.model.calculation.ImageResized;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -17,24 +20,44 @@ public class MainPlaneView extends Application {
     /** Screen height of the view.  */
     private static final double SCREEN_HEIGHT = (Screen.getPrimary().getBounds().getHeight() / MainPlaneView.ASPECT_RATIO_DIVISION);
     /** Number used to divide the Screen size. */
-    private static final double ASPECT_RATIO_DIVISION = 1.5;
+    private static final double ASPECT_RATIO_DIVISION = 1;
 
     @Override
     public void start(final Stage stage) throws Exception {
 
         try {
             Pane paneRoot = new Pane();
-            ImageResized planeImageResized = new ImageResized("images/map_components/airplane.png");
 
-            Plane p1 = new Plane("images/map_components/airplane.png");
+            Plane p1 = new Plane(ImageClassification.AIRPLANE);
+
             // Calculating the Proportion --> (Image:Screen)
-            planeImageResized.resizeImageSprite();
+            p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+
 
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
-            paneRoot.getChildren().add(planeImageResized.getImageSprite());
+
             // Insert Plane test into view:
-            paneRoot.getChildren().add(p1.getImagePlane());
+            paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
+
+            // Positioning the STATIC Plane in a specific location of the Map
+            p1.setX(0);
+            p1.setY(0);
+
+            // Create a MouseEvent for move the Plane in the Position clicked
+            EventHandler<MouseEvent> handlerMouseClick = new EventHandler<MouseEvent>() { 
+
+                @Override 
+                public void handle(final MouseEvent event) { 
+                    p1.setX(event.getX());
+                    p1.setY(event.getY());
+
+                    //Insert Center Image when click
+                    centerImagePositionInGame(p1, event);
+                } 
+             };
+
+            paneRoot.addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMouseClick);
 
             Scene scene = new Scene(paneRoot, SCREEN_WIDTH, SCREEN_HEIGHT);
             stage.setScene(scene);
@@ -43,6 +66,12 @@ public class MainPlaneView extends Application {
         } catch (final Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void centerImagePositionInGame(final Plane planeInGame, final MouseEvent event) {
+        //Insert Center Image when click
+        planeInGame.getImagePlane().setLayoutX(event.getX() - (planeInGame.getImagePlane().getFitWidth() / 2));
+        planeInGame.getImagePlane().setLayoutY(event.getY() - (planeInGame.getImagePlane().getFitHeight() / 2));
     }
 
     /**

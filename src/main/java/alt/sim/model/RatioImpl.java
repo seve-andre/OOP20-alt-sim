@@ -1,4 +1,6 @@
-package alt.sim.model.calculation;
+package alt.sim.model;
+
+import alt.sim.model.calculation.UtilityCalculation;
 
 /**
  * Represent the Mathematical concept of Ratio with an antecedent value e consequent value.
@@ -6,7 +8,7 @@ package alt.sim.model.calculation;
  * Linking it to the ProportionCount class for finalize the Count of 2 Ratio object.
  *
  */
-public class Ratio {
+public class RatioImpl implements RatioInterface {
 
     private double antecedent;
     private double consequent;
@@ -15,7 +17,7 @@ public class Ratio {
     private boolean antecedentHigher;
 
     /** constructor to initialized Ratio. */
-    public Ratio() {
+    public RatioImpl() {
         this.antecedent = 0;
         this.consequent = 0;
     }
@@ -24,7 +26,7 @@ public class Ratio {
      * @param antecedent the Antecedent in a Ratio (x:Antecedent).
      * @param consequent the Consequent in a Ratio (Consequent:x).
     */
-    public Ratio(final double antecedent, final double consequent) {
+    public RatioImpl(final double antecedent, final double consequent) {
         this();
         if (antecedent > 0 && consequent > 0) {
             this.antecedent = antecedent;

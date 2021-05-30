@@ -1,5 +1,6 @@
 package alt.sim.model.calculation;
 
+import alt.sim.model.RatioImpl;
 import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,10 +32,14 @@ public class ImageResized {
         double heightImage = loadImage.getHeight();
 
         proportionImageResized = new ProportionImage();
-        proportionImageResized.setRatioImage(new Ratio(widthImage, heightImage));
-        proportionImageResized.setRatioScreen(new Ratio(
+        proportionImageResized.setRatioImage(new RatioImpl(widthImage, heightImage));
+        proportionImageResized.setRatioScreen(new RatioImpl(
                 MainPlaneView.getScreenWidth(), MainPlaneView.getScreenWidth()
         ));
+    }
+
+    public ImageResized(final String url, final double screenWidth, final double screenHeight, final boolean isPreserveRatio) {
+        this(url);
     }
 
     /**
@@ -51,6 +56,11 @@ public class ImageResized {
 
         this.imageSprite.setFitWidth(widthResized);
         this.imageSprite.setFitHeight(heightResized);
+    }
+
+    // terminated
+    public void resizeImageSprite(final boolean isResizedImage) {
+
     }
 
     /**
