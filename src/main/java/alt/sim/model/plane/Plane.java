@@ -37,7 +37,10 @@ public class Plane {
     public Plane(final String urlImagePlane, final Point2D point) {
         this(urlImagePlane);
 
-        this.spritePlane.setPoint2D(point);
+        this.spritePlane.setX(point.getX());
+        this.spritePlane.setY(point.getY());
+
+        //this.spritePlane.setPoint2D(point);
     }
 
     /**
@@ -54,28 +57,22 @@ public class Plane {
      */
     public ImageView getImagePlane() {
         //initializing the Sprite object
-        return this.spritePlane.getImage();
+        return this.spritePlane.getImageSpriteResized().getImageSprite();
     }
 
     public Sprite getSpritePlane() {
         return this.spritePlane;
     }
 
-    public double getX() {
-        return this.spritePlane.getX();
-    }
-
-    public double getY() {
-        return this.spritePlane.getY();
-    }
-
-    public void setX(final double x) {
-        this.spritePlane.setX(x);
-    }
-
-    public void setY(final double y) {
-        this.spritePlane.setY(y);
-    }
+    /*
+     * public double getX() { return this.spritePlane.getX(); }
+     * 
+     * public double getY() { return this.spritePlane.getY(); }
+     * 
+     * public void setX(final double x) { this.spritePlane.setX(x); }
+     * 
+     * public void setY(final double y) { this.spritePlane.setY(y); }
+     */
 
     @Override
     public String toString() {
