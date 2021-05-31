@@ -36,7 +36,7 @@ public class SpriteRedimensioned {
         this.ratioSprite = ratioScreen;
     }
 
-    public void resizedBoundsSprite() {
+    public void resizeBoundsSprite() {
         scaleSprite(UtilityCalculation.PERCENT_VALUE);
         selectSpriteBoundsLow(); 
     }
