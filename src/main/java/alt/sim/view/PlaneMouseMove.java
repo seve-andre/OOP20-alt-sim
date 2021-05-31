@@ -26,7 +26,7 @@ public class PlaneMouseMove extends Application {
         Plane p1 = new Plane(ImageClassification.AIRPLANE);
 
         // Calculating the Proportion --> (Image:Screen)
-        p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        p1.getSpritePlane().getImageSpriteResized().resizeImageSprite();
 
 
         // View Plane demonstrating:
@@ -59,8 +59,8 @@ public class PlaneMouseMove extends Application {
 
              @Override 
              public void handle(final MouseEvent event) { 
-               p1.setX(event.getX());
-               p1.setY(event.getY());
+               p1.getSpritePlane().setX(event.getX());
+               p1.getSpritePlane().setY(event.getY());
 
                //Insert Center Image when click
                centerImagePositionInGame(p1, event);
