@@ -5,7 +5,7 @@ public class SpawnObjectImpl implements SpawnObject {
     private static final int OBJECT_NUMBER = 20;
     //private boolean spawned;
     private int objects;
-
+    private Thread threadSpawn;
     public SpawnObjectImpl() {
         objects = 0;
     }
@@ -24,7 +24,7 @@ public class SpawnObjectImpl implements SpawnObject {
                 }
             }
          }
-         Thread threadSpawn = new Thread(new SpawnRunner());
+         threadSpawn = new Thread(new SpawnRunner());
          threadSpawn.start();
     }
 
