@@ -7,15 +7,16 @@ package alt.sim.model;
 public enum ImageClassification {
 
     /** Plane image path.*/
-    AIRPLANE("airplane", "images/map_components/airplane.png"),
+    // OOP20-alt-sim/src/main/resources/images/map_components/airplane.png
+    AIRPLANE("airplane", "file:/Users/daniel/Documents/GitHub/OOP20-alt-sim/src/main/resources/images/map_components/airplane.png"),
     /** Airstrip image path.*/
-    AIRSTRIP("airstrip", "images/map_components/airstrip.png"),
+    AIRSTRIP("airstrip", "file:/Users/daniel/Documents/GitHub/OOP20-alt-sim/src/main/resources/images/map_components/airstrip.png"),
     /** Boat image path.*/
-    BOAT("boat", "images/map_components/boat.png"),
+    BOAT("boat", "file:/Users/daniel/Documents/GitHub/OOP20-alt-sim/src/main/resources/images/map_components/boat.png"),
     /** Helicopter image path.*/
-    HELICOPTER("helicopter", "images/map_components/helicopter.png"),
+    HELICOPTER("helicopter", "file:/Users/daniel/Documents/GitHub/OOP20-alt-sim/src/main/resources/images/map_components/helicopter.png"),
     /** Helipad image path.*/
-    HELIPAD("helipad", "images/map_components/helipad.png");
+    HELIPAD("helipad", "file:/Users/daniel/Documents/GitHub/OOP20-alt-sim/src/main/resources/images/map_components/helipad.png");
 
     private String imageCategory;
     private String urlImage;
@@ -30,9 +31,6 @@ public enum ImageClassification {
     }
 
     public String getURLImage() {
-        // adding path of the Enum the absolutePath of the same object researched
-        String absolutePath = ClassLoader.getSystemResource(urlImage).toExternalForm();
-
-        return absolutePath;
+        return this.urlImage;
     }
 }
