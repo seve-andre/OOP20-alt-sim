@@ -1,7 +1,10 @@
 package alt.sim.controller.spawn;
 
+import java.util.Random;
+
 import alt.sim.model.container.PlaneContainer;
 import alt.sim.model.container.PlaneContainerImpl;
+import alt.sim.model.plane.Plane;
 
 public class SpawnObjectImpl implements SpawnObject {
     private static final int SPAWN_FREQUENCY = 10000;
@@ -35,12 +38,26 @@ public class SpawnObjectImpl implements SpawnObject {
 
     @Override
     public void spawnGameObject() {
-        //container.addPlane(new Plane());
+        container.addPlane(new Plane(SpawnObjectImpl.PlaneChoice.getPlaneType()));
         objects++;
     }
     @Override
     public boolean checkGameObjects() {
         return false;
+    }
+
+    private static class PlaneChoice {
+        private static final int VALUES = 2;
+        private static final int FIRST = 0;
+        private static Random rnd = new Random();
+
+        public static String getPlaneType() {
+            if (rnd.nextInt(VALUES) == FIRST) {
+                return "images/map_components/airplane.png";
+            } else {
+                return "images/map_components/helicopter.png";
+            }
+        }
     }
 
 }
