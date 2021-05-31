@@ -48,7 +48,7 @@ public abstract class AbstractAirStrip implements AirStrip {
      * @return the image of the airstrip
      */
     public ImageView getAirStripImage() {
-        return this.airstripSprite.getImage();
+        return this.airstripSprite.getImageSpriteResized().getImageSprite();
     }
 
     /**
