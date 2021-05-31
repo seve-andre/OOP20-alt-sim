@@ -1,6 +1,6 @@
 package alt.sim.view.airstrip;
 
-import alt.sim.model.calculation.ImageResized;
+import alt.sim.model.calculation.ImageSprite;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -30,7 +30,7 @@ public class AirStripView extends Application {
     public void start(final Stage primaryStage) throws Exception {
         try {
             Pane paneRoot = new Pane();
-            ImageResized planeAirStripResized = new ImageResized(this.url);
+            ImageSprite planeAirStripResized = new ImageSprite(this.url);
 
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);

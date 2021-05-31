@@ -3,7 +3,6 @@ package alt.sim.model.calculation;
 import alt.sim.view.MainPlaneView;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  *  Describes the Sprite entity, rather than the rappresentation of a dinamic object in game (Plane, Airstrip).
@@ -17,11 +16,11 @@ import javafx.scene.image.ImageView;
 public class Sprite {
 
     /** path of the image location that is showed in the class used. */
-    private static String urlSprite;
+    //private static String urlSprite;
 
     //Aggiungiamo questo campo di TEST
-    private ImageResized imageSpriteResized;
-    private Point2D point;
+    private ImageSprite imageSpriteResized;
+    //private Point2D point;
     private double x;
     private double y;
 
@@ -33,21 +32,21 @@ public class Sprite {
         this.x = 0;
         this.y = 0;
 
-        imageSpriteResized = new ImageResized(urlSprite, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight(), isPreserveRatio);
+        imageSpriteResized = new ImageSprite(urlSprite, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight(), isPreserveRatio);
     }
 
     public Sprite(final String urlSprite) {
         this.x = 0;
         this.y = 0;
 
-        imageSpriteResized = new ImageResized(urlSprite);
+        imageSpriteResized = new ImageSprite(urlSprite);
     }
 
     public Sprite(final Point2D positionSprite) {
         this.x = positionSprite.getX();
         this.y = positionSprite.getY();
 
-        this.point = new Point2D(positionSprite.getX(), positionSprite.getY());
+        //this.point = new Point2D(positionSprite.getX(), positionSprite.getY());
     }
 
     /**
@@ -55,27 +54,19 @@ public class Sprite {
      * @param point where place the Sprite 
      */
     public Sprite(final Image imageSpriteToLoad, final Point2D point) {
-        this.point = point;
+        //this.point = point;
 
         this.x = point.getX();
         this.y = point.getY();
     }
 
-    public ImageResized getImageSpriteResized() {
+    public ImageSprite getImageSpriteResized() {
         return this.imageSpriteResized;
     }
 
-    public ImageView getImage() { 
-        return this.imageSpriteResized.getImageSprite(); 
-    }
-
-    public Point2D getPoint() {
-        return this.point;
-    }
-
-    public void setPoint2D(final Point2D point) {
-        this.point = point;
-    }
+    /*
+     * public void setPoint2D(final Point2D point) { this.point = point; }
+     */
 
     public void setX(final double x) {
         this.x = x;
@@ -93,7 +84,12 @@ public class Sprite {
         return this.y;
     }
 
-    public static void setURLSprite(final String url) {
-        Sprite.urlSprite = ClassLoader.getSystemResource(url).toExternalForm();
+    public Point2D getPoint() { 
+        return new Point2D(this.getX(), this.getY()); 
     }
+
+    /*
+     * public static void setURLSprite(final String url) { Sprite.urlSprite =
+     * ClassLoader.getSystemResource(url).toExternalForm(); }
+     */
 }
