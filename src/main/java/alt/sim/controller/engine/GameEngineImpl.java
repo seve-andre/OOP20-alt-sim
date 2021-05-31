@@ -1,15 +1,19 @@
 package alt.sim.controller.engine;
 
 import alt.sim.controller.spawn.SpawnObject;
+import alt.sim.controller.spawn.SpawnObjectImpl;
 
 public class GameEngineImpl implements GameEngine {
 
     private static final long PERIOD = 1000L;
     private SpawnObject spawn;
 
+    public GameEngineImpl() {
+        spawn = new SpawnObjectImpl();
+    }
     @Override
     public void initGame() {
-
+        spawn.startSpawn();
     }
 
     @Override
