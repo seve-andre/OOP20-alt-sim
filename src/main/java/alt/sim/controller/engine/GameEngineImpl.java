@@ -1,8 +1,16 @@
 package alt.sim.controller.engine;
 
+import alt.sim.controller.spawn.SpawnObject;
+
 public class GameEngineImpl implements GameEngine {
 
     private static final long PERIOD = 1000L;
+    private SpawnObject spawn;
+
+    @Override
+    public void initGame() {
+
+    }
 
     @Override
     public void mainLoop() throws IllegalArgumentException {
@@ -60,5 +68,4 @@ public class GameEngineImpl implements GameEngine {
         // TODO Auto-generated method stub
 
     }
-
 }
