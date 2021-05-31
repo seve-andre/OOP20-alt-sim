@@ -1,8 +1,11 @@
 package alt.sim.view;
 
+import alt.sim.model.ImageClassification;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -39,25 +42,27 @@ public class CollisionDetectionView extends Application {
         public void start(final Stage stage) throws Exception {
 
             try {
+                //ImageView airStripeSprite = new ImageView(new Image(ImageClassification.AIRSTRIP.getURLImage(), 128.0, 128.0, true, false));
+                //ImageView planeSprite = new ImageView(new Image(ImageClassification.AIRPLANE.getURLImage(), 128.0, 128.0, true, false));
 
-                Rectangle staticAirStripArea = new Rectangle(50, 100);
-                Rectangle plane = new Rectangle (50, 50);
+                Rectangle rectangleWall = new Rectangle(50, 100);
+                Rectangle rectangleMoved = new Rectangle (50, 50);
 
-                plane.setFill(Paint.valueOf("BLUE"));
-                staticAirStripArea.setLayoutX(150);
-                staticAirStripArea.setLayoutY(100);
-                staticAirStripArea.setFill(Paint.valueOf("RED"));
+                rectangleMoved.setFill(Paint.valueOf("BLUE"));
+                rectangleWall.setLayoutX(150);
+                rectangleWall.setLayoutY(100);
+                rectangleWall.setFill(Paint.valueOf("RED"));
 
                 //Mouse Click event
                 EventHandler<MouseEvent> eventMouseClicked = new EventHandler<MouseEvent>() { 
                     @Override 
                     public void handle(final MouseEvent e) {
-                       plane.setLayoutX(e.getX());
-                       plane.setLayoutY(e.getY());
+                        rectangleMoved.setLayoutX(e.getX());
+                        rectangleMoved.setLayoutY(e.getY());
 
                        //Check collison Plane with AirStrip
-                       if (staticAirStripArea.getBoundsInParent().intersects(plane.getBoundsInParent())) {
-                           System.out.println("AirStrip collided");
+                       if (rectangleWall.getBoundsInParent().intersects(rectangleMoved.getBoundsInParent())) {
+                           System.out.println("AirStrip COLLIDED!!!");
                        }
                     } 
                 };
@@ -65,7 +70,7 @@ public class CollisionDetectionView extends Application {
                 //Registering the event filter 
                 paneRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, eventMouseClicked);
 
-                paneRoot.getChildren().addAll(staticAirStripArea, plane); 
+                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved); 
                 stage.setScene(scene);
                 stage.show();
 
