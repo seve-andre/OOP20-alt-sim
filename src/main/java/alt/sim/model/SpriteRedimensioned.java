@@ -85,16 +85,4 @@ public class SpriteRedimensioned {
         return this.selectTheHightValueResize;
     }
 
-
-    /*
-     * public static void main(final String[] args) { SpriteRedimensioned sprtTest =
-     * new SpriteRedimensioned();
-     * 
-     * sprtTest.setRatioSpriteValue(600, 600); sprtTest.setRatioScreenValue(1920,
-     * 1080); sprtTest.setSelectTheHightValueResize(false);
-     * 
-     * sprtTest.resizedBoundsSprite(); System.out.println("Sprite resized width: " +
-     * sprtTest.getResultBoundsSprite().getAntecedent() + " ,height: " +
-     * sprtTest.getResultBoundsSprite().getConsequent()); }
-     */
 }
