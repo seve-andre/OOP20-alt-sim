@@ -1,8 +1,11 @@
 package alt.sim.view.mapchoice;
 
+import java.io.IOException;
 import java.util.List;
 
 import alt.sim.Main;
+import alt.sim.model.user.UserImpl;
+import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.model.user.validation.NameQuality;
 import alt.sim.model.user.validation.NameValidation;
 import alt.sim.view.CommonView;
@@ -39,6 +42,7 @@ public class MapChoiceView {
 
     private GameMap mapToPlay = GameMap.getRandomMap();
     private final List<Button> buttons = List.of(seasideBtn, riversideBtn, citysideBtn, countrysideBtn);
+    private UserRecordsImpl userRecordsImpl = new UserRecordsImpl();
 
     @FXML
     public void initialize() {
@@ -53,15 +57,21 @@ public class MapChoiceView {
     /**
      * If ENTER key is pressed, name quality will be checked.
      * @param event
+     * @throws IOException
      */
     @FXML
-    public void onNameEnter(final KeyEvent event) {
+    public void onNameEnter(final KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             final NameValidation result = new NameQuality().checkName(nameTextField.getText());
             if (!result.equals(NameValidation.CORRECT)) {
+
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
-                infoTextField.setText("");
+                if (userRecordsImpl.isPresent(nameTextField.getText())) {
+                    infoTextField.setText("NAME IS TAKEN!");
+                } else {
+                    infoTextField.setText("");
+                }
             }
         }
     }
@@ -69,11 +79,13 @@ public class MapChoiceView {
     /**
      * Loads GameMap fxml when button is clicked.
      * @param event
+     * @throws IOException
      */
     @FXML
-    public void onPlayClick(final ActionEvent event) {
+    public void onPlayClick(final ActionEvent event) throws IOException {
         final NameValidation result = new NameQuality().checkName(nameTextField.getText());
         if (result.equals(NameValidation.CORRECT)) {
+            userRecordsImpl.addUser(new UserImpl(nameTextField.getText(), 0));
             new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
         } else {
             infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
