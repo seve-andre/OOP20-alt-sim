@@ -61,6 +61,7 @@ public class RecordsValidation {
      * @throws IOException
      */
     private void fileValidation(final Path path) throws IOException {
+        this.userRecordsDirValidation();
         if (!Files.isRegularFile(path)) {
             Files.deleteIfExists(path);
         }
