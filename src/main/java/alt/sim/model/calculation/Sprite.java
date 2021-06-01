@@ -46,7 +46,6 @@ public class Sprite {
         this.x = positionSprite.getX();
         this.y = positionSprite.getY();
 
-        //this.point = new Point2D(positionSprite.getX(), positionSprite.getY());
     }
 
     /**

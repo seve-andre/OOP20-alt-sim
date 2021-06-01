@@ -6,7 +6,6 @@ package alt.sim.model;
 public enum ImageClassification {
 
     /** Plane image path.*/
-    // OOP20-alt-sim/src/main/resources/images/map_components/airplane.png
     AIRPLANE("airplane", "images/map_components/airplane.png"),
     /** Airstrip image path.*/
     AIRSTRIP("airstrip", "images/map_components/airstrip.png"),

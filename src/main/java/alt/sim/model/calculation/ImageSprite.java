@@ -35,7 +35,10 @@ public class ImageSprite {
 
         proportionImageResized = new SpriteRedimensioned();
         proportionImageResized.setRatioSpriteValue(widthImage, heightImage);
-        proportionImageResized.setRatioScreenValue(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenWidth());
+        proportionImageResized.setRatioScreenValue(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+
+        // Resize the ImageView
+        resizeImageSprite(true);
     }
 
     public ImageSprite(final String url, final double screenWidth, final double screenHeight, final boolean isPreserveRatio) {

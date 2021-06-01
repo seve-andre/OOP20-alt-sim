@@ -1,14 +1,12 @@
 package alt.sim.view;
 
-import alt.sim.model.ImageClassification;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -47,6 +45,7 @@ public class CollisionDetectionView extends Application {
 
                 Rectangle rectangleWall = new Rectangle(50, 100);
                 Rectangle rectangleMoved = new Rectangle (50, 50);
+                Circle circleMoved = new Circle(40);
 
                 rectangleMoved.setFill(Paint.valueOf("BLUE"));
                 rectangleWall.setLayoutX(150);
@@ -57,12 +56,20 @@ public class CollisionDetectionView extends Application {
                 EventHandler<MouseEvent> eventMouseClicked = new EventHandler<MouseEvent>() { 
                     @Override 
                     public void handle(final MouseEvent e) {
-                        rectangleMoved.setLayoutX(e.getX());
-                        rectangleMoved.setLayoutY(e.getY());
+                        //rectangleMoved.setLayoutX(e.getX());
+                        //rectangleMoved.setLayoutY(e.getY());
+
+                        circleMoved.setCenterX(e.getX());
+                        circleMoved.setCenterY(e.getY());
 
                        //Check collison Plane with AirStrip
-                       if (rectangleWall.getBoundsInParent().intersects(rectangleMoved.getBoundsInParent())) {
-                           System.out.println("AirStrip COLLIDED!!!");
+
+                       if (rectangleWall.getBoundsInParent().intersects(rectangleMoved.getBoundsInParent())) { 
+                           System.out.println("AirStrip COLLIDED!!!"); 
+                       }
+
+                       if (rectangleWall.getBoundsInParent().intersects(circleMoved.getBoundsInParent())) {
+                            System.out.println("AirStrip COLLIDED!!!");
                        }
                     } 
                 };
@@ -70,7 +77,7 @@ public class CollisionDetectionView extends Application {
                 //Registering the event filter 
                 paneRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, eventMouseClicked);
 
-                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved); 
+                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved, circleMoved); 
                 stage.setScene(scene);
                 stage.show();
 

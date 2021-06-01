@@ -39,8 +39,6 @@ public class Plane {
 
         this.spritePlane.setX(point.getX());
         this.spritePlane.setY(point.getY());
-
-        //this.spritePlane.setPoint2D(point);
     }
 
     /**

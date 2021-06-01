@@ -4,6 +4,7 @@ import alt.sim.model.ImageClassification;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -27,16 +28,17 @@ public class MainPlaneView extends Application {
 
         try {
             Pane paneRoot = new Pane();
-            Plane p1 = new Plane(ImageClassification.AIRSTRIP);
+            Plane p1 = new Plane(ImageClassification.AIRPLANE);
 
             // Calculating the Proportion --> (Image:Screen)
             p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-            
+
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
             // Insert Plane test into view:
             paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
+
 
             // Positioning the STATIC Plane in a specific location of the Map
             p1.getSpritePlane().setX(0);
