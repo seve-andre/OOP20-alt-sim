@@ -40,7 +40,6 @@ public class UserRecordsImpl implements UserRecords {
      * @throws IOException
      */
     public void updateFile() throws IOException {
-        this.loadFile();
         final String json = new GsonBuilder()
                 .setPrettyPrinting()
                 .create()
