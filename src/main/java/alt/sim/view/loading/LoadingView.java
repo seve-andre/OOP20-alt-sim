@@ -1,6 +1,7 @@
 package alt.sim.view.loading;
 
 import alt.sim.Main;
+import alt.sim.controller.loading.LoadingController;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.concurrent.Task;
@@ -16,6 +17,7 @@ public class LoadingView {
 
     @FXML
     public void initialize() {
+        new LoadingController().loading();
         loadingBar.progressProperty().bind(task.progressProperty());
 
         Thread th = new Thread(task);
