@@ -17,11 +17,10 @@ public class Main extends Application {
 
         setStage(stage);
 
-        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/Home.fxml"));
+        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/Loading.fxml"));
         stage.setTitle("AirLine Traffic Simulator");
         stage.setScene(new Scene(root));
         stage.getIcons().add(new Image(ClassLoader.getSystemResource("images/logos/icon.png").toExternalForm()));
-        stage.sizeToScene();
         stage.setResizable(false);
         stage.show();
     }
