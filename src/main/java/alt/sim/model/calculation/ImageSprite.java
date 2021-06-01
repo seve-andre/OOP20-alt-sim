@@ -43,12 +43,17 @@ public class ImageSprite {
     }
 
     /**
+     * @param isRatioPreserve defined if the dimension image is preserved or not.
+     *
      * executes the renderingProportionImage() method to apply the resize calculation for this ImageView values.
      * after do that, it update the width and height values of imageSprite.
      */
-    public void resizeImageSprite() {
+    public void resizeImageSprite(final boolean isRatioPreserve) {
         double widthResized = 0;
         double heightResized = 0;
+
+        // Setting the Sprite Image with preserved ratio
+        setImagePreserveRatio(isRatioPreserve);
 
         this.proportionImageResized.resizeBoundsSprite();
         widthResized = proportionImageResized.getResultBoundsSprite().getAntecedent();
@@ -67,6 +72,10 @@ public class ImageSprite {
 
     public String getUrlSprite() {
         return this.urlSprite;
+    }
+
+    public void setImagePreserveRatio(final boolean isRatioPreserve) {
+        this.imageSprite.setPreserveRatio(isRatioPreserve);
     }
 
     public double getWidthImage() {
