@@ -3,8 +3,7 @@ package alt.sim.view.leaderboard;
 import java.util.List;
 import java.util.Map;
 
-import alt.sim.model.leaderboard.Leaderboard;
-import alt.sim.model.user.records.UserRecordsImpl;
+import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
 import alt.sim.view.CommonView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,8 +36,8 @@ public class LeaderboardView {
     @FXML
     private TextField pointsFifthPlace = new TextField();
 
-    private final List<String> names = Leaderboard.getTopFive();
-    private final Map<String, Integer> users = new UserRecordsImpl().getUsers();
+    private final List<String> names = new LeaderboardControllerImpl().getTopFive();
+    private final Map<String, Integer> users = new LeaderboardControllerImpl().getUsers();
 
     @FXML
     public void initialize() {
