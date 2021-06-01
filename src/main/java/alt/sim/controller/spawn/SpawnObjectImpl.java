@@ -1,6 +1,6 @@
 package alt.sim.controller.spawn;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import alt.sim.model.container.PlaneContainer;
 import alt.sim.model.container.PlaneContainerImpl;
@@ -49,10 +49,9 @@ public class SpawnObjectImpl implements SpawnObject {
     private static class PlaneChoice {
         private static final int VALUES = 2;
         private static final int FIRST = 0;
-        private static Random rnd = new Random();
 
         public static String getPlaneType() {
-            if (rnd.nextInt(VALUES) == FIRST) {
+            if (ThreadLocalRandom.current().nextInt(VALUES) == FIRST) {
                 return "images/map_components/airplane.png";
             } else {
                 return "images/map_components/helicopter.png";
