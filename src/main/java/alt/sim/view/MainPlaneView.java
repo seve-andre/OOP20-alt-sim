@@ -27,12 +27,11 @@ public class MainPlaneView extends Application {
 
         try {
             Pane paneRoot = new Pane();
-            Plane p1 = new Plane(ImageClassification.AIRPLANE);
+            Plane p1 = new Plane(ImageClassification.AIRSTRIP);
 
             // Calculating the Proportion --> (Image:Screen)
-            p1.getSpritePlane().getImageSpriteResized().resizeImageSprite();
-
-
+            p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+            
             // View Plane demonstrating:
             paneRoot.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
 

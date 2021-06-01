@@ -26,7 +26,7 @@ public class PlaneMouseMove extends Application {
         Plane p1 = new Plane(ImageClassification.AIRPLANE);
 
         // Calculating the Proportion --> (Image:Screen)
-        p1.getSpritePlane().getImageSpriteResized().resizeImageSprite();
+        p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
 
 
         // View Plane demonstrating:

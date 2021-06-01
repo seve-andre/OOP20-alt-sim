@@ -1,9 +1,5 @@
 package alt.sim.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import alt.sim.model.plane.Plane;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -27,8 +23,8 @@ public class PlaneController {
         lblCoordinates.setText(event.getX() + " : " + event.getY());
 
         // When event is handler, moved the Plane to the position specified and reload the root position
-        airlinePlane.setX(event.getX());
-        airlinePlane.setY(event.getY());
+        airlinePlane.getSpritePlane().setX(event.getX());
+        airlinePlane.getSpritePlane().setY(event.getY());
 
         root.getChildren().remove(airlinePlane.getImagePlane());
         root.getChildren().add(airlinePlane.getImagePlane());
@@ -41,7 +37,7 @@ public class PlaneController {
 
         this.airlinePlane = new Plane("images/map_components/airplane.png", new Point2D(0, 0));
 
-        airlinePlane.getSpritePlane().getImageSpriteResized().resizeImageSprite();
+        airlinePlane.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
         root.getChildren().add(airlinePlane.getImagePlane());
     }
 }
