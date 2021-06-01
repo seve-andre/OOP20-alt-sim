@@ -19,4 +19,8 @@ public interface GameEngine {
      * Update view interface.
      */
     void render();
+    /**
+     * Initialize the launch of game.
+     */
+    void initGame();
 }
