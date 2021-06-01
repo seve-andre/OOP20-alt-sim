@@ -1,12 +1,9 @@
 package alt.sim.view.mapchoice;
 
 import java.io.IOException;
-import java.util.List;
 
 import alt.sim.Main;
-import alt.sim.model.user.UserImpl;
-import alt.sim.model.user.records.UserRecordsImpl;
-import alt.sim.model.user.validation.NameQuality;
+import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
 import alt.sim.model.user.validation.NameValidation;
 import alt.sim.view.CommonView;
 import alt.sim.view.pages.Page;
@@ -41,8 +38,7 @@ public class MapChoiceView {
     private Tooltip infoTooltip = new Tooltip();
 
     private GameMap mapToPlay = GameMap.getRandomMap();
-    private final List<Button> buttons = List.of(seasideBtn, riversideBtn, citysideBtn, countrysideBtn);
-    private UserRecordsImpl userRecordsImpl = new UserRecordsImpl();
+    private MapChoiceControllerImpl mapChoiceController = new MapChoiceControllerImpl();
 
     @FXML
     public void initialize() {
@@ -62,12 +58,11 @@ public class MapChoiceView {
     @FXML
     public void onNameEnter(final KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
-            final NameValidation result = new NameQuality().checkName(nameTextField.getText());
+            final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
             if (!result.equals(NameValidation.CORRECT)) {
-
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
-                if (userRecordsImpl.isPresent(nameTextField.getText())) {
+                if (mapChoiceController.isNameTaken(nameTextField.getText())) {
                     infoTextField.setText("NAME IS TAKEN!");
                 } else {
                     infoTextField.setText("");
@@ -83,9 +78,9 @@ public class MapChoiceView {
      */
     @FXML
     public void onPlayClick(final ActionEvent event) throws IOException {
-        final NameValidation result = new NameQuality().checkName(nameTextField.getText());
+        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
         if (result.equals(NameValidation.CORRECT)) {
-            userRecordsImpl.addUser(new UserImpl(nameTextField.getText(), 0));
+            mapChoiceController.addUser(nameTextField.getText());
             new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
         } else {
             infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
