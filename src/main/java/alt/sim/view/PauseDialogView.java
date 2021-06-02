@@ -10,12 +10,11 @@ public class PauseDialogView {
 
     @FXML
     public void initialize() {
-
     }
 
     @FXML
     public void onResumeClick(final ActionEvent event) {
-
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
     @FXML
