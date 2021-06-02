@@ -37,7 +37,8 @@ public class MapChoiceView {
     @FXML
     private Tooltip infoTooltip = new Tooltip();
 
-    private GameMap mapToPlay = GameMap.getRandomMap();
+    //.getRandomMap(); should be used when all maps fxml are done
+    private GameMap mapToPlay = GameMap.SEASIDE;
     private MapChoiceControllerImpl mapChoiceController = new MapChoiceControllerImpl();
 
     @FXML
