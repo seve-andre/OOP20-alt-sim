@@ -7,15 +7,22 @@ import alt.sim.model.user.User;
 public interface UserRecords {
 
     /**
-     *
+     * Adds user to file.
      * @param user to add to records
      */
     void addUser(User user) throws IOException;
 
     /**
-     *
+     * Checks if user name is already present in the file.
      * @param name to check existence
      * @return true if present in records
      */
     boolean isPresent(String name) throws IOException;
+
+    /**
+     * Updates user score when game is over.
+     * @param name of the user
+     * @throws IOException
+     */
+    void updateScore(String name) throws IOException;
 }
