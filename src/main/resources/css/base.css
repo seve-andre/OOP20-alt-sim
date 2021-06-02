@@ -45,6 +45,12 @@
     -fx-border-color: transparent;
 }
 
+#pause-bg {
+    -fx-background-color: #ad9380;
+    -fx-border-color: #d6d6cb;
+    -fx-border-width: 3px;
+}
+
 #pause-btn {
     -fx-border-style: solid;
     -fx-min-width: 20;
