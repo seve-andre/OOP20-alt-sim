@@ -1,9 +1,14 @@
 package alt.sim.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alt.sim.model.ImageClassification;
+import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,9 +26,12 @@ public class PlaneMouseMove extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         Pane paneRoot = new Pane();
-
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
         Plane p1 = new Plane(ImageClassification.AIRPLANE);
+        PlaneMovement planeMove = new PlaneMovement(p1);
+
+        //Create ArrayList for manage the coordinates of Plane
+        List<Point2D> planeCoordinates = new ArrayList<Point2D>();
 
         // Calculating the Proportion --> (Image:Screen)
         p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
@@ -43,27 +51,31 @@ public class PlaneMouseMove extends Application {
 
              @Override 
              public void handle(final MouseEvent event) { 
-               drawShapes(gc, event.getX(), event.getY());
+                 drawShapes(gc, event.getX(), event.getY());
              } 
          };
 
          EventHandler<MouseEvent> handlerMouseDragged = new EventHandler<MouseEvent>() { 
 
              @Override 
-             public void handle(final MouseEvent event) { 
-               drawShapes(gc, event.getX(), event.getY());
+             public void handle(final MouseEvent event) {
+                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+                 drawShapes(gc, event.getX(), event.getY());
              } 
           };
 
          EventHandler<MouseEvent> handlerMouseReleased = new EventHandler<MouseEvent>() { 
 
              @Override 
-             public void handle(final MouseEvent event) { 
-               p1.getSpritePlane().setX(event.getX());
-               p1.getSpritePlane().setY(event.getY());
+             public void handle(final MouseEvent event) {
+                 planeMove.setPlaneCoordinates(planeCoordinates);
+                 planeMove.printPlaneCoordinates();
 
-               //Insert Center Image when click
-               centerImagePositionInGame(p1, event);
+                 p1.getSpritePlane().setX(event.getX());
+                 p1.getSpritePlane().setY(event.getY());
+
+                 //Insert Center Image when click
+                 centerImagePositionInGame(p1, event);
              } 
           };
 
