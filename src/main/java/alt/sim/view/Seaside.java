@@ -1,11 +1,16 @@
 package alt.sim.view;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 
-import alt.sim.model.user.records.UserRecordsImpl;
+import alt.sim.controller.MapController;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class Seaside {
 
@@ -13,16 +18,22 @@ public class Seaside {
     private TextField name = new TextField();
     @FXML
     private TextField score = new TextField();
-    private UserRecordsImpl userRecords = new UserRecordsImpl();
+    private static final Stage POPUP_STAGE = new Stage(StageStyle.UNDECORATED);
+    private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        score.setText(String.valueOf(Integer.parseInt(score.getText()) + 10));
+    }));
 
     @FXML
-    public void initialize() throws IOException {
-        final LinkedHashMap<String, Integer> users = this.userRecords.getUsers();
-        name.setText((String) users.keySet().toArray()[users.size() - 1]);
+    public void initialize() {
+        name.setText(MapController.getName());
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     @FXML
     public void onPauseClick() throws IOException {
+        timeline.pause();
         CommonView.onPauseClick();
+        timeline.play();
     }
 }
