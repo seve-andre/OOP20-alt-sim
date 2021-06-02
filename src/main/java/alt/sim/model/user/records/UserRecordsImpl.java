@@ -91,8 +91,16 @@ public class UserRecordsImpl implements UserRecords {
         this.loadFile();
         if (this.users.containsKey(name)) {
             this.users.remove(name);
-            this.users.put(name, 50);
+            this.users.put(name, 100);
         }
         this.updateFile();
+    }
+
+    /**
+     * Gets last name in the map a.k.a. last key.
+     * @return last key map
+     */
+    public String getLastKey() {
+        return (String) this.getUsers().keySet().toArray()[users.size() - 1];
     }
 }
