@@ -1,7 +1,5 @@
 package alt.sim.model.calculation;
 
-import alt.sim.model.calculation.ProportionImage;
-
 /**
  * Utility class to use for Resize calculation and for other counts.
  */

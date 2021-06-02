@@ -4,7 +4,6 @@ import alt.sim.model.ImageClassification;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -45,16 +44,16 @@ public class MainPlaneView extends Application {
             p1.getSpritePlane().setY(0);
 
             // Create a MouseEvent for move the Plane in the Position clicked
-            EventHandler<MouseEvent> handlerMouseClick = new EventHandler<MouseEvent>() { 
+            EventHandler<MouseEvent> handlerMouseClick = new EventHandler<MouseEvent>() {
 
-                @Override 
-                public void handle(final MouseEvent event) { 
+                @Override
+                public void handle(final MouseEvent event) {
                     p1.getSpritePlane().setX(event.getX());
                     p1.getSpritePlane().setY(event.getY());
 
                     //Insert Center Image when click
                     centerImagePositionInGame(p1, event);
-                } 
+                }
              };
 
             paneRoot.addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMouseClick);

@@ -15,6 +15,12 @@ import javafx.stage.Stage;
  * View class for detected the Rectangle collision.
  */
 public class CollisionDetectionView extends Application {
+        private static final int WALL_X = 150;
+        private static final int CIRCLE_RADIUS = 40;
+        private static final int MOVED_HEIGHT = 50;
+        private static final int MOVED_WIDTH = 50;
+        private static final int WALL_HEIGHT = 100;
+        private static final int WALL_WIDTH = 50;
         /** Screen width of the view, calling Screen class that return the size of the Primary screen.  */
         private static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
         /** Screen height of the view.  */
@@ -43,18 +49,18 @@ public class CollisionDetectionView extends Application {
                 //ImageView airStripeSprite = new ImageView(new Image(ImageClassification.AIRSTRIP.getURLImage(), 128.0, 128.0, true, false));
                 //ImageView planeSprite = new ImageView(new Image(ImageClassification.AIRPLANE.getURLImage(), 128.0, 128.0, true, false));
 
-                Rectangle rectangleWall = new Rectangle(50, 100);
-                Rectangle rectangleMoved = new Rectangle (50, 50);
-                Circle circleMoved = new Circle(40);
+                Rectangle rectangleWall = new Rectangle(WALL_WIDTH, WALL_HEIGHT);
+                Rectangle rectangleMoved = new Rectangle(MOVED_WIDTH, MOVED_HEIGHT);
+                Circle circleMoved = new Circle(CIRCLE_RADIUS);
 
                 rectangleMoved.setFill(Paint.valueOf("BLUE"));
-                rectangleWall.setLayoutX(150);
+                rectangleWall.setLayoutX(WALL_X);
                 rectangleWall.setLayoutY(100);
                 rectangleWall.setFill(Paint.valueOf("RED"));
 
                 //Mouse Click event
-                EventHandler<MouseEvent> eventMouseClicked = new EventHandler<MouseEvent>() { 
-                    @Override 
+                EventHandler<MouseEvent> eventMouseClicked = new EventHandler<MouseEvent>() {
+                    @Override
                     public void handle(final MouseEvent e) {
                         //rectangleMoved.setLayoutX(e.getX());
                         //rectangleMoved.setLayoutY(e.getY());
@@ -64,20 +70,20 @@ public class CollisionDetectionView extends Application {
 
                        //Check collison Plane with AirStrip
 
-                       if (rectangleWall.getBoundsInParent().intersects(rectangleMoved.getBoundsInParent())) { 
-                           System.out.println("AirStrip COLLIDED!!!"); 
+                       if (rectangleWall.getBoundsInParent().intersects(rectangleMoved.getBoundsInParent())) {
+                           System.out.println("AirStrip COLLIDED!!!");
                        }
 
                        if (rectangleWall.getBoundsInParent().intersects(circleMoved.getBoundsInParent())) {
                             System.out.println("AirStrip COLLIDED!!!");
                        }
-                    } 
+                    }
                 };
 
-                //Registering the event filter 
+                //Registering the event filter
                 paneRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, eventMouseClicked);
 
-                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved, circleMoved); 
+                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved, circleMoved);
                 stage.setScene(scene);
                 stage.show();
 
