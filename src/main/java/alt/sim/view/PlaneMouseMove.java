@@ -28,7 +28,7 @@ public class PlaneMouseMove extends Application {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
         Plane p1 = new Plane(ImageClassification.AIRPLANE);
-        PlaneMovement planeMove = new PlaneMovement(p1);
+        PlaneMovement planeMove = new PlaneMovement();
 
         //Create ArrayList for manage the coordinates of Plane
         List<Point2D> planeCoordinates = new ArrayList<Point2D>();
