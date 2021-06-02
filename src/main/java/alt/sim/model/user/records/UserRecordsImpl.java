@@ -32,6 +32,9 @@ public class UserRecordsImpl implements UserRecords {
         this.recordsValidation.userRecordsFileValidation();
         final String jsonString = Files.readString(this.jsonPath);
         this.users = new Gson().fromJson(jsonString, this.jsonTypeToken);
+        if (this.users == null) {
+            this.users = new HashMap<>();
+        }
     }
 
     /**
