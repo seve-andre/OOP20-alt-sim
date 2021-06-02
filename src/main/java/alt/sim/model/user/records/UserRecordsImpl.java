@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,9 +19,9 @@ public class UserRecordsImpl implements UserRecords {
     private final Path jsonPath = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
     private final RecordsValidation recordsValidation = new RecordsValidation();
 
-    private Map<String, Integer> users = new HashMap<>();
+    private LinkedHashMap<String, Integer> users = new LinkedHashMap<>();
 
-    private final Type jsonTypeToken = new TypeToken<Map<String, Integer>>() { }.getType();
+    private final Type jsonTypeToken = new TypeToken<LinkedHashMap<String, Integer>>() { }.getType();
 
     /**
      * Loads users from file.
@@ -33,7 +32,7 @@ public class UserRecordsImpl implements UserRecords {
         final String jsonString = Files.readString(this.jsonPath);
         this.users = new Gson().fromJson(jsonString, this.jsonTypeToken);
         if (this.users == null) {
-            this.users = new HashMap<>();
+            this.users = new LinkedHashMap<>();
         }
     }
 
@@ -74,7 +73,7 @@ public class UserRecordsImpl implements UserRecords {
         return this.users.containsKey(name);
     }
 
-    public Map<String, Integer> getUsers() {
+    public LinkedHashMap<String, Integer> getUsers() {
         try {
             this.loadFile();
         } catch (final IOException e) {
