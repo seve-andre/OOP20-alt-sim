@@ -74,9 +74,9 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void update(final int elapsed) {
-        if(cont < 200) {
-            this.plane.getPlane().getImagePlane().setX(this.vet[cont].getX());
-            this.plane.getPlane().getImagePlane().setY(this.vet[cont].getY());
+        if (cont < this.plane.getPlaneMovement().getCoordinatesLimit()) {
+            this.plane.getPlane().getSpritePlane().setX(this.vet[cont].getX());
+            this.plane.getPlane().getSpritePlane().setY(this.vet[cont].getY());
             cont++;
         }
     }

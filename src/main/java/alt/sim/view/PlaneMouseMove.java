@@ -81,11 +81,11 @@ public class PlaneMouseMove extends Application {
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
 
-                 p1.getSpritePlane().setX(event.getX());
-                 p1.getSpritePlane().setY(event.getY());
+                 //p1.getSpritePlane().setX(event.getX());
+                 //p1.getSpritePlane().setY(event.getY());
 
                  //Insert Center Image when click
-                 centerImagePositionInGame(p1, event);
+                 //centerImagePositionInGame(p1, event);
              }
           };
 
