@@ -6,7 +6,7 @@ import java.util.List;
 import javafx.geometry.Point2D;
 
 public class PlaneMovement {
-    private static final int COORDINATES_LIMIT = 300;
+    private static final int COORDINATES_LIMIT = 200;
 
     private Point2D[] planeCoordinates;
 
@@ -45,5 +45,9 @@ public class PlaneMovement {
 
     public Point2D[] getPlaneCoordinates() {
         return this.planeCoordinates;
+    }
+
+    public int getCoordinatesLimit() {
+        return COORDINATES_LIMIT;
     }
 }
