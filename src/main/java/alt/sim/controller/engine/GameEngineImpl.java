@@ -1,15 +1,26 @@
 package alt.sim.controller.engine;
 
+import java.util.Iterator;
+
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
+import alt.sim.view.PlaneMouseMove;
+import javafx.geometry.Point2D;
 
 public class GameEngineImpl implements GameEngine {
 
     private static final long PERIOD = 1000L;
     private SpawnObject spawn;
+    private PlaneMouseMove plane;
+    private Iterator<Point2D> iterator;
+    private Point2D[] vet;
+    private int cont;
 
-    public GameEngineImpl() {
+    public GameEngineImpl(final PlaneMouseMove plane) {
         spawn = new SpawnObjectImpl();
+        this.plane = plane;
+        this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
+        cont = 0;
     }
     @Override
     public void initGame() {
@@ -63,8 +74,11 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void update(final int elapsed) {
-        // TODO Auto-generated method stub
-
+        if(cont < 200) {
+            this.plane.getPlane().getImagePlane().setX(this.vet[cont].getX());
+            this.plane.getPlane().getImagePlane().setY(this.vet[cont].getY());
+            cont++;
+        }
     }
 
     @Override
