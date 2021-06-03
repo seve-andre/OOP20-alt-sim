@@ -84,8 +84,8 @@ public class PlaneMouseMove extends Application {
              public void handle(final MouseEvent event) {
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
-                 t.start();//Non può essere startato qua perchè verrebbe startato ogni volta che
-                 //si traccia una coordinataS
+                 engine.setStart(true);
+                 planeCoordinates.clear();
                  //p1.getSpritePlane().setX(event.getX());
                  //p1.getSpritePlane().setY(event.getY());
 
@@ -93,7 +93,7 @@ public class PlaneMouseMove extends Application {
                  //centerImagePositionInGame(p1, event);
              }
           };
-
+        t.start();
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, handlerMousePressed);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
