@@ -26,12 +26,16 @@ public class PlaneMouseMove extends Application {
 
     private PlaneMovement planeMove;
     private Plane p1;
+
+    public PlaneMouseMove() {
+        p1 = new Plane(ImageClassification.AIRPLANE);
+        planeMove = new PlaneMovement();
+    }
+
     @Override
     public void start(final Stage stage) throws Exception {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
-        p1 = new Plane(ImageClassification.AIRPLANE);
-        planeMove = new PlaneMovement();
         GameEngineImpl engine = new GameEngineImpl(this);
         class ThreadEngine implements Runnable {
             @Override
@@ -80,7 +84,8 @@ public class PlaneMouseMove extends Application {
              public void handle(final MouseEvent event) {
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
-
+                 t.start();//Non può essere startato qua perchè verrebbe startato ogni volta che
+                 //si traccia una coordinataS
                  //p1.getSpritePlane().setX(event.getX());
                  //p1.getSpritePlane().setY(event.getY());
 
@@ -96,7 +101,7 @@ public class PlaneMouseMove extends Application {
         Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
         stage.setScene(scene);
         stage.show();
-        t.start();
+
     }
 
     private void centerImagePositionInGame(final Plane planeInGame, final MouseEvent event) {

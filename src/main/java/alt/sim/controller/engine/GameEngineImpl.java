@@ -9,7 +9,7 @@ import javafx.geometry.Point2D;
 
 public class GameEngineImpl implements GameEngine {
 
-    private static final long PERIOD = 1000L;
+    private static final long PERIOD = 400L;
     private SpawnObject spawn;
     private PlaneMouseMove plane;
     private Iterator<Point2D> iterator;
@@ -19,8 +19,8 @@ public class GameEngineImpl implements GameEngine {
     public GameEngineImpl(final PlaneMouseMove plane) {
         spawn = new SpawnObjectImpl();
         this.plane = plane;
-        this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
         cont = 0;
+        //System.out.println(this.vet[0]);
     }
     @Override
     public void initGame() {
@@ -68,22 +68,24 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void processInput() {
-        // TODO Auto-generated method stub
-
+        this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
+        System.out.println("Print in processInput: " + this.vet[0]);
     }
 
     @Override
     public void update(final int elapsed) {
-        if (cont < this.plane.getPlaneMovement().getCoordinatesLimit()) {
-            this.plane.getPlane().getSpritePlane().setX(this.vet[cont].getX());
-            this.plane.getPlane().getSpritePlane().setY(this.vet[cont].getY());
+        System.out.println("Print in update: " + this.vet[0]);
+        if (cont < this.plane.getPlaneMovement().getCoordinatesLimit()) { //da modificare il controllo
+            // sugli elementi del vettore
+            this.plane.getPlane().getImagePlane().setLayoutX(this.vet[cont].getX());
+            this.plane.getPlane().getImagePlane().setLayoutY(this.vet[cont].getY());
             cont++;
+            //System.out.println(this.plane.getPlaneMovement().getCoordinatesLimit());
         }
     }
 
     @Override
     public void render() {
-        // TODO Auto-generated method stub
 
     }
 }
