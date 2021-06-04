@@ -7,15 +7,23 @@ import alt.sim.controller.engine.GameEngineImpl;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
+import javafx.animation.PathTransition;
+import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -36,6 +44,9 @@ public class PlaneMouseMove extends Application {
     public void start(final Stage stage) throws Exception {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        Path path = new Path();
+        PathTransition pathTransition = new PathTransition();
+
         GameEngineImpl engine = new GameEngineImpl(this);
         class ThreadEngine implements Runnable {
             @Override
@@ -49,7 +60,7 @@ public class PlaneMouseMove extends Application {
 
         // Calculating the Proportion --> (Image:Screen)
         p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-        p1.getImagePlane().setRotate(p1.getImagePlane().getRotate());
+        p1.getSpritePlane().getImageSpriteResized().getImageSprite().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);;
 
         // View Plane demonstrating:
         paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
@@ -58,7 +69,7 @@ public class PlaneMouseMove extends Application {
         paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
 
         // Section Canvas
-        paneRoot.getChildren().add(canvas);
+        paneRoot.getChildren().addAll(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
          EventHandler<MouseEvent> handlerMousePressed = new EventHandler<MouseEvent>() {
@@ -84,8 +95,21 @@ public class PlaneMouseMove extends Application {
              public void handle(final MouseEvent event) {
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
-                 engine.setStart(true);
-                 planeCoordinates.clear();
+                 path.getElements().add(new MoveTo(0f, 50f));
+
+                 for (int i = 0; i < planeCoordinates.size(); i++) {
+                     path.getElements().add(new LineTo(planeCoordinates.get(i).getX(), planeCoordinates.get(i).getY()));
+                 }
+
+                 System.out.println("Rotate Plane get from PathTransition = " + p1.getImagePlane().getRotate());
+                 pathTransition.setDuration(Duration.millis(10000));
+                 pathTransition.setNode(p1.getImagePlane());
+                 pathTransition.setPath(path);
+                 pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+                 pathTransition.play();
+
+                 //engine.setStart(true);
+                 //planeCoordinates.clear();
                  //p1.getSpritePlane().setX(event.getX());
                  //p1.getSpritePlane().setY(event.getY());
 

@@ -61,16 +61,10 @@ public class Plane {
     public Sprite getSpritePlane() {
         return this.spritePlane;
     }
-
-    /*
-     * public double getX() { return this.spritePlane.getX(); }
-     * 
-     * public double getY() { return this.spritePlane.getY(); }
-     * 
-     * public void setX(final double x) { this.spritePlane.setX(x); }
-     * 
-     * public void setY(final double y) { this.spritePlane.setY(y); }
-     */
+    
+    public void setPlaneRotate(final double rotateValue) {
+        this.spritePlane.getImageSpriteResized().getImageSprite().setRotate(rotateValue);
+    }
 
     @Override
     public String toString() {

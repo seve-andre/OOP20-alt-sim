@@ -9,6 +9,7 @@ public class PlaneMovement {
     private static final int COORDINATES_LIMIT = 200;
 
     private Point2D[] planeCoordinates;
+    
 
     public PlaneMovement() {
         this.planeCoordinates = new Point2D[COORDINATES_LIMIT];
