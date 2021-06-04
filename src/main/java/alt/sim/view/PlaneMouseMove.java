@@ -49,7 +49,7 @@ public class PlaneMouseMove extends Application {
 
         // Calculating the Proportion --> (Image:Screen)
         p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-
+        p1.getImagePlane().setRotate(p1.getImagePlane().getRotate());
 
         // View Plane demonstrating:
         paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
@@ -90,9 +90,9 @@ public class PlaneMouseMove extends Application {
                  //p1.getSpritePlane().setY(event.getY());
 
                  //Insert Center Image when click
-                 centerImagePositionInGame(p1, event);
+                 //centerImagePositionInGame(p1, event);
                  //Clear the List after catched the points
-                 planeCoordinates.clear();
+                 //planeCoordinates.clear();
 
              }
           };

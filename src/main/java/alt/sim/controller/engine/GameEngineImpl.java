@@ -1,28 +1,32 @@
 package alt.sim.controller.engine;
 
-import java.util.Iterator;
-
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.view.PlaneMouseMove;
+import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
 public class GameEngineImpl implements GameEngine {
 
-    private static final long PERIOD = 400L;
+    private static final long PERIOD = 2000L;
     private SpawnObject spawn;
     private PlaneMouseMove plane;
-    private Iterator<Point2D> iterator;
     private Point2D[] vet;
     private int cont;
     private boolean start;
+    private Path path = new Path();
+    private PathTransition pathTransition =  new PathTransition();
 
     public GameEngineImpl(final PlaneMouseMove plane) {
         spawn = new SpawnObjectImpl();
         this.plane = plane;
         cont = 0;
         start = false;
-        //System.out.println(this.vet[0]);
+        path.getElements().add(new MoveTo(0, 0));
     }
     @Override
     public void initGame() {
@@ -72,14 +76,24 @@ public class GameEngineImpl implements GameEngine {
     public void processInput() {
         if (start) {
             this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
-            //System.out.println("Print in processInput: " + this.vet[0]);
+            System.out.println("Stampa: " + this.vet[cont]);
+            pathTransition.setNode(plane.getPlane().getImagePlane());
+            pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+            for (int i = 0; i < this.plane.getPlaneMovement().getPlaneCoordinates().length; i++) {
+                path.getElements().add(new LineTo(this.vet[i].getX(), this.vet[i].getY()));
+            }
+            pathTransition.setDuration(Duration.millis(10000));
+            pathTransition.setPath(path);
+            pathTransition.play();
+            start = false;
+            //path = new Path();
         }
     }
 
     @Override
     public void update(final int elapsed) {
         //System.out.println("Print in update: " + this.vet[0]);
-        if (start) {
+        /*if (start) {
             if (cont < this.plane.getPlaneMovement().getPlaneCoordinates().length) { //da modificare il controllo
                 // sugli elementi del vettore
                 this.plane.getPlane().getImagePlane().setLayoutX(this.vet[cont].getX());
@@ -90,8 +104,7 @@ public class GameEngineImpl implements GameEngine {
                 start = false;
                 cont = 0;
             }
-        }
-
+        }*/
     }
 
     @Override
@@ -102,4 +115,18 @@ public class GameEngineImpl implements GameEngine {
     public void setStart(final boolean start) {
         this.start = start;
     }
+
+
+    /*Path path = new Path();
+     path.getElements().add (new MoveTo (0f, 50f));
+     path.getElements().add (new CubicCurveTo (40f, 10f, 390f, 240f, 1904, 50f));
+
+     pathTransition.setDuration(Duration.millis(10000));
+     pathTransition.setNode(rect);
+     pathTransition.setPath(path);
+     pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+     pathTransition.setCycleCount(4f);
+     pathTransition.setAutoReverse(true);
+
+     pathTransition.play();*/
 }
