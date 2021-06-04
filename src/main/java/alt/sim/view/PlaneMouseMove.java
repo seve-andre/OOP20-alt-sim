@@ -86,6 +86,8 @@ public class PlaneMouseMove extends Application {
 
                  //Insert Center Image when click
                  centerImagePositionInGame(p1, event);
+                 //Clear the List after catched the points
+                 planeCoordinates.clear();
              }
           };
 
