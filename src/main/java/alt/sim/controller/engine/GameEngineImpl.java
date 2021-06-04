@@ -9,18 +9,20 @@ import javafx.geometry.Point2D;
 
 public class GameEngineImpl implements GameEngine {
 
-    private static final long PERIOD = 1000L;
+    private static final long PERIOD = 400L;
     private SpawnObject spawn;
     private PlaneMouseMove plane;
     private Iterator<Point2D> iterator;
     private Point2D[] vet;
     private int cont;
+    private boolean start;
 
     public GameEngineImpl(final PlaneMouseMove plane) {
         spawn = new SpawnObjectImpl();
         this.plane = plane;
-        this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
         cont = 0;
+        start = false;
+        //System.out.println(this.vet[0]);
     }
     @Override
     public void initGame() {
@@ -68,22 +70,36 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void processInput() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void update(final int elapsed) {
-        if(cont < 200) {
-            this.plane.getPlane().getImagePlane().setX(this.vet[cont].getX());
-            this.plane.getPlane().getImagePlane().setY(this.vet[cont].getY());
-            cont++;
+        if (start) {
+            this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
+            //System.out.println("Print in processInput: " + this.vet[0]);
         }
     }
 
     @Override
-    public void render() {
-        // TODO Auto-generated method stub
+    public void update(final int elapsed) {
+        //System.out.println("Print in update: " + this.vet[0]);
+        if (start) {
+            if (cont < this.plane.getPlaneMovement().getPlaneCoordinates().length) { //da modificare il controllo
+                // sugli elementi del vettore
+                this.plane.getPlane().getImagePlane().setLayoutX(this.vet[cont].getX());
+                this.plane.getPlane().getImagePlane().setLayoutY(this.vet[cont].getY());
+                cont++;
+                //System.out.println(this.plane.getPlaneMovement().getCoordinatesLimit());
+            } else {
+                start = false;
+                cont = 0;
+            }
+        }
 
+    }
+
+    @Override
+    public void render() {
+
+    }
+
+    public void setStart(final boolean start) {
+        this.start = start;
     }
 }
