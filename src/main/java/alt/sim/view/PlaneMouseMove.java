@@ -18,10 +18,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -34,7 +32,8 @@ public class PlaneMouseMove extends Application {
 
     private PlaneMovement planeMove;
     private Plane p1;
-
+    private PathTransition pathTransition = new PathTransition();
+    private Path path = new Path();
     public PlaneMouseMove() {
         p1 = new Plane(ImageClassification.AIRPLANE);
         planeMove = new PlaneMovement();
@@ -44,9 +43,6 @@ public class PlaneMouseMove extends Application {
     public void start(final Stage stage) throws Exception {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
-        Path path = new Path();
-        PathTransition pathTransition = new PathTransition();
-
         GameEngineImpl engine = new GameEngineImpl(this);
         class ThreadEngine implements Runnable {
             @Override
@@ -95,29 +91,33 @@ public class PlaneMouseMove extends Application {
              public void handle(final MouseEvent event) {
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
+                 engine.setStart(true);
+                 Path path = new Path();
                  path.getElements().add(new MoveTo(0f, 50f));
+                 //path.getElements().add(new MoveTo(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY()));
+                 //pathTransition.setDuration(Duration.millis(10000));
+                 pathTransition.setNode(p1.getImagePlane());
+                 //path.getElements().add(new MoveTo(0f, 50f));
 
-                 for (int i = 0; i < planeCoordinates.size(); i++) {
+                 /*for (int i = 0; i < planeCoordinates.size(); i++) {
                      path.getElements().add(new LineTo(planeCoordinates.get(i).getX(), planeCoordinates.get(i).getY()));
-                 }
+                 }*/
 
                  System.out.println("Rotate Plane get from PathTransition = " + p1.getImagePlane().getRotate());
-                 pathTransition.setDuration(Duration.millis(10000));
+                 /*pathTransition.setDuration(Duration.millis(10000));
                  pathTransition.setNode(p1.getImagePlane());
                  pathTransition.setPath(path);
                  pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-                 pathTransition.play();
+                 pathTransition.play();*/
 
                  //engine.setStart(true);
-                 //planeCoordinates.clear();
                  //p1.getSpritePlane().setX(event.getX());
                  //p1.getSpritePlane().setY(event.getY());
 
                  //Insert Center Image when click
                  //centerImagePositionInGame(p1, event);
                  //Clear the List after catched the points
-                 //planeCoordinates.clear();
-
+                 planeCoordinates.clear();
              }
           };
         t.start();
@@ -152,5 +152,13 @@ public class PlaneMouseMove extends Application {
 
     public Plane getPlane() {
         return this.p1;
+    }
+
+    public void startTransiction(final Double x, final Double y) {
+        path.getElements().add(new MoveTo(x, y));
+        pathTransition.setDuration(Duration.millis(400));
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.play();
     }
 }
