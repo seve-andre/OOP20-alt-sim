@@ -1,9 +1,18 @@
 package alt.sim.model.plane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alt.sim.model.ImageClassification;
 import alt.sim.model.calculation.Sprite;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
+import javafx.animation.Transition;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 /**
  * Defines the Plane idea
@@ -25,6 +34,7 @@ public class Plane {
     private Tipology type;
     private State status;
     private Sprite spritePlane;
+
 
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
@@ -61,7 +71,29 @@ public class Plane {
     public Sprite getSpritePlane() {
         return this.spritePlane;
     }
-    
+
+    public ScaleTransition getLandingAnimation() {
+        ScaleTransition landingAnimation = new ScaleTransition();
+
+        //Setting the duration for the transition 
+        landingAnimation.setDuration(Duration.millis(2000)); 
+
+        //Setting the node for the transition 
+        landingAnimation.setNode(this.getImagePlane()); 
+
+        //Setting the final dimensions for scaling 
+        landingAnimation.setToX(0);
+        landingAnimation.setToY(0); 
+
+        //Setting the cycle count for the translation 
+        landingAnimation.setCycleCount(1); 
+
+        //Setting auto reverse value to true 
+        landingAnimation.setAutoReverse(false); 
+
+        return landingAnimation;
+    }
+
     public void setPlaneRotate(final double rotateValue) {
         this.spritePlane.getImageSpriteResized().getImageSprite().setRotate(rotateValue);
     }
