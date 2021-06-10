@@ -1,17 +1,14 @@
 package alt.sim.model.plane;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
+import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.calculation.Sprite;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 /**
@@ -34,10 +31,12 @@ public class Plane {
     private Tipology type;
     private State status;
     private Sprite spritePlane;
+    private ExplosionAnimation explosionAnimation;
 
 
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
+       this.explosionAnimation = new ExplosionAnimation();
     }
 
     public Plane(final ImageClassification imageClassification) {
@@ -92,6 +91,10 @@ public class Plane {
         landingAnimation.setAutoReverse(false); 
 
         return landingAnimation;
+    }
+
+    public void getExplosionAnimation() throws IOException {
+        explosionAnimation.getExplosionAnimation(this.getImagePlane());
     }
 
     public void setPlaneRotate(final double rotateValue) {
