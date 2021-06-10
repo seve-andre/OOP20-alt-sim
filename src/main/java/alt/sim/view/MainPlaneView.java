@@ -1,5 +1,7 @@
 package alt.sim.view;
 
+import java.io.IOException;
+
 import alt.sim.model.ImageClassification;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
@@ -51,6 +53,20 @@ public class MainPlaneView extends Application {
                     p1.getSpritePlane().setX(event.getX());
                     p1.getSpritePlane().setY(event.getY());
 
+                    p1.getImagePlane().setVisible(true);
+
+                    // START Landing Animation
+                    //p1.getLandingAnimation().play();
+
+                    // START Explosion Animation
+                    try {
+                        p1.getExplosionAnimation();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    //System.out.println("X e Y: " + event.getX() + " , " + event.getY());
                     //Insert Center Image when click
                     centerImagePositionInGame(p1, event);
                 }
