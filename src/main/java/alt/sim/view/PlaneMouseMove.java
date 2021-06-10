@@ -184,10 +184,11 @@ public class PlaneMouseMove extends Application {
 
              @Override
              public void handle(final MouseEvent event) {
+                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
                  drawShapes(gc, event.getX(), event.getY());
 
-                 p1.getImagePlane().setLayoutX(event.getX());
-                 p1.getImagePlane().setLayoutY(event.getY());
+                 //p1.getImagePlane().setLayoutX(event.getX());
+                 //p1.getImagePlane().setLayoutY(event.getY());
 
 
                  //TEST move the plane for head position
@@ -202,6 +203,7 @@ public class PlaneMouseMove extends Application {
              public void handle(final MouseEvent event) {
                  planeCoordinates.add(new Point2D(event.getX(), event.getY()));
                  drawShapes(gc, event.getX(), event.getY());
+
              }
           };
 
@@ -209,22 +211,22 @@ public class PlaneMouseMove extends Application {
 
              @Override
              public void handle(final MouseEvent event) {
-
                  planeMove.setPlaneCoordinates(planeCoordinates);
                  planeMove.printPlaneCoordinates();
-                 engine.setStart(true);
-                 Path path = new Path();
-                 path.getElements().add(new MoveTo(0f, 50f));
+
+                 //Path path = new Path();
+                 //path.getElements().add(new MoveTo(0f, 50f));
+
                  //path.getElements().add(new MoveTo(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY()));
                  //pathTransition.setDuration(Duration.millis(10000));
-                 pathTransition.setNode(p1.getImagePlane());
+                 //pathTransition.setNode(p1.getImagePlane());
                  //path.getElements().add(new MoveTo(0f, 50f));
 
                  /*for (int i = 0; i < planeCoordinates.size(); i++) {
                      path.getElements().add(new LineTo(planeCoordinates.get(i).getX(), planeCoordinates.get(i).getY()));
                  }*/
 
-                 System.out.println("Rotate Plane get from PathTransition = " + p1.getImagePlane().getRotate());
+                 //System.out.println("Rotate Plane get from PathTransition = " + p1.getImagePlane().getRotate());
                  /*pathTransition.setDuration(Duration.millis(10000));
                  pathTransition.setNode(p1.getImagePlane());
                  pathTransition.setPath(path);
@@ -258,7 +260,6 @@ public class PlaneMouseMove extends Application {
                  engine.setStart(true);
 
                  // Cleaning the Array coordinates
-
                  planeCoordinates.clear();
              }
           };
@@ -348,17 +349,6 @@ public class PlaneMouseMove extends Application {
         gc.lineTo(x, y);
         gc.stroke();
     }
-
-    /*
-     * private Point2D getRectHeadPosition(final Rectangle rectangle) { double
-     * upperX = rectangle.getLayoutX(); double upperY = rectangle.getLayoutY();
-     * double xHead; double yHead;
-     * 
-     * xHead = upperX - rectangle.getWidth(); yHead = upperY -
-     * (rectangle.getHeight() / 2);
-     * 
-     * return new Point2D(xHead, yHead); }
-     */
 
     public static void main(final String[] args) {
         launch(args);

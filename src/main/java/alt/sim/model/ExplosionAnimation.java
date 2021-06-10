@@ -6,10 +6,13 @@ import java.util.List;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 public class ExplosionAnimation {
 
@@ -77,6 +80,23 @@ public class ExplosionAnimation {
                 thread.setDaemon(true);
                 thread.start();
             }
+    }
+
+    public void getExplosionAnimation() {
+        /*
+         * Timeline timeline = new Timeline(); Image image = new Image(""); ImageView
+         * sprite = new ImageView();
+         * 
+         * timeline.getKeyFrames().addAll( new KeyFrame(Duration.ZERO, // set start
+         * position at 0 new KeyValue(sprite.imageProperty().setValue(), 100), new
+         * KeyValue(circle.translateYProperty(), 200)),
+         * 
+         * new KeyFrame(new Duration(40000), // set end position at 40s new
+         * KeyValue(circle.translateXProperty(), 100), new
+         * KeyValue(circle.translateYProperty(), 200)));
+         * 
+         * // play 40s of animation timeline.play();
+         */
     }
 
 }

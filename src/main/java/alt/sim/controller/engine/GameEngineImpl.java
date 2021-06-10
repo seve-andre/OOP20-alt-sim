@@ -30,15 +30,15 @@ public class GameEngineImpl implements GameEngine {
         this.plane = plane;
 
         start = false;
-        cont = 0;
+        this.cont = 0;
 
         path.getElements().add(new MoveTo(0, 0));
 
         this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
 
         pathTransition.setNode(plane.getPlane().getImagePlane());
-        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
-        pathTransition.setDuration(Duration.millis(3000));
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setDuration(Duration.millis(PERIOD));
 
         // TEST adding static coordinates
         coordinatesTest = new Point2D[] {
@@ -113,84 +113,95 @@ public class GameEngineImpl implements GameEngine {
     public void processInput() {
 
         if (start) {
-            this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
-            /*for (int i = 0; i < vet.length; i++) {
-                path.getElements().add(new LineTo(vet[i].getX(), vet[i].getY()));
-            }*/
+            
+            /*
+             * for (int i = 0; i < vet.length; i++) { path.getElements().add(new
+             * LineTo(vet[i].getX(), vet[i].getY())); }
+             */
         }
 
     }
 
     @Override
     public void update(final int elapsed) {
-        if (start) {
-
-            if (cont < this.vet.length) {
-                plane.startTransiction(vet[cont].getX(), vet[cont].getY());
-                cont++;
-            }
-
-            // Method Path with AnimationTransition
-            //pathTransition.setPath(path); 
-            //pathTransition.play();
-
-            // Method Path inserted manually with rotation
-            double angleInclination = plane.getAngleInclination(coordinatesTest[cont], coordinatesTest[cont + 1]);
-
-            plane.getPlane().getImagePlane().setRotate(angleInclination);
-
-            //System.out.println("coordinatesTest[cont + 1]: " + coordinatesTest[cont + 1].getX() + " , " + coordinatesTest[cont + 1].getY());
-            plane.getPlane().getImagePlane().setLayoutX(coordinatesTest[cont + 1].getX());
-            plane.getPlane().getImagePlane().setLayoutY(coordinatesTest[cont + 1].getY());
-
-            System.out.println("layout X && Y: " + plane.getPlane().getImagePlane().getLayoutX() + " , " + plane.getPlane().getImagePlane().getLayoutY());
-
-            // si può anche inserire come Point2D final coordinatesTest[cont], sembra funzionare bene uguale
-            plane.centerImagePositionInGame(plane.getPlane(), coordinatesTest[cont]);
-
-            System.out.println("after centerd X && Y" + plane.getPlane().getImagePlane().getLayoutX() + " , " + plane.getPlane().getImagePlane().getLayoutY());
-
-            //plane.getPlane().getImagePlane().setLayoutX(plane.getPlaneHeadPosition(plane.getPlane()).getX());
-            //plane.getPlane().getImagePlane().setLayoutY(plane.getPlaneHeadPosition(plane.getPlane()).getY());
-
-            cont++;
-
-        }
-    }
-
-    @Override
-    public void render() {
-
         /*
-         * if (start) { double x = getLineTo(cont).getX(); double y =
-         * getLineTo(cont).getY();
+         * if (start) {
          * 
-         * start = false; Path path = new Path();
+         * if (cont < this.vet.length) { plane.startTransiction(vet[cont].getX(),
+         * vet[cont].getY()); cont++; }
          * 
-         * if (this.vet[cont] != null && this.vet[cont + 1] != null) {
-         * path.getElements().add(new MoveTo(vet[cont].getX(), vet[cont].getY()));
-         * path.getElements().add(getLineTo(cont + 1));
+         * // Method Path with AnimationTransition //pathTransition.setPath(path);
+         * //pathTransition.play();
          * 
+         * // Method Path inserted manually with rotation double angleInclination =
+         * plane.getAngleInclination(coordinatesTest[cont], coordinatesTest[cont + 1]);
          * 
+         * plane.getPlane().getImagePlane().setRotate(angleInclination);
          * 
+         * //System.out.println("coordinatesTest[cont + 1]: " + coordinatesTest[cont +
+         * 1].getX() + " , " + coordinatesTest[cont + 1].getY());
+         * plane.getPlane().getImagePlane().setLayoutX(coordinatesTest[cont +
+         * 1].getX()); plane.getPlane().getImagePlane().setLayoutY(coordinatesTest[cont
+         * + 1].getY());
          * 
+         * System.out.println("layout X && Y: " +
+         * plane.getPlane().getImagePlane().getLayoutX() + " , " +
+         * plane.getPlane().getImagePlane().getLayoutY());
          * 
-         * System.out.println("Vet value " + vet[cont].getX() + " , " +
-         * vet[cont].getY()); System.out.println("getLineTo " + getLineTo(cont + 1));
+         * // si può anche inserire come Point2D final coordinatesTest[cont], sembra
+         * funzionare bene uguale plane.centerImagePositionInGame(plane.getPlane(),
+         * coordinatesTest[cont]);
          * 
-         * pathTransition.setPath(path); pathTransition.play(); cont++;
+         * System.out.println("after centerd X && Y" +
+         * plane.getPlane().getImagePlane().getLayoutX() + " , " +
+         * plane.getPlane().getImagePlane().getLayoutY());
          * 
-         * pathTransition.setOnFinished(finisch ->
-         * this.plane.getPlane().getImagePlane().setLayoutX(x));
-         * pathTransition.setOnFinished(finisch ->
-         * this.plane.getPlane().getImagePlane().setLayoutY(y));
-         * pathTransition.setOnFinished(finisch -> this.setStart(true));
-         *  } 
+         * //plane.getPlane().getImagePlane().setLayoutX(plane.getPlaneHeadPosition(
+         * plane.getPlane()).getX());
+         * //plane.getPlane().getImagePlane().setLayoutY(plane.getPlaneHeadPosition(
+         * plane.getPlane()).getY());
+         * 
+         * cont++;
+         * 
          * }
          */
     }
 
+    @Override
+    public void render() {
+          if (start) { 
+              this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
+
+              double x = getLineTo(cont).getX(); 
+              double y = getLineTo(cont).getY();
+
+              start = false; 
+              Path path = new Path();
+
+                  if (this.vet[cont] != null && this.vet[cont + 1] != null) {
+                      path.getElements().add(new MoveTo(vet[cont].getX(), vet[cont].getY()));
+                      path.getElements().add(getLineTo(cont + 1));
+
+                      //System.out.println("Vet value " + vet[cont].getX() + " , " + vet[cont].getY()); 
+                      //System.out.println("getLineTo " + getLineTo(cont + 1));
+
+                      
+
+                      cont++;
+                      pathTransition.setPath(path); 
+                      pathTransition.play(); 
+
+                      pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
+                      pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
+                      pathTransition.setOnFinished(finisch -> this.setStart(true));
+                  } 
+          }
+    }
+
     public LineTo getLineTo(final int cont) {
+        System.out.println("cont " + cont); 
+        System.out.println("Vet value " + vet[cont].getX() + " , " + vet[cont].getY()); 
+
         return new LineTo(this.vet[cont].getX(), this.vet[cont].getY());
     }
 
