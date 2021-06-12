@@ -80,6 +80,10 @@ public class PlaneMouseMove extends Application {
                 new Point2D(910, 161),
                 new Point2D(953, 123),
                 new Point2D(1144, 50),
+                new Point2D(800, 400),
+                new Point2D(500, 200),
+                new Point2D(500, 300),
+
         };
 
         class ThreadEngine implements Runnable {
@@ -133,9 +137,19 @@ public class PlaneMouseMove extends Application {
         gcOval.fillOval(953, 123, 5, 5);
         gc.lineTo(1144, 50);
         gcOval.fillOval(1144, 50, 5, 5);
-        gc.lineTo(1600, 1500);
-        gcOval.fillOval(1600, 1500, 5, 5);
+        
+        // Torna indietro Test verso il Basso
+        gc.lineTo(800, 400);
+        gcOval.fillOval(800, 400, 5, 5);
 
+        // Torna indietro Test verso Alto        
+        gc.lineTo(500, 200);
+        gcOval.fillOval(500, 200, 5, 5);
+        
+        // Aereo verso il Basso
+        gc.lineTo(500, 300);
+        gcOval.fillOval(500, 300, 5, 5);
+        
         gc.setLineWidth(1);
         gc.stroke();
         gcOval.setFill(Color.RED);
@@ -160,22 +174,39 @@ public class PlaneMouseMove extends Application {
         //-------------------------------------------------------------------
         // 3) Calculating Angle with the 'm' function
 
-            for (int i = 0; i < coordinatesTest.length - 1; i++) {
-                this.firstPoint = new Point2D(coordinatesTest[i].getX(), coordinatesTest[i].getY());
-                this.secondPoint = new Point2D(coordinatesTest[i + 1].getX(), coordinatesTest[i + 1].getY());
-
-                tanAlfa = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX());
-                angularCoefficent = Math.toDegrees(Math.atan(tanAlfa));
-
-                System.out.println("Angular coefficent: " + angularCoefficent);
-            }
-
+        /*
+         * for (int i = 0; i < coordinatesTest.length - 1; i++) { this.firstPoint = new
+         * Point2D(coordinatesTest[i].getX(), coordinatesTest[i].getY());
+         * this.secondPoint = new Point2D(coordinatesTest[i + 1].getX(),
+         * coordinatesTest[i + 1].getY());
+         * 
+         * tanAlfa = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() -
+         * firstPoint.getX()); angularCoefficent = Math.toDegrees(Math.atan(tanAlfa));
+         * 
+         * System.out.println("Angular coefficent: " + angularCoefficent); }
+         */
         //-------------------------------------------------------------------
         // 4) Positioning Plane with Angle inclination for testing
 
-          //  p1.getImagePlane().setLayoutX(coordinatesTest[3].getX());
-           // p1.getImagePlane().setLayoutY(coordinatesTest[3].getY());
-           // p1.getImagePlane().setRotate(-55.4);
+        /*
+         * p1.getImagePlane().setLayoutX(coordinatesTest[9].getX());
+         * p1.getImagePlane().setLayoutY(coordinatesTest[9].getY());
+         * 
+         * if (coordinatesTest[8].getX() < coordinatesTest[7].getX()) {
+         * p1.getImagePlane().setRotate(180 + (33.69)); }
+         * 
+         * // Caso specifico aereo a 90° o 180° if (coordinatesTest[9].getX() ==
+         * coordinatesTest[10].getX() && coordinatesTest[9].getY() <
+         * coordinatesTest[10].getX() ) { p1.getImagePlane().setRotate(90); }
+         * 
+         * if (coordinatesTest[9].getX() == coordinatesTest[10].getX() &&
+         * coordinatesTest[9].getY() > coordinatesTest[10].getX()) {
+         * p1.getImagePlane().setRotate(270); }
+         * 
+         * p1.getImagePlane().setLayoutX(getPlaneHeadPosition(p1).getX());
+         * p1.getImagePlane().setLayoutY(getPlaneHeadPosition(p1).getY());
+         */
+
 
         //-------------------------------------------------------------------
 
@@ -262,7 +293,7 @@ public class PlaneMouseMove extends Application {
                  // Cleaning the Array coordinates
                  planeCoordinates.clear();
              }
-          };
+        };
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMouseClicked);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);

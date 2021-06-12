@@ -59,12 +59,8 @@ public class MainPlaneView extends Application {
                     //p1.getLandingAnimation().play();
 
                     // START Explosion Animation
-                    try {
-                        p1.getExplosionAnimation();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+
+                      try { p1.getExplosionAnimation(); } catch (IOException e) { }
 
                     //System.out.println("X e Y: " + event.getX() + " , " + event.getY());
                     //Insert Center Image when click
