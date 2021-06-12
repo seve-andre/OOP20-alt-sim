@@ -36,7 +36,7 @@ public class Plane {
 
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
-       this.explosionAnimation = new ExplosionAnimation();
+       this.explosionAnimation = new ExplosionAnimation(this);
     }
 
     public Plane(final ImageClassification imageClassification) {
@@ -94,7 +94,24 @@ public class Plane {
     }
 
     public void getExplosionAnimation() throws IOException {
-        explosionAnimation.getExplosionAnimation(this.getImagePlane());
+        //explosionAnimation.getExplosionAnimation(this.getImagePlane());
+        //Setting faded transition in Animation Explosion
+        ScaleTransition scaleExplosionAnimation = new ScaleTransition();
+
+        scaleExplosionAnimation.setNode(this.getImagePlane());
+
+        //Setting the final dimensions for scaling 
+        scaleExplosionAnimation.setFromX(0);
+        scaleExplosionAnimation.setFromY(0);
+        scaleExplosionAnimation.setToX(1);
+        scaleExplosionAnimation.setToY(1);
+
+        scaleExplosionAnimation.setAutoReverse(true);
+        scaleExplosionAnimation.setCycleCount(2);
+        scaleExplosionAnimation.setDuration(Duration.millis(600));
+
+        scaleExplosionAnimation.play();
+        explosionAnimation.getExplosionAnimation().start();
     }
 
     public void setPlaneRotate(final double rotateValue) {
