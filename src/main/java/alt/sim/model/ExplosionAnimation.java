@@ -9,8 +9,8 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 public class ExplosionAnimation {
-    private final static int NUMBER_IMAGES_ANIMATION = 67;
-    
+    private static final  int NUMBER_IMAGES_ANIMATION = 67;
+
     private List<Image> images;
     private Plane planeSprite;
     private int contImages;
@@ -22,8 +22,6 @@ public class ExplosionAnimation {
         for (int i = 1; i < NUMBER_IMAGES_ANIMATION; i++) {
             this.images.add(new Image("images/animations/explosion_" + i + ".png"));
         }
-
-
     }
 
     public ExplosionAnimation(final Plane planeSprite) {
@@ -59,7 +57,6 @@ public class ExplosionAnimation {
                 });
             }
         }
-
         return new MyTimer();
     }
 
