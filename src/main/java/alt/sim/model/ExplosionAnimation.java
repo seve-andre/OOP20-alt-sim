@@ -9,7 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 public class ExplosionAnimation {
-    private static final  int NUMBER_IMAGES_ANIMATION = 67;
+    private static final  int NUMBER_IMAGES_ANIMATION = 50;
 
     private List<Image> images;
     private Plane planeSprite;

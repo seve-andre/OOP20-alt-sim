@@ -108,7 +108,7 @@ public class Plane {
 
         scaleExplosionAnimation.setAutoReverse(true);
         scaleExplosionAnimation.setCycleCount(2);
-        scaleExplosionAnimation.setDuration(Duration.millis(600));
+        scaleExplosionAnimation.setDuration(Duration.millis(500));
 
         scaleExplosionAnimation.play();
         explosionAnimation.getExplosionAnimation().start();

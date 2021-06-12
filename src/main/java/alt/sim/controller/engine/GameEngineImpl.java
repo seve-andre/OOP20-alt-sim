@@ -188,8 +188,8 @@ public class GameEngineImpl implements GameEngine {
           this.plane.getPlane().getImagePlane().setLayoutX(x));
           pathTransition.setOnFinished(finisch ->
           this.plane.getPlane().getImagePlane().setLayoutY(y));
-          pathTransition.setOnFinished(finisch -> this.setStart(true)); } }
-         
+          pathTransition.setOnFinished(finisch -> this.setStart(true)); } 
+          }
     }
 
     public LineTo getLineTo(final int cont) {
