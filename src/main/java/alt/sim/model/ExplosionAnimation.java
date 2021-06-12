@@ -3,19 +3,24 @@ package alt.sim.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import alt.sim.model.plane.Plane;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ExplosionAnimation {
     private static final  int NUMBER_IMAGES_ANIMATION = 50;
+    
+    private static final  double IMAGE_WIDTH_RATE = 69;
+    private static final  double IMAGE_HEIGHT_RATE = 73;
 
     private List<Image> images;
-    private Plane planeSprite;
+    private ImageView spriteToApplyAnimation;
     private int contImages;
 
     public ExplosionAnimation() {
+        this.spriteToApplyAnimation = new ImageView();
         this.images = new ArrayList<Image>();
         this.contImages = 0;
 
@@ -24,10 +29,12 @@ public class ExplosionAnimation {
         }
     }
 
-    public ExplosionAnimation(final Plane planeSprite) {
+    public ExplosionAnimation(final Point2D positionOfAnimation) {
         this();
 
-        this.planeSprite = planeSprite;
+        this.spriteToApplyAnimation.setX(positionOfAnimation.getX());
+        this.spriteToApplyAnimation.setY(positionOfAnimation.getY());
+        centerAnimation();
     }
 
     public AnimationTimer getExplosionAnimation() {
@@ -47,7 +54,7 @@ public class ExplosionAnimation {
 
                     @Override public void run() {
                         if (contImages < images.size()) {
-                            planeSprite.getImagePlane().setImage(images.get(contImages));
+                            spriteToApplyAnimation.setImage(images.get(contImages));
                             contImages++;
                         } else {
                             System.out.println("Stop Explosion Animation");
@@ -58,6 +65,15 @@ public class ExplosionAnimation {
             }
         }
         return new MyTimer();
+    }
+
+    private void centerAnimation() {
+        this.spriteToApplyAnimation.setX(spriteToApplyAnimation.getX() - (IMAGE_WIDTH_RATE / 2));
+        this.spriteToApplyAnimation.setY(spriteToApplyAnimation.getY() - (IMAGE_HEIGHT_RATE / 2));
+    }
+
+    public ImageView getSpriteToApplyAnimation() {
+        return this.spriteToApplyAnimation;
     }
 
 }
