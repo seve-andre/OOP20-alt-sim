@@ -36,7 +36,7 @@ public class Plane {
 
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
-       this.explosionAnimation = new ExplosionAnimation(this);
+       this.explosionAnimation = new ExplosionAnimation(new Point2D(20, 50));
     }
 
     public Plane(final ImageClassification imageClassification) {
