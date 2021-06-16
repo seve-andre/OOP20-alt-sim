@@ -11,11 +11,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class ExplosionAnimation {
+/**
+ * Implement Animation of explosion for the Plane when collid.
+ * Is realizated with TransitionAnimation in parallel with explosion
+ *
+ */
+public class ExplosionAnimation extends AnimationPlane {
+    /** Number of the images for the animation. */
     private static final  int NUMBER_IMAGES_ANIMATION = 50;
 
+    /** Images size. */
     private static final  double IMAGE_WIDTH_RATE = 69;
     private static final  double IMAGE_HEIGHT_RATE = 73;
+
+    private static final  int TRANSITION_ANIMATION_DURATION = 500;
+
 
     private List<Image> images;
     private ImageView spriteToApplyAnimation;
@@ -23,6 +33,7 @@ public class ExplosionAnimation {
     private int contImages;
 
     public ExplosionAnimation() {
+        this.scaleExplosionAnimation = new ScaleTransition();
         this.spriteToApplyAnimation = new ImageView();
         this.images = new ArrayList<Image>();
         this.contImages = 0;
@@ -32,14 +43,17 @@ public class ExplosionAnimation {
         }
     }
 
-    public ExplosionAnimation(final Point2D positionOfAnimation) {
+    /**
+     * @param positionAnimation set the position where activate the animation.
+     */
+    public ExplosionAnimation(final Point2D positionAnimation) {
         this();
 
-        this.spriteToApplyAnimation.setX(positionOfAnimation.getX());
-        this.spriteToApplyAnimation.setY(positionOfAnimation.getY());
+        setPositionAnimation(positionAnimation);
         centerAnimation();
     }
 
+    /** implement the ScaleTransition synchronizated with the explosion. */
     private void startingParallelScaleAnimation() {
         scaleExplosionAnimation.setNode(spriteToApplyAnimation);
 
@@ -50,34 +64,36 @@ public class ExplosionAnimation {
 
         scaleExplosionAnimation.setAutoReverse(true);
         scaleExplosionAnimation.setCycleCount(2);
-        scaleExplosionAnimation.setDuration(Duration.millis(500));
+        scaleExplosionAnimation.setDuration(Duration.millis(TRANSITION_ANIMATION_DURATION));
 
         scaleExplosionAnimation.play();
     }
 
+    /**
+     * @return the ExplosionAnimation setted and ready to start.
+     */
     public AnimationTimer getExplosionAnimation() {
 
         class MyTimer extends AnimationTimer {
 
             @Override
-            public void handle(long now) {
+            public void handle(final long now) {
                 try {
                     startingExplosionAniamtion();
-                } catch (InterruptedException e) { e.printStackTrace(); }
+                } catch (InterruptedException e) { 
+                    e.printStackTrace(); 
+                }
             }
 
             private void startingExplosionAniamtion() throws InterruptedException {
+                startingParallelScaleAnimation();
 
                 Platform.runLater(new Runnable() {
-
                     @Override public void run() {
-                        startingParallelScaleAnimation();
-
                         if (contImages < images.size()) {
                             spriteToApplyAnimation.setImage(images.get(contImages));
                             contImages++;
                         } else {
-                            System.out.println("Stop Explosion Animation");
                             stop();
                         }
                     }
@@ -87,13 +103,28 @@ public class ExplosionAnimation {
         return new MyTimer();
     }
 
+    /** center the image with the position where it started. */
     private void centerAnimation() {
         this.spriteToApplyAnimation.setX(spriteToApplyAnimation.getX() - (IMAGE_WIDTH_RATE / 2));
         this.spriteToApplyAnimation.setY(spriteToApplyAnimation.getY() - (IMAGE_HEIGHT_RATE / 2));
     }
 
+    /**
+     * @return the ImageView that contain the frame of images.
+     */
     public ImageView getSpriteToApplyAnimation() {
         return this.spriteToApplyAnimation;
+    }
+
+    @Override
+    public void startAnimation() {
+        getExplosionAnimation();
+    }
+
+    @Override
+    public void setPositionAnimation(final Point2D positionAnimation) {
+        this.spriteToApplyAnimation.setX(positionAnimation.getX());
+        this.spriteToApplyAnimation.setY(positionAnimation.getY());
     }
 
 }
