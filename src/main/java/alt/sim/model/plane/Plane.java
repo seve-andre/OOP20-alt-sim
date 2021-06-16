@@ -1,6 +1,7 @@
 package alt.sim.model.plane;
 
 import alt.sim.model.ImageClassification;
+import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
@@ -26,8 +27,14 @@ public class Plane {
     private State status;
     private Sprite spritePlane;
 
+    // Section Plane-Animation:
+    private LandingAnimation landingAnimation;
+
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
+
+       // Initialize Animation
+       this.landingAnimation = new LandingAnimation(this.getImagePlane());
     }
 
     public Plane(final ImageClassification imageClassification) {
