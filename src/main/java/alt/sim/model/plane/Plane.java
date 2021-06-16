@@ -3,6 +3,7 @@ package alt.sim.model.plane;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
@@ -69,15 +70,13 @@ public class Plane {
         return this.spritePlane;
     }
 
-    /*
-     * public double getX() { return this.spritePlane.getX(); }
-     * 
-     * public double getY() { return this.spritePlane.getY(); }
-     * 
-     * public void setX(final double x) { this.spritePlane.setX(x); }
-     * 
-     * public void setY(final double y) { this.spritePlane.setY(y); }
-     */
+    public ScaleTransition getLandingAnimation() {
+        return landingAnimation.getLandingAnimation();
+    }
+
+    public void setPlaneRotate(final double rotateValue) {
+        this.spritePlane.getImageSpriteResized().getImageSprite().setRotate(rotateValue);
+    }
 
     @Override
     public String toString() {
