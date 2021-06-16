@@ -5,18 +5,26 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class LandingAnimation {
+/**
+ * Create LandingAnimation for implement ScaleTransition animation when the Plane Landing in the Airstrip.
+ */
+public class LandingAnimation extends AnimationPlane {
+    private static final int DURATION_LANDING_ANIMATION = 1000;
+
     private ImageView spriteToApplyAnimation;
     private ScaleTransition landingAnimation;
 
-    public LandingAnimation(final Point2D positionAnimation, final ImageView spriteToApplyAnimation) {
+    public LandingAnimation(final ImageView spriteToApplyAnimation) {
         this.spriteToApplyAnimation = spriteToApplyAnimation;
         this.landingAnimation = new ScaleTransition();
     }
 
+    /**
+     * Set the TransitionAnimation with right values.
+     */
     private void settingLandingAnimation() {
         //Setting the duration for the transition 
-        landingAnimation.setDuration(Duration.millis(2000)); 
+        landingAnimation.setDuration(Duration.millis(DURATION_LANDING_ANIMATION)); 
 
         //Setting the node for the transition 
         landingAnimation.setNode(this.spriteToApplyAnimation); 
@@ -32,10 +40,24 @@ public class LandingAnimation {
         landingAnimation.setAutoReverse(false); 
     }
 
+    /**
+     * @return LandingAnimation setted and ready to play.
+     */
     public ScaleTransition getLandingAnimation() {
         // Setting landingAnimation before return
         settingLandingAnimation();
 
         return landingAnimation;
+    }
+
+    @Override
+    public void startAnimation() {
+        settingLandingAnimation();
+        getLandingAnimation().play();
+    }
+
+    @Override
+    public void setPositionAnimation(final Point2D positionAnimation) {
+        // TODO Auto-generated method stub
     }
 }
