@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.ImageClassification;
+import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -31,12 +32,18 @@ public class Plane {
     private Tipology type;
     private State status;
     private Sprite spritePlane;
+
+    // Section Plane-Animation:
     private ExplosionAnimation explosionAnimation;
+    private LandingAnimation landingAnimation;
 
 
     public Plane(final String urlImagePlane) {
        this.spritePlane = new Sprite(urlImagePlane, true);
+
+       // Initialize Animation
        this.explosionAnimation = new ExplosionAnimation(new Point2D(20, 50));
+       this.landingAnimation = new LandingAnimation(new Point2D(20, 50), this.getImagePlane());
     }
 
     public Plane(final ImageClassification imageClassification) {
@@ -72,25 +79,7 @@ public class Plane {
     }
 
     public ScaleTransition getLandingAnimation() {
-        ScaleTransition landingAnimation = new ScaleTransition();
-
-        //Setting the duration for the transition 
-        landingAnimation.setDuration(Duration.millis(2000)); 
-
-        //Setting the node for the transition 
-        landingAnimation.setNode(this.getImagePlane()); 
-
-        //Setting the final dimensions for scaling 
-        landingAnimation.setToX(0);
-        landingAnimation.setToY(0); 
-
-        //Setting the cycle count for the translation 
-        landingAnimation.setCycleCount(1); 
-
-        //Setting auto reverse value to true 
-        landingAnimation.setAutoReverse(false); 
-
-        return landingAnimation;
+        return landingAnimation.getLandingAnimation();
     }
 
     public void getExplosionAnimation() throws IOException {
