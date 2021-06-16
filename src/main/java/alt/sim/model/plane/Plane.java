@@ -94,23 +94,6 @@ public class Plane {
     }
 
     public void getExplosionAnimation() throws IOException {
-        //explosionAnimation.getExplosionAnimation(this.getImagePlane());
-        //Setting faded transition in Animation Explosion
-        ScaleTransition scaleExplosionAnimation = new ScaleTransition();
-
-        scaleExplosionAnimation.setNode(this.getImagePlane());
-
-        //Setting the final dimensions for scaling 
-        scaleExplosionAnimation.setFromX(0);
-        scaleExplosionAnimation.setFromY(0);
-        scaleExplosionAnimation.setToX(1);
-        scaleExplosionAnimation.setToY(1);
-
-        scaleExplosionAnimation.setAutoReverse(true);
-        scaleExplosionAnimation.setCycleCount(2);
-        scaleExplosionAnimation.setDuration(Duration.millis(500));
-
-        scaleExplosionAnimation.play();
         explosionAnimation.getExplosionAnimation().start();
     }
 
