@@ -1,8 +1,5 @@
 package alt.sim.view;
 
-import java.io.IOException;
-
-
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.plane.Plane;
@@ -43,7 +40,6 @@ public class MainPlaneView extends Application {
             // Insert Plane test into view:
             paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
 
-
             // Positioning the STATIC Plane in a specific location of the Map
             p1.getSpritePlane().setX(0);
             p1.getSpritePlane().setY(0);
@@ -53,24 +49,22 @@ public class MainPlaneView extends Application {
 
                 @Override
                 public void handle(final MouseEvent event) {
-                    ExplosionAnimation explAnimation = new ExplosionAnimation(new Point2D(event.getX(), event.getY()));
+                    ExplosionAnimation explAnimationTest = new ExplosionAnimation(new Point2D(500, 500));
+
                     p1.getSpritePlane().setX(event.getX());
                     p1.getSpritePlane().setY(event.getY());
 
                     p1.getImagePlane().setVisible(true);
 
                     // START Landing Animation
-                    //p1.getLandingAnimation().play();
+                    p1.getLandingAnimation().play();
 
-                    // START Explosion Animation
-                    try { p1.getExplosionAnimation(); } catch (IOException e) { }
-
-                    //System.out.println("X e Y: " + event.getX() + " , " + event.getY());
                     //Insert Center Image when click
                     centerImagePositionInGame(p1, event);
 
-                    paneRoot.getChildren().add(explAnimation.getSpriteToApplyAnimation());
-                    explAnimation.getExplosionAnimation().start();
+                    // START Explosion Animation
+                    paneRoot.getChildren().add(explAnimationTest.getSpriteToApplyAnimation());
+                    explAnimationTest.getExplosionAnimation().start();
                 }
              };
 
