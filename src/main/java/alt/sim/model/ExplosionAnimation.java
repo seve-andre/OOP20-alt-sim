@@ -23,11 +23,10 @@ public class ExplosionAnimation extends AnimationPlane {
     private static final  int NUMBER_IMAGES_ANIMATION = 50;
 
     /** Images size. */
-    private static final  double IMAGE_WIDTH_RATE = 69;
-    private static final  double IMAGE_HEIGHT_RATE = 73;
+    private static final  double IMAGE_WIDTH_RATE = 134;
+    private static final  double IMAGE_HEIGHT_RATE = 128;
 
     private static final  int TRANSITION_ANIMATION_DURATION = 500;
-
 
     private List<Image> images;
     private ImageView spriteToApplyAnimation;
@@ -107,8 +106,8 @@ public class ExplosionAnimation extends AnimationPlane {
 
     /** center the image with the position where it started. */
     private void centerAnimation() {
-        this.spriteToApplyAnimation.setX(spriteToApplyAnimation.getX() - (IMAGE_WIDTH_RATE / 2));
-        this.spriteToApplyAnimation.setY(spriteToApplyAnimation.getY() - (IMAGE_HEIGHT_RATE / 2));
+        this.spriteToApplyAnimation.setX(spriteToApplyAnimation.getX() - (IMAGE_WIDTH_RATE));
+        this.spriteToApplyAnimation.setY(spriteToApplyAnimation.getY() - (IMAGE_HEIGHT_RATE));
     }
 
     /**
@@ -127,6 +126,8 @@ public class ExplosionAnimation extends AnimationPlane {
     public void setPositionAnimation(final Point2D positionAnimation) {
         this.spriteToApplyAnimation.setX(positionAnimation.getX());
         this.spriteToApplyAnimation.setY(positionAnimation.getY());
+
+        centerAnimation();
     }
 
 }
