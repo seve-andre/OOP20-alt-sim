@@ -1,5 +1,8 @@
 package alt.sim.controller.engine;
 
+import java.util.List;
+import java.util.ListIterator;
+
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.view.PlaneMouseMove;
@@ -15,7 +18,8 @@ public class GameEngineImpl implements GameEngine {
     private static final long PERIOD = 400L;
     private SpawnObject spawn;
     private PlaneMouseMove plane;
-    private Point2D[] vet;
+    private List<Point2D> vet;
+    // private Point2D[] vet;
     private Point2D[] coordinatesTest;
 
     private PathTransition pathTransition;
@@ -33,29 +37,21 @@ public class GameEngineImpl implements GameEngine {
         this.cont = 0;
 
         path.getElements().add(new MoveTo(0, 0));
-        this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
+        this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
 
         pathTransition.setNode(plane.getPlane().getImagePlane());
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setDuration(Duration.millis(PERIOD));
 
         // TEST adding static coordinates
-        coordinatesTest = new Point2D[] {
-                new Point2D(0, 0),
-                new Point2D(196, 60),
-                new Point2D(341, 138),
-                new Point2D(601, 369),
-                new Point2D(773, 119),
-                new Point2D(910, 161),
-                new Point2D(953, 123),
-                new Point2D(1144, 50),
-                new Point2D(1600, 1500),
-        };
+        //coordinatesTest = new Point2D[] { new Point2D(0, 0), new Point2D(196, 60), new Point2D(341, 138),
+          //new Point2D(601, 369), new Point2D(773, 119), new Point2D(910, 161), new Point2D(953, 123),
+          //      new Point2D(1144, 50), new Point2D(1600, 1500), };
 
         // TEST insert the static coordinates into path
-        for (int i = 1; i < coordinatesTest.length; i++) {
-            path.getElements().add(new LineTo(coordinatesTest[i].getX(), coordinatesTest[i].getY()));
-        }
+        //for (int i = 1; i < coordinatesTest.length; i++) {
+          //  path.getElements().add(new LineTo(coordinatesTest[i].getX(), coordinatesTest[i].getY()));
+        //}
 
     }
 
@@ -90,6 +86,7 @@ public class GameEngineImpl implements GameEngine {
 
     /**
      * Calculates how many milliseconds has to wait for next frame.
+     * 
      * @param current
      * @throws InterruptedException
      * @throws IllegalArgumentException
@@ -163,54 +160,85 @@ public class GameEngineImpl implements GameEngine {
          * 
          * }
          */
-            
+
     }
 
     @Override
     public void render() {
-        
-          if (start) { this.vet = this.plane.getPlaneMovement().getPlaneCoordinates();
-          
-          double x = getLineTo(cont).getX(); double y = getLineTo(cont).getY();
-          
-          start = false; Path path = new Path();
-          
-          if (this.vet[cont] != null && this.vet[cont + 1] != null) {
-          path.getElements().add(new MoveTo(vet[cont].getX(), vet[cont].getY()));
-          path.getElements().add(getLineTo(cont + 1));
-          
-          //System.out.println("Vet value " + vet[cont].getX() + " , " + vet[cont].getY()); 
-          //System.out.println("getLineTo " + getLineTo(cont + 1));
-          
-          cont++; pathTransition.setPath(path); pathTransition.play();
-          
-          pathTransition.setOnFinished(finisch ->
-          this.plane.getPlane().getImagePlane().setLayoutX(x));
-          pathTransition.setOnFinished(finisch ->
-          this.plane.getPlane().getImagePlane().setLayoutY(y));
-          pathTransition.setOnFinished(finisch -> this.setStart(true)); } 
-          }
+
+        if (start) {
+            start = false;
+            //plane.getPlaneMovement().printPlaneCoordinates();
+            this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
+
+            double x = getLineTo(cont).getX();
+            double y = getLineTo(cont).getY();
+
+            Path path = new Path();
+            ListIterator<Point2D> iterator = vet.listIterator();
+            path.getElements().add(new MoveTo(vet.get(cont).getX(), vet.get(cont).getY()));
+            //path.getElements().add(new MoveTo(0, 0));
+
+            try {
+                if (iterator.hasNext()) {
+
+                    //if (this.vet.get(cont) != null && this.vet.get(cont + 1) != null) {
+                    if (cont < vet.size() && (cont + 1) < vet.size()) {
+                        //path.getElements().add(new MoveTo(vet.get(cont).getX(), vet.get(cont).getY()));
+                        path.getElements().add(getLineTo(cont + 1));
+                        //System.out.println("Vet value " + vet.get(cont).getX() + " , " + vet.get(cont).getY());
+
+                        cont++;
+                        pathTransition.setPath(path);
+                        pathTransition.play();
+
+                        pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
+                        pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
+                        pathTransition.setOnFinished(finisch -> this.setStart(true));
+                    } else {
+                        pathTransition.stop();
+                        pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
+                        pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
+                        pathTransition.setOnFinished(finisch -> this.setStart(true));
+                    }
+                }
+            }
+            catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
     }
 
     public LineTo getLineTo(final int cont) {
-        System.out.println("cont " + cont); 
-        System.out.println("Vet value " + vet[cont].getX() + " , " + vet[cont].getY()); 
+        System.out.println("cont " + cont);
+        System.out.println("Vet value " + vet.get(cont).getX() + " , " + vet.get(cont).getY());
 
-        return new LineTo(this.vet[cont].getX(), this.vet[cont].getY());
+        return new LineTo(this.vet.get(cont).getX(), this.vet.get(cont).getY());
     }
 
     public void setStart(final boolean start) {
         this.start = start;
     }
 
-
-    public void setCoordinate(final Point2D[] vet) {
-        /*
-         * for (int i = 0; i < vet.length; i++) {
-         * System.out.println("vet in GameEngine: " + vet[i]); }
-         */
-
+    public void setCoordinate(final List<Point2D> vet) {
         this.vet = vet;
+        for (Point2D point:this.vet) {
+            System.out.println("vet: " + point);
+        }
+    }
+
+    /*
+     * public void setCoordinate(final Point2D[] vet) {
+     * 
+     * for (int i = 0; i < vet.length; i++) {
+     * System.out.println("vet in GameEngine: " + vet[i]); }
+     * 
+     * 
+     * this.vet = vet; }
+     */
+
+    public PathTransition getPathTransition() {
+        return this.pathTransition;
     }
 
 }
