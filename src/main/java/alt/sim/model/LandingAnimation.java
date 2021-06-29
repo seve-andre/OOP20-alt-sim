@@ -16,6 +16,8 @@ public class LandingAnimation extends AnimationPlane {
 
     public LandingAnimation(final ImageView spriteToApplyAnimation) {
         this.spriteToApplyAnimation = spriteToApplyAnimation;
+        this.spriteToApplyAnimation.setOnMouseDragEntered(event -> System.out.println("CLICCATO"));
+
         this.landingAnimation = new ScaleTransition();
     }
 
