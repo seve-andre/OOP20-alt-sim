@@ -73,6 +73,10 @@ public class ImageSprite {
         return this.imageSprite;
     }
 
+    public void setImageSprite(final String urlNewImage) {
+        this.imageSprite.setImage(new Image(urlNewImage));
+    }
+
     public String getUrlSprite() {
         return this.urlSprite;
     }
