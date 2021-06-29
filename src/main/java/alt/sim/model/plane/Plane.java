@@ -5,6 +5,7 @@ import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -23,19 +24,23 @@ import javafx.scene.image.ImageView;
  */
 
 public class Plane {
-
     private Tipology type;
     private State status;
     private Sprite spritePlane;
+    private boolean isPlaneSelectedForBeenMoved;
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
 
     public Plane(final String urlImagePlane) {
+       this.isPlaneSelectedForBeenMoved = false;
        this.spritePlane = new Sprite(urlImagePlane, true);
 
        // Initialize Animation
        this.landingAnimation = new LandingAnimation(this.getImagePlane());
+
+       // Setting Handler for MouseClick STRATEGY da implementare
+       setOnClick();
     }
 
     public Plane(final ImageClassification imageClassification) {
@@ -58,6 +63,14 @@ public class Plane {
         this.status = status;
     }
 
+    public void setOnClick() {
+        this.getImagePlane().setOnMousePressed(event -> { 
+            setSpritePlane("images/map_components/airplaneSelected.png");
+            isPlaneSelectedForBeenMoved = true;
+        });
+        this.getImagePlane().setOnMouseReleased(event -> this.getImagePlane().setImage(new Image("images/map_components/airplane.png")));
+    }
+
     /**
      * @return the ImageView of the Plane object.
      */
@@ -70,12 +83,24 @@ public class Plane {
         return this.spritePlane;
     }
 
+    public void setSpritePlane(final String newUrlImage) {
+        this.spritePlane.getImageSpriteResized().setImageSprite(newUrlImage);
+    }
+
     public ScaleTransition getLandingAnimation() {
         return landingAnimation.getLandingAnimation();
     }
 
     public void setPlaneRotate(final double rotateValue) {
         this.spritePlane.getImageSpriteResized().getImageSprite().setRotate(rotateValue);
+    }
+
+    public void setIsPlaneSelectedForBeenMoved(final boolean isPlaneSelectedForBeenMoved) {
+        this.isPlaneSelectedForBeenMoved = isPlaneSelectedForBeenMoved;
+    }
+
+    public boolean getIsPlaneSelectedForBeenMoved() {
+        return this.isPlaneSelectedForBeenMoved;
     }
 
     @Override
