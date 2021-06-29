@@ -21,6 +21,7 @@ public class GameEngineAreaTest implements GameEngine {
 
     private TransitionTest transitionRif;
     private SpawnObject spawn;
+    private Plane plane;
 
     // Sezione Coordinate campionate
     private Path path;
@@ -122,37 +123,34 @@ public class GameEngineAreaTest implements GameEngine {
         spawn.startSpawn();
     }
 
+    public void setPlane(final Plane plane) {
+        this.plane = plane;
+    }
+
     public void connectPlaneToPathTransition(final Plane plane) {
-        int pathLenght = 0;
+        double pathLenght = 0;
+        double velocityMovement = 0.005;
+        double duration = 0;
 
         PathTransition pathTransitionPlane = new PathTransition();
         copyCoordinatesInPath(planeCoordinates);
         pathTransitionPlane.setPath(path);
-        pathTransitionPlane.setNode(plane.getImagePlane());
+        //System.out.println("connectPlaneToPathTransition = " + plane.hashCode());
+        pathTransitionPlane.setNode(this.plane.getImagePlane());
         pathTransitionPlane.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
 
         // -------------------------------------------
         // Cambiare la velocità a seconda del percoso:
+        setCoordinates(planeCoordinates);
+        setPathTransition(pathTransition);
         pathLenght = planeCoordinates.size();
-        System.out.println("pathLenght = " + pathLenght);
 
-        if (pathLenght <= 10) {
-            pathTransitionPlane.setDuration(Duration.seconds(1.5));
-        } else if (pathLenght > 10 && pathLenght <= 50) {
-            pathTransitionPlane.setDuration(Duration.seconds(5));
-        } else if (pathLenght > 50 && pathLenght <= 100){
-            pathTransitionPlane.setDuration(Duration.seconds(10));
-        } else if (pathLenght > 100 && pathLenght <= 150){
-            pathTransitionPlane.setDuration(Duration.seconds(15));
-        } else if (pathLenght > 150 && pathLenght <= 200){
-            pathTransitionPlane.setDuration(Duration.seconds(20));
-        }
+        duration = pathLenght / velocityMovement;
+        pathTransitionPlane.setDuration(Duration.millis(duration));
         // -------------------------------------------
 
         pathTransitionPlane.play();
-
-        setCoordinates(planeCoordinates);
-        setPathTransition(pathTransition);
+        plane.setIsPlaneSelectedForBeenMoved(false);
         setReadyToStart(true);
     }
 
@@ -189,5 +187,4 @@ public class GameEngineAreaTest implements GameEngine {
     public void stopPathTransition() {
         this.pathTransition.stop();
     }
-
 }
