@@ -28,9 +28,9 @@ public enum Tipology {
      */
     FIGHTER(3, 15, 9.96);
 
-    private double velocity;
-    private double lenght;
-    private double width;
+    private final double velocity;
+    private final double lenght;
+    private final double width;
 
     /**
      * @param velocity defined the Plane velocity.
