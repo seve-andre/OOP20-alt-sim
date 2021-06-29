@@ -1,11 +1,13 @@
 package alt.sim.controller.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.view.PlaneMouseMove;
+import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.LineTo;
@@ -20,13 +22,15 @@ public class GameEngineImpl implements GameEngine {
     private PlaneMouseMove plane;
     private List<Point2D> vet;
     // private Point2D[] vet;
-    private Point2D[] coordinatesTest;
+    //private Point2D[] coordinatesTest;
 
     private PathTransition pathTransition;
     private Path path = new Path();
 
     private int cont;
     private boolean start;
+    private boolean blocked = false;
+    private boolean animationIsRunning;
 
     public GameEngineImpl(final PlaneMouseMove plane) {
         this.pathTransition = new PathTransition();
@@ -36,23 +40,17 @@ public class GameEngineImpl implements GameEngine {
         start = false;
         this.cont = 0;
 
+        animationIsRunning = false;
+        this.blocked = false;
+
         path.getElements().add(new MoveTo(0, 0));
-        this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
+        //this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
+
+        this.vet = new ArrayList<>();
 
         pathTransition.setNode(plane.getPlane().getImagePlane());
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setDuration(Duration.millis(PERIOD));
-
-        // TEST adding static coordinates
-        //coordinatesTest = new Point2D[] { new Point2D(0, 0), new Point2D(196, 60), new Point2D(341, 138),
-          //new Point2D(601, 369), new Point2D(773, 119), new Point2D(910, 161), new Point2D(953, 123),
-          //      new Point2D(1144, 50), new Point2D(1600, 1500), };
-
-        // TEST insert the static coordinates into path
-        //for (int i = 1; i < coordinatesTest.length; i++) {
-          //  path.getElements().add(new LineTo(coordinatesTest[i].getX(), coordinatesTest[i].getY()));
-        //}
-
     }
 
     @Override
@@ -107,7 +105,6 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void processInput() {
-
         if (start) {
             /*
              * for (int i = 0; i < vet.length; i++) { path.getElements().add(new
@@ -119,60 +116,22 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void update(final int elapsed) {
-        /*
-         * if (start) {
-         * 
-         * if (cont < this.vet.length) {
-         * plane.startTransiction(vet[cont].getX(),vet[cont].getY()); cont++; }
-         * 
-         * // Method Path with AnimationTransition //pathTransition.setPath(path);
-         * //pathTransition.play();
-         * 
-         * // Method Path inserted manually with rotation double angleInclination =
-         * plane.getAngleInclination(coordinatesTest[cont], coordinatesTest[cont + 1]);
-         * 
-         * plane.getPlane().getImagePlane().setRotate(angleInclination);
-         * 
-         * System.out.println("coordinatesTest[cont + 1]: " + coordinatesTest[cont
-         * +1].getX() + " , " + coordinatesTest[cont + 1].getY());
-         * plane.getPlane().getImagePlane().setLayoutX(coordinatesTest[cont +
-         * 1].getX()); plane.getPlane().getImagePlane().setLayoutY(coordinatesTest[cont
-         * + 1].getY());
-         * 
-         * System.out.println("layout X && Y: " +
-         * plane.getPlane().getImagePlane().getLayoutX() + " , " +
-         * plane.getPlane().getImagePlane().getLayoutY());
-         * 
-         * // si può anche inserire come Point2D final coordinatesTest[cont], sembra
-         * //funzionare bene uguale plane.centerImagePositionInGame(plane.getPlane(),
-         * //coordinatesTest[cont]);
-         * 
-         * System.out.println("after centerd X && Y" +
-         * plane.getPlane().getImagePlane().getLayoutX() + " , " +
-         * plane.getPlane().getImagePlane().getLayoutY());
-         * 
-         * plane.getPlane().getImagePlane().setLayoutX(plane.getPlaneHeadPosition(plane.
-         * getPlane()).getX());
-         * plane.getPlane().getImagePlane().setLayoutY(plane.getPlaneHeadPosition(plane.
-         * getPlane()).getY());
-         * 
-         * cont++;
-         * 
-         * }
-         */
-
     }
 
     @Override
     public void render() {
-
         if (start) {
             start = false;
             //plane.getPlaneMovement().printPlaneCoordinates();
-            this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
+            //this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
 
             double x = getLineTo(cont).getX();
             double y = getLineTo(cont).getY();
+
+            /*
+             * for (Point2D point:this.vet) { System.out.println("vet int GameEngineImpl: "
+             * + point); }
+             */
 
             Path path = new Path();
             ListIterator<Point2D> iterator = vet.listIterator();
@@ -180,13 +139,17 @@ public class GameEngineImpl implements GameEngine {
             //path.getElements().add(new MoveTo(0, 0));
 
             try {
-                if (iterator.hasNext()) {
 
-                    //if (this.vet.get(cont) != null && this.vet.get(cont + 1) != null) {
+                if (blocked) {
+                    pathTransition = new PathTransition();
+                }
+
+                if (iterator.hasNext() && !blocked) {
+
                     if (cont < vet.size() && (cont + 1) < vet.size()) {
                         //path.getElements().add(new MoveTo(vet.get(cont).getX(), vet.get(cont).getY()));
                         path.getElements().add(getLineTo(cont + 1));
-                        //System.out.println("Vet value " + vet.get(cont).getX() + " , " + vet.get(cont).getY());
+                        System.out.println("Vet value " + vet.get(cont).getX() + " , " + vet.get(cont).getY());
 
                         cont++;
                         pathTransition.setPath(path);
@@ -194,18 +157,25 @@ public class GameEngineImpl implements GameEngine {
 
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
-                        pathTransition.setOnFinished(finisch -> this.setStart(true));
+                        pathTransition.setOnFinished(finisch -> this.start = true);
                     } else {
                         pathTransition.stop();
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
-                        pathTransition.setOnFinished(finisch -> this.setStart(true));
+                        pathTransition.setOnFinished(finisch -> this.start = false);
                     }
+                } else {
+                    pathTransition.stop();
+                    pathTransition = new PathTransition();
+                    path = new Path();
+                    start = false;
                 }
             }
+
             catch (Exception ex) {
                 System.out.println(ex);
             }
+
         }
     }
 
@@ -220,25 +190,48 @@ public class GameEngineImpl implements GameEngine {
         this.start = start;
     }
 
-    public void setCoordinate(final List<Point2D> vet) {
-        this.vet = vet;
-        for (Point2D point:this.vet) {
-            System.out.println("vet: " + point);
-        }
+    private void checkAnimationStatus() {
+        animationIsRunning = pathTransition.getStatus() == Status.RUNNING;
+    }
+
+    public boolean getAnimationStatus() {
+        checkAnimationStatus();
+
+        return this.animationIsRunning;
     }
 
     /*
-     * public void setCoordinate(final Point2D[] vet) {
-     * 
-     * for (int i = 0; i < vet.length; i++) {
-     * System.out.println("vet in GameEngine: " + vet[i]); }
-     * 
-     * 
-     * this.vet = vet; }
+     * public void setStartFinischedAnimation() { if (blocked == false) { this.start
+     * = true; } else { this.start = false; } }
      */
+
+
+    public void setBlocked(final boolean isBlocked) { 
+        this.blocked = isBlocked; 
+    }
+
+    public void setCoordinate(final List<Point2D> vet) {
+        this.vet = vet;
+
+        //Reinizializzazione delle animazioni:
+        path = new Path();
+        //pathTransition = new PathTransition();
+        blocked = false;
+        start = true;
+
+        /*
+         * for (Point2D point:this.vet) {
+         * System.out.println("setCoordinate in GameEngineImpl: " + point); }
+         */
+    }
+
+
+    public void stopAnimation() {
+        //blockAnimation();
+        this.pathTransition.stop();
+    }
 
     public PathTransition getPathTransition() {
         return this.pathTransition;
     }
-
 }
