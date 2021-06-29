@@ -43,10 +43,10 @@ public class PlaneMouseMove extends Application {
     private PathTransition pathTransition = new PathTransition();
     private List<Point2D> planeCoordinates;
     private Path path = new Path();
-    
+
     private boolean mouseClicked = false;
     private int contatore = 0;
-    
+
     // TEST
     private static final int PLANE_HEAD_MARGIN = 15;
 
@@ -80,22 +80,13 @@ public class PlaneMouseMove extends Application {
         PathTransition pathTransition = new PathTransition();
         GameEngineImpl engine = new GameEngineImpl(this);
 
-
         // TEST adding static coordinates
-        coordinatesTest = new Point2D[] {
-                new Point2D(0, 0),
-                new Point2D(196, 60),
-                new Point2D(341, 138),
-                new Point2D(601, 369),
-                new Point2D(773, 119),
-                new Point2D(910, 161),
-                new Point2D(953, 123),
-                new Point2D(1144, 50),
-                new Point2D(800, 400),
-                new Point2D(500, 200),
-                new Point2D(500, 300),
-
-        };
+        /*
+         * coordinatesTest = new Point2D[] { new Point2D(0, 0), new Point2D(196, 60),
+         * new Point2D(341, 138), new Point2D(601, 369), new Point2D(773, 119), new
+         * Point2D(910, 161), new Point2D(953, 123), new Point2D(1144, 50), new
+         * Point2D(800, 400), new Point2D(500, 200), new Point2D(500, 300), };
+         */
 
         class ThreadEngine implements Runnable {
 
@@ -119,9 +110,6 @@ public class PlaneMouseMove extends Application {
 
         // Insert Plane test into view:
         paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
-
-        // TEST
-        //Rectangle rectTest = new Rectangle(0, 0, 50, 50);
 
         // Section Canvas
         paneRoot.getChildren().addAll(canvas);
@@ -220,18 +208,17 @@ public class PlaneMouseMove extends Application {
 
              @Override
              public void handle(final MouseEvent event) {
-                 // Cleaning the Array coordinates
-                 //planeCoordinates.clear();
-                 PathTransition pathTransitionCopy = engine.getPathTransition();
-                 ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
-
-                 if (animationStatus.getValue() == Status.RUNNING) {
-                     //System.out.println("Animazione on Running");
-                     pathTransitionCopy.stop();
-                     planeCoordinates.clear();
-                     engine.setCoordinate(planeCoordinates);
-                     engine.setStart(false);
-                 }
+                /*
+                 * PathTransition pathTransitionCopy = engine.getPathTransition();
+                 * ReadOnlyObjectProperty<Status> animationStatus =
+                 * pathTransitionCopy.statusProperty();
+                 * 
+                 * if (animationStatus.getValue() == Status.RUNNING) {
+                 * //System.out.println("Animazione on Running");
+                 * 
+                 * planeCoordinates.clear(); engine.setCoordinate(planeCoordinates);
+                 * engine.setBlocked(true); engine.stopAnimation(); pathTransitionCopy.stop(); }
+                 */
 
                  if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
                      planeCoordinates.add(new Point2D(event.getX(), event.getY()));
@@ -240,6 +227,16 @@ public class PlaneMouseMove extends Application {
                      gc.setStroke(Paint.valueOf("green"));
                      gc.stroke();
                  }
+                 
+                 PathTransition pathTransitionCopy = engine.getPathTransition();
+                 ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
+                 
+                 if (animationStatus.getValue() == Status.RUNNING) {
+                     //System.out.println("Animazione on Running"); planeCoordinates.clear();
+                     pathTransitionCopy.stop();
+                     engine.setBlocked(true);
+                 }
+
              }
          };
 
@@ -247,32 +244,83 @@ public class PlaneMouseMove extends Application {
 
              @Override
              public void handle(final MouseEvent event) {
+                 PathTransition pathTransitionCopy = engine.getPathTransition();
+                 ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
 
-                     if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
-                         planeCoordinates.add(new Point2D(event.getX(), event.getY()));
-
-                         gc.lineTo(event.getX(), event.getY());
-                         gc.setStroke(Paint.valueOf("green"));
-                         gc.stroke();
-                     }
+                 // 2)
+                 // Blocca il ciclo in GameEngineImpl per resettare le nuove coordinate.
+                 if (animationStatus.getValue() == Status.RUNNING) {
+                     //System.out.println("Animazione on Running"); planeCoordinates.clear();
+                     engine.setBlocked(true);
+                     engine.setStart(false);
+                     engine.stopAnimation(); 
+                     pathTransitionCopy.stop(); 
                  }
-          };
+
+                 if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
+                      planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+                      gc.lineTo(event.getX(), event.getY());
+                      gc.setStroke(Paint.valueOf("green"));
+                      gc.stroke();
+                 }
+           }
+         };
 
            EventHandler<MouseEvent> handlerMouseReleased = new EventHandler<MouseEvent>() {
 
                @Override public void handle(final MouseEvent event) {
-                       System.out.println("");
-                       System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
+                   /*
+                    * PathTransition pathTransitionCopy = engine.getPathTransition();
+                    * ReadOnlyObjectProperty<Status> animationStatus =
+                    * pathTransitionCopy.statusProperty();
+                    * 
+                    * if (animationStatus.getValue() == Status.RUNNING) {
+                    * //System.out.println("Animazione on Running");
+                    * 
+                    * planeCoordinates.clear(); engine.setCoordinate(planeCoordinates);
+                    * engine.setBlocked(true); engine.stopAnimation(); pathTransitionCopy.stop(); }
+                    */
+                   /*
+                    * PathTransition pathTransitionCopy = engine.getPathTransition();
+                    * ReadOnlyObjectProperty<Status> animationStatus =
+                    * pathTransitionCopy.statusProperty();
+                    * 
+                    * if (animationStatus.getValue() == Status.STOPPED) {
+                    * planeMove.printPlaneCoordinates();
+                    * planeMove.setPlaneCoordinatesList(planeCoordinates);
+                    * engine.setCoordinate(planeMove.getPlaneCoordinatesList());
+                    * engine.setBlocked(false); engine.setStart(true);
+                    * 
+                    * }
+                    */
 
-                       //planeMove.setPlaneCoordinates(planeCoordinates);
-                       planeMove.setPlaneCoordinatesList(planeCoordinates);
+                    // 1)
+                    // Quando si rilascia il Mouse, le coordinate campionate vengono salvate e passate al
+                    // GameEngineImpl.
 
-                       //Trying to clear the List of Coordinates from duplicates
-                       planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
-                       clearListCoordinates(planeCoordinates);
-                       engine.setCoordinate(planeMove.getPlaneCoordinatesList());
-                       engine.setStart(true);
-                   } 
+
+                   PathTransition pathTransitionCopy = engine.getPathTransition();
+                   ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
+
+                   if (animationStatus.getValue() == Status.RUNNING) {
+                         engine.setBlocked(true); 
+                         engine.setStart(false); 
+                         engine.stopAnimation();
+                    }
+
+                    System.out.println("");
+                    System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
+                    //Trying to clear the List of Coordinates from duplicates
+                    planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
+                    planeMove.printPlaneCoordinates();
+
+                    // 3)
+                    // Check if animationIsRunning
+                    System.out.println("Check if animationIsRunning: " + engine.getAnimationStatus());
+
+                    engine.setCoordinate(planeMove.getPlaneCoordinatesList());
+                    engine.setStart(true);
+                } 
            };
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMouseClicked);
