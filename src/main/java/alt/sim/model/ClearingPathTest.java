@@ -109,9 +109,9 @@ public class ClearingPathTest extends Application {
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight());
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight() - 500);
                     gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY(), rectCleaning.getWidth() + 200, rectCleaning.getHeight() + 200);
-                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY(), rectCleaning.getWidth() + 200, rectCleaning.getHeight() + 200);
-                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY() - 100, rectCleaning.getWidth(), rectCleaning.getHeight());
-                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY() + 100, rectCleaning.getWidth(), rectCleaning.getHeight());
+                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight() + 200);
+                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY() - 100, rectCleaning.getWidth(), rectCleaning.getHeight());
+                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY() + 100, rectCleaning.getWidth(), rectCleaning.getHeight());
 
                 }
             } catch (Exception e) {}
