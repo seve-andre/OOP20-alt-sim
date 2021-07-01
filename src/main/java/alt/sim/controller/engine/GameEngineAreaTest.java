@@ -135,7 +135,6 @@ public class GameEngineAreaTest implements GameEngine {
         PathTransition pathTransitionPlane = new PathTransition();
         copyCoordinatesInPath(planeCoordinates);
         pathTransitionPlane.setPath(path);
-        //System.out.println("connectPlaneToPathTransition = " + plane.hashCode());
         pathTransitionPlane.setNode(this.plane.getImagePlane());
         pathTransitionPlane.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
 
