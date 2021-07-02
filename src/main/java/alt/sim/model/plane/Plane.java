@@ -1,12 +1,18 @@
 package alt.sim.model.plane;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import alt.sim.model.ClearingPathTest;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
+import alt.sim.view.TransitionTest;
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 
 /**
  * Defines the Plane idea
@@ -27,12 +33,22 @@ public class Plane {
     private Tipology type;
     private State status;
     private Sprite spritePlane;
+
     private boolean isPlaneSelectedForBeenMoved;
+    private TransitionTest controllerTransition;
+    private ClearingPathTest controllerCleaning;
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
 
+    private List<Point2D> linesPath;
+    private List<Point2D> linesPathToRemove;
+
+    // Testing Line saving
+
     public Plane(final String urlImagePlane) {
+       linesPath = new ArrayList<>();
+       linesPathToRemove = new ArrayList<>();
        this.isPlaneSelectedForBeenMoved = false;
        this.spritePlane = new Sprite(urlImagePlane, true);
 
@@ -63,12 +79,59 @@ public class Plane {
         this.status = status;
     }
 
+    public void connetToController(final TransitionTest controllerTransition) {
+        this.controllerTransition = controllerTransition;
+    }
+
+    public void connetToControllerClaringPathTest(final ClearingPathTest controllerCleaning) {
+        this.controllerCleaning = controllerCleaning;
+    }
+
     public void setOnClick() {
-        this.getImagePlane().setOnMousePressed(event -> { 
+        this.getImagePlane().setOnMousePressed(event -> {
             setSpritePlane("images/map_components/airplaneSelected.png");
             isPlaneSelectedForBeenMoved = true;
         });
-        this.getImagePlane().setOnMouseReleased(event -> this.getImagePlane().setImage(new Image("images/map_components/airplane.png")));
+        this.getImagePlane().setOnMouseReleased(event -> {
+            this.getImagePlane().setImage(new Image("images/map_components/airplane.png"));
+        });
+    }
+
+    public void setPlaneLinesPath(final List<Point2D> linesPath) {
+        // Eliminiamo la possibilità di cancellare da Plane per vedere il funzionamento    
+        //controllerCleaning.clearCanvasLines(this.linesPathToRemove);
+
+            this.linesPath = linesPath;
+            //this.linesPathToRemove = linesPath;
+            /*
+             * for (Point2D point:linesPath) { System.out.println("linesPath: " +
+             * point.getX() + " , " + point.getY()); }
+             * 
+             * System.out.println("");
+             */
+
+            /*
+             * for (Point2D pointToRemove:linesPathToRemove) {
+             * System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " +
+             * pointToRemove.getY()); }
+             */
+    }
+
+    public List<Point2D> getPlaneLinesPath() {
+        //System.out.println("getPlaneLinesPath in Plane = " + this.linesPath);
+        return this.linesPath;
+    }
+
+    public List<Point2D> getPlaneLinesPathToRemove() {
+        return this.linesPathToRemove;
+    }
+
+    public void setPlaneLinesPathToRemove(final List<Point2D> linesPathToRemove) {
+        for (Point2D pointToRemove:linesPathToRemove) {
+            //System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " + pointToRemove.getY());
+        }
+
+        this.linesPathToRemove = linesPathToRemove;
     }
 
     /**
