@@ -25,16 +25,20 @@ public class ClearingPathTest extends Application {
     private Plane plane1;
     private Plane plane2;
     private List<Point2D> planeCoordinates;
+    private List<List<Point2D>> planeCoordinatesToRemove;
 
     private GraphicsContext gc;
     private Canvas canvas;
 
-    private boolean premutoUnaVolta = false;
+    private boolean primoGiro = true;
+    private boolean readyToEliminate = false;
+    private int contatore = 0;
 
     @Override
     public void start(final Stage stage) throws Exception {
-
+        contatore = 0;
         planeCoordinates = new ArrayList<>();
+        planeCoordinatesToRemove = new ArrayList<>();
 
         paneRoot = new Pane();
         plane1 = new Plane("images/map_components/airplane.png");
@@ -46,6 +50,7 @@ public class ClearingPathTest extends Application {
 
         plane2.getImagePlane().setX(500);
         plane2.getImagePlane().setY(500);
+        plane2.connetToControllerClaringPathTest(this);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
         gc = canvas.getGraphicsContext2D();
@@ -54,25 +59,64 @@ public class ClearingPathTest extends Application {
         gc.stroke();
 
         // Area Listeners
-        //-----------------------------------------------------------------
+        // -----------------------------------------------------------------
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
-             planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+            planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+            // planeCoordinatesToRemove.add(new Point2D(event.getX(), event.getY()));
 
-             // Disegno linea su Canvas
-             gc.lineTo(event.getX(), event.getY());
-             gc.setStroke(Color.BLUE);
-             gc.stroke();
+            // Disegno linea su Canvas
+            gc.lineTo(event.getX(), event.getY());
+            gc.setStroke(Color.BLUE);
+            gc.stroke();
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {
-            if (premutoUnaVolta) {
-                clearCanvasLines();
-                premutoUnaVolta = false;
+            /*
+             * for (Point2D pointToRemove:planeCoordinatesToRemove) {
+             * System.out.println("planeCoordinatesToRemove: " + pointToRemove.getX() +
+             * " , " + pointToRemove.getY()); }
+             */
+
+            System.out.println("");
+
+            if (readyToEliminate) {
+                System.out.println("contatore = " + contatore);
+                clearCanvasLines(planeCoordinatesToRemove.get(contatore));
+
+                /*
+                 * for (Point2D pointToRemove:planeCoordinatesToRemove.get(contatore)) {
+                 * System.out.println("planeCoordinatesToRemove: " + pointToRemove.getX() +
+                 * " , " + pointToRemove.getY()); }
+                 */
+
+                contatore++;
             }
 
+            //planeCoordinatesToRemove.add(planeCoordinates);
+            // Sostituito da:
+            addCoordinateToRemove();
+            printCoordinatesToClear();
+            System.out.println("salvato al giro 0 = ");
+
+            for (Point2D pointToRemove : planeCoordinatesToRemove.get(contatore)) {
+                System.out.println("planeCoordinatesToRemove: " + pointToRemove.getX() + " , " + pointToRemove.getY());
+            }
+
+            readyToEliminate = true;
+            plane2.setPlaneLinesPath(planeCoordinates);
+
+            // plane2.setPlaneLinesPathToRemove(planeCoordinatesToRemove);
+
+            /*
+             * for (Point2D point:planeCoordinates) {
+             * System.out.println("planeCoordinates: " + point.getX() + " , " +
+             * point.getY()); }
+             */
+
             planeCoordinates.clear();
+            // planeCoordinatesToRemove.clear();
             gc.beginPath();
-            premutoUnaVolta = true;
+            primoGiro = true;
         };
 
         EventHandler<MouseEvent> handlerMouseMoved = event -> {
@@ -80,12 +124,13 @@ public class ClearingPathTest extends Application {
         };
 
         EventHandler<MouseEvent> handlerMouseClicked = event -> {
-            //Rectangle rect = createRectangleCleaned(new Point2D(event.getX(), event.getY()), new Point2D(event.getX() + 10, event.getY() + 10));
-            //gc.fillRect(event.getX(), event.getY(), 30, 15);
-            //gc.clearRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+            // Rectangle rect = createRectangleCleaned(new Point2D(event.getX(),
+            // event.getY()), new Point2D(event.getX() + 10, event.getY() + 10));
+            // gc.fillRect(event.getX(), event.getY(), 30, 15);
+            // gc.clearRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
         };
 
-        //-------------------------------------------------
+        // -------------------------------------------------
 
         // Implementazione ripulitura Linee sul Canvas
         paneRoot.getChildren().add(canvas);
@@ -99,29 +144,48 @@ public class ClearingPathTest extends Application {
         stage.show();
     }
 
-    public void clearCanvasLines() {
+    public void clearCanvasLines(final List<Point2D> coordinatesToClear) {
         Rectangle rectCleaning;
 
-        for (int k = 0; k < planeCoordinates.size(); k++) {
-            try {
-                if (planeCoordinates.get(k + 1) != null) {
-                    rectCleaning = createRectangleCleaned(new Point2D(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()), new Point2D(planeCoordinates.get(k + 1).getX(), planeCoordinates.get(k + 1).getY()));
-                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight());
-                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight() - 500);
-                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY(), rectCleaning.getWidth() + 200, rectCleaning.getHeight() + 200);
-                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight() + 200);
-                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY() - 100, rectCleaning.getWidth(), rectCleaning.getHeight());
-                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY() + 100, rectCleaning.getWidth(), rectCleaning.getHeight());
+        System.out.println("");
+        System.out.println("coordinate passate da Eliminare al giro 0: ");
 
-                }
-            } catch (Exception e) {}
+        for (Point2D point:coordinatesToClear) {
+            System.out.println("coordinate Eliminare: " + point.getX() + " , " + point.getY()); 
         }
 
-        for (int k = 0; k < planeCoordinates.size(); k++) {
+        for (int k = 0; k < coordinatesToClear.size(); k++) {
             try {
-                if (planeCoordinates.get(k + 1) != null) {
-            rectCleaning = createRectangleCleaned(new Point2D(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()), new Point2D(planeCoordinates.get(k + 1).getX(), planeCoordinates.get(k + 1).getY()));
-            gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight() - (rectCleaning.getHeight() / 2));
+                if (coordinatesToClear.get(k + 1) != null) {
+                    rectCleaning = createRectangleCleaned(
+                            new Point2D(coordinatesToClear.get(k).getX(), coordinatesToClear.get(k).getY()),
+                            new Point2D(coordinatesToClear.get(k + 1).getX(), coordinatesToClear.get(k + 1).getY()));
+
+                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
+                            rectCleaning.getHeight());
+                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
+                            rectCleaning.getHeight() - 500);
+                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY(), rectCleaning.getWidth() + 200,
+                            rectCleaning.getHeight() + 200);
+                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY(), rectCleaning.getWidth(),
+                            rectCleaning.getHeight() + 200);
+                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY() - 100, rectCleaning.getWidth(),
+                            rectCleaning.getHeight());
+                    gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY() + 100, rectCleaning.getWidth(),
+                            rectCleaning.getHeight());
+                }
+            } catch (Exception e) {
+            }
+        }
+
+        for (int k = 0; k < coordinatesToClear.size(); k++) {
+            try {
+                if (coordinatesToClear.get(k + 1) != null) {
+                    rectCleaning = createRectangleCleaned(
+                            new Point2D(coordinatesToClear.get(k).getX(), coordinatesToClear.get(k).getY()),
+                            new Point2D(coordinatesToClear.get(k + 1).getX(), coordinatesToClear.get(k + 1).getY()));
+                    gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
+                            rectCleaning.getHeight() - (rectCleaning.getHeight() / 2));
                 }
             } catch (Exception e) {}
         }
@@ -162,12 +226,32 @@ public class ClearingPathTest extends Application {
             height = 50;
         }
 
-        if (width <= 5) {
-            //width = 50;
+        return new Rectangle(puntoDiPartenzaX, puntoDiPartenzaY, width, height);
+    }
+    
+    public void addCoordinateToRemove() {
+        List<Point2D> planeCoordinatesCopy = new ArrayList<>();
+        
+        for (Point2D pointToRemove : planeCoordinates) {
+            planeCoordinatesCopy.add(new Point2D(pointToRemove.getX(), pointToRemove.getY()));
+        }
+        planeCoordinatesToRemove.add(planeCoordinatesCopy);
+    }
+
+    public void printCoordinatesToClear() {
+        int k = 0;
+
+        System.out.println("Print CoordinatesToClear: ");
+
+        while (k < planeCoordinatesToRemove.size()) {
+            System.out.println("contatore: " + k);
+            for (Point2D pointToRemove : planeCoordinatesToRemove.get(k)) {
+                System.out.println("Point Print: " + pointToRemove.getX() + " , " + pointToRemove.getY());
+            }
+
+            k++;
         }
 
-
-        return new Rectangle(puntoDiPartenzaX, puntoDiPartenzaY, width, height);
     }
 
     public static void main(final String[] args) {
