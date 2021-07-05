@@ -10,6 +10,7 @@ import alt.sim.view.TransitionTest;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -22,10 +23,12 @@ public class GameEngineAreaTest implements GameEngine {
     private TransitionTest transitionRif;
     private SpawnObject spawn;
     private Plane plane;
+    private GraphicsContext gcEngine;
 
     // Sezione Coordinate campionate
     private Path path;
     private List<Point2D> planeCoordinates;
+    private List<Plane> planes;
     private PathTransition pathTransition;
 
     private boolean readyToStart;
@@ -36,6 +39,7 @@ public class GameEngineAreaTest implements GameEngine {
        // Sezione campionamento e animazione
        this.path = new Path();
        this.planeCoordinates = new ArrayList<Point2D>();
+       this.planes = transitionRif.getPlanes();
        this.pathTransition = new PathTransition();
 
        this.readyToStart = false;
@@ -104,7 +108,6 @@ public class GameEngineAreaTest implements GameEngine {
 
         // Controllo ad ogni frame se Plane collide con qualche oggetto
         if (checkCollision()) {
-            System.out.println("COLLIDED!!!");
         }
     }
 
@@ -115,7 +118,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     @Override
     public void render() {
-
     }
 
     @Override
@@ -138,17 +140,21 @@ public class GameEngineAreaTest implements GameEngine {
         pathTransitionPlane.setNode(this.plane.getImagePlane());
         pathTransitionPlane.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
 
-        // -------------------------------------------
-        // Cambiare la velocità a seconda del percoso:
+        //-------------------------------------------
         setCoordinates(planeCoordinates);
         setPathTransition(pathTransition);
-        pathLenght = planeCoordinates.size();
 
+        // Cambiare la velocità a seconda del percoso:
+        pathLenght = planeCoordinates.size();
         duration = pathLenght / velocityMovement;
         pathTransitionPlane.setDuration(Duration.millis(duration));
         // -------------------------------------------
 
         pathTransitionPlane.play();
+        pathTransitionPlane.setOnFinished(event -> {
+            //transitionRif.clearPlaneCoordinatesAndUpdate(plane.getId());
+        });
+
         plane.setIsPlaneSelectedForBeenMoved(false);
         setReadyToStart(true);
     }
@@ -165,6 +171,10 @@ public class GameEngineAreaTest implements GameEngine {
                 path.getElements().add(new LineTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()));
             }
         }
+    }
+
+    public void setGraphicContext(final GraphicsContext gcEngine) {
+        this.gcEngine = transitionRif.getCanvas().getGraphicsContext2D();
     }
 
     public void setPlaneToMove(final Plane plane) {

@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 
 public class TransitionTest extends Application {
     private Pane paneRoot;
-    private PlaneMovement planeMove;
     private List<Plane> planes;
     private Plane plane;
     private Plane plane2;
@@ -41,7 +40,6 @@ public class TransitionTest extends Application {
     private PathTransition pathTransition;
     private Path path;
     private List<Point2D> planeCoordinates;
-    private List<Line> linesPath;
     private GraphicsContext gc;
 
     // Area Collision
@@ -57,8 +55,6 @@ public class TransitionTest extends Application {
         path = new Path();
 
         planeCoordinates = new ArrayList<Point2D>();
-        planeMove = new PlaneMovement();
-        linesPath = new ArrayList<>();
 
         planes = new ArrayList<>();
         plane = new Plane("images/map_components/airplane.png");
@@ -83,7 +79,7 @@ public class TransitionTest extends Application {
         plane2.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
         plane3.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
         plane4.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-        
+
         // View Plane demonstrating:
         paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
 
@@ -98,8 +94,10 @@ public class TransitionTest extends Application {
         // Section Canvas + WallCollision + ImageTest
         paneRoot.getChildren().addAll(canvas, rectangleWall, plane.getImagePlane(), plane2.getImagePlane());
         paneRoot.getChildren().addAll(plane3.getImagePlane(), plane4.getImagePlane());
+
+        // Section GraphicsContext
+        engine.setGraphicContext(gc);
         gc = canvas.getGraphicsContext2D();
-        gc.save();
 
         // Avvio del GameLoop
         class ThreadEngine implements Runnable {
@@ -113,47 +111,54 @@ public class TransitionTest extends Application {
         Thread t = new Thread(new ThreadEngine());
         t.start();
 
-        EventHandler<MouseEvent> handlerMouseMoved = event -> gc.moveTo(event.getX(), event.getY());
+        //EventHandler<MouseEvent> handlerMouseMoved = event -> gc.moveTo(event.getX(), event.getY());
 
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
-                //gc.lineTo(event.getX(), event.getY());
-                //gc.setStroke(Color.LIMEGREEN);
-                //gc.stroke();
+                gc.lineTo(event.getX(), event.getY());
+                gc.setStroke(Color.BLUE);
+                gc.stroke();
             }
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {
-            convertCoordinatesToLine();
+            clearMap();
 
             for (Plane planeSelected:planes) {
-
                 if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-                    paneRoot.getChildren().addAll(planeSelected.getPlaneLinesPath());
+                    planeSelected.setPlaneLinesPath(planeCoordinates);
+                    planeSelected.loadPlaneMovementAnimation();
+                    planeSelected.startPlaneMovementAnimation();
+                    //engine.setPlane(planeSelected);
                 }
+                //restoreLinesRemoved(planeSelected.getPlaneLinesPath());
+                restoreLinesRemoved();
             }
 
             // 2)
             // Blocca il ciclo in GameEngineImpl per resettare le nuove coordinate.
             if (pathTransition.getStatus() == Status.RUNNING) {
                 pathTransition.stop();
-                engine.stopPathTransition();
-                engine.setReadyToStart(false);
+                //engine.stopPathTransition();
+                //engine.setReadyToStart(false);
             }
 
-            planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
-            copyCoordinatesInPath(planeCoordinates);
+            //planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
+
+            for (Plane planeSelected:planes) {
+                copyCoordinatesInPath(planeSelected.getPlaneLinesPath());
+            }
+
             selectedPathNode();
             clearPlaneSelectedForBeenMoved();
-            //connectPlaneToPathTransition();
 
             // Quando viene rilasciato il Mouse le coordinate salvate vengono liberate
             planeCoordinates.clear();
         };
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, handlerMouseMoved);
+        //canvas.addEventHandler(MouseEvent.MOUSE_MOVED, handlerMouseMoved);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
 
         Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
@@ -161,36 +166,52 @@ public class TransitionTest extends Application {
         stage.show();
     }
 
-    private void convertCoordinatesToLine() {
-        for (int i = 0; i < planeCoordinates.size(); i++) {
-            try {
-                if (planeCoordinates.get(i + 1) != null) {
-                    linesPath.add(new Line(planeCoordinates.get(i).getX(), planeCoordinates.get(i).getY(), planeCoordinates.get(i + 1).getX(), planeCoordinates.get(i + 1).getY()));
-                }
-            } catch (Exception e) {};
-        }
+    public void clearMap() {
+        final double dimensionRectangleCleanerWidth = 2000;
+        final double dimensionRectangleCleanerHeight = 2000;
 
-        for (Plane planeSelected:planes) {
-
-            if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-                clearingLinesPathToPaneRoot(planeSelected.getPlaneLinesPath());
-                planeSelected.setPlaneLinesPath(linesPath);
-            }
-        }
-
-        paneRoot.getChildren().addAll(linesPath);
-        linesPath.clear();
+        gc.clearRect(0, 0, dimensionRectangleCleanerWidth, dimensionRectangleCleanerHeight);
     }
+
+    public void restoreLinesRemoved() {
+        for (Plane planeSelected:planes) {
+            try {
+                if (planeSelected.getPlaneLinesPath().size() > 0) {
+                    gc.moveTo(planeSelected.getPlaneLinesPath().get(0).getX(), planeSelected.getPlaneLinesPath().get(0).getY());
+
+                    for (int k = 1; k < planeSelected.getPlaneLinesPath().size(); k++) {
+                        gc.lineTo(planeSelected.getPlaneLinesPath().get(k).getX(), planeSelected.getPlaneLinesPath().get(k).getY());
+                    }
+
+                    gc.setStroke(Color.BLUE);
+                    gc.stroke();
+                    gc.beginPath();
+                }
+            } catch (Exception e) { }
+        }
+    }
+
+    /*
+     * public void restoreLinesRemoved(final List<Point2D> planeCoordinates) { try {
+     * if (planeCoordinates.size() > 0) { gc.moveTo(planeCoordinates.get(0).getX(),
+     * planeCoordinates.get(0).getY());
+     * 
+     * for (int k = 1; k < planeCoordinates.size(); k++) {
+     * gc.lineTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()); }
+     * 
+     * gc.setStroke(Color.BLUE); gc.stroke(); gc.beginPath(); } } catch (Exception
+     * e) { } }
+     */
 
     private void selectedPathNode() {
         for (Plane planeSelected:planes) {
 
             if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-                engine.setCoordinates(planeCoordinates);
-                engine.setPathTransition(pathTransition);
-                engine.setReadyToStart(true);
-                engine.setPlane(planeSelected);
-                engine.connectPlaneToPathTransition(plane);
+                //engine.setCoordinates(planeCoordinates);
+                //engine.setPathTransition(pathTransition);
+                //engine.setReadyToStart(true);
+                //engine.setPlane(planeSelected);
+                //engine.connectPlaneToPathTransition(plane);
                 planeSelected.setIsPlaneSelectedForBeenMoved(false);
             } 
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
@@ -202,26 +223,6 @@ public class TransitionTest extends Application {
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
         }
     }
-
-    public void clearingLinesPathToPaneRoot(final List<Line> linesPathToRemove) {
-        paneRoot.getChildren().remove(linesPathToRemove);
-    }
-
-    /*
-     * private void connectPlaneToPathTransition(final Plane plane) { int pathLenght
-     * = 0;
-     * 
-     * PathTransition pathTransitionPlane = new PathTransition();
-     * pathTransitionPlane.setPath(path);
-     * pathTransitionPlane.setNode(plane.getImagePlane());
-     * pathTransitionPlane.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-     * 
-     * pathTransitionPlane.play();
-     * 
-     * //engine.setCoordinates(planeCoordinates);
-     * //engine.setPathTransition(pathTransition); //engine.setReadyToStart(false);
-     * }
-     */
 
     private void copyCoordinatesInPath(final List<Point2D> planeCoordinates) {
         // Ripuliamo le coordinate presenti dal path prima
@@ -237,15 +238,24 @@ public class TransitionTest extends Application {
         }
     }
 
-    private List<Point2D> clearListCoordinates(final List<Point2D> planeCoordinates) {
-        Set<Point2D> s = new LinkedHashSet<>(planeCoordinates);
-        List<Point2D> copyListCleaned = new ArrayList<>(s);
-
-        return copyListCleaned;
-    }
-
     public static void main(final String[] args) {
         launch(args);
+    }
+
+    public void clearPlaneCoordinatesAndUpdate(final int idPlane) {
+        for (Plane planeSelected:planes) { 
+            if (planeSelected.getId() == idPlane) {
+                planeSelected.resetPlaneLinesPath(idPlane);
+            }
+        }
+    }
+
+    public Canvas getCanvas() {
+        return this.canvas;
+    }
+
+    public List<Plane> getPlanes() {
+        return this.planes;
     }
 
     public Rectangle getRectangleWall() {
