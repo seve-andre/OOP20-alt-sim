@@ -2,17 +2,24 @@ package alt.sim.model.plane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import alt.sim.model.ClearingPathTest;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import alt.sim.view.TransitionTest;
+import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.PathTransition.OrientationType;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 
 /**
  * Defines the Plane idea
@@ -34,12 +41,15 @@ public class Plane {
     private State status;
     private Sprite spritePlane;
 
+    private int id;
     private boolean isPlaneSelectedForBeenMoved;
     private TransitionTest controllerTransition;
     private ClearingPathTest controllerCleaning;
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
+    private PathTransition transition;
+    private Path path;
 
     private List<Point2D> linesPath;
     private List<Point2D> linesPathToRemove;
@@ -47,6 +57,9 @@ public class Plane {
     // Testing Line saving
 
     public Plane(final String urlImagePlane) {
+        Random idRandom = new Random(100);
+
+       this.id = idRandom.nextInt();
        linesPath = new ArrayList<>();
        linesPathToRemove = new ArrayList<>();
        this.isPlaneSelectedForBeenMoved = false;
@@ -79,6 +92,48 @@ public class Plane {
         this.status = status;
     }
 
+    public void loadPlaneMovementAnimation() {
+        transition = new PathTransition();
+        double pathLenght = 0;
+        final double velocityMovement = 0.005;
+        double duration = 0;
+
+        // aggiornare le coordinate da richiamare prima di questo metodo
+        copyCoordinatesInPath();
+        transition.setPath(path);
+        transition.setNode(this.getImagePlane());
+        transition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+
+        // Cambiare la velocità a seconda del percoso:
+        pathLenght = linesPath.size();
+        duration = pathLenght / velocityMovement;
+        transition.setDuration(Duration.millis(duration));
+
+        transition.setOnFinished(event -> {
+            linesPath.clear();
+            controllerTransition.clearMap();
+            controllerTransition.restoreLinesRemoved();
+        });
+    }
+
+    public void startPlaneMovementAnimation() {
+        this.transition.play();
+    }
+
+    private void copyCoordinatesInPath() {
+        // Ripuliamo le coordinate presenti dal path prima
+        this.path = new Path();
+
+        for (int k = 0; k < this.linesPath.size(); k++) {
+
+            if (k == 0) {
+                path.getElements().add(new MoveTo(linesPath.get(k).getX(), linesPath.get(k).getY()));
+            } else {
+                path.getElements().add(new LineTo(linesPath.get(k).getX(), linesPath.get(k).getY()));
+            }
+        }
+    }
+
     public void connetToController(final TransitionTest controllerTransition) {
         this.controllerTransition = controllerTransition;
     }
@@ -98,23 +153,23 @@ public class Plane {
     }
 
     public void setPlaneLinesPath(final List<Point2D> linesPath) {
-        // Eliminiamo la possibilità di cancellare da Plane per vedere il funzionamento    
-        //controllerCleaning.clearCanvasLines(this.linesPathToRemove);
+        if (this.getIsPlaneSelectedForBeenMoved()) {
+            this.linesPath.clear();
 
-            this.linesPath = linesPath;
-            //this.linesPathToRemove = linesPath;
-            /*
-             * for (Point2D point:linesPath) { System.out.println("linesPath: " +
-             * point.getX() + " , " + point.getY()); }
-             * 
-             * System.out.println("");
-             */
+            for (Point2D lines:linesPath) {
+                this.linesPath.add(new Point2D(lines.getX(), lines.getY()));
+            }
+        }
+    }
 
-            /*
-             * for (Point2D pointToRemove:linesPathToRemove) {
-             * System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " +
-             * pointToRemove.getY()); }
-             */
+    public void resetPlaneLinesPath() {
+        this.linesPath.clear();
+    }
+
+    public void resetPlaneLinesPath(final int idPlane) {
+        if (this.id == idPlane) {
+            resetPlaneLinesPath();
+        }
     }
 
     public List<Point2D> getPlaneLinesPath() {
@@ -164,6 +219,10 @@ public class Plane {
 
     public boolean getIsPlaneSelectedForBeenMoved() {
         return this.isPlaneSelectedForBeenMoved;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     @Override
