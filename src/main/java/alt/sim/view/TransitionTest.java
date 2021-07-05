@@ -3,29 +3,35 @@ package alt.sim.view;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.PathTransition;
 import javafx.animation.Animation.Status;
+import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TransitionTest extends Application {
     private Pane paneRoot;
@@ -111,7 +117,7 @@ public class TransitionTest extends Application {
         Thread t = new Thread(new ThreadEngine());
         t.start();
 
-        //EventHandler<MouseEvent> handlerMouseMoved = event -> gc.moveTo(event.getX(), event.getY());
+        //EventHandler<MouseEvent> handlerMouseMoved = event -> {gc.moveTo(event.getX(), event.getY());};
 
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
@@ -123,17 +129,26 @@ public class TransitionTest extends Application {
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {
-            clearMap();
-
             for (Plane planeSelected:planes) {
+
                 if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
+                    if (planeSelected.getPlaneMovementAnimation() != null) {
+                        planeSelected.stopPlaneMovementAnimation();
+                        /*
+                         * clearMap(); restoreLinesRemoved();
+                         */
+                    }
+
                     planeSelected.setPlaneLinesPath(planeCoordinates);
+                    clearMap();
+                    restoreLinesRemoved();
+
                     planeSelected.loadPlaneMovementAnimation();
                     planeSelected.startPlaneMovementAnimation();
                     //engine.setPlane(planeSelected);
                 }
+
                 //restoreLinesRemoved(planeSelected.getPlaneLinesPath());
-                restoreLinesRemoved();
             }
 
             // 2)
@@ -157,11 +172,40 @@ public class TransitionTest extends Application {
             planeCoordinates.clear();
         };
 
+        EventHandler<KeyEvent>  handlerKeyPressed = event -> {
+            ExplosionAnimation expl = new ExplosionAnimation();
+            Point2D randomPoint;
+            PathTransition transitionRandom = new PathTransition();
+            Path pathRandom = new Path();
+
+            if (event.getCode() == KeyCode.G) {
+                expl.startAnimation();
+                Random r = new Random();
+                int randomX = r.nextInt(1400);
+                int randomY = r.nextInt(1000);
+
+                pathRandom.getElements().add(new MoveTo(plane.getImagePlane().getBoundsInParent().getMinX(), plane.getImagePlane().getBoundsInParent().getMinY()));
+                pathRandom.getElements().add(new LineTo(randomX, randomY));
+
+                transitionRandom.setPath(pathRandom);
+                transitionRandom.setNode(plane.getImagePlane());
+                transitionRandom.setDuration(Duration.seconds(4));
+                transitionRandom.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+
+                gc.moveTo(plane.getImagePlane().getBoundsInParent().getMinX(), plane.getImagePlane().getBoundsInParent().getMinY());
+                gc.lineTo(randomX, randomY);
+                gc.setStroke(Color.GREEN);
+                gc.stroke();
+
+                transitionRandom.play();
+            }
+        };
+
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
-        //canvas.addEventHandler(MouseEvent.MOUSE_MOVED, handlerMouseMoved);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
 
         Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, handlerKeyPressed);
         stage.setScene(scene);
         stage.show();
     }

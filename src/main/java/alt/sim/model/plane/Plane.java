@@ -9,6 +9,7 @@ import alt.sim.model.ImageClassification;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import alt.sim.view.TransitionTest;
+import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.PathTransition.OrientationType;
@@ -100,6 +101,14 @@ public class Plane {
 
         // aggiornare le coordinate da richiamare prima di questo metodo
         copyCoordinatesInPath();
+
+        if (transition.getStatus() == Status.RUNNING) {
+            this.transition.stop();
+            linesPath.clear();
+            controllerTransition.clearMap();
+            controllerTransition.restoreLinesRemoved();
+        }
+
         transition.setPath(path);
         transition.setNode(this.getImagePlane());
         transition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -118,6 +127,18 @@ public class Plane {
 
     public void startPlaneMovementAnimation() {
         this.transition.play();
+    }
+
+    public void stopPlaneMovementAnimation() {
+        this.transition.stop();
+    }
+
+    public String getStatusMovementAnimation() {
+        return this.transition.getStatus().toString();
+    }
+
+    public PathTransition getPlaneMovementAnimation() {
+        return this.transition;
     }
 
     private void copyCoordinatesInPath() {
