@@ -1,13 +1,10 @@
 package alt.sim.view;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import alt.sim.controller.engine.GameEngineAreaTest;
-import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.PathTransition;
@@ -15,7 +12,6 @@ import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -103,6 +99,7 @@ public class TransitionTest extends Application {
 
         // Section GraphicsContext
         engine.setGraphicContext(gc);
+        engine.setPlanes(planes);
         gc = canvas.getGraphicsContext2D();
 
         // Avvio del GameLoop
@@ -129,14 +126,15 @@ public class TransitionTest extends Application {
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {
+            if (plane.getStatusRandomTransition() == "RUNNING-RANDOM") {
+                plane.stopRandomTransition();
+            }
+
             for (Plane planeSelected:planes) {
 
                 if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
                     if (planeSelected.getPlaneMovementAnimation() != null) {
                         planeSelected.stopPlaneMovementAnimation();
-                        /*
-                         * clearMap(); restoreLinesRemoved();
-                         */
                     }
 
                     planeSelected.setPlaneLinesPath(planeCoordinates);
@@ -145,10 +143,7 @@ public class TransitionTest extends Application {
 
                     planeSelected.loadPlaneMovementAnimation();
                     planeSelected.startPlaneMovementAnimation();
-                    //engine.setPlane(planeSelected);
                 }
-
-                //restoreLinesRemoved(planeSelected.getPlaneLinesPath());
             }
 
             // 2)
@@ -173,31 +168,8 @@ public class TransitionTest extends Application {
         };
 
         EventHandler<KeyEvent>  handlerKeyPressed = event -> {
-            ExplosionAnimation expl = new ExplosionAnimation();
-            Point2D randomPoint;
-            PathTransition transitionRandom = new PathTransition();
-            Path pathRandom = new Path();
-
             if (event.getCode() == KeyCode.G) {
-                expl.startAnimation();
-                Random r = new Random();
-                int randomX = r.nextInt(1400);
-                int randomY = r.nextInt(1000);
-
-                pathRandom.getElements().add(new MoveTo(plane.getImagePlane().getBoundsInParent().getMinX(), plane.getImagePlane().getBoundsInParent().getMinY()));
-                pathRandom.getElements().add(new LineTo(randomX, randomY));
-
-                transitionRandom.setPath(pathRandom);
-                transitionRandom.setNode(plane.getImagePlane());
-                transitionRandom.setDuration(Duration.seconds(4));
-                transitionRandom.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-
-                gc.moveTo(plane.getImagePlane().getBoundsInParent().getMinX(), plane.getImagePlane().getBoundsInParent().getMinY());
-                gc.lineTo(randomX, randomY);
-                gc.setStroke(Color.GREEN);
-                gc.stroke();
-
-                transitionRandom.play();
+                plane.loadRandomTransition();
             }
         };
 
@@ -210,6 +182,31 @@ public class TransitionTest extends Application {
         stage.show();
     }
 
+    /*
+     * public void randomMovement(final Plane planeMovedRandom) {
+     * planeMovedRandom.setIsPlaneSelectedForBeenMoved(true); PathTransition
+     * transitionRandom = new PathTransition(); Path pathRandom = new Path(); Random
+     * r = new Random();
+     * 
+     * int randomX = r.nextInt(1400); int randomY = r.nextInt(1000);
+     * 
+     * pathRandom.getElements().add(new
+     * MoveTo(planeMovedRandom.getImagePlane().getBoundsInParent().getMinX(),
+     * planeMovedRandom.getImagePlane().getBoundsInParent().getMinY()));
+     * pathRandom.getElements().add(new LineTo(randomX, randomY));
+     * 
+     * transitionRandom.setPath(pathRandom);
+     * transitionRandom.setNode(planeMovedRandom.getImagePlane());
+     * transitionRandom.setDuration(Duration.seconds(10));
+     * transitionRandom.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+     * 
+     * gc.moveTo(planeMovedRandom.getImagePlane().getBoundsInParent().getMinX(),
+     * planeMovedRandom.getImagePlane().getBoundsInParent().getMinY());
+     * gc.lineTo(randomX, randomY); gc.setStroke(Color.GREEN); gc.stroke();
+     * 
+     * transitionRandom.play(); transitionRandom.setOnFinished(event ->
+     * planeMovedRandom.setIsPlaneSelectedForBeenMoved(false)); }
+     */
     public void clearMap() {
         final double dimensionRectangleCleanerWidth = 2000;
         final double dimensionRectangleCleanerHeight = 2000;
@@ -235,27 +232,10 @@ public class TransitionTest extends Application {
         }
     }
 
-    /*
-     * public void restoreLinesRemoved(final List<Point2D> planeCoordinates) { try {
-     * if (planeCoordinates.size() > 0) { gc.moveTo(planeCoordinates.get(0).getX(),
-     * planeCoordinates.get(0).getY());
-     * 
-     * for (int k = 1; k < planeCoordinates.size(); k++) {
-     * gc.lineTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()); }
-     * 
-     * gc.setStroke(Color.BLUE); gc.stroke(); gc.beginPath(); } } catch (Exception
-     * e) { } }
-     */
-
     private void selectedPathNode() {
         for (Plane planeSelected:planes) {
 
             if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-                //engine.setCoordinates(planeCoordinates);
-                //engine.setPathTransition(pathTransition);
-                //engine.setReadyToStart(true);
-                //engine.setPlane(planeSelected);
-                //engine.connectPlaneToPathTransition(plane);
                 planeSelected.setIsPlaneSelectedForBeenMoved(false);
             } 
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
@@ -288,9 +268,7 @@ public class TransitionTest extends Application {
 
     public void clearPlaneCoordinatesAndUpdate(final int idPlane) {
         for (Plane planeSelected:planes) { 
-            if (planeSelected.getId() == idPlane) {
-                planeSelected.resetPlaneLinesPath(idPlane);
-            }
+            planeSelected.resetPlaneLinesPath(idPlane);
         }
     }
 
