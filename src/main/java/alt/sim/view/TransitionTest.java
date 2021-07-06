@@ -126,13 +126,24 @@ public class TransitionTest extends Application {
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {
-            if (plane.getStatusRandomTransition() == "RUNNING-RANDOM") {
-                plane.stopRandomTransition();
-            }
+            Point2D puntoInizioPercorso;
+            double distanzaDalPlane = 0;
+
+            /*
+             * if (plane.getStatusRandomTransition() == "RUNNING-RANDOM") {
+             * plane.stopRandomTransition(); }
+             */
 
             for (Plane planeSelected:planes) {
+                //System.out.println("Plane " + planeSelected.hashCode() + " hasBeenMoved =  " + planeSelected.getIsPlaneSelectedForBeenMoved());
+                //System.out.println("isMoreThanOneSelected =  " + isMoreThanOneSelected());
 
-                if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
+                if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > 5) {
+                    puntoInizioPercorso = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
+                    distanzaDalPlane = puntoInizioPercorso.distance(new Point2D(planeSelected.getImagePlane().getBoundsInParent().getCenterX(), planeSelected.getImagePlane().getBoundsInParent().getCenterY()));
+
+                    if (distanzaDalPlane <= 150) {
+
                     if (planeSelected.getPlaneMovementAnimation() != null) {
                         planeSelected.stopPlaneMovementAnimation();
                     }
@@ -143,6 +154,15 @@ public class TransitionTest extends Application {
 
                     planeSelected.loadPlaneMovementAnimation();
                     planeSelected.startPlaneMovementAnimation();
+                    } else {
+                        gc.beginPath();
+                        clearMap();
+                        restoreLinesRemoved();
+                    }
+                } else {
+                    gc.beginPath();
+                    clearMap();
+                    restoreLinesRemoved();
                 }
             }
 
@@ -160,8 +180,8 @@ public class TransitionTest extends Application {
                 copyCoordinatesInPath(planeSelected.getPlaneLinesPath());
             }
 
-            selectedPathNode();
-            clearPlaneSelectedForBeenMoved();
+            //selectedPathNode();
+            //clearPlaneSelectedForBeenMoved();
 
             // Quando viene rilasciato il Mouse le coordinate salvate vengono liberate
             planeCoordinates.clear();
@@ -207,6 +227,23 @@ public class TransitionTest extends Application {
      * transitionRandom.play(); transitionRandom.setOnFinished(event ->
      * planeMovedRandom.setIsPlaneSelectedForBeenMoved(false)); }
      */
+
+    public boolean isMoreThanOneSelected() {
+        int planeBeenSelected = 0;
+
+        for (Plane planeSelected:planes) {
+            if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
+                planeBeenSelected++;
+            }
+        }
+
+        if (planeBeenSelected >= 2) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void clearMap() {
         final double dimensionRectangleCleanerWidth = 2000;
         final double dimensionRectangleCleanerHeight = 2000;
@@ -232,15 +269,13 @@ public class TransitionTest extends Application {
         }
     }
 
-    private void selectedPathNode() {
-        for (Plane planeSelected:planes) {
-
-            if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-                planeSelected.setIsPlaneSelectedForBeenMoved(false);
-            } 
-            planeSelected.setIsPlaneSelectedForBeenMoved(false);
-        }
-    }
+    /*
+     * private void selectedPathNode() { for (Plane planeSelected:planes) {
+     * 
+     * if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
+     * planeSelected.setIsPlaneSelectedForBeenMoved(false); }
+     * planeSelected.setIsPlaneSelectedForBeenMoved(false); } }
+     */
 
     public void clearPlaneSelectedForBeenMoved() {
         for (Plane planeSelected:planes) {

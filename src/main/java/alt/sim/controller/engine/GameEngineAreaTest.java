@@ -102,8 +102,10 @@ public class GameEngineAreaTest implements GameEngine {
     public void processInput() {
         // Implement the Random-Path of Planes in wait
         for (Plane planeWait:planes) {
-            if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
-               // planeWait.loadRandomTransition();
+            //if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
+
+            if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation() == "WAITING") {
+                //planeWait.loadRandomTransition();
             }
 
             //System.out.println("Plane Random-Status: " + planeWait.getStatusRandomTransition());

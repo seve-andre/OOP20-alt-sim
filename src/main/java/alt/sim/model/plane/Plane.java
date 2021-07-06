@@ -13,6 +13,7 @@ import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.PathTransition.OrientationType;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -96,7 +97,8 @@ public class Plane {
     }
 
     public void loadPlaneMovementAnimation() {
-        this.setIsPlaneSelectedForBeenMoved(true);
+        //this.setIsPlaneSelectedForBeenMoved(true);
+        this.followingPath = true;
         transition = new PathTransition();
         double pathLenght = 0;
         final double velocityMovement = 0.005;
@@ -125,8 +127,13 @@ public class Plane {
             linesPath.clear();
             controllerTransition.clearMap();
             controllerTransition.restoreLinesRemoved();
-            this.setIsPlaneSelectedForBeenMoved(false);
+            //this.setIsPlaneSelectedForBeenMoved(false);
+            this.followingPath = false;
         });
+    }
+    
+    public boolean isFollowingPath() {
+        return this.followingPath;
     }
 
     public void startPlaneMovementAnimation() {
@@ -138,6 +145,13 @@ public class Plane {
     }
 
     public String getStatusMovementAnimation() {
+        try {
+            if (this.transition == null) {
+                return ("WAITING");
+            } else if (this.transition.getStatus() == Status.STOPPED) {
+                return ("WAITING");
+            }
+        } catch (Exception e) { }
         return this.transition.getStatus().toString();
     }
 
@@ -146,7 +160,9 @@ public class Plane {
     }
 
     public void loadRandomTransition() {
-        this.setIsPlaneSelectedForBeenMoved(true);
+        PauseTransition pauseFinish = new PauseTransition();
+        //this.setIsPlaneSelectedForBeenMoved(true);
+        this.followingPath = true;
 
         randomTransition = new PathTransition();
         Path pathRandom = new Path();
@@ -155,15 +171,21 @@ public class Plane {
         int randomX = r.nextInt(1400);
         int randomY = r.nextInt(1000);
 
-        pathRandom.getElements().add(new MoveTo(this.getImagePlane().getBoundsInParent().getMinX(), this.getImagePlane().getBoundsInParent().getMinY()));
+        pathRandom.getElements().add(new MoveTo(this.getImagePlane().getBoundsInParent().getCenterX(), this.getImagePlane().getBoundsInParent().getCenterY()));
         pathRandom.getElements().add(new LineTo(randomX, randomY));
+
+        // Set a Pause when randomTransition finish
+        pauseFinish.setDuration(Duration.seconds(1));
 
         randomTransition.setPath(pathRandom);
         randomTransition.setNode(this.getImagePlane());
         randomTransition.setDuration(Duration.seconds(10));
         randomTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
         randomTransition.play();
-        randomTransition.setOnFinished(event -> this.setIsPlaneSelectedForBeenMoved(false));
+        //randomTransition.setOnFinished(event -> this.setIsPlaneSelectedForBeenMoved(false));
+        randomTransition.setOnFinished(event -> pauseFinish.play());
+
+        pauseFinish.setOnFinished(event -> followingPath = false);
     }
 
     public void startRandomTransition() {
@@ -213,7 +235,15 @@ public class Plane {
         this.getImagePlane().setOnMousePressed(event -> {
             setSpritePlane("images/map_components/airplaneSelected.png");
             isPlaneSelectedForBeenMoved = true;
+
+            if (controllerTransition.isMoreThanOneSelected()) {
+                controllerTransition.clearPlaneSelectedForBeenMoved();
+                isPlaneSelectedForBeenMoved = true;
+            }
+
+            //System.out.println("Plane " + this.hashCode() + " selected for beenMoved");
         });
+
         this.getImagePlane().setOnMouseReleased(event -> {
             this.getImagePlane().setImage(new Image("images/map_components/airplane.png"));
         });
