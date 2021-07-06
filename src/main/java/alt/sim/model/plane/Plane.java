@@ -16,6 +16,7 @@ import javafx.animation.PathTransition.OrientationType;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -42,14 +43,16 @@ public class Plane {
     private State status;
     private Sprite spritePlane;
 
-    private int id;
     private boolean isPlaneSelectedForBeenMoved;
+    private boolean followingPath;
+
     private TransitionTest controllerTransition;
     private ClearingPathTest controllerCleaning;
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
     private PathTransition transition;
+    private PathTransition randomTransition;
     private Path path;
 
     private List<Point2D> linesPath;
@@ -58,16 +61,15 @@ public class Plane {
     // Testing Line saving
 
     public Plane(final String urlImagePlane) {
-        Random idRandom = new Random(100);
-
-       this.id = idRandom.nextInt();
        linesPath = new ArrayList<>();
        linesPathToRemove = new ArrayList<>();
        this.isPlaneSelectedForBeenMoved = false;
+       this.followingPath = false;
        this.spritePlane = new Sprite(urlImagePlane, true);
 
        // Initialize Animation
        this.landingAnimation = new LandingAnimation(this.getImagePlane());
+       this.randomTransition = new PathTransition();
 
        // Setting Handler for MouseClick STRATEGY da implementare
        setOnClick();
@@ -94,6 +96,7 @@ public class Plane {
     }
 
     public void loadPlaneMovementAnimation() {
+        this.setIsPlaneSelectedForBeenMoved(true);
         transition = new PathTransition();
         double pathLenght = 0;
         final double velocityMovement = 0.005;
@@ -122,6 +125,7 @@ public class Plane {
             linesPath.clear();
             controllerTransition.clearMap();
             controllerTransition.restoreLinesRemoved();
+            this.setIsPlaneSelectedForBeenMoved(false);
         });
     }
 
@@ -139,6 +143,48 @@ public class Plane {
 
     public PathTransition getPlaneMovementAnimation() {
         return this.transition;
+    }
+
+    public void loadRandomTransition() {
+        this.setIsPlaneSelectedForBeenMoved(true);
+
+        randomTransition = new PathTransition();
+        Path pathRandom = new Path();
+        Random r = new Random();
+
+        int randomX = r.nextInt(1400);
+        int randomY = r.nextInt(1000);
+
+        pathRandom.getElements().add(new MoveTo(this.getImagePlane().getBoundsInParent().getMinX(), this.getImagePlane().getBoundsInParent().getMinY()));
+        pathRandom.getElements().add(new LineTo(randomX, randomY));
+
+        randomTransition.setPath(pathRandom);
+        randomTransition.setNode(this.getImagePlane());
+        randomTransition.setDuration(Duration.seconds(10));
+        randomTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
+        randomTransition.play();
+        randomTransition.setOnFinished(event -> this.setIsPlaneSelectedForBeenMoved(false));
+    }
+
+    public void startRandomTransition() {
+        this.randomTransition.play();
+
+    }
+
+    public void stopRandomTransition() {
+        this.randomTransition.stop();
+    }
+
+    public String getStatusRandomTransition() {
+        if (randomTransition.getStatus() == Status.RUNNING) {
+            return ("RUNNING-RANDOM");
+        }
+
+        return ("STOPPED");
+    }
+
+    public PathTransition getRandomTransition() {
+        return this.randomTransition;
     }
 
     private void copyCoordinatesInPath() {
@@ -188,9 +234,7 @@ public class Plane {
     }
 
     public void resetPlaneLinesPath(final int idPlane) {
-        if (this.id == idPlane) {
-            resetPlaneLinesPath();
-        }
+        resetPlaneLinesPath();
     }
 
     public List<Point2D> getPlaneLinesPath() {
@@ -240,10 +284,6 @@ public class Plane {
 
     public boolean getIsPlaneSelectedForBeenMoved() {
         return this.isPlaneSelectedForBeenMoved;
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     @Override
