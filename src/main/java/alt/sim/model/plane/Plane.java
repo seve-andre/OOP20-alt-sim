@@ -6,6 +6,7 @@ import java.util.Random;
 
 import alt.sim.model.ClearingPathTest;
 import alt.sim.model.ImageClassification;
+import alt.sim.model.KeyFrameTest;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
 import alt.sim.view.TransitionTest;
@@ -52,6 +53,7 @@ public class Plane {
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
+    private KeyFrameTest explosionAnimation;
     private PathTransition transition;
     private PathTransition randomTransition;
     private Path path;
@@ -70,6 +72,7 @@ public class Plane {
 
        // Initialize Animation
        this.landingAnimation = new LandingAnimation(this.getImagePlane());
+       this.explosionAnimation = new KeyFrameTest(new Point2D(500, 500));
        this.randomTransition = new PathTransition();
 
        // Setting Handler for MouseClick STRATEGY da implementare
@@ -131,7 +134,11 @@ public class Plane {
             this.followingPath = false;
         });
     }
-    
+
+    public KeyFrameTest getKeyFrameTest() {
+        return this.explosionAnimation;
+    }
+
     public boolean isFollowingPath() {
         return this.followingPath;
     }

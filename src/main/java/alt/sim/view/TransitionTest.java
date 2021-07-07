@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Random;
 
 import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.model.KeyFrameTest;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.PathTransition;
 import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -189,7 +191,7 @@ public class TransitionTest extends Application {
 
         EventHandler<KeyEvent>  handlerKeyPressed = event -> {
             if (event.getCode() == KeyCode.G) {
-                plane.loadRandomTransition();
+                //plane.loadRandomTransition();
             }
         };
 
@@ -305,6 +307,15 @@ public class TransitionTest extends Application {
         for (Plane planeSelected:planes) { 
             planeSelected.resetPlaneLinesPath(idPlane);
         }
+    }
+
+    public void startExplosionToPane(final KeyFrameTest testExplosion) {
+        Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        paneRoot.getChildren().add(testExplosion.getImgExplosion());
+                        testExplosion.startExplosion();
+                    }
+                });
     }
 
     public Canvas getCanvas() {

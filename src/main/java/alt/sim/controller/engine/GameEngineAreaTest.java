@@ -31,7 +31,7 @@ public class GameEngineAreaTest implements GameEngine {
     private List<Plane> planes;
     private PathTransition pathTransition;
 
-    private boolean readyToStart;
+    private boolean fatto;
 
     public GameEngineAreaTest(final TransitionTest transitionRif) {
        this.transitionRif = transitionRif;
@@ -42,7 +42,7 @@ public class GameEngineAreaTest implements GameEngine {
        this.planes = transitionRif.getPlanes();
        this.pathTransition = new PathTransition();
 
-       this.readyToStart = false;
+       this.fatto = false;
     }
 
     public GameEngineAreaTest() {
@@ -94,8 +94,20 @@ public class GameEngineAreaTest implements GameEngine {
         }
     }
 
-    private boolean checkCollision() {
-        return transitionRif.getRectangleWall().getBoundsInParent().intersects(transitionRif.getPlaneSprite().getBoundsInParent());
+    private void checkCollision() {
+        for (int k = 0; k < planes.size(); k++) {
+
+            Plane planeMonitored = planes.get(k);
+
+            for (Plane planeSelected:planes) {
+                if (planeMonitored.getImagePlane().getBoundsInParent().intersects(planeSelected.getImagePlane().getBoundsInParent()) && planeMonitored.hashCode() != planeSelected.hashCode()) {
+                    if (!fatto) {
+                        transitionRif.startExplosionToPane(planeMonitored.getKeyFrameTest());
+                        fatto = true;
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -105,15 +117,14 @@ public class GameEngineAreaTest implements GameEngine {
             //if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
 
             if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation() == "WAITING") {
-                //planeWait.loadRandomTransition();
+                planeWait.loadRandomTransition();
             }
 
             //System.out.println("Plane Random-Status: " + planeWait.getStatusRandomTransition());
         }
 
         // Controllo ad ogni frame se Plane collide con qualche oggetto
-        if (checkCollision()) {
-        }
+        checkCollision();
     }
 
     @Override
@@ -181,10 +192,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     public void setPlanes(final List<Plane> planes) {
         this.planes = planes;
-    }
-
-    public void setReadyToStart(final boolean readyToStart) {
-        this.readyToStart = readyToStart;
     }
 
     public void setCoordinates(final List<Point2D> planeCoordinates) {
