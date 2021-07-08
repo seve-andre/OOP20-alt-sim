@@ -1,61 +1,43 @@
 package alt.sim.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
-import javafx.application.Platform;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-/**
- * Implement Animation of explosion for the Plane when collid.
- * Is realizated with TransitionAnimation in parallel with explosion
- *
- */
-public class ExplosionAnimation extends AnimationPlane {
-    /** Number of the images for the animation. */
-    private static final  int NUMBER_IMAGES_ANIMATION = 50;
+public class ExplosionAnimation {
+    private static final int DURATION_KEYFRAME = 20;
+    private static final int TRANSITION_ANIMATION_DURATION = 1000;
 
-    /** Images size. */
-    private static final  double IMAGE_WIDTH_RATE = 69;
-    private static final  double IMAGE_HEIGHT_RATE = 73;
+    private ImageView imgExplosion;
+    private KeyFrame keyframe;
+    private Timeline timer;
 
-    private static final  int TRANSITION_ANIMATION_DURATION = 500;
-
-
-    private List<Image> images;
-    private ImageView spriteToApplyAnimation;
-    private ScaleTransition scaleExplosionAnimation;
-    private int contImages;
+    private int contImage = 1;
 
     public ExplosionAnimation() {
-        this.scaleExplosionAnimation = new ScaleTransition();
-        this.spriteToApplyAnimation = new ImageView();
-        this.images = new ArrayList<Image>();
-        this.contImages = 0;
-
-        for (int i = 1; i < NUMBER_IMAGES_ANIMATION; i++) {
-            this.images.add(new Image("images/animations/explosion_" + i + ".png"));
-        }
+        this.imgExplosion = new ImageView(new Image("images/animations/explosion_1.png"));
     }
 
-    /**
-     * @param positionAnimation set the position where activate the animation.
-     */
     public ExplosionAnimation(final Point2D positionAnimation) {
         this();
-
-        setPositionAnimation(positionAnimation);
-        centerAnimation();
+        imgExplosion.setX(positionAnimation.getX());
+        imgExplosion.setY(positionAnimation.getY());
     }
 
-    /** implement the ScaleTransition synchronizated with the explosion. */
-    private void startingParallelScaleAnimation() {
-        scaleExplosionAnimation.setNode(spriteToApplyAnimation);
+    public void startExplosion() {
+        keyframe = new KeyFrame(Duration.millis(DURATION_KEYFRAME), (ActionEvent loopEvent) -> {
+            imgExplosion.imageProperty().set(new Image("images/animations/explosion_" + contImage + ".png"));
+            contImage++;
+        });
+       
+        ScaleTransition scaleExplosionAnimation = new ScaleTransition();
+        
+        scaleExplosionAnimation.setNode(imgExplosion);
 
         scaleExplosionAnimation.setFromX(0);
         scaleExplosionAnimation.setFromY(0);
@@ -67,65 +49,17 @@ public class ExplosionAnimation extends AnimationPlane {
         scaleExplosionAnimation.setDuration(Duration.millis(TRANSITION_ANIMATION_DURATION));
 
         scaleExplosionAnimation.play();
+
+        timer = new Timeline(keyframe);
+        timer.setCycleCount(50);
+        timer.play();
     }
 
-    /**
-     * @return the ExplosionAnimation setted and ready to start.
-     */
-    public AnimationTimer getExplosionAnimation() {
-
-        class MyTimer extends AnimationTimer {
-
-            @Override
-            public void handle(final long now) {
-                try {
-                    startingExplosionAniamtion();
-                } catch (InterruptedException e) { 
-                    e.printStackTrace(); 
-                }
-            }
-
-            private void startingExplosionAniamtion() throws InterruptedException {
-                startingParallelScaleAnimation();
-
-                Platform.runLater(new Runnable() {
-                    @Override public void run() {
-                        if (contImages < images.size()) {
-                            spriteToApplyAnimation.setImage(images.get(contImages));
-                            contImages++;
-                        } else {
-                            stop();
-                        }
-                    }
-                });
-            }
-        }
-        return new MyTimer();
+    public Timeline getTimeline() {
+        return this.timer;
     }
 
-    /** center the image with the position where it started. */
-    private void centerAnimation() {
-        this.spriteToApplyAnimation.setX(spriteToApplyAnimation.getX() - (IMAGE_WIDTH_RATE / 2));
-        this.spriteToApplyAnimation.setY(spriteToApplyAnimation.getY() - (IMAGE_HEIGHT_RATE / 2));
+    public ImageView getImgExplosion() {
+        return this.imgExplosion;
     }
-
-    /**
-     * @return the ImageView that contain the frame of images.
-     */
-    public ImageView getSpriteToApplyAnimation() {
-        return this.spriteToApplyAnimation;
-    }
-
-    @Override
-    public void startAnimation() {
-        getExplosionAnimation();
-    }
-
-    @Override
-    public void setPositionAnimation(final Point2D positionAnimation) {
-        this.spriteToApplyAnimation.setX(positionAnimation.getX());
-        this.spriteToApplyAnimation.setY(positionAnimation.getY());
-    }
-
 }
-
