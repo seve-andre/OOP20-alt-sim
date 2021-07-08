@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import alt.sim.controller.engine.GameEngineAreaTest;
-import alt.sim.model.KeyFrameTest;
+import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.PathTransition;
@@ -309,10 +309,12 @@ public class TransitionTest extends Application {
         }
     }
 
-    public void startExplosionToPane(final KeyFrameTest testExplosion) {
+    public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
         Platform.runLater(new Runnable() {
                     @Override public void run() {
                         paneRoot.getChildren().add(testExplosion.getImgExplosion());
+                        testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
+                        testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
                         testExplosion.startExplosion();
                     }
                 });

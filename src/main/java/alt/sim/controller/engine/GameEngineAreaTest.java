@@ -102,7 +102,7 @@ public class GameEngineAreaTest implements GameEngine {
             for (Plane planeSelected:planes) {
                 if (planeMonitored.getImagePlane().getBoundsInParent().intersects(planeSelected.getImagePlane().getBoundsInParent()) && planeMonitored.hashCode() != planeSelected.hashCode()) {
                     if (!fatto) {
-                        transitionRif.startExplosionToPane(planeMonitored.getKeyFrameTest());
+                        transitionRif.startExplosionToPane(planeMonitored.getKeyFrameTest(), planeMonitored);
                         fatto = true;
                     }
                 }
@@ -117,7 +117,7 @@ public class GameEngineAreaTest implements GameEngine {
             //if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
 
             if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation() == "WAITING") {
-                planeWait.loadRandomTransition();
+                //planeWait.loadRandomTransition();
             }
 
             //System.out.println("Plane Random-Status: " + planeWait.getStatusRandomTransition());
