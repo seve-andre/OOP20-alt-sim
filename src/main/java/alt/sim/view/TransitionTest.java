@@ -2,7 +2,6 @@ package alt.sim.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.model.ExplosionAnimation;
@@ -10,7 +9,6 @@ import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.PathTransition;
 import javafx.animation.Animation.Status;
-import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -19,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -29,7 +25,6 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class TransitionTest extends Application {
     private Pane paneRoot;
@@ -55,8 +50,8 @@ public class TransitionTest extends Application {
         canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
         engine = new GameEngineAreaTest(this);
 
-        pathTransition = new PathTransition();
-        path = new Path();
+        //pathTransition = new PathTransition();
+        //path = new Path();
 
         planeCoordinates = new ArrayList<Point2D>();
 
@@ -116,8 +111,8 @@ public class TransitionTest extends Application {
         Thread t = new Thread(new ThreadEngine());
         t.start();
 
-        //EventHandler<MouseEvent> handlerMouseMoved = event -> {gc.moveTo(event.getX(), event.getY());};
-
+        // Vengono campionate le coordinate che dovrà seguire il Plane
+        // E viene disegnata la rotta tracciata
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
@@ -131,104 +126,59 @@ public class TransitionTest extends Application {
             Point2D puntoInizioPercorso;
             double distanzaDalPlane = 0;
 
-            /*
-             * if (plane.getStatusRandomTransition() == "RUNNING-RANDOM") {
-             * plane.stopRandomTransition(); }
-             */
 
             for (Plane planeSelected:planes) {
-                //System.out.println("Plane " + planeSelected.hashCode() + " hasBeenMoved =  " + planeSelected.getIsPlaneSelectedForBeenMoved());
-                //System.out.println("isMoreThanOneSelected =  " + isMoreThanOneSelected());
 
-                if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > 5) {
+                // Controllo che l'utente disegni un percorso con un minimo di punti
+                if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGHT) {
                     puntoInizioPercorso = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
                     distanzaDalPlane = puntoInizioPercorso.distance(new Point2D(planeSelected.getImagePlane().getBoundsInParent().getCenterX(), planeSelected.getImagePlane().getBoundsInParent().getCenterY()));
 
-                    if (distanzaDalPlane <= 150) {
+                    // L'animazione parte solo se l'utente ha disegnato una rotta vicino al Plane
+                    if (distanzaDalPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE) {
 
+                    // Quando viene rilasciato il Mouse se il Plane seguiva già un percoso, 
+                    // deve bloccarsi e seguire il percorso Nuovo
                     if (planeSelected.getPlaneMovementAnimation() != null) {
                         planeSelected.stopPlaneMovementAnimation();
                     }
 
                     planeSelected.setPlaneLinesPath(planeCoordinates);
-                    clearMap();
+                    clearLinesDrawed();
                     restoreLinesRemoved();
 
+                    // Una volta caricate le coordinate e stoppate le animazioni in esecuzione
+                    // viene fatta partire quella del Plane
                     planeSelected.loadPlaneMovementAnimation();
                     planeSelected.startPlaneMovementAnimation();
                     } else {
-                        gc.beginPath();
                         clearMap();
-                        restoreLinesRemoved();
                     }
                 } else {
-                    gc.beginPath();
                     clearMap();
-                    restoreLinesRemoved();
                 }
             }
 
             // 2)
-            // Blocca il ciclo in GameEngineImpl per resettare le nuove coordinate.
-            if (pathTransition.getStatus() == Status.RUNNING) {
-                pathTransition.stop();
-                //engine.stopPathTransition();
-                //engine.setReadyToStart(false);
-            }
-
-            //planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
-
-            for (Plane planeSelected:planes) {
-                copyCoordinatesInPath(planeSelected.getPlaneLinesPath());
-            }
-
-            //selectedPathNode();
-            //clearPlaneSelectedForBeenMoved();
+            /*
+             * if (pathTransition.getStatus() == Status.RUNNING) { pathTransition.stop(); }
+             */
+            /*
+             * for (Plane planeSelected:planes) {
+             * copyCoordinatesInPath(planeSelected.getPlaneLinesPath()); }
+             */
 
             // Quando viene rilasciato il Mouse le coordinate salvate vengono liberate
             planeCoordinates.clear();
-        };
-
-        EventHandler<KeyEvent>  handlerKeyPressed = event -> {
-            if (event.getCode() == KeyCode.G) {
-                //plane.loadRandomTransition();
-            }
         };
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
 
         Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, handlerKeyPressed);
         stage.setScene(scene);
         stage.show();
     }
-
-    /*
-     * public void randomMovement(final Plane planeMovedRandom) {
-     * planeMovedRandom.setIsPlaneSelectedForBeenMoved(true); PathTransition
-     * transitionRandom = new PathTransition(); Path pathRandom = new Path(); Random
-     * r = new Random();
-     * 
-     * int randomX = r.nextInt(1400); int randomY = r.nextInt(1000);
-     * 
-     * pathRandom.getElements().add(new
-     * MoveTo(planeMovedRandom.getImagePlane().getBoundsInParent().getMinX(),
-     * planeMovedRandom.getImagePlane().getBoundsInParent().getMinY()));
-     * pathRandom.getElements().add(new LineTo(randomX, randomY));
-     * 
-     * transitionRandom.setPath(pathRandom);
-     * transitionRandom.setNode(planeMovedRandom.getImagePlane());
-     * transitionRandom.setDuration(Duration.seconds(10));
-     * transitionRandom.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-     * 
-     * gc.moveTo(planeMovedRandom.getImagePlane().getBoundsInParent().getMinX(),
-     * planeMovedRandom.getImagePlane().getBoundsInParent().getMinY());
-     * gc.lineTo(randomX, randomY); gc.setStroke(Color.GREEN); gc.stroke();
-     * 
-     * transitionRandom.play(); transitionRandom.setOnFinished(event ->
-     * planeMovedRandom.setIsPlaneSelectedForBeenMoved(false)); }
-     */
 
     public boolean isMoreThanOneSelected() {
         int planeBeenSelected = 0;
@@ -246,11 +196,17 @@ public class TransitionTest extends Application {
         return false;
     }
 
-    public void clearMap() {
+    public void clearLinesDrawed() {
         final double dimensionRectangleCleanerWidth = 2000;
         final double dimensionRectangleCleanerHeight = 2000;
 
         gc.clearRect(0, 0, dimensionRectangleCleanerWidth, dimensionRectangleCleanerHeight);
+    }
+
+    public void clearMap() {
+        gc.beginPath();
+        clearLinesDrawed();
+        restoreLinesRemoved();
     }
 
     public void restoreLinesRemoved() {
@@ -271,33 +227,23 @@ public class TransitionTest extends Application {
         }
     }
 
-    /*
-     * private void selectedPathNode() { for (Plane planeSelected:planes) {
-     * 
-     * if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
-     * planeSelected.setIsPlaneSelectedForBeenMoved(false); }
-     * planeSelected.setIsPlaneSelectedForBeenMoved(false); } }
-     */
-
     public void clearPlaneSelectedForBeenMoved() {
         for (Plane planeSelected:planes) {
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
         }
     }
 
-    private void copyCoordinatesInPath(final List<Point2D> planeCoordinates) {
-        // Ripuliamo le coordinate presenti dal path prima
-        path = new Path();
-
-        for (int k = 0; k < planeCoordinates.size(); k++) {
-
-            if (k == 0) {
-                path.getElements().add(new MoveTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()));
-            } else {
-                path.getElements().add(new LineTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()));
-            }
-        }
-    }
+    /*
+     * private void copyCoordinatesInPath(final List<Point2D> planeCoordinates) { //
+     * Ripuliamo le coordinate presenti dal path prima path = new Path();
+     * 
+     * for (int k = 0; k < planeCoordinates.size(); k++) {
+     * 
+     * if (k == 0) { path.getElements().add(new
+     * MoveTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY())); }
+     * else { path.getElements().add(new LineTo(planeCoordinates.get(k).getX(),
+     * planeCoordinates.get(k).getY())); } } }
+     */
 
     public static void main(final String[] args) {
         launch(args);
@@ -311,13 +257,14 @@ public class TransitionTest extends Application {
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
         Platform.runLater(new Runnable() {
-                    @Override public void run() {
-                        paneRoot.getChildren().add(testExplosion.getImgExplosion());
-                        testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
-                        testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
-                        testExplosion.startExplosion();
-                    }
-                });
+                @Override 
+                public void run() {
+                    paneRoot.getChildren().add(testExplosion.getImgExplosion());
+                    testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
+                    testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
+                    testExplosion.startExplosion();
+                }
+       });
     }
 
     public Canvas getCanvas() {
