@@ -63,6 +63,10 @@ public class Sprite {
         return this.imageSpriteResized;
     }
 
+    public void setImageSpriteResized(final String newUrlImage) {
+        this.imageSpriteResized.setImageSprite(newUrlImage);
+    }
+
     /*
      * public void setPoint2D(final Point2D point) { this.point = point; }
      */

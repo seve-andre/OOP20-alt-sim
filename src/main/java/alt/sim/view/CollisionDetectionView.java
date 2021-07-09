@@ -3,6 +3,8 @@ package alt.sim.view;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -81,9 +83,13 @@ public class CollisionDetectionView extends Application {
                 };
 
                 //Registering the event filter
-                paneRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, eventMouseClicked);
+                //paneRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, eventMouseClicked);
 
-                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved, circleMoved);
+                ImageView imageTestSelected = new ImageView(new Image("images/map_components/airplaneSelected.png"));
+                imageTestSelected.setLayoutX(500);
+                imageTestSelected.setLayoutY(500);
+
+                paneRoot.getChildren().addAll(rectangleWall, rectangleMoved, circleMoved, imageTestSelected);
                 stage.setScene(scene);
                 stage.show();
 

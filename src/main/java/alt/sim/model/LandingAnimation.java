@@ -1,11 +1,14 @@
 package alt.sim.model;
 
-import alt.sim.model.plane.AnimationPlane;
+
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * Create LandingAnimation for implement ScaleTransition animation when the Plane Landing in the Airstrip.
+ */
 public class LandingAnimation extends AnimationPlane {
     private static final int DURATION_LANDING_ANIMATION = 1000;
 

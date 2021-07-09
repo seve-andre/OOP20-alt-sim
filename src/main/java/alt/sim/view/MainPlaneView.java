@@ -1,9 +1,11 @@
 package alt.sim.view;
 
+import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.ImageClassification;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -38,7 +40,6 @@ public class MainPlaneView extends Application {
             // Insert Plane test into view:
             paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
 
-
             // Positioning the STATIC Plane in a specific location of the Map
             p1.getSpritePlane().setX(0);
             p1.getSpritePlane().setY(0);
@@ -48,11 +49,21 @@ public class MainPlaneView extends Application {
 
                 @Override
                 public void handle(final MouseEvent event) {
+                    ExplosionAnimation explAnimationTest = new ExplosionAnimation(new Point2D(500, 500));
+
                     p1.getSpritePlane().setX(event.getX());
                     p1.getSpritePlane().setY(event.getY());
 
+                    p1.getImagePlane().setVisible(true);
+
+                    // START Landing Animation
+                    p1.getLandingAnimation().play();
+
                     //Insert Center Image when click
                     centerImagePositionInGame(p1, event);
+
+                    // START Explosion Animation
+                    //.........
                 }
              };
 

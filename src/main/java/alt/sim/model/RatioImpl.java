@@ -64,11 +64,7 @@ public class RatioImpl implements RatioInterface {
      * Compare antecedent value with consequent for set the low or the high.
     */
     public void compareSize() {
-        if (this.antecedent < this.consequent) {
-            antecedentHigher = false;
-        } else {
-            this.antecedentHigher = true;
-        }
+        antecedentHigher = !(this.antecedent < this.consequent);
     }
 
     /**

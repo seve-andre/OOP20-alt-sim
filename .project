@@ -32,4 +32,11 @@
 		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/resources/images/map_components/airplaneSelected.png</name>
+			<type>1</type>
+			<location>/Users/daniel/Desktop/PROGETTO_OOP_ReSOURCES/airplaneSelected.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
