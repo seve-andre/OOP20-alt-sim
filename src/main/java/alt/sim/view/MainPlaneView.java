@@ -63,8 +63,7 @@ public class MainPlaneView extends Application {
                     centerImagePositionInGame(p1, event);
 
                     // START Explosion Animation
-                    paneRoot.getChildren().add(explAnimationTest.getSpriteToApplyAnimation());
-                    explAnimationTest.getExplosionAnimation().start();
+                    //.........
                 }
              };
 

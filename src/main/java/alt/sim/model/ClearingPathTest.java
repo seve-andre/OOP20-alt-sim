@@ -49,7 +49,7 @@ public class ClearingPathTest extends Application {
 
         plane2.getImagePlane().setX(500);
         plane2.getImagePlane().setY(500);
-        plane2.connetToControllerClaringPathTest(this);
+        //plane2.connetToControllerClaringPathTest(this);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
         gc = canvas.getGraphicsContext2D();

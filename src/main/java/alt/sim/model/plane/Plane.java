@@ -49,7 +49,7 @@ public class Plane {
     private boolean followingPath;
 
     private TransitionTest controllerTransition;
-    private ClearingPathTest controllerCleaning;
+    //private ClearingPathTest controllerCleaning;
 
     // Section Plane-Animation:
     private LandingAnimation landingAnimation;
@@ -60,8 +60,6 @@ public class Plane {
 
     private List<Point2D> linesPath;
     private List<Point2D> linesPathToRemove;
-
-    // Testing Line saving
 
     public Plane(final String urlImagePlane) {
        linesPath = new ArrayList<>();
@@ -100,7 +98,6 @@ public class Plane {
     }
 
     public void loadPlaneMovementAnimation() {
-        //this.setIsPlaneSelectedForBeenMoved(true);
         this.followingPath = true;
         transition = new PathTransition();
         double pathLenght = 0;
@@ -113,7 +110,7 @@ public class Plane {
         if (transition.getStatus() == Status.RUNNING) {
             this.transition.stop();
             linesPath.clear();
-            controllerTransition.clearMap();
+            controllerTransition.clearLinesDrawed();
             controllerTransition.restoreLinesRemoved();
         }
 
@@ -128,9 +125,8 @@ public class Plane {
 
         transition.setOnFinished(event -> {
             linesPath.clear();
-            controllerTransition.clearMap();
+            controllerTransition.clearLinesDrawed();
             controllerTransition.restoreLinesRemoved();
-            //this.setIsPlaneSelectedForBeenMoved(false);
             this.followingPath = false;
         });
     }
@@ -168,7 +164,6 @@ public class Plane {
 
     public void loadRandomTransition() {
         PauseTransition pauseFinish = new PauseTransition();
-        //this.setIsPlaneSelectedForBeenMoved(true);
         this.followingPath = true;
 
         randomTransition = new PathTransition();
@@ -189,7 +184,6 @@ public class Plane {
         randomTransition.setDuration(Duration.seconds(10));
         randomTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
         randomTransition.play();
-        //randomTransition.setOnFinished(event -> this.setIsPlaneSelectedForBeenMoved(false));
         randomTransition.setOnFinished(event -> pauseFinish.play());
 
         pauseFinish.setOnFinished(event -> followingPath = false);
@@ -234,9 +228,10 @@ public class Plane {
         this.controllerTransition = controllerTransition;
     }
 
-    public void connetToControllerClaringPathTest(final ClearingPathTest controllerCleaning) {
-        this.controllerCleaning = controllerCleaning;
-    }
+    /*
+     * public void connetToControllerClaringPathTest(final ClearingPathTest
+     * controllerCleaning) { this.controllerCleaning = controllerCleaning; }
+     */
 
     public void setOnClick() {
         this.getImagePlane().setOnMousePressed(event -> {
@@ -248,7 +243,6 @@ public class Plane {
                 isPlaneSelectedForBeenMoved = true;
             }
 
-            //System.out.println("Plane " + this.hashCode() + " selected for beenMoved");
         });
 
         this.getImagePlane().setOnMouseReleased(event -> {
@@ -256,6 +250,8 @@ public class Plane {
         });
     }
 
+    //^^^
+    // Aggiungo le coordinate campionate nel Plane
     public void setPlaneLinesPath(final List<Point2D> linesPath) {
         if (this.getIsPlaneSelectedForBeenMoved()) {
             this.linesPath.clear();

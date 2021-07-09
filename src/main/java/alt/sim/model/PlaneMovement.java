@@ -10,11 +10,14 @@ public class PlaneMovement {
     /** MAX-Range of samping coordinates. */
     public static final int COORDINATES_LIMIT = 200;
 
-    //private Point2D[] planeCoordinates;
+    public static final int MIN_COORDINATES_LENGHT = 5;
+
+    public static final int MAX_DISTANCE_DRAWINGPATH_VALUE = 150;
+
+
     private List<Point2D> planeCoordinatesList;
 
     public PlaneMovement() {
-        //this.planeCoordinates = new Point2D[COORDINATES_LIMIT];
         this.planeCoordinatesList = new ArrayList<>();
     }
 
