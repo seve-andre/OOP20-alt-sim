@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import alt.sim.model.ClearingPathTest;
-import alt.sim.model.ImageClassification;
+import alt.sim.model.SpriteType;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.LandingAnimation;
 import alt.sim.model.calculation.Sprite;
@@ -18,8 +17,6 @@ import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -74,10 +71,10 @@ public class Plane {
        this.randomTransition = new PathTransition();
 
        // Setting Handler for MouseClick STRATEGY da implementare
-       setOnClick();
+       //setOnClick();
     }
 
-    public Plane(final ImageClassification imageClassification) {
+    public Plane(final SpriteType imageClassification) {
         this(imageClassification.getURLImage());
     }
 
@@ -131,7 +128,7 @@ public class Plane {
         });
     }
 
-    public ExplosionAnimation getKeyFrameTest() {
+    public ExplosionAnimation getExplosionAnimation() {
         return this.explosionAnimation;
     }
 
