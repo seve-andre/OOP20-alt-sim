@@ -2,7 +2,6 @@ package alt.sim.view.mapchoice;
 
 import java.io.IOException;
 
-import alt.sim.Main;
 import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
 import alt.sim.model.user.validation.NameValidation;
 import alt.sim.view.CommonView;
@@ -82,7 +81,7 @@ public class MapChoiceView {
         final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
         if (result.equals(NameValidation.CORRECT)) {
             mapChoiceController.addUser(nameTextField.getText());
-            new PageLoader().loadPage(Main.getStage(), Page.GAME, this.mapToPlay);
+            new PageLoader().loadPage(Page.GAME, this.mapToPlay);
         } else {
             infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
         }

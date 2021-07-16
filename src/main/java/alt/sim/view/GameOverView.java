@@ -17,15 +17,13 @@ public class GameOverView {
     private UserRecordsImpl userRecords = new UserRecordsImpl();
 
     @FXML
-    public void initialize() {
-
-    }
+    public void initialize() { }
 
     @FXML
     public void onHomeClick(final ActionEvent event) throws IOException {
         this.userRecords.updateScore(MapController.getName());
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        new PageLoader().loadPage(Main.getStage(), Page.HOME);
+        new PageLoader().loadPage(Page.HOME);
     }
 
     @FXML

@@ -2,7 +2,6 @@ package alt.sim.view;
 
 import java.io.IOException;
 
-import alt.sim.Main;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +15,11 @@ public final class CommonView {
     private static final PageLoader PAGE_LOADER = new PageLoader();
     private static final Stage POPUP_STAGE = new Stage(StageStyle.UNDECORATED);
 
-    private CommonView() { }
+    private CommonView() {
+    }
 
     public static void goBack() {
-        PAGE_LOADER.loadPage(Main.getStage(), Page.HOME);
+        PAGE_LOADER.loadPage(Page.HOME);
     }
 
     public static void onPauseClick() throws IOException {

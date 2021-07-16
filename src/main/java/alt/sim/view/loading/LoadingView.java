@@ -1,6 +1,5 @@
 package alt.sim.view.loading;
 
-import alt.sim.Main;
 import alt.sim.controller.loading.LoadingController;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
@@ -26,7 +25,7 @@ public class LoadingView {
 
         // After loading is done, goes to HOME Page.
         task.setOnSucceeded(e -> {
-            pageLoader.loadPage(Main.getStage(), Page.HOME);
+            pageLoader.loadPage(Page.HOME);
         });
     }
 

@@ -1,6 +1,5 @@
 package alt.sim.view.home;
 
-import alt.sim.Main;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.application.Platform;
@@ -23,19 +22,20 @@ public class HomeView {
 
     @FXML
     public void onStartClick(final ActionEvent event) {
-        pageLoader.loadPage(Main.getStage(), Page.MAP_CHOICE);
+        pageLoader.loadPage(Page.MAP_CHOICE);
     }
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
-        pageLoader.loadPage(Main.getStage(), Page.LEADERBOARD);
+        pageLoader.loadPage(Page.LEADERBOARD);
     }
     @FXML
     public void onCreditsClick(final ActionEvent event) {
-        pageLoader.loadPage(Main.getStage(), Page.CREDITS);
+        pageLoader.loadPage(Page.CREDITS);
     }
     @FXML
     public void onExitClick(final ActionEvent event) {
         Platform.exit();
+        System.exit(0);
     }
 
 }
