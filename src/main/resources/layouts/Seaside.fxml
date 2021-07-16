@@ -81,7 +81,7 @@
             <String fx:value="opacity" />
          </styleClass>
       </TextField>
-      <Canvas fx:id="canvas" height="723.0" visible="false" width="1284.0" />
+      <Canvas fx:id="canvas" height="723.0" width="1284.0" />
       <Rectangle fx:id="landingBoxLeft" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" layoutX="460.0" layoutY="370.0" rotate="-60.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
       <Rectangle fx:id="landingBoxRight" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" layoutX="534.0" layoutY="344.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
    </children>
