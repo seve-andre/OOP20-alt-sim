@@ -30,7 +30,12 @@ public enum Page {
     /**
      * Game page.
      */
-    GAME("Game");
+    GAME("Game"),
+
+    /**
+     * GameOver page.
+     */
+    GAMEOVER("GameOver");
 
     private String name;
 
