@@ -46,4 +46,8 @@ public class UserImpl implements User {
     public String toString() {
         return "UserImpl [name=" + name + ", score=" + score + "]";
     }
+
+    public User getUser() {
+        return this;
+    }
 }
