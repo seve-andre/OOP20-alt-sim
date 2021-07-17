@@ -1,6 +1,6 @@
 package alt.sim.model;
 
-public interface ProportionInterface {
+public interface Proportion {
 
     /**
      * UnknownValue calculation, in this case we have only the antecedent value.

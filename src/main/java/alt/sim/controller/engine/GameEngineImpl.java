@@ -84,7 +84,7 @@ public class GameEngineImpl implements GameEngine {
 
     /**
      * Calculates how many milliseconds has to wait for next frame.
-     * 
+     *
      * @param current
      * @throws InterruptedException
      * @throws IllegalArgumentException
@@ -106,6 +106,7 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void processInput() {
         if (start) {
+            System.out.println();
             /*
              * for (int i = 0; i < vet.length; i++) { path.getElements().add(new
              * LineTo(vet[i].getX(), vet[i].getY())); }
@@ -139,22 +140,17 @@ public class GameEngineImpl implements GameEngine {
             //path.getElements().add(new MoveTo(0, 0));
 
             try {
-
                 if (blocked) {
                     pathTransition = new PathTransition();
                 }
-
                 if (iterator.hasNext() && !blocked) {
-
                     if (cont < vet.size() && (cont + 1) < vet.size()) {
                         //path.getElements().add(new MoveTo(vet.get(cont).getX(), vet.get(cont).getY()));
                         path.getElements().add(getLineTo(cont + 1));
                         System.out.println("Vet value " + vet.get(cont).getX() + " , " + vet.get(cont).getY());
-
                         cont++;
                         pathTransition.setPath(path);
                         pathTransition.play();
-
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutX(x));
                         pathTransition.setOnFinished(finisch -> this.plane.getPlane().getImagePlane().setLayoutY(y));
                         pathTransition.setOnFinished(finisch -> this.start = true);
@@ -170,12 +166,9 @@ public class GameEngineImpl implements GameEngine {
                     path = new Path();
                     start = false;
                 }
-            }
-
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 System.out.println(ex);
             }
-
         }
     }
 
@@ -206,8 +199,8 @@ public class GameEngineImpl implements GameEngine {
      */
 
 
-    public void setBlocked(final boolean isBlocked) { 
-        this.blocked = isBlocked; 
+    public void setBlocked(final boolean isBlocked) {
+        this.blocked = isBlocked;
     }
 
     public void setCoordinate(final List<Point2D> vet) {

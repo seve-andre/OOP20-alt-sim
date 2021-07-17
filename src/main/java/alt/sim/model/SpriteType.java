@@ -3,7 +3,7 @@ package alt.sim.model;
 /**
  * Organization of the URL link of the Image with the Enum.
  */
-public enum ImageClassification {
+public enum SpriteType {
 
     /** Plane image path.*/
     AIRPLANE("airplane", "images/map_components/airplane.png"),
@@ -16,16 +16,10 @@ public enum ImageClassification {
     /** Helipad image path.*/
     HELIPAD("helipad", "images/map_components/helipad.png");
 
-    private String imageCategory;
     private String urlImage;
 
-    ImageClassification(final String imageCategory, final String urlImage) {
+    SpriteType(final String imageCategory, final String urlImage) {
         this.urlImage = urlImage;
-        this.imageCategory = imageCategory;
-    }
-
-    public String getImageCategory() {
-        return this.imageCategory;
     }
 
     public String getURLImage() {

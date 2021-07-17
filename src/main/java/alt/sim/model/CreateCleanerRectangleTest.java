@@ -5,7 +5,6 @@ import java.util.List;
 
 import alt.sim.view.MainPlaneView;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -16,10 +15,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class CreateCleanerRectangleTest extends Application {
     private static final double RECTANGLE_WIDTH = 50;
@@ -43,7 +40,7 @@ public class CreateCleanerRectangleTest extends Application {
         // Area Listeners
         // -----------------------------------------------------------------
         EventHandler<MouseEvent> handlerMouseMoved = event -> {
-           gc.moveTo(event.getX(), event.getY());
+            gc.moveTo(event.getX(), event.getY());
         };
 
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
@@ -109,10 +106,10 @@ public class CreateCleanerRectangleTest extends Application {
         /*
          * if (initialPoint.getX() >= finalPoint.getX()) { puntoDiPartenzaX =
          * finalPoint.getX(); }
-         * 
+         *
          * if (initialPoint.getY() > finalPoint.getY()) { puntoDiPartenzaY =
          * finalPoint.getY(); }
-         * 
+         *
          * if (initialPoint.getY() == finalPoint.getY()) { puntoDiPartenzaY =
          * initialPoint.getY(); }
          */
@@ -120,9 +117,13 @@ public class CreateCleanerRectangleTest extends Application {
         width = Math.abs(initialPoint.getX() - finalPoint.getX());
         height = Math.abs(initialPoint.getY() - finalPoint.getY());
 
-        if (height <= 5){ height = 50; }
+        if (height <= 5) {
+            height = 50;
+        }
 
-        if (width <= 5){ width = 50; }
+        if (width <= 5) {
+            width = 50;
+        }
 
         //return new Rectangle(puntoDiPartenzaX - (width / 2), puntoDiPartenzaY - (height / 2), width, height);
         return new Rectangle(puntoDiPartenzaX, puntoDiPartenzaY, width, height);
@@ -140,7 +141,7 @@ public class CreateCleanerRectangleTest extends Application {
                     rectCleaning = createRectangleCleaned(
                             new Point2D(coordinatesToClear.get(k).getX(), coordinatesToClear.get(k).getY()),
                             new Point2D(coordinatesToClear.get(k + 1).getX(), coordinatesToClear.get(k + 1).getY())
-                    );
+                            );
 
                     rectCleaningTopRight = rectCleaning;
                     rectCleaningTopRight.setY(rectCleaning.getY() - (rectCleaning.getHeight()));
@@ -155,22 +156,22 @@ public class CreateCleanerRectangleTest extends Application {
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(), rectCleaning.getHeight());
 
                     /*
-                     * 
+                     *
                      */
                     /*
                      * gc.fillRect(rectCleaningTopRight.getX(), rectCleaningTopRight.getY(),
                      * rectCleaningTopRight.getWidth(), rectCleaningTopRight.getHeight());
-                     * 
+                     *
                      * gc.fillRect(rectCleaningTopLeft.getX(), rectCleaningTopLeft.getY(),
                      * rectCleaningTopLeft.getWidth(), rectCleaningTopLeft.getHeight());
-                     * 
+                     *
                      * gc.fillRect(rectCleaningBottomLeft.getX(), rectCleaningBottomLeft.getY(),
                      * rectCleaningBottomLeft.getWidth(), rectCleaningBottomLeft.getHeight());
                      */
 
 
                     //gc.fillRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
-                     //       rectCleaning.getHeight() - 200);
+                    //       rectCleaning.getHeight() - 200);
                     /*
                      * gc.fillRect(rectCleaning.getX() - 100, rectCleaning.getY(),
                      * rectCleaning.getWidth() + 200, rectCleaning.getHeight() + 200);
@@ -197,10 +198,10 @@ public class CreateCleanerRectangleTest extends Application {
                             rectCleaning.getHeight() - (rectCleaning.getHeight() / 2));
 
                 }
-            } catch (Exception e) { 
-                }
+            } catch (Exception e) {
             }
-       }
+        }
+    }
 
     public void drawRectangle(final MouseEvent event) {
         gc.setFill(Color.RED);

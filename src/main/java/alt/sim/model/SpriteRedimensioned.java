@@ -15,9 +15,9 @@ public class SpriteRedimensioned {
     /** Min range of Sprite dimension. */
     public static final double SPRITE_MIN_RANGE = 16;
 
-    private RatioImpl ratioScreen;
-    private RatioImpl ratioSprite;
-    private RatioImpl resultBoundsSprite;
+    private Ratio ratioScreen;
+    private Ratio ratioSprite;
+    private Ratio resultBoundsSprite;
     private boolean selectTheHightValueResize;
 
     /**
@@ -73,7 +73,7 @@ public class SpriteRedimensioned {
         this.ratioSprite.setConsequent(heightSprite);
     }
 
-    public RatioImpl getResultBoundsSprite() {
+    public Ratio getResultBoundsSprite() {
         return this.resultBoundsSprite;
     }
 
