@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import alt.sim.controller.engine.GameEngineImpl;
-import alt.sim.model.ImageClassification;
+import alt.sim.model.SpriteType;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.animation.Animation.Status;
@@ -40,10 +40,13 @@ public class PlaneMouseMove extends Application {
     private PlaneMovement planeMove;
     private Plane p1;
 
-    private PathTransition pathTransition = new PathTransition();
+    private PathTransition pathTransition      = new PathTransition();
     private List<Point2D> planeCoordinates;
     private Path path = new Path();
 
+  
+    
+    
     private boolean mouseClicked = false;
     private int contatore = 0;
 
@@ -65,7 +68,7 @@ public class PlaneMouseMove extends Application {
 
 
     public PlaneMouseMove() {
-        p1 = new Plane(ImageClassification.AIRPLANE);
+        p1 = new Plane(SpriteType.AIRPLANE);
         planeMove = new PlaneMovement();
     }
 
@@ -77,6 +80,13 @@ public class PlaneMouseMove extends Application {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
 
+        
+        
+        
+        
+        
+        
+        
         PathTransition pathTransition = new PathTransition();
         GameEngineImpl engine = new GameEngineImpl(this);
 
@@ -116,6 +126,13 @@ public class PlaneMouseMove extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GraphicsContext gcOval = canvas.getGraphicsContext2D();
 
+        
+        
+        
+        
+        
+        
+        
         //-------------------------------------------------------------------
         // 1)
 
@@ -227,10 +244,10 @@ public class PlaneMouseMove extends Application {
                      gc.setStroke(Paint.valueOf("green"));
                      gc.stroke();
                  }
-                 
+
                  PathTransition pathTransitionCopy = engine.getPathTransition();
                  ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
-                 
+
                  if (animationStatus.getValue() == Status.RUNNING) {
                      //System.out.println("Animazione on Running"); planeCoordinates.clear();
                      pathTransitionCopy.stop();
@@ -311,14 +328,14 @@ public class PlaneMouseMove extends Application {
                     System.out.println("");
                     System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
                     //Trying to clear the List of Coordinates from duplicates
-                    planeMove.setPlaneCoordinatesList(clearListCoordinates(planeCoordinates));
+                    planeMove.setPlaneCoordinates(clearListCoordinates(planeCoordinates));
                     planeMove.printPlaneCoordinates();
 
                     // 3)
                     // Check if animationIsRunning
                     System.out.println("Check if animationIsRunning: " + engine.getAnimationStatus());
 
-                    engine.setCoordinate(planeMove.getPlaneCoordinatesList());
+                    engine.setCoordinate(planeMove.getPlaneCoordinates());
                     engine.setStart(true);
                 } 
            };
