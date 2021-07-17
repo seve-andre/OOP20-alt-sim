@@ -24,13 +24,14 @@ public class BasicAirStrip extends AbstractAirStrip {
     @Override
     public void acceptPlane(final Plane plane) {
         if (checkCollision(plane)) {
-            //Platform.runLater(() -> {
+            super.setStatus(AirStripStatus.BUSY);
             plane.getLandingAnimation().play();
             //TODO: super.setScore(UserImpl.getUser(), 50);
             System.out.println("Plane landing...");
-            //});
         }
+        super.setStatus(AirStripStatus.FREE);
     }
+
     private boolean checkCollision(final Plane plane) {
         Bounds monitoredPlaneBounds = plane.getImagePlane().getBoundsInParent();
 

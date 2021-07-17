@@ -42,6 +42,13 @@ public abstract class AbstractAirStrip implements AirStrip {
     }
 
     /**
+     * Setter method for the airstrip enum status property.
+     * @param status: the status of the airstrip
+     */
+    public void setStatus(final AirStripStatus status) {
+        this.status = status;
+    }
+    /**
      * Getter method for the airstrip image.
      * @return the airstrip image
      */

@@ -9,16 +9,20 @@ import javafx.scene.shape.Rectangle;
  */
 public interface AirStrip {
 
+    /**
+     * Method that when a plane is on landing spot, lands him.
+     * @param plane: the plane that should land
+     */
     void acceptPlane(Plane plane);
 
     /**
-     *
+     * Method that calculates the area which plane should land.
      * @return the area planes can land on
      */
     Rectangle getLandSpot();
 
     /**
-     *
+     * Method that set the score when a plane lands.
      * @param user the user who is playing
      * @param score the score made when a plane is landed
      */
