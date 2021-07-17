@@ -11,7 +11,6 @@ public class UserImpl implements User {
         this.name = Objects.requireNonNull(name);
         this.score = score;
     }
-
     /**
      *
      * {@inheritDoc}

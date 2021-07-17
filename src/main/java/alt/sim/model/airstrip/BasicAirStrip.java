@@ -1,28 +1,58 @@
 package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
-import javafx.geometry.Dimension2D;
+import javafx.geometry.Bounds;
+import javafx.scene.shape.Rectangle;
 
 /**
  * This class represents the standard airstrip which accepts classic planes.
  */
 public class BasicAirStrip extends AbstractAirStrip {
+    private Rectangle landingBoxLeft;
+    private Rectangle landingBoxRight;
 
-    private static final String IMAGE_URL = "images/map_components/airstrip.png";
-
-    public void loadImage() {
-        super.loadImage(IMAGE_URL);
+    public BasicAirStrip(final String url) {
+        super(url);
     }
 
     @Override
-    public Dimension2D getLandSpot() {
+    public Rectangle getLandSpot() {
         // TODO calculate land spot
         return null;
     }
 
     @Override
     public void acceptPlane(final Plane plane) {
-        //TODO enable plane acception
+        if (checkCollision(plane)) {
+            //Platform.runLater(() -> {
+            plane.getLandingAnimation().play();
+            //TODO: super.setScore(UserImpl.getUser(), 50);
+            System.out.println("Plane landing...");
+            //});
+        }
+    }
+    private boolean checkCollision(final Plane plane) {
+        Bounds monitoredPlaneBounds = plane.getImagePlane().getBoundsInParent();
+
+        if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent())
+                || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Setter method for left landing spot.
+     * @param leftBox: the left rectangle
+     */
+    public void setBoxLeft(final Rectangle leftBox) {
+        this.landingBoxLeft = leftBox;
+    }
+    /**
+     * Setter method for right landing spot.
+     * @param rightBox: the right rectangle
+     */
+    public void setBoxRight(final Rectangle rightBox) {
+        this.landingBoxRight = rightBox;
     }
 
     @Override

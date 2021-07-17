@@ -12,6 +12,8 @@ import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
+import alt.sim.model.airstrip.AbstractAirStrip;
+import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
@@ -67,7 +69,7 @@ public class Seaside {
     private Plane plane2;
     private Plane plane3;
     private Plane plane4;
-
+    private AbstractAirStrip strip;
     private List<Point2D> planeCoordinates;
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
@@ -125,6 +127,7 @@ public class Seaside {
 
     @FXML
     public void initialize() {
+        strip = new BasicAirStrip("images/map_components/airstrip.png");
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
 
@@ -152,6 +155,9 @@ public class Seaside {
         plane2 = new Plane("images/map_components/airplane.png");
         plane3 = new Plane("images/map_components/airplane.png");
         plane4 = new Plane("images/map_components/airplane.png");
+        strip.setAirStripImage(imgViewPlaneLandingArea);
+        ((BasicAirStrip) strip).setBoxLeft(landingBoxLeft);
+        ((BasicAirStrip) strip).setBoxRight(landingBoxRight);
 
         plane.getImagePlane().setFitWidth(64);
         plane.getImagePlane().setFitHeight(64);
@@ -375,5 +381,9 @@ public class Seaside {
         Platform.runLater(() -> pane.getChildren().removeAll(planes.stream()
                 .map(Plane::getImagePlane)
                 .collect(Collectors.toList())));
+    }
+
+    public AbstractAirStrip getStrip() {
+        return this.strip;
     }
 }

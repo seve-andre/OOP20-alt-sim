@@ -6,6 +6,7 @@ import java.util.List;
 
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
+import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.Seaside;
@@ -27,6 +28,7 @@ public class GameEngineAreaTest implements GameEngine {
     private TransitionTest transitionRif;
     private SpawnObject spawn;
     private Plane plane;
+    private AbstractAirStrip strip;
     private GraphicsContext gcEngine;
 
     // Sezione Coordinate campionate
@@ -68,6 +70,7 @@ public class GameEngineAreaTest implements GameEngine {
 
         this.playedExplosion = false;
         this.engineStart = true;
+        this.strip = transitionSeaside.getStrip();
     }
 
     public GameEngineAreaTest() {
@@ -140,8 +143,8 @@ public class GameEngineAreaTest implements GameEngine {
                 }
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(planeSelected.getImagePlane().getBoundsInParent()) && planeMonitored != planeSelected) {
-                    startExplosionPlane(planeMonitored);
-                    startExplosionPlane(planeSelected);
+                    //startExplosionPlane(planeMonitored);
+                    //startExplosionPlane(planeSelected);
                     //transitionSeaside.terminateGame();
                     planesToRemove.add(planeMonitored);
                     planesToRemove.add(planeSelected);
@@ -156,11 +159,12 @@ public class GameEngineAreaTest implements GameEngine {
                     //planesToRemove.add(planeMonitored);
                 }
 
-                // Check ready for landing Plane
-                if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent()) || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
-                    planeMonitored.getLandingAnimation().play();
-                    planesToRemove.add(planeMonitored);
-                }
+                //                // Check ready for landing Plane
+                //                if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent()) || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
+                //                    planeMonitored.getLandingAnimation().play();
+                //                    planesToRemove.add(planeMonitored);
+                //                }
+                strip.acceptPlane(planeMonitored);
             }
         }
 
@@ -190,7 +194,7 @@ public class GameEngineAreaTest implements GameEngine {
             //if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
 
             if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
-                planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
+                //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
             }
             //}
 

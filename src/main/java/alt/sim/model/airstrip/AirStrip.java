@@ -2,7 +2,7 @@ package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
 import alt.sim.model.user.User;
-import javafx.geometry.Dimension2D;
+import javafx.scene.shape.Rectangle;
 
 /**
  * This interface manage main methods for all airstrips.
@@ -15,7 +15,7 @@ public interface AirStrip {
      *
      * @return the area planes can land on
      */
-    Dimension2D getLandSpot();
+    Rectangle getLandSpot();
 
     /**
      *

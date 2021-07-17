@@ -1,21 +1,19 @@
 package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
-import javafx.geometry.Dimension2D;
+import javafx.scene.shape.Rectangle;
 
 /**
  * This class represents the helipad airstrip where only helipads can land on it.
  */
 public class HelipadAirStrip extends AbstractAirStrip {
 
-    private static final String IMAGE_URL = "images/map_components/helipad.png";
-
-    public void loadImage() {
-        super.loadImage(IMAGE_URL);
+    public HelipadAirStrip(final String url) {
+        super(url);
     }
 
     @Override
-    public Dimension2D getLandSpot() {
+    public Rectangle getLandSpot() {
         // TODO calculate land spot
         return null;
     }
