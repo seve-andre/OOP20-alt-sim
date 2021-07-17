@@ -1,7 +1,11 @@
 package alt.sim.view;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import alt.sim.controller.MapController;
@@ -85,7 +89,9 @@ public class Seaside {
         Platform.runLater(() -> {
             try {
                 Thread.sleep(5000);
-            } catch (InterruptedException e) { e.printStackTrace(); }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Plane planeSpawned = new Plane("images/map_components/airplane.png");
             //Adding planeSpawned to planes
@@ -245,7 +251,7 @@ public class Seaside {
             playSpawnTimer();
             playSpawnTimer();
             playSpawnTimer();
-        */
+         */
 
         // Avvio del GameLoop
         class ThreadEngine implements Runnable {
@@ -260,21 +266,21 @@ public class Seaside {
         t.start();
     }
 
-    public void terminateGame(){
+    public void terminateGame() {
         // Blocco del GameLoop
         engine.setEngineStart(false);
 
         // Terminazione di tutte le animazioni del Plane in corso
-        for (Plane planeSelected:planes){
-            if(planeSelected.getPlaneMovementAnimation() != null) {
+        for (Plane planeSelected:planes) {
+            if (planeSelected.getPlaneMovementAnimation() != null) {
                 planeSelected.getPlaneMovementAnimation().stop();
             }
 
-            if(planeSelected.getLandingAnimation() != null) {
+            if (planeSelected.getLandingAnimation() != null) {
                 planeSelected.getLandingAnimation().stop();
             }
 
-            if(planeSelected.getRandomTransition() != null) {
+            if (planeSelected.getRandomTransition() != null) {
                 planeSelected.getRandomTransition().stop();
             }
         }
@@ -284,7 +290,7 @@ public class Seaside {
         canvas.removeEventFilter(MouseEvent.ANY, handlerMouseReleased);
         pane.setDisable(true);
 
-        Platform.runLater(() ->{
+        Platform.runLater(() -> {
             new PageLoader().loadPage(Page.GAMEOVER);
         });
     }
@@ -367,7 +373,7 @@ public class Seaside {
 
     public void removePlanes(final Collection<? extends Plane> planes) {
         Platform.runLater(() -> pane.getChildren().removeAll(planes.stream()
-            .map(Plane::getImagePlane)
-            .collect(Collectors.toList())));
+                .map(Plane::getImagePlane)
+                .collect(Collectors.toList())));
     }
 }

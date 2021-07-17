@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import alt.sim.controller.engine.GameEngineImpl;
-import alt.sim.model.SpriteType;
 import alt.sim.model.PlaneMovement;
+import alt.sim.model.SpriteType;
 import alt.sim.model.plane.Plane;
 import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
-import javafx.animation.PathTransition.OrientationType;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.EventHandler;
@@ -21,14 +20,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  *
@@ -43,10 +37,6 @@ public class PlaneMouseMove extends Application {
     private PathTransition pathTransition      = new PathTransition();
     private List<Point2D> planeCoordinates;
     private Path path = new Path();
-
-  
-    
-    
     private boolean mouseClicked = false;
     private int contatore = 0;
 
@@ -80,13 +70,13 @@ public class PlaneMouseMove extends Application {
         Pane paneRoot = new Pane();
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         PathTransition pathTransition = new PathTransition();
         GameEngineImpl engine = new GameEngineImpl(this);
 
@@ -126,13 +116,13 @@ public class PlaneMouseMove extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         GraphicsContext gcOval = canvas.getGraphicsContext2D();
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         //-------------------------------------------------------------------
         // 1)
 
@@ -144,32 +134,32 @@ public class PlaneMouseMove extends Application {
          * gc.lineTo(773, 119); gcOval.fillOval(773, 119, 5, 5); gc.lineTo(910, 161);
          * gcOval.fillOval(910, 161, 5, 5); gc.lineTo(953, 123); gcOval.fillOval(953,
          * 123, 5, 5); gc.lineTo(1144, 50); gcOval.fillOval(1144, 50, 5, 5);
-         * 
+         *
          * // Torna indietro Test verso il Basso gc.lineTo(800, 400);
          * gcOval.fillOval(800, 400, 5, 5);
-         * 
+         *
          * // Torna indietro Test verso Alto gc.lineTo(500, 200); gcOval.fillOval(500,
          * 200, 5, 5);
-         * 
+         *
          * // Aereo verso il Basso gc.lineTo(500, 300); gcOval.fillOval(500, 300, 5, 5);
-         * 
+         *
          * gc.setLineWidth(1); gc.stroke(); gcOval.setFill(Color.RED);
          */
 
         //-------------------------------------------------------------------
         // 2)
 
-         //planeHead = new Point2D(p1.getImagePlane().getX)
+        //planeHead = new Point2D(p1.getImagePlane().getX)
         //for (int i = 0; i < coordinatesTest.length; i++) {
-            //getAngleRotation(p1, coordinatesTest[4], new Point2D(coordinatesTest[3].getX(), 0));
+        //getAngleRotation(p1, coordinatesTest[4], new Point2D(coordinatesTest[3].getX(), 0));
 
-            //this.finalPoint = new Point2D(coordinatesTest[4].getX(), coordinatesTest[3].getY());
-            //getAngleRotation(p1, centerImagePositionInGame(p1, coordinatesTest[3]), coordinatesTest[4], finalPoint);
+        //this.finalPoint = new Point2D(coordinatesTest[4].getX(), coordinatesTest[3].getY());
+        //getAngleRotation(p1, centerImagePositionInGame(p1, coordinatesTest[3]), coordinatesTest[4], finalPoint);
 
-            //p1.getImagePlane().setLayoutX(coordinatesTest[3].getX());
-            //p1.getImagePlane().setLayoutY(coordinatesTest[3].getY());
+        //p1.getImagePlane().setLayoutX(coordinatesTest[3].getX());
+        //p1.getImagePlane().setLayoutY(coordinatesTest[3].getY());
 
-            //centerImagePositionInGame(p1, coordinatesTest[4].getX(), coordinatesTest[4].getY());
+        //centerImagePositionInGame(p1, coordinatesTest[4].getX(), coordinatesTest[4].getY());
 
         //}
 
@@ -181,10 +171,10 @@ public class PlaneMouseMove extends Application {
          * Point2D(coordinatesTest[i].getX(), coordinatesTest[i].getY());
          * this.secondPoint = new Point2D(coordinatesTest[i + 1].getX(),
          * coordinatesTest[i + 1].getY());
-         * 
+         *
          * tanAlfa = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() -
          * firstPoint.getX()); angularCoefficent = Math.toDegrees(Math.atan(tanAlfa));
-         * 
+         *
          * System.out.println("Angular coefficent: " + angularCoefficent); }
          */
         //-------------------------------------------------------------------
@@ -193,18 +183,18 @@ public class PlaneMouseMove extends Application {
         /*
          * p1.getImagePlane().setLayoutX(coordinatesTest[9].getX());
          * p1.getImagePlane().setLayoutY(coordinatesTest[9].getY());
-         * 
+         *
          * if (coordinatesTest[8].getX() < coordinatesTest[7].getX()) {
          * p1.getImagePlane().setRotate(180 + (33.69)); }
-         * 
+         *
          * // Caso specifico aereo a 90° o 180° if (coordinatesTest[9].getX() ==
          * coordinatesTest[10].getX() && coordinatesTest[9].getY() <
          * coordinatesTest[10].getX() ) { p1.getImagePlane().setRotate(90); }
-         * 
+         *
          * if (coordinatesTest[9].getX() == coordinatesTest[10].getX() &&
          * coordinatesTest[9].getY() > coordinatesTest[10].getX()) {
          * p1.getImagePlane().setRotate(270); }
-         * 
+         *
          * p1.getImagePlane().setLayoutX(getPlaneHeadPosition(p1).getX());
          * p1.getImagePlane().setLayoutY(getPlaneHeadPosition(p1).getY());
          */
@@ -223,122 +213,122 @@ public class PlaneMouseMove extends Application {
 
         EventHandler<MouseEvent> handlerMouseClicked = new EventHandler<MouseEvent>() {
 
-             @Override
-             public void handle(final MouseEvent event) {
+            @Override
+            public void handle(final MouseEvent event) {
                 /*
                  * PathTransition pathTransitionCopy = engine.getPathTransition();
                  * ReadOnlyObjectProperty<Status> animationStatus =
                  * pathTransitionCopy.statusProperty();
-                 * 
+                 *
                  * if (animationStatus.getValue() == Status.RUNNING) {
                  * //System.out.println("Animazione on Running");
-                 * 
+                 *
                  * planeCoordinates.clear(); engine.setCoordinate(planeCoordinates);
                  * engine.setBlocked(true); engine.stopAnimation(); pathTransitionCopy.stop(); }
                  */
 
-                 if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
-                     planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+                if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
+                    planeCoordinates.add(new Point2D(event.getX(), event.getY()));
 
-                     gc.lineTo(event.getX(), event.getY());
-                     gc.setStroke(Paint.valueOf("green"));
-                     gc.stroke();
-                 }
+                    gc.lineTo(event.getX(), event.getY());
+                    gc.setStroke(Paint.valueOf("green"));
+                    gc.stroke();
+                }
 
-                 PathTransition pathTransitionCopy = engine.getPathTransition();
-                 ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
+                PathTransition pathTransitionCopy = engine.getPathTransition();
+                ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
 
-                 if (animationStatus.getValue() == Status.RUNNING) {
-                     //System.out.println("Animazione on Running"); planeCoordinates.clear();
-                     pathTransitionCopy.stop();
-                     engine.setBlocked(true);
-                 }
+                if (animationStatus.getValue() == Status.RUNNING) {
+                    //System.out.println("Animazione on Running"); planeCoordinates.clear();
+                    pathTransitionCopy.stop();
+                    engine.setBlocked(true);
+                }
 
-             }
-         };
+            }
+        };
 
-         EventHandler<MouseEvent> handlerMouseDragged = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> handlerMouseDragged = new EventHandler<MouseEvent>() {
 
-             @Override
-             public void handle(final MouseEvent event) {
-                 PathTransition pathTransitionCopy = engine.getPathTransition();
-                 ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
+            @Override
+            public void handle(final MouseEvent event) {
+                PathTransition pathTransitionCopy = engine.getPathTransition();
+                ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
 
-                 // 2)
-                 // Blocca il ciclo in GameEngineImpl per resettare le nuove coordinate.
-                 if (animationStatus.getValue() == Status.RUNNING) {
-                     //System.out.println("Animazione on Running"); planeCoordinates.clear();
-                     engine.setBlocked(true);
-                     engine.setStart(false);
-                     engine.stopAnimation(); 
-                     pathTransitionCopy.stop(); 
-                 }
+                // 2)
+                // Blocca il ciclo in GameEngineImpl per resettare le nuove coordinate.
+                if (animationStatus.getValue() == Status.RUNNING) {
+                    //System.out.println("Animazione on Running"); planeCoordinates.clear();
+                    engine.setBlocked(true);
+                    engine.setStart(false);
+                    engine.stopAnimation();
+                    pathTransitionCopy.stop();
+                }
 
-                 if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
-                      planeCoordinates.add(new Point2D(event.getX(), event.getY()));
-                      gc.lineTo(event.getX(), event.getY());
-                      gc.setStroke(Paint.valueOf("green"));
-                      gc.stroke();
-                 }
-           }
-         };
+                if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
+                    planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+                    gc.lineTo(event.getX(), event.getY());
+                    gc.setStroke(Paint.valueOf("green"));
+                    gc.stroke();
+                }
+            }
+        };
 
-           EventHandler<MouseEvent> handlerMouseReleased = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> handlerMouseReleased = new EventHandler<MouseEvent>() {
 
-               @Override public void handle(final MouseEvent event) {
-                   /*
-                    * PathTransition pathTransitionCopy = engine.getPathTransition();
-                    * ReadOnlyObjectProperty<Status> animationStatus =
-                    * pathTransitionCopy.statusProperty();
-                    * 
-                    * if (animationStatus.getValue() == Status.RUNNING) {
-                    * //System.out.println("Animazione on Running");
-                    * 
-                    * planeCoordinates.clear(); engine.setCoordinate(planeCoordinates);
-                    * engine.setBlocked(true); engine.stopAnimation(); pathTransitionCopy.stop(); }
-                    */
-                   /*
-                    * PathTransition pathTransitionCopy = engine.getPathTransition();
-                    * ReadOnlyObjectProperty<Status> animationStatus =
-                    * pathTransitionCopy.statusProperty();
-                    * 
-                    * if (animationStatus.getValue() == Status.STOPPED) {
-                    * planeMove.printPlaneCoordinates();
-                    * planeMove.setPlaneCoordinatesList(planeCoordinates);
-                    * engine.setCoordinate(planeMove.getPlaneCoordinatesList());
-                    * engine.setBlocked(false); engine.setStart(true);
-                    * 
-                    * }
-                    */
+            @Override public void handle(final MouseEvent event) {
+                /*
+                 * PathTransition pathTransitionCopy = engine.getPathTransition();
+                 * ReadOnlyObjectProperty<Status> animationStatus =
+                 * pathTransitionCopy.statusProperty();
+                 *
+                 * if (animationStatus.getValue() == Status.RUNNING) {
+                 * //System.out.println("Animazione on Running");
+                 *
+                 * planeCoordinates.clear(); engine.setCoordinate(planeCoordinates);
+                 * engine.setBlocked(true); engine.stopAnimation(); pathTransitionCopy.stop(); }
+                 */
+                /*
+                 * PathTransition pathTransitionCopy = engine.getPathTransition();
+                 * ReadOnlyObjectProperty<Status> animationStatus =
+                 * pathTransitionCopy.statusProperty();
+                 *
+                 * if (animationStatus.getValue() == Status.STOPPED) {
+                 * planeMove.printPlaneCoordinates();
+                 * planeMove.setPlaneCoordinatesList(planeCoordinates);
+                 * engine.setCoordinate(planeMove.getPlaneCoordinatesList());
+                 * engine.setBlocked(false); engine.setStart(true);
+                 *
+                 * }
+                 */
 
-                    // 1)
-                    // Quando si rilascia il Mouse, le coordinate campionate vengono salvate e passate al
-                    // GameEngineImpl.
+                // 1)
+                // Quando si rilascia il Mouse, le coordinate campionate vengono salvate e passate al
+                // GameEngineImpl.
 
 
-                   PathTransition pathTransitionCopy = engine.getPathTransition();
-                   ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
+                PathTransition pathTransitionCopy = engine.getPathTransition();
+                ReadOnlyObjectProperty<Status> animationStatus = pathTransitionCopy.statusProperty();
 
-                   if (animationStatus.getValue() == Status.RUNNING) {
-                         engine.setBlocked(true); 
-                         engine.setStart(false); 
-                         engine.stopAnimation();
-                    }
+                if (animationStatus.getValue() == Status.RUNNING) {
+                    engine.setBlocked(true);
+                    engine.setStart(false);
+                    engine.stopAnimation();
+                }
 
-                    System.out.println("");
-                    System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
-                    //Trying to clear the List of Coordinates from duplicates
-                    planeMove.setPlaneCoordinates(clearListCoordinates(planeCoordinates));
-                    planeMove.printPlaneCoordinates();
+                System.out.println("");
+                System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
+                //Trying to clear the List of Coordinates from duplicates
+                planeMove.setPlaneCoordinates(clearListCoordinates(planeCoordinates));
+                planeMove.printPlaneCoordinates();
 
-                    // 3)
-                    // Check if animationIsRunning
-                    System.out.println("Check if animationIsRunning: " + engine.getAnimationStatus());
+                // 3)
+                // Check if animationIsRunning
+                System.out.println("Check if animationIsRunning: " + engine.getAnimationStatus());
 
-                    engine.setCoordinate(planeMove.getPlaneCoordinates());
-                    engine.setStart(true);
-                } 
-           };
+                engine.setCoordinate(planeMove.getPlaneCoordinates());
+                engine.setStart(true);
+            }
+        };
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, handlerMouseClicked);
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
@@ -353,16 +343,16 @@ public class PlaneMouseMove extends Application {
     /*
      * public double getAngleInclination(final Point2D firstPoint, final Point2D
      * secondPoint) { this.firstPoint = firstPoint; this.secondPoint = secondPoint;
-     * 
+     *
      * tanAlfa = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() -
      * firstPoint.getX()); angularCoefficent = Math.toDegrees(Math.atan(tanAlfa));
-     * 
+     *
      * //System.out.println("Angular coefficent: " + angularCoefficent);
-     * 
+     *
      * return angularCoefficent; }
      */
     public Point2D getPlaneHeadPosition(final Plane planeInGame) {
-       // double upperX = (planeInGame.getImagePlane().getLayoutX() + PLANE_HEAD_MARGIN);
+        // double upperX = (planeInGame.getImagePlane().getLayoutX() + PLANE_HEAD_MARGIN);
         double upperX = (planeInGame.getImagePlane().getLayoutX());
         double upperY = planeInGame.getImagePlane().getLayoutY();
         double xHead;
@@ -383,18 +373,18 @@ public class PlaneMouseMove extends Application {
      * startPoint, final Point2D middlePoint, final Point2D finalPoint) {
      * this.startPoint = startPoint; this.middlePoint = middlePoint; this.finalPoint
      * = finalPoint;
-     * 
+     *
      * //this.planeHead = getPlaneHeadPosition(planeInGame);
-     * 
+     *
      * if (getAngleValue(new Point2D(341, 138), new Point2D(601, 369), new
      * Point2D(773, 119)) < 90) { planeInGame.getImagePlane().setRotate(90 +
      * startPoint.angle(middlePoint, finalPoint)); } else {
      * planeInGame.getImagePlane().setRotate(startPoint.angle(middlePoint,
      * finalPoint)); }
-     * 
+     *
      * System.out.println("Angle Rotation: " + startPoint.angle(middlePoint,
      * finalPoint));
-     * 
+     *
      * }
      */
 
@@ -420,7 +410,7 @@ public class PlaneMouseMove extends Application {
      * (planeInGame.getImagePlane().getFitWidth() / 2));
      * planeInGame.getImagePlane().setLayoutY(finalPoint.getY() -
      * (planeInGame.getImagePlane().getFitHeight() / 2));
-     * 
+     *
      * return new Point2D(planeInGame.getImagePlane().getLayoutX(),
      * planeInGame.getImagePlane().getLayoutY()); }
      */
@@ -437,13 +427,13 @@ public class PlaneMouseMove extends Application {
     private void drawShapes(final GraphicsContext gc, final double x, final double y) {
         //System.out.println("Lunghezza in drawShapes: " + planeMove.getPlaneCoordinatesList().size() + " < " + PlaneMovement.COORDINATES_LIMIT);
 
-            //System.out.println("entrato in drawShapes = ");
+        //System.out.println("entrato in drawShapes = ");
 
-            if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
-                gc.lineTo(x, y);
-                gc.setStroke(Paint.valueOf("green"));
-                gc.stroke();
-            }
+        if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
+            gc.lineTo(x, y);
+            gc.setStroke(Paint.valueOf("green"));
+            gc.stroke();
+        }
     }
 
     public static void main(final String[] args) {

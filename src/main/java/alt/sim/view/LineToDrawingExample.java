@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.LineTo;
 import javafx.stage.Stage;
 
 public class LineToDrawingExample extends Application {
@@ -28,10 +27,10 @@ public class LineToDrawingExample extends Application {
         gc2.lineTo(500, 900);
         gc2.lineTo(900, 900);
         gc2.stroke();
-        
-        Line line1 = new Line(500, 900,50,50);
-        Line line2 = new Line(900, 900,50,50);
-        
+
+        Line line1 = new Line(500, 900, 50, 50);
+        Line line2 = new Line(900, 900, 50, 50);
+
         paneRoot.getChildren().addAll(line1, line2);
         paneRoot.getChildren().remove(line1);
         paneRoot.getChildren().remove(line2);
@@ -40,15 +39,15 @@ public class LineToDrawingExample extends Application {
         EventHandler<MouseEvent> handlerMouseMoved = event -> gc.moveTo(event.getX(), event.getY());
 
         EventHandler<MouseEvent> handlerMouseDragged = event -> {
-                if (isBeginPathReady) {
-                    gc.beginPath();
-                    gc.save();
-                    isBeginPathReady = false;
-                }
+            if (isBeginPathReady) {
+                gc.beginPath();
+                gc.save();
+                isBeginPathReady = false;
+            }
 
-                gc.lineTo(event.getX(), event.getY());
-                gc.setStroke(Color.LIMEGREEN);
-                gc.stroke();
+            gc.lineTo(event.getX(), event.getY());
+            gc.setStroke(Color.LIMEGREEN);
+            gc.stroke();
         };
 
         EventHandler<MouseEvent> handlerMouseReleased = event -> {

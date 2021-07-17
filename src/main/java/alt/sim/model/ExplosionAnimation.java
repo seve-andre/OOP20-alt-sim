@@ -34,9 +34,7 @@ public class ExplosionAnimation {
             imgExplosion.imageProperty().set(new Image("images/animations/explosion_" + contImage + ".png"));
             contImage++;
         });
-       
         ScaleTransition scaleExplosionAnimation = new ScaleTransition();
-        
         scaleExplosionAnimation.setNode(imgExplosion);
 
         scaleExplosionAnimation.setFromX(0);

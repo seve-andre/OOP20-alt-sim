@@ -8,14 +8,12 @@ import alt.sim.view.MainPlaneView;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -129,7 +127,7 @@ public class ClearingPathTest extends Application {
         System.out.println("coordinate passate da Eliminare al giro 0: ");
 
         for (Point2D point:coordinatesToClear) {
-            System.out.println("coordinate Eliminare: " + point.getX() + " , " + point.getY()); 
+            System.out.println("coordinate Eliminare: " + point.getX() + " , " + point.getY());
         }
 
         for (int k = 0; k < coordinatesToClear.size(); k++) {
@@ -165,7 +163,7 @@ public class ClearingPathTest extends Application {
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
                             rectCleaning.getHeight() - (rectCleaning.getHeight() / 2));
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) { }
         }
     }
 

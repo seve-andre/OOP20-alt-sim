@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import alt.sim.model.SpriteType;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.LandingAnimation;
+import alt.sim.model.SpriteType;
 import alt.sim.model.calculation.Sprite;
 import alt.sim.view.Seaside;
 import alt.sim.view.TransitionTest;
 import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -305,7 +305,7 @@ public class Plane {
 
     public void setPlaneLinesPathToRemove(final List<Point2D> linesPathToRemove) {
         for (Point2D pointToRemove : linesPathToRemove) {
-            //System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " + pointToRemove.getY());
+            System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " + pointToRemove.getY());
         }
 
         this.linesPathToRemove = linesPathToRemove;
@@ -349,7 +349,7 @@ public class Plane {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(final State state) {
         this.state = state;
     }
 

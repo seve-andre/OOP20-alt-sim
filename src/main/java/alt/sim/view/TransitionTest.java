@@ -39,7 +39,7 @@ public class TransitionTest extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        paneRoot = new Pane()   ;
+        paneRoot = new Pane();
         canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
         engine = new GameEngineAreaTest(this);
 
@@ -92,14 +92,14 @@ public class TransitionTest extends Application {
 
         /*
          * Bounds beforeBounds = plane.getImagePlane().getBoundsInParent();
-         * 
+         *
          * System.out.println("getRotate: " + plane2.getImagePlane().getRotate());
          * plane2.getImagePlane().setRotate(20); System.out.println("getRotate: " +
          * plane2.getImagePlane().getRotate());
-         * 
+         *
          * for (Plane plane:planes) { Bounds bounds =
          * plane.getImagePlane().getBoundsInParent();
-         * 
+         *
          * System.out.println("Bounds: " + bounds.getMinX() + " , " + bounds.getMinY() +
          * " , " + bounds.getWidth() + " , " + bounds.getHeight());
          * gc.strokeRect(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(),
@@ -144,20 +144,20 @@ public class TransitionTest extends Application {
                     // L'animazione parte solo se l'utente ha disegnato una rotta vicino al Plane
                     if (distanzaDalPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE) {
 
-                    // Quando viene rilasciato il Mouse se il Plane seguiva già un percoso, 
-                    // deve bloccarsi e seguire il percorso Nuovo
-                    if (planeSelected.getPlaneMovementAnimation() != null) {
-                        planeSelected.stopPlaneMovementAnimation();
-                    }
+                        // Quando viene rilasciato il Mouse se il Plane seguiva già un percoso,
+                        // deve bloccarsi e seguire il percorso Nuovo
+                        if (planeSelected.getPlaneMovementAnimation() != null) {
+                            planeSelected.stopPlaneMovementAnimation();
+                        }
 
-                    planeSelected.setPlaneLinesPath(planeCoordinates);
-                    clearLinesDrawed();
-                    restoreLinesRemoved();
+                        planeSelected.setPlaneLinesPath(planeCoordinates);
+                        clearLinesDrawed();
+                        restoreLinesRemoved();
 
-                    // Una volta caricate le coordinate e stoppate le animazioni in esecuzione
-                    // viene fatta partire quella del Plane
-                    planeSelected.loadPlaneMovementAnimation();
-                    planeSelected.startPlaneMovementAnimation();
+                        // Una volta caricate le coordinate e stoppate le animazioni in esecuzione
+                        // viene fatta partire quella del Plane
+                        planeSelected.loadPlaneMovementAnimation();
+                        planeSelected.startPlaneMovementAnimation();
 
                     } else {
                         clearMap();
@@ -244,9 +244,9 @@ public class TransitionTest extends Application {
     /*
      * private void copyCoordinatesInPath(final List<Point2D> planeCoordinates) { //
      * Ripuliamo le coordinate presenti dal path prima path = new Path();
-     * 
+     *
      * for (int k = 0; k < planeCoordinates.size(); k++) {
-     * 
+     *
      * if (k == 0) { path.getElements().add(new
      * MoveTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY())); }
      * else { path.getElements().add(new LineTo(planeCoordinates.get(k).getX(),
@@ -258,21 +258,21 @@ public class TransitionTest extends Application {
     }
 
     public void clearPlaneCoordinatesAndUpdate(final int idPlane) {
-        for (Plane planeSelected:planes) { 
+        for (Plane planeSelected:planes) {
             planeSelected.resetPlaneLinesPath(idPlane);
         }
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
         Platform.runLater(new Runnable() {
-                @Override 
-                public void run() {
-                    paneRoot.getChildren().add(testExplosion.getImgExplosion());
-                    testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
-                    testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
-                    testExplosion.startExplosion();
-                }
-       });
+            @Override
+            public void run() {
+                paneRoot.getChildren().add(testExplosion.getImgExplosion());
+                testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
+                testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
+                testExplosion.startExplosion();
+            }
+        });
     }
 
     public Canvas getCanvas() {

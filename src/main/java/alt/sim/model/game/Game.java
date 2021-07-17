@@ -1,12 +1,12 @@
 package alt.sim.model.game;
 
-import alt.sim.controller.engine.GameEngineAreaTest;
-import alt.sim.model.plane.Plane;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.model.plane.Plane;
 
 public class Game {
     private  List<Plane> planes;
@@ -20,7 +20,7 @@ public class Game {
 
     private boolean endGame;
 
-    public Game(){
+    public Game() {
         this.endGame = false;
         this.planes = new ArrayList();
     }
@@ -29,7 +29,7 @@ public class Game {
         playSpawnTimer();
     }
 
-    public void playSpawnTimer(){
+    public void playSpawnTimer() {
         this.spawnTimer = new Timer();
         this.spawnTask = new TimerTask() {
 
@@ -40,15 +40,15 @@ public class Game {
             }
         };
 
-        spawnTimer.schedule(spawnTask,5000l);
+        spawnTimer.schedule(spawnTask, 5000L);
     }
 
 
-    public void setEndGame(final boolean endGame){
+    public void setEndGame(final boolean endGame) {
         this.endGame = endGame;
     }
 
-    public boolean getEndGame(){
+    public boolean getEndGame() {
         return this.endGame;
     }
 

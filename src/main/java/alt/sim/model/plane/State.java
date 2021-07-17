@@ -3,7 +3,7 @@ package alt.sim.model.plane;
 
 /**
  * Enum describing the states a Plane can have during the game.
-*/
+ */
 public enum State {
 
     /**
@@ -17,7 +17,7 @@ public enum State {
     MOVING,
 
     /**
-     * (4) Plane waiting to Move
+     * (4) Plane waiting to Move.
      */
     WAITING;
 }

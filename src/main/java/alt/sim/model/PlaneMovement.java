@@ -1,7 +1,6 @@
 package alt.sim.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javafx.geometry.Point2D;
@@ -10,8 +9,13 @@ public class PlaneMovement {
     /** MAX-Range of samping coordinates. */
     public static final int COORDINATES_LIMIT = 200;
 
+    /**
+     *
+     */
     public static final int MIN_COORDINATES_LENGTH = 5;
-
+    /**
+     *
+     */
     public static final int MAX_DISTANCE_DRAWINGPATH_VALUE = 150;
 
 
@@ -26,10 +30,10 @@ public class PlaneMovement {
      * private void alignmentCoordinatesArray(final List<Point2D> planeCoordinates)
      * { for (Point2D pointPassed:planeCoordinates) {
      * //System.out.println(pointPassed.getX() + " | " + pointPassed.getY()); }
-     * 
+     *
      * if (this.planeCoordinates.length > planeCoordinates.size()) {
      * this.planeCoordinates = new Point2D[planeCoordinates.size()];
-     * 
+     *
      * for (int j = 0; j < planeCoordinates.size(); j++) { if
      * (planeCoordinates.get(j) != null) { this.planeCoordinates[j] =
      * planeCoordinates.get(j); } } } else if (planeCoordinates.size() ==
