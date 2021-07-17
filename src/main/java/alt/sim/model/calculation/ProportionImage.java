@@ -1,5 +1,6 @@
 package alt.sim.model.calculation;
 
+import alt.sim.model.Ratio;
 import alt.sim.model.RatioImpl;
 
 /**
@@ -26,9 +27,9 @@ public class ProportionImage {
     /** Min range of Sprite dimension. */
     public static final double SPRITE_MIN_RANGE = 16;
 
-    private RatioImpl ratioImage;
-    private RatioImpl ratioScreen;
-    private RatioImpl resultOfProportion;
+    private Ratio ratioImage;
+    private Ratio ratioScreen;
+    private Ratio resultOfProportion;
 
     /**
      * Constructor initial method.
@@ -43,7 +44,7 @@ public class ProportionImage {
     * @param ratioImage Ratio of the proportion that we knowed.
     * @param ratioScreen Ratio need to know.
     */
-    public ProportionImage(final RatioImpl ratioImage, final RatioImpl ratioScreen) {
+    public ProportionImage(final Ratio ratioImage, final Ratio ratioScreen) {
         this();
         this.ratioImage = ratioImage;
         this.ratioScreen = ratioScreen;
@@ -154,7 +155,7 @@ public class ProportionImage {
     /**
      * @return Return the resultOfProportion object.
      */
-    public RatioImpl getResultOfProportion() {
+    public Ratio getResultOfProportion() {
         return this.resultOfProportion;
     }
 
