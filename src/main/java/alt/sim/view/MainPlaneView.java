@@ -1,7 +1,7 @@
 package alt.sim.view;
 
 import alt.sim.model.ExplosionAnimation;
-import alt.sim.model.ImageClassification;
+import alt.sim.model.SpriteType;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -29,7 +29,7 @@ public class MainPlaneView extends Application {
 
         try {
             Pane paneRoot = new Pane();
-            Plane p1 = new Plane(ImageClassification.AIRPLANE);
+            Plane p1 = new Plane(SpriteType.AIRPLANE);
 
             // Calculating the Proportion --> (Image:Screen)
             p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);

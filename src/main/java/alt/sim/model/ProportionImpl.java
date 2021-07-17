@@ -1,15 +1,15 @@
 package alt.sim.model;
 
-import java.awt.geom.Point2D;
+import javafx.geometry.Point2D;
 
 /** Class that manage 2 Ratio object for calculate the unknownValue 10:40 = x:50.
  *
  */
-public class ProportionImpl implements ProportionInterface {
+public class ProportionImpl implements Proportion {
 
-    private RatioImpl ratioKnown;
-    private RatioImpl ratioToKnow;
-    private RatioImpl resultOfProportion;
+    private Ratio ratioKnown;
+    private Ratio ratioToKnow;
+    private Ratio result;
 
     /**
      * @param ratioKnown Ratio of the proportion that we knowed
@@ -18,7 +18,7 @@ public class ProportionImpl implements ProportionInterface {
     public ProportionImpl(final RatioImpl ratioKnown, final RatioImpl ratioToKnow) {
         this.ratioKnown = ratioKnown;
         this.ratioToKnow = ratioToKnow;
-        this.resultOfProportion = new RatioImpl();
+        this.result = new RatioImpl();
     }
 
     /**
@@ -35,8 +35,8 @@ public class ProportionImpl implements ProportionInterface {
             consequentToKnow = 0;
         }
 
-        this.resultOfProportion.setAntecedent(antecedentToKnow);
-        this.resultOfProportion.setConsequent(consequentToKnow);
+        this.result.setAntecedent(antecedentToKnow);
+        this.result.setConsequent(consequentToKnow);
     }
 
     /**
@@ -55,8 +55,8 @@ public class ProportionImpl implements ProportionInterface {
             consequentToKnow = 0;
         }
 
-        this.resultOfProportion.setAntecedent(antecedentToKnow);
-        this.resultOfProportion.setConsequent(consequentToKnow);
+        this.result.setAntecedent(antecedentToKnow);
+        this.result.setConsequent(consequentToKnow);
     }
 
     /**
@@ -73,18 +73,18 @@ public class ProportionImpl implements ProportionInterface {
     /**
      * @return Return the resultOfProportion object, it contains the 2 UnknowValues researched
      */
-    public RatioImpl getResultOfProportion() {
-        return this.resultOfProportion;
+    public Ratio getResult() {
+        return this.result;
     }
 
     /**
      * @return Return the resultOfProportion object converted for the Point2D type
      */
     public Point2D getResultOfProportionInConvertedType() {
-        double antecedent = this.resultOfProportion.getAntecedent();
-        double consequent = this.resultOfProportion.getConsequent();
+        double antecedent = this.result.getAntecedent();
+        double consequent = this.result.getConsequent();
 
-        Point2D conversionType = new Point2D.Double(antecedent, consequent);
+        Point2D conversionType = new Point2D(antecedent, consequent);
 
         return conversionType;
     }

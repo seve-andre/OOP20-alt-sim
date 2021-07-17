@@ -1,6 +1,6 @@
 package alt.sim.view;
 
-import alt.sim.model.ImageClassification;
+import alt.sim.model.SpriteType;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.plane.Plane;
 import javafx.application.Application;
@@ -26,7 +26,7 @@ public class RotateSpriteView extends Application {
         private double yCached;
 
         public RotateSpriteView() {
-            p1 = new Plane(ImageClassification.AIRPLANE);
+            p1 = new Plane(SpriteType.AIRPLANE);
             planeMove = new PlaneMovement();
         }
 

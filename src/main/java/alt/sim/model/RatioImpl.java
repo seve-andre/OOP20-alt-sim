@@ -8,7 +8,7 @@ import alt.sim.model.calculation.UtilityCalculation;
  * Linking it to the ProportionCount class for finalize the Count of 2 Ratio object.
  *
  */
-public class RatioImpl implements RatioInterface {
+public class RatioImpl implements Ratio {
 
     private double antecedent;
     private double consequent;
