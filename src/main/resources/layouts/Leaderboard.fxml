@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="bg" minHeight="540.0" minWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.leaderboard.LeaderboardView">
+<VBox id="bg" minHeight="540.0" minWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.leaderboard.LeaderboardView">
         <Pane minHeight="540.0" minWidth="960.0">
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="48.0" prefHeight="58.0" prefWidth="225.0" text="LEADERBOARD" textFill="#d6d6cb">
                     <font>
@@ -61,8 +61,7 @@
                         <DropShadow />
                     </effect>
                 </Label>
-                <TextField fx:id="nameFirstPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="138.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
-                           stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="nameFirstPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="138.0" prefHeight="34.0" prefWidth="140.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -71,8 +70,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameSecondPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="215.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
-                           stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="nameSecondPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="215.0" prefHeight="34.0" prefWidth="140.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -81,8 +79,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameThirdPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="292.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
-                           stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="nameThirdPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="292.0" prefHeight="34.0" prefWidth="140.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -91,8 +88,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameFourthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="369.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
-                           stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="nameFourthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="369.0" prefHeight="34.0" prefWidth="140.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -101,8 +97,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <TextField fx:id="nameFifthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="446.0" prefHeight="34.0" prefWidth="140.0" promptText="empty"
-                           stylesheets="@../css/leaderboard.css">
+                <TextField fx:id="nameFifthPlace" accessibleRole="TEXT" disable="true" editable="false" layoutX="112.0" layoutY="446.0" prefHeight="34.0" prefWidth="140.0" promptText="empty" stylesheets="@../css/leaderboard.css">
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font>
@@ -113,8 +108,7 @@
                 </TextField>
                 <Button id="go-back" fx:id="goBackBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="21.0" prefWidth="26.0" stylesheets="@../css/base.css">
                     <graphic>
-                        <ImageView id="go-back" fitHeight="22.0" fitWidth="29.0" pickOnBounds="true"
-                                   preserveRatio="true">
+                        <ImageView id="go-back" fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                 <Image url="@../images/base/go-back.png" />
                         </ImageView>
                     </graphic>
@@ -178,5 +172,14 @@
                         <Font name="Consolas Bold" size="14.0" />
                     </font>
                 </Label>
+      <Button layoutX="826.0" layoutY="65.0" mnemonicParsing="false" onAction="#onGoToFileClick" text="GO TO FILE" textFill="#d6d6cb" underline="true">
+         <font>
+            <Font name="Consolas Bold" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="transparent" />
+            <String fx:value="transparent-btn" />
+         </styleClass>
+      </Button>
         </Pane>
 </VBox>
