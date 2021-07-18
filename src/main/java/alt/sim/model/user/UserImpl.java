@@ -11,6 +11,7 @@ public class UserImpl implements User {
         this.name = Objects.requireNonNull(name);
         this.score = score;
     }
+
     /**
      *
      * {@inheritDoc}
@@ -44,9 +45,5 @@ public class UserImpl implements User {
     @Override
     public String toString() {
         return "UserImpl [name=" + name + ", score=" + score + "]";
-    }
-
-    public User getUser() {
-        return this;
     }
 }
