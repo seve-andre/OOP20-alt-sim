@@ -15,7 +15,7 @@ public class PageLoader {
      *  @param page to load
      * @param gameMap to load
      */
-    public void loadPage(final Page page, final GameMap gameMap) {
+    public static void loadPage(final Page page, final GameMap gameMap) {
 
         /**
          * If given page is a GameMap, gets its name.
@@ -40,7 +40,7 @@ public class PageLoader {
      *
      * @param page to load
      */
-    public void loadPage(final Page page) {
-        this.loadPage(page, null);
+    public static void loadPage(final Page page) {
+        loadPage(page, null);
     }
 }
