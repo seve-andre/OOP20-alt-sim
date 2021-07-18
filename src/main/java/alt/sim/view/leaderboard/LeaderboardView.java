@@ -1,6 +1,6 @@
 package alt.sim.view.leaderboard;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
