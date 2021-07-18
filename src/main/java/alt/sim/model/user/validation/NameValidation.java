@@ -20,7 +20,12 @@ public enum NameValidation {
     /**
      * Name does not match pattern.
      */
-    WRONG("wrong");
+    WRONG("wrong"),
+
+    /**
+     * Name is already taken.
+     */
+    TAKEN("taken");
 
     private String result;
 
