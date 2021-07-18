@@ -37,7 +37,7 @@
     -fx-background-color: transparent;
 }
 
-.img-btn {
+.img-btn, .transparent-btn {
     -fx-cursor: hand;
 }
 
