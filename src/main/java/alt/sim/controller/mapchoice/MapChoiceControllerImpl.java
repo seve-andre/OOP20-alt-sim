@@ -2,7 +2,6 @@ package alt.sim.controller.mapchoice;
 
 import java.io.IOException;
 
-import alt.sim.model.user.User;
 import alt.sim.model.user.UserImpl;
 import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.model.user.validation.NameQuality;
