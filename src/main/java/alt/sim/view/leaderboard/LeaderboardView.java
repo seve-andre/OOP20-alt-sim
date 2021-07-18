@@ -1,9 +1,13 @@
 package alt.sim.view.leaderboard;
 
+import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
 import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
+import alt.sim.model.user.records.RecordsFolder;
 import alt.sim.view.CommonView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,5 +68,10 @@ public class LeaderboardView {
     @FXML
     public void onGoBackClick(final ActionEvent event) {
         CommonView.goBack();
+    }
+
+    @FXML
+    public void onGoToFileClick(final ActionEvent event) throws IOException {
+        Desktop.getDesktop().open(Paths.get(RecordsFolder.RecordsPath.USER_RECORDS_FILE_PATH.getPath()).toFile());
     }
 }
