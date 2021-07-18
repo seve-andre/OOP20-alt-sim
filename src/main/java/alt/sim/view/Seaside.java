@@ -305,11 +305,7 @@ public class Seaside {
             }
         }
 
-        if (planeBeenSelected >= 2) {
-            return true;
-        }
-
-        return false;
+        return planeBeenSelected >= 2;
     }
 
     public void clearPlaneSelectedForBeenMoved() {
