@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class NameQualityTest {
 
     private NameQuality nameQuality = new NameQuality();
 
     @Test
-    public void checkName() {
+    public void checkName() throws IOException {
         assertEquals(NameValidation.CORRECT, nameQuality.checkName("ciao"));
         assertEquals(NameValidation.WRONG, nameQuality.checkName("ciao@"));
         assertEquals(NameValidation.EMPTY, nameQuality.checkName("    "));
