@@ -33,7 +33,7 @@ public final class NameQuality {
             return NameValidation.EMPTY;
         }
 
-        if (name.length() > MAX_LENGTH) {
+        if (trimmedName.length() > MAX_LENGTH) {
             return NameValidation.TOO_LONG;
         }
 
