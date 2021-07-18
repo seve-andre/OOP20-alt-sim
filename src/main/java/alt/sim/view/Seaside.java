@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.controller.user.records.UserRecordsController;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -17,7 +18,6 @@ import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.animation.Animation;
@@ -349,10 +349,7 @@ public class Seaside {
     @FXML
     public void onPauseClick() throws IOException {
         timeline.pause();
-
-        // TODO: updates user score on pause click, TO change cause takes from Model
-        new UserRecordsImpl().updateScore(name.getText(), Integer.parseInt(score.getText()));
-
+        UserRecordsController.updateScore(name.getText(), Integer.parseInt(score.getText()));
         CommonView.onPauseClick();
         timeline.play();
     }
