@@ -1,5 +1,8 @@
 package alt.sim.model.user.validation;
 
+import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
+
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
@@ -21,15 +24,21 @@ public final class NameQuality {
      * @param name to check for quality
      * @return enum value result
      */
-    public NameValidation checkName(final String name) {
+    public NameValidation checkName(final String name) throws IOException {
 
+        final MapChoiceControllerImpl mapChoice = new MapChoiceControllerImpl();
         final String trimmedName = name.trim();
+
         if (name.isBlank()) {
             return NameValidation.EMPTY;
         }
 
         if (name.length() > MAX_LENGTH) {
             return NameValidation.TOO_LONG;
+        }
+
+        if (mapChoice.isNameTaken(trimmedName)) {
+            return NameValidation.TAKEN;
         }
 
         return pattern.matcher(trimmedName).find() ? NameValidation.CORRECT : NameValidation.WRONG;
