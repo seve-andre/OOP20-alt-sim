@@ -17,6 +17,7 @@ import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
+import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.animation.Animation;
@@ -348,19 +349,20 @@ public class Seaside {
     @FXML
     public void onPauseClick() throws IOException {
         timeline.pause();
+
+        // TODO: updates user score on pause click, TO change cause takes from Model
+        new UserRecordsImpl().updateScore(name.getText(), Integer.parseInt(score.getText()));
+
         CommonView.onPauseClick();
         timeline.play();
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
+        Platform.runLater(() -> {
                 pane.getChildren().add(testExplosion.getImgExplosion());
                 testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
                 testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
                 testExplosion.startExplosion();
-            }
         });
     }
 
