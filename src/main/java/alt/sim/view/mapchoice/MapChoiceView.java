@@ -62,11 +62,7 @@ public class MapChoiceView {
             if (!result.equals(NameValidation.CORRECT)) {
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
-                if (mapChoiceController.isNameTaken(nameTextField.getText())) {
-                    infoTextField.setText("NAME IS TAKEN!");
-                } else {
-                    infoTextField.setText("");
-                }
+                infoTextField.setText("");
             }
         }
     }
@@ -81,7 +77,7 @@ public class MapChoiceView {
         final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
         if (result.equals(NameValidation.CORRECT)) {
             mapChoiceController.addUser(nameTextField.getText());
-            new PageLoader().loadPage(Page.GAME, this.mapToPlay);
+            PageLoader.loadPage(Page.GAME, this.mapToPlay);
         } else {
             infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
         }

@@ -12,14 +12,13 @@ import javafx.stage.StageStyle;
 
 public final class CommonView {
 
-    private static final PageLoader PAGE_LOADER = new PageLoader();
     private static final Stage POPUP_STAGE = new Stage(StageStyle.UNDECORATED);
 
     private CommonView() {
     }
 
     public static void goBack() {
-        PAGE_LOADER.loadPage(Page.HOME);
+        PageLoader.loadPage(Page.HOME);
     }
 
     public static void onPauseClick() throws IOException {

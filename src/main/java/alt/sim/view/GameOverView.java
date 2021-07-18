@@ -21,14 +21,14 @@ public class GameOverView {
 
     @FXML
     public void onHomeClick(final ActionEvent event) throws IOException {
-        this.userRecords.updateScore(MapController.getName());
+        this.userRecords.updateScore(MapController.getName(),0);
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        new PageLoader().loadPage(Page.HOME);
+        PageLoader.loadPage(Page.HOME);
     }
 
     @FXML
     public void onQuitClick(final ActionEvent event) throws IOException {
-        this.userRecords.updateScore(MapController.getName());
+        this.userRecords.updateScore(MapController.getName(),0);
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         Main.getStage().close();
     }

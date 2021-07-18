@@ -12,7 +12,6 @@ public class LoadingView {
     @FXML
     private ProgressBar loadingBar = new ProgressBar();
     private static final int LOADING_TIME = 100;
-    private PageLoader pageLoader = new PageLoader();
 
     @FXML
     public void initialize() {
@@ -25,7 +24,7 @@ public class LoadingView {
 
         // After loading is done, goes to HOME Page.
         task.setOnSucceeded(e -> {
-            pageLoader.loadPage(Page.HOME);
+            PageLoader.loadPage(Page.HOME);
         });
     }
 

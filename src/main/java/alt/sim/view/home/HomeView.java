@@ -18,19 +18,17 @@ public class HomeView {
     @FXML
     private Button exitBtn;
 
-    private final PageLoader pageLoader = new PageLoader();
-
     @FXML
     public void onStartClick(final ActionEvent event) {
-        pageLoader.loadPage(Page.MAP_CHOICE);
+        PageLoader.loadPage(Page.MAP_CHOICE);
     }
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
-        pageLoader.loadPage(Page.LEADERBOARD);
+        PageLoader.loadPage(Page.LEADERBOARD);
     }
     @FXML
     public void onCreditsClick(final ActionEvent event) {
-        pageLoader.loadPage(Page.CREDITS);
+        PageLoader.loadPage(Page.CREDITS);
     }
     @FXML
     public void onExitClick(final ActionEvent event) {
