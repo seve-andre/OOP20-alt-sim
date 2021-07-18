@@ -11,7 +11,7 @@ public interface MapChoiceController {
      * @param name
      * @return name quality result
      */
-    NameValidation checkName(String name);
+    NameValidation checkName(String name) throws IOException;
 
     /**
      * Checks if given name is taken.
