@@ -5,26 +5,20 @@ import alt.sim.view.mapchoice.GameMap;
 
 public class MapImpl implements Map {
 
-    private GameMap map;
-
-    public MapImpl(final GameMap map) {
-        this.map = map;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getWidth() {
+        return (int) Main.getStage().getWidth();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public double getWidth() {
-        return Main.getStage().getWidth();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public double getHeight() {
-        return Main.getStage().getHeight();
+    public int getHeight() {
+        return (int) Main.getStage().getHeight();
     }
 
     /**
