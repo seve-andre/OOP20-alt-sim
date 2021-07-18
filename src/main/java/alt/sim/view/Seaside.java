@@ -89,11 +89,6 @@ public class Seaside {
         Path pathSpawn = new Path();
 
         Platform.runLater(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
             Plane planeSpawned = new Plane("images/map_components/airplane.png");
             //Adding planeSpawned to planes
