@@ -292,7 +292,7 @@ public class Seaside {
         pane.setDisable(true);
 
         Platform.runLater(() -> {
-            new PageLoader().loadPage(Page.GAMEOVER);
+            PageLoader.loadPage(Page.GAMEOVER);
         });
     }
 
