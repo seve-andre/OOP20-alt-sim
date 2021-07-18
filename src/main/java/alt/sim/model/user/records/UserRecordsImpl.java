@@ -87,11 +87,11 @@ public class UserRecordsImpl implements UserRecords {
      * @throws IOException
      */
     @Override
-    public void updateScore(final String name) throws IOException {
+    public void updateScore(final String name, final int score) throws IOException {
         this.loadFile();
         if (this.users.containsKey(name)) {
             this.users.remove(name);
-            this.users.put(name, 100);
+            this.users.put(name, score);
         }
         this.updateFile();
     }

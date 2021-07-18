@@ -22,7 +22,8 @@ public interface UserRecords {
     /**
      * Updates user score when game is over.
      * @param name of the user
+     * @param score to update
      * @throws IOException
      */
-    void updateScore(String name) throws IOException;
+    void updateScore(String name, int score) throws IOException;
 }
