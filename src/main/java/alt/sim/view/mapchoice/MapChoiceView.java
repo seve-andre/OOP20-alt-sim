@@ -1,7 +1,5 @@
 package alt.sim.view.mapchoice;
 
-import java.io.IOException;
-
 import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
 import alt.sim.model.user.validation.NameValidation;
 import alt.sim.view.CommonView;
@@ -15,6 +13,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 
 public class MapChoiceView {
@@ -62,7 +62,8 @@ public class MapChoiceView {
             if (!result.equals(NameValidation.CORRECT)) {
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
-                infoTextField.setText("");
+                infoTextField.setStyle("-fx-text-fill: #019501;");
+                infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             }
         }
     }
