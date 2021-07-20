@@ -35,8 +35,7 @@ public class Game {
 
             @Override
             public void run() {
-                System.out.println("Spawn Plane");
-
+                //System.out.println("Spawn Plane");
             }
         };
 
