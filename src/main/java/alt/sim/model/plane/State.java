@@ -1,6 +1,5 @@
 package alt.sim.model.plane;
 
-
 /**
  * Enum describing the states a Plane can have during the game.
  */
@@ -12,12 +11,17 @@ public enum State {
     SPAWNING,
 
     /**
-     * (1) Plane is moving into the Map.
+     * (1) Plane waiting to Move.
      */
-    MOVING,
+    WAITING,
 
     /**
-     * (4) Plane waiting to Move.
+     * (2) Plane is moving in random Path.
      */
-    WAITING;
+    RANDOM_MOVEMENT,
+
+    /**
+     * (3) Plane is moving following User Path. 
+     */
+    USER_MOVEMENT
 }
