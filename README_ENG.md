@@ -7,7 +7,7 @@
 <p>
     AirLine Traffic Simulator is a videogame inspired by <a href="https://www.youtube.com/watch?v=KTH084KeFBc"><strong>Flight Control</strong></a>
     for AirLine traffic management. User goal is to <strong>land as many airplanes as possible</strong> without any collisions (cause game ending). 
-    Airplanes spawn into the map progressively. <strong>User is in charge of airplanes movement</strong>, mouse drawing their routes. Game difficulty 
+    Airplanes spawn into the map progressively. <strong>User is in charge of airplanes movement</strong>, mouse drawing their routes. game difficulty 
     increases with increasing number of airplanes landed    
   </p>
 
@@ -24,7 +24,7 @@
 <h2>Optional features</h2>
  <ul>
     <li>Creation and addition of dynamic maps (i.e. dynamic animations, objects causing explosion when flown over)</li>
-    <li>Game sound implementation</li>
+    <li>game sound implementation</li>
     <li>New airplanes with different speed</li>
     <li>Wind management: causing increasing or decreasing airplane speed</li>
 </ul>
