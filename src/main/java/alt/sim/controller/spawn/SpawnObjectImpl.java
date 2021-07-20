@@ -13,6 +13,7 @@ public class SpawnObjectImpl implements SpawnObject {
     private int objects;
     private Thread threadSpawn;
     private PlaneContainer container;
+
     public SpawnObjectImpl() {
         objects = 0;
         container = new PlaneContainerImpl();
