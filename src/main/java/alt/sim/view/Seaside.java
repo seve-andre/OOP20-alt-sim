@@ -1,13 +1,5 @@
 package alt.sim.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.stream.Collectors;
-
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -20,10 +12,7 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,17 +24,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Seaside {
     @FXML
-    private AnchorPane pane;
+    private AnchorPane pane = new AnchorPane();
     @FXML
     private ImageView imgViewHelicopterLandingArea;
     @FXML
@@ -65,6 +56,8 @@ public class Seaside {
     private Timer spawnTimer;
     private TimerTask spawnTask;
 
+    private List<PathTransition> pathTransitionList = new ArrayList<>();
+
     private List<Plane> planes;
     private Plane plane;
     private Plane plane2;
@@ -79,45 +72,76 @@ public class Seaside {
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
-    private static final Stage POPUP_STAGE = new Stage(StageStyle.UNDECORATED);
     private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
         score.setText(String.valueOf(Integer.parseInt(score.getText()) + 10));
     }));
 
     public void playSpawnTimer() {
         this.spawnTimer = new Timer();
-        PathTransition spawnTransition = new PathTransition();
-        Path pathSpawn = new Path();
+        PathTransition pathTransition = new PathTransition();
+        Path path = new Path();
+        PathTransition pathTransition2 = new PathTransition();
+        Path path2 = new Path();
 
         Platform.runLater(() -> {
 
+            // TO DO BETTER
+
             Plane planeSpawned = new Plane("images/map_components/airplane.png");
+            Plane plane = new Plane("images/map_components/airplane.png");
             //Adding planeSpawned to planes
             planes.add(planeSpawned);
+            planes.add(plane);
             planeSpawned.connectToController(this);
+            plane.connectToController(this);
             planeSpawned.setState(State.SPAWNING);
+            plane.setState(State.SPAWNING);
 
             engine.setPlanes(planes);
 
-            planeSpawned.getImagePlane().setX(1000);
-            planeSpawned.getImagePlane().setY(680);
+            /*planeSpawned.getImagePlane().setX(1000);
+            planeSpawned.getImagePlane().setY(680);*/
 
             // Rimpicciolimento planeSpawned
             planeSpawned.getImagePlane().setFitWidth(64);
             planeSpawned.getImagePlane().setFitHeight(64);
 
+            plane.getImagePlane().setFitWidth(64);
+            plane.getImagePlane().setFitHeight(64);
+
+
+            //SpawnModel.spawn(SpawnLocation.TOP).play();
+
             // Inserimento coordinate PathSpawn from LEFT
-            pathSpawn.getElements().add(new MoveTo(-80, 360));
-            pathSpawn.getElements().add(new LineTo(60, 360));
+            path2.getElements().add(new MoveTo(640, -50));
+            path2.getElements().add(new CubicCurveTo(180, 0, 700, 120, 800, 800));
+
+            pane.getChildren().add(plane.getImagePlane());
+
+            pathTransition2.setPath(path2);
+            pathTransition2.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+            pathTransition2.setNode(plane.getImagePlane());
+            pathTransition2.setDuration(Duration.millis(5000));
+            pathTransition2.setOnFinished(event -> plane.setState(State.WAITING));
+            //pathTransition2.play();
+
+
+            path.getElements().add(new MoveTo(-80, 360));
+            path.getElements().add(new CubicCurveTo(180, 0, 380, 120, 800, 120));
 
             pane.getChildren().add(planeSpawned.getImagePlane());
 
-            spawnTransition.setPath(pathSpawn);
-            spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-            spawnTransition.setNode(planeSpawned.getImagePlane());
-            spawnTransition.setDuration(Duration.millis(3000));
-            spawnTransition.play();
-            spawnTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));
+            pathTransition.setPath(path);
+            pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+            pathTransition.setNode(planeSpawned.getImagePlane());
+            pathTransition.setDuration(Duration.millis(5000));
+            pathTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));
+            //pathTransition.play();
+
+            ParallelTransition pl = new ParallelTransition(pathTransition, pathTransition2);
+            pl.setCycleCount(Timeline.INDEFINITE);
+            pl.play();
+
         });
     }
 
@@ -197,7 +221,7 @@ public class Seaside {
             Point2D puntoInizioPercorso;
             double distanzaDalPlane = 0;
 
-            for (Plane planeSelected:planes) {
+            for (Plane planeSelected : planes) {
                 // Controllo che l'utente disegni un percorso con un minimo di punti
                 if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
                     puntoInizioPercorso = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
@@ -273,7 +297,7 @@ public class Seaside {
         engine.setEngineStart(false);
 
         // Terminazione di tutte le animazioni del Plane in corso
-        for (Plane planeSelected:planes) {
+        for (Plane planeSelected : planes) {
             if (planeSelected.getPlaneMovementAnimation() != null) {
                 planeSelected.getPlaneMovementAnimation().stop();
             }
@@ -300,7 +324,7 @@ public class Seaside {
     public boolean isMoreThanOneSelected() {
         int planeBeenSelected = 0;
 
-        for (Plane planeSelected:planes) {
+        for (Plane planeSelected : planes) {
             if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
                 planeBeenSelected++;
             }
@@ -310,7 +334,7 @@ public class Seaside {
     }
 
     public void clearPlaneSelectedForBeenMoved() {
-        for (Plane planeSelected:planes) {
+        for (Plane planeSelected : planes) {
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
         }
     }
@@ -329,7 +353,7 @@ public class Seaside {
     }
 
     public void restoreLinesRemoved() {
-        for (Plane planeSelected:planes) {
+        for (Plane planeSelected : planes) {
             try {
                 if (planeSelected.getPlaneLinesPath().size() > 0) {
                     gc.moveTo(planeSelected.getPlaneLinesPath().get(0).getX(), planeSelected.getPlaneLinesPath().get(0).getY());
@@ -342,7 +366,8 @@ public class Seaside {
                     gc.stroke();
                     gc.beginPath();
                 }
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -356,10 +381,10 @@ public class Seaside {
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
         Platform.runLater(() -> {
-                pane.getChildren().add(testExplosion.getImgExplosion());
-                testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
-                testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
-                testExplosion.startExplosion();
+            pane.getChildren().add(testExplosion.getImgExplosion());
+            testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
+            testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
+            testExplosion.startExplosion();
         });
     }
 
@@ -375,5 +400,9 @@ public class Seaside {
 
     public AbstractAirStrip getStrip() {
         return this.strip;
+    }
+
+    public AnchorPane getPane() {
+        return this.pane;
     }
 }
