@@ -10,6 +10,7 @@ import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
+import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.animation.*;
@@ -44,7 +45,7 @@ public class Seaside {
     @FXML
     private TextField name = new TextField();
     @FXML
-    private TextField score = new TextField();
+    private TextField score;
     @FXML
     private Rectangle landingBoxLeft;
     @FXML
@@ -59,6 +60,7 @@ public class Seaside {
     private List<PathTransition> pathTransitionList = new ArrayList<>();
 
     private List<Plane> planes;
+    private List<Path> pathList = new ArrayList<>();
     private Plane plane;
     private Plane plane2;
     private Plane plane3;
@@ -67,14 +69,15 @@ public class Seaside {
     private List<Point2D> planeCoordinates;
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
+    //PathTransition pathTransitionSpawn = SpawnModel.spawn(SpawnLocation.TOP);
 
     // Sezione EventHandler<Mouse>
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
-    private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+    /*private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
         score.setText(String.valueOf(Integer.parseInt(score.getText()) + 10));
-    }));
+    }));*/
 
     public void playSpawnTimer() {
         this.spawnTimer = new Timer();
@@ -97,6 +100,11 @@ public class Seaside {
             planeSpawned.setState(State.SPAWNING);
             plane.setState(State.SPAWNING);
 
+            this.planes.addAll(SpawnModel.generatePlanes());
+
+            /*for (final Plane plane : planes) {
+                pane.getChildren().add(plane.getImagePlane());
+            }*/
             engine.setPlanes(planes);
 
             /*planeSpawned.getImagePlane().setX(1000);
@@ -109,8 +117,20 @@ public class Seaside {
             plane.getImagePlane().setFitWidth(64);
             plane.getImagePlane().setFitHeight(64);
 
+            /*this.pathTransitionList.add(pathTransition);
+            this.pathTransitionList.add(pathTransition2);
 
-            //SpawnModel.spawn(SpawnLocation.TOP).play();
+            this.pathList.addAll(SpawnModel.spawn());
+            ParallelTransition pt2 = new ParallelTransition();
+            pt2.getChildren().addAll(this.pathTransitionList);*/
+            /*for (final PathTransition pathTransition3 : this.pathTransitionList) {
+                pt2.getChildren().add(pathTransition3);
+            }
+            System.out.println(planes);
+            System.out.println(pathList);*/
+
+            //pane.getChildren().add(pathTransitionSpawn.getNode());
+            //pathTransitionSpawn.play();
 
             // Inserimento coordinate PathSpawn from LEFT
             path2.getElements().add(new MoveTo(640, -50));
@@ -138,15 +158,22 @@ public class Seaside {
             pathTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));
             //pathTransition.play();
 
-            ParallelTransition pl = new ParallelTransition(pathTransition, pathTransition2);
-            pl.setCycleCount(Timeline.INDEFINITE);
-            pl.play();
+            /*ParallelTransition pl = new ParallelTransition(pathTransition, pathTransition2);
+            //pl.setCycleCount(Timeline.INDEFINITE);
+            //pl.play();
+
+            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            //pt.setCycleCount(Timeline.INDEFINITE);
+            SequentialTransition sq = new SequentialTransition(pl,pt);
+            sq.setCycleCount(Timeline.INDEFINITE);
+            sq.play();*/
 
         });
     }
 
     @FXML
     public void initialize() {
+        System.out.println(score.getText());
         strip = new BasicAirStrip("images/map_components/airstrip.png");
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
@@ -259,8 +286,8 @@ public class Seaside {
         //...
 
         name.setText(MapController.getName());
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        //timeline.setCycleCount(Animation.INDEFINITE);
+        //timeline.play();
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
@@ -284,7 +311,11 @@ public class Seaside {
 
             @Override
             public void run() {
-                engine.mainLoop();
+                try {
+                    engine.mainLoop();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -373,10 +404,10 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        timeline.pause();
+        //timeline.pause();
         UserRecordsController.updateScore(name.getText(), Integer.parseInt(score.getText()));
         CommonView.onPauseClick();
-        timeline.play();
+        //timeline.play();
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
@@ -404,5 +435,9 @@ public class Seaside {
 
     public AnchorPane getPane() {
         return this.pane;
+    }
+
+    public void setScore(final int score) {
+        this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
     }
 }
