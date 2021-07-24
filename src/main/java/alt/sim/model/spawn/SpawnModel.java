@@ -1,59 +1,83 @@
 package alt.sim.model.spawn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alt.sim.model.map.MapImpl;
+import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.State;
 import javafx.animation.PathTransition;
-import javafx.scene.image.ImageView;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
-public class SpawnModel {
+public final class SpawnModel {
 
-    private final PathTransition pathTransition = new PathTransition();
-    private final Path path = new Path();
+    private static final int PATH_TRANSITION_DURATION = 5000;
+    private static final int X = 80;
+    private static final int Y = 80;
+
     private static final MapImpl MAP = new MapImpl();
 
     private static final int HEIGHT = MAP.getHeight();
     private static final int WIDTH = MAP.getWidth();
-
     private static final int HEIGHT_2 = HEIGHT / 2;
     private static final int WIDTH_2 = WIDTH / 2;
-    private static final int X = 80;
-    private static final int Y = 80;
 
+    private SpawnModel() { }
 
-    public void spawn(final ImageView plane) {
+    // List<Path>
+    public static PathTransition spawn(final Plane plane, final SpawnLocation spawnLocation) {
 
-        for (int i = 1; i <= 4; i++) {
+        Path path = new Path();
+        PathTransition pathTransition = new PathTransition();
 
-            switch (i) {
-                case 1:
-                    this.path.getElements().add(new MoveTo(-X, HEIGHT_2));
-                    this.path.getElements().add(new LineTo(WIDTH, HEIGHT_2));
-                    break;
-                case 2:
-                    this.path.getElements().add(new MoveTo(WIDTH_2, -Y));
-                    this.path.getElements().add(new LineTo(WIDTH_2, HEIGHT));
-                    break;
-                case 3:
-                    this.path.getElements().add(new MoveTo(WIDTH + X, HEIGHT_2));
-                    this.path.getElements().add(new LineTo(0, HEIGHT_2));
-                    break;
-                case 4:
-                    this.path.getElements().add(new MoveTo(WIDTH_2, HEIGHT + Y));
-                    this.path.getElements().add(new LineTo(WIDTH_2, 0));
-                    break;
-                default:
-                    break;
-            }
+        switch (spawnLocation) {
+            case LEFT:
+                path.getElements().add(new MoveTo(-X, HEIGHT_2));
+                path.getElements().add(new CubicCurveTo(180, 0, 380, 120, WIDTH, HEIGHT_2));
+                //this.path.getElements().add(new LineTo(WIDTH, HEIGHT_2));
+                break;
+            case TOP:
+                path.getElements().add(new MoveTo(WIDTH_2, -Y));
+                path.getElements().add(new LineTo(WIDTH_2, HEIGHT));
+                break;
+            case RIGHT:
+                path.getElements().add(new MoveTo(WIDTH + X, HEIGHT_2));
+                path.getElements().add(new LineTo(0, HEIGHT_2));
+                break;
+            case BOTTOM:
+                path.getElements().add(new MoveTo(WIDTH_2, HEIGHT + Y));
+                path.getElements().add(new LineTo(WIDTH_2, 0));
+                break;
+            default:
+                break;
         }
 
-        this.pathTransition.setPath(this.path);
-        this.pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        this.pathTransition.setNode(plane);
-        this.pathTransition.setDuration(Duration.millis(3000));
-        this.pathTransition.play();
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setNode(plane.getImagePlane());
+        pathTransition.setDuration(Duration.millis(PATH_TRANSITION_DURATION));
+        pathTransition.setOnFinished(event -> plane.setState(State.WAITING));
+
+        return pathTransition;
     }
 
+
+    public static List<Plane> generatePlanes() {
+
+        List<Plane> planes = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            Plane plane = new Plane("images/map_components/airplane.png");
+            plane.setState(State.SPAWNING);
+            plane.getImagePlane().setFitWidth(64);
+            plane.getImagePlane().setFitHeight(64);
+            planes.add(plane);
+        }
+
+        return planes;
+    }
 }
