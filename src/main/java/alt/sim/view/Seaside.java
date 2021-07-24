@@ -9,11 +9,12 @@ import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
-import alt.sim.model.plane.State;
+import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
-import javafx.animation.*;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,11 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.*;
@@ -58,83 +55,62 @@ public class Seaside {
     private TimerTask spawnTask;
 
     private List<PathTransition> pathTransitionList = new ArrayList<>();
+    private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
     private List<Plane> planes;
-    private List<Path> pathList = new ArrayList<>();
-    private Plane plane;
+    /*private Plane plane;
     private Plane plane2;
     private Plane plane3;
-    private Plane plane4;
+    private Plane plane4;*/
     private AbstractAirStrip strip;
     private List<Point2D> planeCoordinates;
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
-    //PathTransition pathTransitionSpawn = SpawnModel.spawn(SpawnLocation.TOP);
 
     // Sezione EventHandler<Mouse>
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
-    /*private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-        score.setText(String.valueOf(Integer.parseInt(score.getText()) + 10));
-    }));*/
-
     public void playSpawnTimer() {
+
+        this.planes = SpawnModel.generatePlanes();
         this.spawnTimer = new Timer();
-        PathTransition pathTransition = new PathTransition();
-        Path path = new Path();
-        PathTransition pathTransition2 = new PathTransition();
-        Path path2 = new Path();
+
+        List<ImageView> planeImages = this.planes.stream()
+                .map(Plane::getImagePlane)
+                .collect(Collectors.toUnmodifiableList());
+
 
         Platform.runLater(() -> {
 
-            // TO DO BETTER
+            pane.getChildren().addAll(planeImages);
+            for (Plane plane : this.planes) {
+                plane.connectToController(this);
 
-            Plane planeSpawned = new Plane("images/map_components/airplane.png");
-            Plane plane = new Plane("images/map_components/airplane.png");
-            //Adding planeSpawned to planes
-            planes.add(planeSpawned);
-            planes.add(plane);
-            planeSpawned.connectToController(this);
-            plane.connectToController(this);
-            planeSpawned.setState(State.SPAWNING);
-            plane.setState(State.SPAWNING);
-
-            this.planes.addAll(SpawnModel.generatePlanes());
-
-            /*for (final Plane plane : planes) {
-                pane.getChildren().add(plane.getImagePlane());
-            }*/
+                while (spawnLocationList.size() != 4) {
+                    SpawnLocation random = SpawnLocation.getRandomSpawnLocation();
+                    if (!spawnLocationList.contains(random)) {
+                        spawnLocationList.add(random);
+                        this.pathTransitionList.add(SpawnModel.spawn(plane, random));
+                        break;
+                    }
+                }
+            }
             engine.setPlanes(planes);
 
-            /*planeSpawned.getImagePlane().setX(1000);
-            planeSpawned.getImagePlane().setY(680);*/
-
-            // Rimpicciolimento planeSpawned
-            planeSpawned.getImagePlane().setFitWidth(64);
-            planeSpawned.getImagePlane().setFitHeight(64);
-
-            plane.getImagePlane().setFitWidth(64);
-            plane.getImagePlane().setFitHeight(64);
-
-            /*this.pathTransitionList.add(pathTransition);
-            this.pathTransitionList.add(pathTransition2);
-
-            this.pathList.addAll(SpawnModel.spawn());
-            ParallelTransition pt2 = new ParallelTransition();
-            pt2.getChildren().addAll(this.pathTransitionList);*/
+            ParallelTransition parallelTransition = new ParallelTransition();
+            parallelTransition.getChildren().addAll(this.pathTransitionList);
             /*for (final PathTransition pathTransition3 : this.pathTransitionList) {
                 pt2.getChildren().add(pathTransition3);
-            }
-            System.out.println(planes);
-            System.out.println(pathList);*/
+            }*/
+            parallelTransition.play();
 
             //pane.getChildren().add(pathTransitionSpawn.getNode());
             //pathTransitionSpawn.play();
 
             // Inserimento coordinate PathSpawn from LEFT
-            path2.getElements().add(new MoveTo(640, -50));
-            path2.getElements().add(new CubicCurveTo(180, 0, 700, 120, 800, 800));
+            /*path2.getElements().add(new MoveTo(640, -50));
+            path2.getElements().add(new CubicCurveTo(180, 0, 700, 120, 700, 200));
 
             pane.getChildren().add(plane.getImagePlane());
 
@@ -147,15 +123,14 @@ public class Seaside {
 
 
             path.getElements().add(new MoveTo(-80, 360));
-            path.getElements().add(new CubicCurveTo(180, 0, 380, 120, 800, 120));
+            path.getElements().add(new CubicCurveTo(180, 0, 380, 120, 300, 120));
 
-            pane.getChildren().add(planeSpawned.getImagePlane());
 
             pathTransition.setPath(path);
             pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             pathTransition.setNode(planeSpawned.getImagePlane());
             pathTransition.setDuration(Duration.millis(5000));
-            pathTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));
+            pathTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));*/
             //pathTransition.play();
 
             /*ParallelTransition pl = new ParallelTransition(pathTransition, pathTransition2);
@@ -173,7 +148,6 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        System.out.println(score.getText());
         strip = new BasicAirStrip("images/map_components/airstrip.png");
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
@@ -197,16 +171,16 @@ public class Seaside {
         imgViewHelicopterLandingArea.setX((pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth());
         imgViewHelicopterLandingArea.setY((pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2);
 
-        planes = new ArrayList<>();
+        /*planes = new ArrayList<>();
         plane = new Plane("images/map_components/airplane.png");
         plane2 = new Plane("images/map_components/airplane.png");
         plane3 = new Plane("images/map_components/airplane.png");
-        plane4 = new Plane("images/map_components/airplane.png");
+        plane4 = new Plane("images/map_components/airplane.png");*/
         strip.setAirStripImage(imgViewPlaneLandingArea);
         ((BasicAirStrip) strip).setBoxLeft(landingBoxLeft);
         ((BasicAirStrip) strip).setBoxRight(landingBoxRight);
 
-        plane.getImagePlane().setFitWidth(64);
+        /*plane.getImagePlane().setFitWidth(64);
         plane.getImagePlane().setFitHeight(64);
         plane2.getImagePlane().setFitWidth(64);
         plane2.getImagePlane().setFitHeight(64);
@@ -230,7 +204,7 @@ public class Seaside {
         plane.connectToController(this);
         plane2.connectToController(this);
         plane3.connectToController(this);
-        plane4.connectToController(this);
+        plane4.connectToController(this);*/
 
         //engine.setGraphicContext(gc);
         engine.setPlanes(planes);
@@ -292,8 +266,8 @@ public class Seaside {
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
 
-        pane.getChildren().addAll(plane.getImagePlane(), plane2.getImagePlane());
-        pane.getChildren().addAll(plane3.getImagePlane(), plane4.getImagePlane());
+        /*pane.getChildren().addAll(plane.getImagePlane(), plane2.getImagePlane());
+        pane.getChildren().addAll(plane3.getImagePlane(), plane4.getImagePlane());*/
 
         playSpawnTimer();
 
@@ -321,6 +295,12 @@ public class Seaside {
 
         Thread t = new Thread(new ThreadEngine());
         t.start();
+
+        Platform.runLater( () -> {
+            if (score.getText().equals("100")) {
+                System.out.println(score.getText());
+            }
+        });
     }
 
     public void terminateGame() {
