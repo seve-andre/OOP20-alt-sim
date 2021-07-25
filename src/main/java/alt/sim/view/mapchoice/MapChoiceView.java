@@ -62,7 +62,7 @@ public class MapChoiceView {
             if (!result.equals(NameValidation.CORRECT)) {
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             } else {
-                infoTextField.setStyle("-fx-text-fill: #019501;");
+                infoTextField.setStyle("-fx-text-fill: #006500;");
                 infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             }
         }
