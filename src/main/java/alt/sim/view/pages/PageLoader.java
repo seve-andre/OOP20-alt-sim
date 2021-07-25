@@ -1,12 +1,12 @@
 package alt.sim.view.pages;
 
-import java.io.IOException;
-
 import alt.sim.Main;
 import alt.sim.view.mapchoice.GameMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import java.io.IOException;
 
 public class PageLoader {
 
@@ -17,9 +17,6 @@ public class PageLoader {
      */
     public static void loadPage(final Page page, final GameMap gameMap) {
 
-        /**
-         * If given page is a GameMap, gets its name.
-         */
         if (page.getName().equals(Page.GAME.getName())) {
             page.setName(gameMap.getName());
         }
@@ -32,7 +29,9 @@ public class PageLoader {
             e.printStackTrace();
         }
 
-        Main.getStage().setScene(new Scene(root));
+        if (root != null) {
+            Main.getStage().setScene(new Scene(root));
+        }
     }
 
     /**
