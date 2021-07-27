@@ -11,6 +11,7 @@ import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
+import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.animation.ParallelTransition;
@@ -98,17 +99,31 @@ public class Seaside {
             }
 
             engine.setPlanes(planes);
+            engine.setEngineStart(true);
 
+
+            
             ParallelTransition parallelTransition = new ParallelTransition();
             parallelTransition.getChildren().addAll(this.pathTransitionList);
             /*for (final PathTransition pathTransition3 : this.pathTransitionList) {
                 pt2.getChildren().add(pathTransition3);
             }*/
             parallelTransition.play();
-            parallelTransition.setOnFinished(finish -> {
-                engine.setEngineStart(true);
-            });
 
+            class ThreadEngine implements Runnable {
+
+                @Override
+                public void run() {
+                    try {
+                        engine.mainLoop();
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            Thread t = new Thread(new ThreadEngine());
+            t.start();
             //pane.getChildren().add(pathTransitionSpawn.getNode());
             //pathTransitionSpawn.play();
 
@@ -153,6 +168,7 @@ public class Seaside {
 
     @FXML
     public void initialize() {
+        
         strip = new BasicAirStrip("images/map_components/airstrip.png");
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
@@ -286,7 +302,7 @@ public class Seaside {
          */
 
         // Avvio del GameLoop
-        class ThreadEngine implements Runnable {
+        /*class ThreadEngine implements Runnable {
 
             @Override
             public void run() {
@@ -302,10 +318,8 @@ public class Seaside {
         t.start();
 
         Platform.runLater( () -> {
-            if (score.getText().equals("100")) {
-                System.out.println(score.getText());
-            }
-        });
+            new ThreadEngine().run();
+        });*/
     }
 
     public void terminateGame() {
@@ -391,7 +405,7 @@ public class Seaside {
     public void onPauseClick() throws IOException {
         //timeline.pause();
         UserRecordsController.updateScore(name.getText(), Integer.parseInt(score.getText()));
-        CommonView.onPauseClick();
+        CommonView.pause();
         //timeline.play();
     }
 
