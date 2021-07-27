@@ -1,17 +1,17 @@
 package alt.sim.view.leaderboard;
 
-import java.awt.Desktop;
+import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
+import alt.sim.model.user.records.RecordsFolder;
+import alt.sim.view.common.CommonView;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-
-import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
-import alt.sim.model.user.records.RecordsFolder;
-import alt.sim.view.CommonView;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 /**
  * Sets up leaderboard view with names and points.
@@ -73,5 +73,15 @@ public class LeaderboardView {
     @FXML
     public void onGoToFileClick(final ActionEvent event) throws IOException {
         Desktop.getDesktop().open(Paths.get(RecordsFolder.RecordsPath.USER_RECORDS_FILE_PATH.getPath()).toFile());
+    }
+
+    @FXML
+    public void onMinimizeClick(final ActionEvent event) {
+        CommonView.minimize();
+    }
+
+    @FXML
+    public void onCloseClick(final ActionEvent event) {
+        CommonView.close();
     }
 }

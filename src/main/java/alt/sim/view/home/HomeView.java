@@ -1,39 +1,40 @@
 package alt.sim.view.home;
 
+import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class HomeView {
-
-    @FXML
-    private Button startBtn;
-    @FXML
-    private Button leaderboardBtn;
-    @FXML
-    private Button creditsBtn;
-    @FXML
-    private Button exitBtn;
 
     @FXML
     public void onStartClick(final ActionEvent event) {
         PageLoader.loadPage(Page.MAP_CHOICE);
     }
+    
     @FXML
     public void onLeaderboardClick(final ActionEvent event) {
         PageLoader.loadPage(Page.LEADERBOARD);
     }
+    
     @FXML
     public void onCreditsClick(final ActionEvent event) {
         PageLoader.loadPage(Page.CREDITS);
     }
+    
     @FXML
     public void onExitClick(final ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
+        CommonView.close();
     }
 
+    @FXML
+    public void onMinimizeClick(final ActionEvent event) {
+        CommonView.minimize();
+    }
+
+    @FXML
+    public void onCloseClick(final ActionEvent event) {
+        CommonView.close();
+    }
 }

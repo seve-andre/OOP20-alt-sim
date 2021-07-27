@@ -2,7 +2,7 @@ package alt.sim.view.mapchoice;
 
 import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
 import alt.sim.model.user.validation.NameValidation;
-import alt.sim.view.CommonView;
+import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.event.ActionEvent;
@@ -108,4 +108,13 @@ public class MapChoiceView {
         this.mapToPlay = GameMap.COUNTRYSIDE;
     }
 
+    @FXML
+    public void onMinimizeClick(final ActionEvent event) {
+        CommonView.minimize();
+    }
+
+    @FXML
+    public void onCloseClick(final ActionEvent event) {
+        CommonView.close();
+    }
 }

@@ -1,14 +1,14 @@
 package alt.sim.view.credits;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import alt.sim.view.CommonView;
+import alt.sim.view.common.CommonView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 /**
@@ -37,5 +37,15 @@ public class CreditsView {
     @FXML
     public void onGoBackClick(final ActionEvent event) {
         CommonView.goBack();
+    }
+
+    @FXML
+    public void onMinimizeClick(final ActionEvent event) {
+        CommonView.minimize();
+    }
+
+    @FXML
+    public void onCloseClick(final ActionEvent event) {
+        CommonView.close();
     }
 }
