@@ -151,5 +151,31 @@
             <Font name="Consolas Bold" size="12.0" />
          </font>
       </TextField>
+            <Button layoutX="896.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseClick" prefHeight="20.0" prefWidth="24.0" stylesheets="@../css/base.css">
+                <graphic>
+                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/base/x.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <styleClass>
+                    <String fx:value="img-btn" />
+                    <String fx:value="transparent" />
+                </styleClass>
+            </Button>
+            <Button layoutX="861.0" layoutY="14.0" mnemonicParsing="false" onAction="#onMinimizeClick" prefHeight="20.0" prefWidth="24.0" stylesheets="@../css/base.css">
+                <styleClass>
+                    <String fx:value="img-btn" />
+                    <String fx:value="transparent" />
+                </styleClass>
+                <graphic>
+                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/base/line.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </Pane>
 </VBox>
