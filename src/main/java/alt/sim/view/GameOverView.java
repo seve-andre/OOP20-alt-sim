@@ -1,9 +1,6 @@
 package alt.sim.view;
 
-import java.io.IOException;
-
 import alt.sim.Main;
-import alt.sim.controller.MapController;
 import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
@@ -12,23 +9,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class GameOverView {
 
-    private UserRecordsImpl userRecords = new UserRecordsImpl();
+    private final UserRecordsImpl userRecords = new UserRecordsImpl();
 
     @FXML
     public void initialize() { }
 
     @FXML
     public void onHomeClick(final ActionEvent event) throws IOException {
-        this.userRecords.updateScore(MapController.getName(),0);
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        //this.userRecords.updateScore(MapController.getName(),0);
+        //((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         PageLoader.loadPage(Page.HOME);
     }
 
     @FXML
     public void onQuitClick(final ActionEvent event) throws IOException {
-        this.userRecords.updateScore(MapController.getName(),0);
+        //this.userRecords.updateScore(MapController.getName(),0);
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         Main.getStage().close();
     }
