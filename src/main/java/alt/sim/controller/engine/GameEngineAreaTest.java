@@ -1,25 +1,21 @@
 package alt.sim.controller.engine;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.Seaside;
-import alt.sim.view.TransitionTest;
 import javafx.animation.PathTransition;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class GameEngineAreaTest implements GameEngine {
 
@@ -76,10 +72,8 @@ public class GameEngineAreaTest implements GameEngine {
         if (dt < PERIOD) {
             try {
                 Thread.sleep(PERIOD - dt);
-            } catch (IllegalArgumentException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
+            } catch (IllegalArgumentException | InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -98,9 +92,7 @@ public class GameEngineAreaTest implements GameEngine {
 
             try {
                 waitForNextFrame(current);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IllegalArgumentException | InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -120,10 +112,10 @@ public class GameEngineAreaTest implements GameEngine {
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         List<Plane> planesToRemove = new LinkedList<>();
 
-        for (Plane planeMonitored:planes) {
+        for (Plane planeMonitored : planes) {
             Bounds monitoredPlaneBounds = planeMonitored.getImagePlane().getBoundsInParent();
 
-            for (Plane planeSelected:planes) {
+            for (Plane planeSelected : planes) {
 
                 if (playedExplosion) {
                     break;
@@ -191,7 +183,7 @@ public class GameEngineAreaTest implements GameEngine {
         }
 
         // Controllo ad ogni frame se Plane collide con qualche oggetto
-        if(engineStart) {
+        if (engineStart) {
             checkCollision();
         }
     }
@@ -224,7 +216,7 @@ public class GameEngineAreaTest implements GameEngine {
     public void setPlanes(final List<Plane> planes) {
         this.planes = planes;
 
-        for(Plane plane:planes){
+        for (Plane plane : planes) {
             System.out.println("check plane: " + plane.hashCode());
         }
     }
