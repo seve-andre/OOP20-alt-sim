@@ -1,5 +1,7 @@
 package alt.sim.view.common;
 
+import java.io.IOException;
+
 import alt.sim.Main;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
@@ -10,29 +12,39 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
-
 public final class CommonView {
 
 
-    private CommonView() {
-    }
+    private CommonView() { }
 
+    /**
+     * Goes back to homepage.
+     */
     public static void goBack() {
         PageLoader.loadPage(Page.HOME);
     }
 
+    /**
+     * Creates pause dialog.
+     * @throws IOException
+     */
     public static void pause() throws IOException {
-        Stage POPUP_STAGE = new Stage(StageStyle.UNDECORATED);
+        Stage popupStage = new Stage(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/PauseDialog.fxml"));
-        POPUP_STAGE.setScene(new Scene(root));
-        POPUP_STAGE.showAndWait();
+        popupStage.setScene(new Scene(root));
+        popupStage.showAndWait();
     }
-    
+
+    /**
+     * Minimizes window.
+     */
     public static void minimize() {
         Main.getStage().setIconified(true);
     }
 
+    /**
+     * Closes window.
+     */
     public static void close() {
         Platform.exit();
         System.exit(0);

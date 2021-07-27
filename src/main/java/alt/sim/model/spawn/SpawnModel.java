@@ -28,7 +28,12 @@ public final class SpawnModel {
 
     private SpawnModel() { }
 
-    // List<Path>
+    /**
+     * Creates PathTransition based on spawn location.
+     * @param plane to spawn
+     * @param spawnLocation where to spawn
+     * @return PathTransition from spawn location
+     */
     public static PathTransition spawn(final Plane plane, final SpawnLocation spawnLocation) {
 
         Path path = new Path();
@@ -37,20 +42,19 @@ public final class SpawnModel {
         switch (spawnLocation) {
             case LEFT:
                 path.getElements().add(new MoveTo(-X, HEIGHT_2));
-                path.getElements().add(new CubicCurveTo(180, 0, 380, 120, WIDTH, HEIGHT_2));
-                //this.path.getElements().add(new LineTo(WIDTH, HEIGHT_2));
+                path.getElements().add(new CubicCurveTo(180, 0, 200, 120, 250, HEIGHT_2));
                 break;
             case TOP:
-                path.getElements().add(new MoveTo(WIDTH_2, -Y));
-                path.getElements().add(new LineTo(WIDTH_2, HEIGHT));
+                path.getElements().add(new MoveTo(WIDTH_2, Y));
+                path.getElements().add(new LineTo(WIDTH_2, 200));
                 break;
             case RIGHT:
                 path.getElements().add(new MoveTo(WIDTH + X, HEIGHT_2));
-                path.getElements().add(new LineTo(0, HEIGHT_2));
+                path.getElements().add(new LineTo(X, HEIGHT_2));
                 break;
             case BOTTOM:
                 path.getElements().add(new MoveTo(WIDTH_2, HEIGHT + Y));
-                path.getElements().add(new LineTo(WIDTH_2, 0));
+                path.getElements().add(new LineTo(WIDTH_2, Y));
                 break;
             default:
                 break;
@@ -65,7 +69,10 @@ public final class SpawnModel {
         return pathTransition;
     }
 
-
+    /**
+     * Generates list of 4 different planes.
+     * @return list containing planes
+     */
     public static List<Plane> generatePlanes() {
 
         List<Plane> planes = new ArrayList<>();
