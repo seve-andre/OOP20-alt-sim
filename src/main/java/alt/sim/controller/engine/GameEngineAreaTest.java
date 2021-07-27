@@ -26,7 +26,6 @@ public class GameEngineAreaTest implements GameEngine {
     private static final long PERIOD = 400L;
 
     private Seaside transitionSeaside;
-    private TransitionTest transitionRif;
     private SpawnObject spawn;
     private Plane plane;
     private AbstractAirStrip strip;
@@ -44,20 +43,6 @@ public class GameEngineAreaTest implements GameEngine {
     private Rectangle landingBoxLeft;
     private Rectangle landingBoxRight;
 
-    public GameEngineAreaTest(final TransitionTest transitionRif) {
-        spawn = new SpawnObjectImpl();
-        this.transitionRif = transitionRif;
-
-        // Sezione campionamento e animazione
-        this.path = new Path();
-        this.planeCoordinates = new ArrayList<Point2D>();
-        this.planes = transitionRif.getPlanes();
-        this.pathTransition = new PathTransition();
-
-        this.playedExplosion = false;
-        this.engineStart = true;
-    }
-
     public GameEngineAreaTest(final Seaside transitionSeaside) {
         spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
@@ -66,11 +51,10 @@ public class GameEngineAreaTest implements GameEngine {
         this.path = new Path();
         this.planeCoordinates = new ArrayList<Point2D>();
         //Sostituito dal Controller Seaside
-        //this.planes = transitionRif.getPlanes();
         this.pathTransition = new PathTransition();
 
         this.playedExplosion = false;
-        this.engineStart = true;
+        this.engineStart = false;
         this.strip = transitionSeaside.getStrip();
     }
 
@@ -101,7 +85,7 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     @Override
-    public void mainLoop() throws IOException {
+    public void mainLoop() throws IllegalArgumentException {
         long lastTime = System.currentTimeMillis();
 
         while (engineStart) {
@@ -126,28 +110,31 @@ public class GameEngineAreaTest implements GameEngine {
 
     public void setEngineStart(final boolean engineStart) {
         this.engineStart = engineStart;
+
+        System.out.println("engineStart = " + engineStart);
     }
 
     private void checkCollision() {
         //Sostituito dal Boundas di Seaside
         //Bounds boundaryMap = transitionRif.getCanvas().getBoundsInParent();
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
-
         List<Plane> planesToRemove = new LinkedList<>();
 
         for (Plane planeMonitored:planes) {
             Bounds monitoredPlaneBounds = planeMonitored.getImagePlane().getBoundsInParent();
 
             for (Plane planeSelected:planes) {
+
                 if (playedExplosion) {
                     break;
                 }
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(planeSelected.getImagePlane().getBoundsInParent())
                         && planeMonitored != planeSelected) {
-                    //startExplosionPlane(planeMonitored);
-                    //startExplosionPlane(planeSelected);
-                    //transitionSeaside.terminateGame();
+                    System.out.println("COLLISION!!!");
+                    startExplosionPlane(planeMonitored);
+                    startExplosionPlane(planeSelected);
+                    transitionSeaside.terminateGame();
                     planesToRemove.add(planeMonitored);
                     planesToRemove.add(planeSelected);
                 } else if (planeSelected.getState() != State.SPAWNING
@@ -192,23 +179,21 @@ public class GameEngineAreaTest implements GameEngine {
 
     @Override
     public void update(final int elapsed) {
+        System.out.println("ENGINE PARTITO!!!");
         // Implement the Random-Path of Planes in wait
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
-        for (Plane planeWait:planes) {
-
-            // DA CAPIRE COSA FACEVA
-            //if (!planeWait.getIsPlaneSelectedForBeenMoved()) {
-
-            if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
-                //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
+        if (this.planes != null) {
+            for (Plane planeWait : planes) {
+                if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
+                    //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
+                }
             }
-            //}
-
-            //System.out.println("Plane Random-Status: " + planeWait.getStatusRandomTransition());
         }
 
         // Controllo ad ogni frame se Plane collide con qualche oggetto
-        checkCollision();
+        if(engineStart) {
+            checkCollision();
+        }
     }
 
     @Override
@@ -218,47 +203,6 @@ public class GameEngineAreaTest implements GameEngine {
     @Override
     public void initGame() {
         spawn.startSpawn();
-    }
-
-    public void setPlane(final Plane plane) {
-        this.plane = plane;
-    }
-
-    /*
-     * public void connectPlaneToPathTransition(final Plane plane) { double
-     * pathLenght = 0; double velocityMovement = 0.005; double duration = 0;
-     *
-     * PathTransition pathTransitionPlane = new PathTransition();
-     * copyCoordinatesInPath(planeCoordinates); pathTransitionPlane.setPath(path);
-     * pathTransitionPlane.setNode(this.plane.getImagePlane());
-     * pathTransitionPlane.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
-     *
-     * //-------------------------------------------
-     * setCoordinates(planeCoordinates); setPathTransition(pathTransition);
-     *
-     * // Cambiare la velocità a seconda del percoso: pathLenght =
-     * planeCoordinates.size(); duration = pathLenght / velocityMovement;
-     * pathTransitionPlane.setDuration(Duration.millis(duration)); //
-     * -------------------------------------------
-     *
-     * pathTransitionPlane.play(); pathTransitionPlane.setOnFinished(event -> {
-     * //transitionRif.clearPlaneCoordinatesAndUpdate(plane.getId()); });
-     *
-     * //plane.setIsPlaneSelectedForBeenMoved(false); setReadyToStart(true); }
-     */
-
-    private void copyCoordinatesInPath(final List<Point2D> planeCoordinates) {
-        // Ripuliamo le coordinate presenti dal path prima
-        path = new Path();
-
-        for (int k = 0; k < planeCoordinates.size(); k++) {
-
-            if (k == 0) {
-                path.getElements().add(new MoveTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()));
-            } else {
-                path.getElements().add(new LineTo(planeCoordinates.get(k).getX(), planeCoordinates.get(k).getY()));
-            }
-        }
     }
 
     //public void setGraphicContext(final GraphicsContext gcEngine) {
@@ -279,6 +223,10 @@ public class GameEngineAreaTest implements GameEngine {
 
     public void setPlanes(final List<Plane> planes) {
         this.planes = planes;
+
+        for(Plane plane:planes){
+            System.out.println("check plane: " + plane.hashCode());
+        }
     }
 
     public void setCoordinates(final List<Point2D> planeCoordinates) {

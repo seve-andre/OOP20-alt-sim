@@ -1,5 +1,6 @@
 package alt.sim.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class TransitionTest extends Application {
     public void start(final Stage stage) throws Exception {
         paneRoot = new Pane();
         canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
-        engine = new GameEngineAreaTest(this);
+        //engine = new GameEngineAreaTest(this);
 
         //pathTransition = new PathTransition();
         //path = new Path();
@@ -111,7 +112,11 @@ public class TransitionTest extends Application {
 
             @Override
             public void run() {
-                engine.mainLoop();
+                try {
+                    engine.mainLoop();
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

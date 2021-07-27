@@ -72,7 +72,6 @@ public class Seaside {
     private EventHandler<MouseEvent> handlerMouseDragged;
 
     public void playSpawnTimer() {
-
         this.planes = SpawnModel.generatePlanes();
         this.spawnTimer = new Timer();
 
@@ -86,6 +85,7 @@ public class Seaside {
             pane.getChildren().addAll(planeImages);
             for (Plane plane : this.planes) {
                 plane.connectToController(this);
+                System.out.println("check plane: " + plane.hashCode());
 
                 while (spawnLocationList.size() != 4) {
                     SpawnLocation random = SpawnLocation.getRandomSpawnLocation();
@@ -96,6 +96,7 @@ public class Seaside {
                     }
                 }
             }
+
             engine.setPlanes(planes);
 
             ParallelTransition parallelTransition = new ParallelTransition();
@@ -104,6 +105,9 @@ public class Seaside {
                 pt2.getChildren().add(pathTransition3);
             }*/
             parallelTransition.play();
+            parallelTransition.setOnFinished(finish -> {
+                engine.setEngineStart(true);
+            });
 
             //pane.getChildren().add(pathTransitionSpawn.getNode());
             //pathTransitionSpawn.play();
@@ -144,6 +148,7 @@ public class Seaside {
             sq.play();*/
 
         });
+
     }
 
     @FXML
@@ -207,7 +212,7 @@ public class Seaside {
         plane4.connectToController(this);*/
 
         //engine.setGraphicContext(gc);
-        engine.setPlanes(planes);
+        //engine.setPlanes(planes);
 
         this.handlerMouseDragged = event -> {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
@@ -287,7 +292,7 @@ public class Seaside {
             public void run() {
                 try {
                     engine.mainLoop();
-                } catch (IOException e) {
+                } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 }
             }
