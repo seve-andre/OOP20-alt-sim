@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.geometry.Rectangle2D;
 
 
 public class Main extends Application {
@@ -20,9 +23,15 @@ public class Main extends Application {
         final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/Loading.fxml"));
         stage.setTitle("AirLine Traffic Simulator");
         stage.setScene(new Scene(root));
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.getIcons().add(new Image(ClassLoader.getSystemResource("images/logos/icon.png").toExternalForm()));
         stage.setResizable(false);
+
         stage.show();
+        
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
     public static void main(final String[] args) {
