@@ -23,22 +23,19 @@ public class LoadingView {
         th.start();
 
         // After loading is done, goes to HOME Page.
-        task.setOnSucceeded(e -> {
-            PageLoader.loadPage(Page.HOME);
-        });
+        task.setOnSucceeded(e -> PageLoader.loadPage(Page.HOME));
     }
 
     /**
      * Updates loading bar every 0.1 s.
      */
-    private Task<Void> task = new Task<Void>() {
+    private final Task<Void> task = new Task<>() {
         @Override
         public Void call() {
             for (int i = 0; i < 10; i++) {
                 try {
                     Thread.sleep(LOADING_TIME);
                 } catch (final InterruptedException e) {
-                      Thread.interrupted();
                       break;
                 }
                 updateProgress(i + 1, 10);

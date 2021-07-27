@@ -5,7 +5,6 @@ import alt.sim.model.user.validation.NameValidation;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -22,14 +21,6 @@ public class MapChoiceView {
     @FXML
     private TextField nameTextField = new TextField();
     @FXML
-    private Button seasideBtn = new Button();
-    @FXML
-    private Button riversideBtn = new Button();
-    @FXML
-    private Button citysideBtn = new Button();
-    @FXML
-    private Button countrysideBtn = new Button();
-    @FXML
     private Button playBtn = new Button();
     @FXML
     private TextField infoTextField = new TextField();
@@ -38,7 +29,7 @@ public class MapChoiceView {
 
     //.getRandomMap(); should be used when all maps fxml are done
     private GameMap mapToPlay = GameMap.SEASIDE;
-    private MapChoiceControllerImpl mapChoiceController = new MapChoiceControllerImpl();
+    private final MapChoiceControllerImpl mapChoiceController = new MapChoiceControllerImpl();
 
     @FXML
     public void initialize() {
@@ -46,35 +37,32 @@ public class MapChoiceView {
     }
 
     @FXML
-    public void onGoBackClick(final ActionEvent event) {
+    public void onGoBackClick() {
         CommonView.goBack();
     }
 
     /**
      * If ENTER key is pressed, name quality will be checked.
-     * @param event
+     * @param event enter key to invoke method
      * @throws IOException
      */
     @FXML
     public void onNameEnter(final KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
-            if (!result.equals(NameValidation.CORRECT)) {
-                infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
-            } else {
+            if (result.equals(NameValidation.CORRECT)) {
                 infoTextField.setStyle("-fx-text-fill: #006500;");
-                infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
             }
+            infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
         }
     }
 
     /**
      * Loads GameMap fxml when button is clicked.
-     * @param event
      * @throws IOException
      */
     @FXML
-    public void onPlayClick(final ActionEvent event) throws IOException {
+    public void onPlayClick() throws IOException {
         final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
         if (result.equals(NameValidation.CORRECT)) {
             mapChoiceController.addUser(nameTextField.getText());
@@ -85,36 +73,36 @@ public class MapChoiceView {
     }
 
     @FXML
-    public void onSeasideClick(final ActionEvent event) {
+    public void onSeasideClick() {
         this.playBtn.setText("PLAY SEASIDE");
         this.mapToPlay = GameMap.SEASIDE;
     }
 
     @FXML
-    public void onRiversideClick(final ActionEvent event) {
+    public void onRiversideClick() {
         this.playBtn.setText("PLAY RIVERSIDE");
         this.mapToPlay = GameMap.RIVERSIDE;
     }
 
     @FXML
-    public void onCitysideClick(final ActionEvent event) {
+    public void onCitysideClick() {
         this.playBtn.setText("PLAY CITYSIDE");
         this.mapToPlay = GameMap.CITYSIDE;
     }
 
     @FXML
-    public void onCountrysideClick(final ActionEvent event) {
+    public void onCountrysideClick() {
         this.playBtn.setText("PLAY COUNTRYSIDE");
         this.mapToPlay = GameMap.COUNTRYSIDE;
     }
 
     @FXML
-    public void onMinimizeClick(final ActionEvent event) {
+    public void onMinimizeClick() {
         CommonView.minimize();
     }
 
     @FXML
-    public void onCloseClick(final ActionEvent event) {
+    public void onCloseClick() {
         CommonView.close();
     }
 }

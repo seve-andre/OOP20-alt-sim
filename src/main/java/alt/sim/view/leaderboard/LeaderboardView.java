@@ -3,7 +3,6 @@ package alt.sim.view.leaderboard;
 import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
 import alt.sim.model.user.records.RecordsFolder;
 import alt.sim.view.common.CommonView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -66,22 +65,22 @@ public class LeaderboardView {
     }
 
     @FXML
-    public void onGoBackClick(final ActionEvent event) {
+    public void onGoBackClick() {
         CommonView.goBack();
     }
 
     @FXML
-    public void onGoToFileClick(final ActionEvent event) throws IOException {
+    public void onGoToFileClick() throws IOException {
         Desktop.getDesktop().open(Paths.get(RecordsFolder.RecordsPath.USER_RECORDS_FILE_PATH.getPath()).toFile());
     }
 
     @FXML
-    public void onMinimizeClick(final ActionEvent event) {
+    public void onMinimizeClick() {
         CommonView.minimize();
     }
 
     @FXML
-    public void onCloseClick(final ActionEvent event) {
+    public void onCloseClick() {
         CommonView.close();
     }
 }

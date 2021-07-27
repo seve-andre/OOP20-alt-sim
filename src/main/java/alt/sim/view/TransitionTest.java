@@ -1,9 +1,5 @@
 package alt.sim.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
@@ -22,6 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransitionTest extends Application {
     private Pane paneRoot;
@@ -47,7 +46,7 @@ public class TransitionTest extends Application {
         //pathTransition = new PathTransition();
         //path = new Path();
 
-        planeCoordinates = new ArrayList<Point2D>();
+        planeCoordinates = new ArrayList<>();
 
         planes = new ArrayList<>();
         plane = new Plane("images/map_components/airplane.png");
@@ -139,7 +138,7 @@ public class TransitionTest extends Application {
             double distanzaDalPlane = 0;
 
 
-            for (Plane planeSelected:planes) {
+            for (Plane planeSelected : planes) {
 
                 //Controllo che l'utente disegni un percorso con un minimo di punti
                 if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
@@ -269,14 +268,11 @@ public class TransitionTest extends Application {
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                paneRoot.getChildren().add(testExplosion.getImgExplosion());
-                testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
-                testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
-                testExplosion.startExplosion();
-            }
+        Platform.runLater(() -> {
+            paneRoot.getChildren().add(testExplosion.getImgExplosion());
+            testExplosion.getImgExplosion().setX(planeCollided.getImagePlane().getBoundsInParent().getCenterX());
+            testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
+            testExplosion.startExplosion();
         });
     }
 

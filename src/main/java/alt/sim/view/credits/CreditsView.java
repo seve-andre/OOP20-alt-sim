@@ -35,17 +35,17 @@ public class CreditsView {
     }
 
     @FXML
-    public void onGoBackClick(final ActionEvent event) {
+    public void onGoBackClick() {
         CommonView.goBack();
     }
 
     @FXML
-    public void onMinimizeClick(final ActionEvent event) {
+    public void onMinimizeClick() {
         CommonView.minimize();
     }
 
     @FXML
-    public void onCloseClick(final ActionEvent event) {
+    public void onCloseClick() {
         CommonView.close();
     }
 }

@@ -18,7 +18,7 @@ public class PauseDialogView {
     }
 
     @FXML
-    public void onQuitClick(final ActionEvent event) {
+    public void onQuitClick() {
         CommonView.close();
     }
 }

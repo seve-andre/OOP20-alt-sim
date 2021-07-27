@@ -3,11 +3,6 @@ package alt.sim.view.pages;
 public enum Page {
 
     /**
-     * Loading page.
-     */
-    LOADING("Loading"),
-
-    /**
      * Home page.
      */
     HOME("Home"),

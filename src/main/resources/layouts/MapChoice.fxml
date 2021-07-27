@@ -32,7 +32,7 @@
                     <font>
                         <Font name="Consolas Bold" size="18.0" />
                     </font></TextField>
-            <Button id="map" fx:id="seasideBtn" layoutX="105.0" layoutY="159.0" onAction="#onSeasideClick" 
+            <Button id="map" layoutX="105.0" layoutY="159.0" onAction="#onSeasideClick" 
             	prefHeight="120.0" prefWidth="198.0" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="108.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true">
@@ -47,7 +47,7 @@
             <Font size="1.0" />
          </font>
             </Button>
-            <Button id="map-coming" fx:id="riversideBtn" disable="true" layoutX="588.0" layoutY="189.0" 
+            <Button id="map-coming" disable="true" layoutX="588.0" layoutY="189.0" 
             	onAction="#onRiversideClick" stylesheets="@../css/mapchoice.css">
          <graphic>
                       <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
@@ -61,7 +61,7 @@
          <font>
             <Font size="1.0" />
          </font></Button>
-            <Button id="map" fx:id="citysideBtn" disable="true" layoutX="135.0" layoutY="368.0" 
+            <Button id="map" disable="true" layoutX="135.0" layoutY="368.0" 
             	onAction="#onCitysideClick" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
@@ -76,7 +76,7 @@
             <Font size="1.0" />
          </font>
             </Button>
-            <Button id="map" fx:id="countrysideBtn" disable="true" layoutX="588.0" layoutY="368.0" 
+            <Button id="map" disable="true" layoutX="588.0" layoutY="368.0" 
             	onAction="#onCountrysideClick" stylesheets="@../css/mapchoice.css">
                <graphic>
                       <ImageView fitHeight="118.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
