@@ -1,5 +1,11 @@
 package alt.sim.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -27,12 +33,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Seaside {
 
@@ -79,7 +79,6 @@ public class Seaside {
             pane.getChildren().addAll(planeImages);
             for (Plane plane : this.planes) {
                 plane.connectToController(this);
-                System.out.println("check plane: " + plane.hashCode());
 
                 while (spawnLocationList.size() != 4) {
                     SpawnLocation random = SpawnLocation.getRandomSpawnLocation();
@@ -112,7 +111,7 @@ public class Seaside {
 
             Thread t = new Thread(new ThreadEngine());
             t.start();
-            
+
             /*PauseTransition pt = new PauseTransition(Duration.seconds(5));
             //pt.setCycleCount(Timeline.INDEFINITE);
             SequentialTransition sq = new SequentialTransition(pl,pt);
@@ -165,7 +164,7 @@ public class Seaside {
 
         this.handlerMouseReleased = event -> {
             Point2D startingPoint;
-            double distanceFromPlane = 0;
+            double distanceFromPlane;
 
             for (Plane planeSelected : planes) {
                 // Controllo che l'utente disegni un percorso con un minimo di punti
@@ -286,13 +285,13 @@ public class Seaside {
             try {
                 if (planeSelected.getPlaneLinesPath().size() > 0) {
                     gc.moveTo(
-                            planeSelected.getPlaneLinesPath().get(0).getX(), 
+                            planeSelected.getPlaneLinesPath().get(0).getX(),
                             planeSelected.getPlaneLinesPath().get(0).getY()
                     );
 
                     for (int k = 1; k < planeSelected.getPlaneLinesPath().size(); k++) {
                         gc.lineTo(
-                                planeSelected.getPlaneLinesPath().get(k).getX(), 
+                                planeSelected.getPlaneLinesPath().get(k).getX(),
                                 planeSelected.getPlaneLinesPath().get(k).getY()
                         );
                     }
@@ -308,7 +307,7 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        UserRecordsController.updateScore(name.getText(), getIntScore());
+        // UserRecordsController.updateScore(name.getText(), getIntScore());
         CommonView.showDialog(Page.PAUSE);
     }
 

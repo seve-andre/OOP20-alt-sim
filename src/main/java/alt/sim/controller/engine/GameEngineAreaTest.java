@@ -1,9 +1,5 @@
 package alt.sim.controller.engine;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -16,6 +12,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameEngineAreaTest implements GameEngine {
 
@@ -45,7 +45,7 @@ public class GameEngineAreaTest implements GameEngine {
 
         // Sezione campionamento e animazione
         this.path = new Path();
-        this.planeCoordinates = new ArrayList<Point2D>();
+        this.planeCoordinates = new ArrayList<>();
         //Sostituito dal Controller Seaside
         this.pathTransition = new PathTransition();
 
@@ -62,11 +62,9 @@ public class GameEngineAreaTest implements GameEngine {
     /**
      * Calculates how many milliseconds has to wait for next frame.
      *
-     * @param current
-     * @throws InterruptedException
-     * @throws IllegalArgumentException
+     * @param current frame
      */
-    protected void waitForNextFrame(final long current) throws InterruptedException, IllegalArgumentException {
+    protected void waitForNextFrame(final long current) {
         long dt = System.currentTimeMillis() - current;
 
         if (dt < PERIOD) {
@@ -79,7 +77,7 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     @Override
-    public void mainLoop() throws IllegalArgumentException {
+    public void mainLoop() {
         long lastTime = System.currentTimeMillis();
 
         while (engineStart) {
@@ -92,7 +90,7 @@ public class GameEngineAreaTest implements GameEngine {
 
             try {
                 waitForNextFrame(current);
-            } catch (IllegalArgumentException | InterruptedException e) {
+            } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
 
@@ -108,7 +106,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     private void checkCollision() {
         //Sostituito dal Boundas di Seaside
-        //Bounds boundaryMap = transitionRif.getCanvas().getBoundsInParent();
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         List<Plane> planesToRemove = new LinkedList<>();
 
@@ -123,7 +120,6 @@ public class GameEngineAreaTest implements GameEngine {
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(planeSelected.getImagePlane().getBoundsInParent())
                         && planeMonitored != planeSelected) {
-                    System.out.println("COLLISION!!!");
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
                     transitionSeaside.terminateGame();
@@ -138,6 +134,7 @@ public class GameEngineAreaTest implements GameEngine {
                     //startExplosionPlane(planeMonitored);
                     //transitionSeaside.terminateGame();
                     //planesToRemove.add(planeMonitored);
+                    break;
                 }
 
                // Check ready for landing Plane
@@ -158,8 +155,6 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     private void startExplosionPlane(final Plane plane) {
-        //Sostituito dal Controller Seaside
-        //transitionRif.startExplosionToPane(plane.getExplosionAnimation(), plane);
         transitionSeaside.startExplosionToPane(plane.getExplosionAnimation(), plane);
         playedExplosion = true;
     }
@@ -171,21 +166,16 @@ public class GameEngineAreaTest implements GameEngine {
 
     @Override
     public void update(final int elapsed) {
-        System.out.println("ENGINE PARTITO!!!");
         // Implement the Random-Path of Planes in wait
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
-        if (this.planes != null) {
-            for (Plane planeWait : planes) {
-                if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
-                    //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
-                }
+        for (Plane planeWait : planes) {
+            if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
+                //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
             }
         }
 
         // Controllo ad ogni frame se Plane collide con qualche oggetto
-        if (engineStart) {
-            checkCollision();
-        }
+        checkCollision();
     }
 
     @Override
