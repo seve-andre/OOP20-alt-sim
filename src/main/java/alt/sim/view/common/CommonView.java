@@ -1,7 +1,5 @@
 package alt.sim.view.common;
 
-import java.io.IOException;
-
 import alt.sim.Main;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
@@ -11,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public final class CommonView {
 
@@ -26,7 +26,7 @@ public final class CommonView {
 
     /**
      * Creates pop up dialog.
-     * @throws IOException
+     * @throws IOException if fxml loader fails
      */
     public static void showDialog(final Page page) throws IOException {
         Stage popupStage = new Stage(StageStyle.UNDECORATED);
