@@ -44,23 +44,15 @@ public class LeaderboardView {
 
     @FXML
     public void initialize() {
-        try {
-            nameFirstPlace.setText(names.get(0));
-            pointsFirstPlace.setText(users.get(names.get(0)).toString());
 
-            nameSecondPlace.setText(names.get(1));
-            pointsSecondPlace.setText(users.get(names.get(1)).toString());
+        List<TextField> textFieldsNames = List.of(
+                nameFirstPlace, nameSecondPlace, nameThirdPlace, nameFourthPlace, nameFifthPlace);
+        List<TextField> textFieldsScores = List.of(
+                pointsFirstPlace, pointsSecondPlace, pointsThirdPlace, pointsFourthPlace, pointsFifthPlace);
 
-            nameThirdPlace.setText(names.get(2));
-            pointsThirdPlace.setText(users.get(names.get(2)).toString());
-
-            nameFourthPlace.setText(names.get(3));
-            pointsFourthPlace.setText(users.get(names.get(3)).toString());
-
-            nameFifthPlace.setText(names.get(4));
-            pointsFifthPlace.setText(users.get(names.get(4)).toString());
-        } catch (final IndexOutOfBoundsException e) {
-            // DO NOTHING HERE!
+        for (int i = 0; i < names.size(); i++) {
+            textFieldsNames.get(i).setText(names.get(i));
+            textFieldsScores.get(i).setText(users.get(names.get(i)).toString());
         }
     }
 
