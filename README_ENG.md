@@ -1,5 +1,5 @@
 <h1>AirLine Traffic Simulator</h1>
-<img align="left"src="https://github.com/andreafoschi00/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
+<img align="left" src="https://github.com/andreafoschi00/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
 <p align="right">
     <a href="https://github.com/andreafoschi00/OOP20-alt-sim"><strong>Go to project main page »</strong></a>
 </p>
