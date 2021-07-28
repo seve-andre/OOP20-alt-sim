@@ -10,6 +10,9 @@ import java.io.IOException;
 
 public final class PageLoader {
 
+    private static final int HEIGHT = 720;
+    private static final int WIDTH = 1280;
+
     private PageLoader() { }
 
     /**
@@ -21,6 +24,8 @@ public final class PageLoader {
 
         if (page.getName().equals(Page.GAME.getName())) {
             page.setName(gameMap.getName());
+            Main.getStage().setHeight(HEIGHT);
+            Main.getStage().setWidth(WIDTH);
         }
         Parent root = null;
 
