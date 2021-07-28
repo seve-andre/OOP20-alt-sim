@@ -123,7 +123,6 @@ public class ClearingPathTest extends Application {
     public void clearCanvasLines(final List<Point2D> coordinatesToClear) {
         Rectangle rectCleaning;
 
-        System.out.println("");
         System.out.println("coordinate passate da Eliminare al giro 0: ");
 
         for (Point2D point:coordinatesToClear) {

@@ -1,7 +1,6 @@
 package alt.sim.model.map;
 
 import alt.sim.Main;
-import alt.sim.view.mapchoice.GameMap;
 
 public class MapImpl implements Map {
 

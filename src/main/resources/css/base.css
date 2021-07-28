@@ -41,10 +41,6 @@
     -fx-cursor: hand;
 }
 
-.hyperlink {
-    -fx-border-color: transparent;
-}
-
 #popup-bg {
     -fx-background-color: #ad9380;
     -fx-border-color: #d6d6cb;

@@ -315,7 +315,6 @@ public class PlaneMouseMove extends Application {
                     engine.stopAnimation();
                 }
 
-                System.out.println("");
                 System.out.println("Lunghezza planeCoordinates: " + planeCoordinates.size());
                 //Trying to clear the List of Coordinates from duplicates
                 planeMove.setPlaneCoordinates(clearListCoordinates(planeCoordinates));

@@ -106,7 +106,7 @@
                   <String fx:value="color-opacity" />
                </styleClass>
                 </TextField>
-                <Button id="go-back" fx:id="goBackBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="21.0" prefWidth="26.0" stylesheets="@../css/base.css">
+                <Button id="go-back" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="21.0" prefWidth="26.0" stylesheets="@../css/base.css">
                     <graphic>
                         <ImageView id="go-back" fitHeight="22.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                 <Image url="@../images/base/go-back.png" />

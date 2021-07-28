@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class ObservableState {
     private SimpleStringProperty simpleStateProperty;
 
-    public ObservableState(final String stateValue){
+    public ObservableState(final String stateValue) {
         this.simpleStateProperty = new SimpleStringProperty(stateValue);
 
         //Add Listener in State
@@ -24,7 +24,7 @@ public class ObservableState {
         return this.simpleStateProperty.getValue();
     }
 
-    public SimpleStringProperty getSimpleStateProperty(){
+    public SimpleStringProperty getSimpleStateProperty() {
         return this.simpleStateProperty;
     }
 }

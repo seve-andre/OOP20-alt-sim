@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class ObservablePosition {
     private SimpleDoubleProperty simplePositionProperty;
 
-    public ObservablePosition(final Double positionValue){
+    public ObservablePosition(final Double positionValue) {
         this.simplePositionProperty = new SimpleDoubleProperty(positionValue);
 
         //Add Listener in State
@@ -24,7 +24,7 @@ public class ObservablePosition {
         return this.simplePositionProperty.getValue();
     }
 
-    public SimpleDoubleProperty simplePositionProperty(){
+    public SimpleDoubleProperty simplePositionProperty() {
         return this.simplePositionProperty;
     }
 }
