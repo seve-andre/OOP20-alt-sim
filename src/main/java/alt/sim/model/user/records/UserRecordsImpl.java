@@ -1,18 +1,17 @@
 package alt.sim.model.user.records;
 
+import alt.sim.model.user.User;
+import alt.sim.model.user.records.RecordsFolder.RecordsPath;
+import alt.sim.model.user.validation.RecordsValidation;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import alt.sim.model.user.User;
-import alt.sim.model.user.records.RecordsFolder.RecordsPath;
-import alt.sim.model.user.validation.RecordsValidation;
 
 public class UserRecordsImpl implements UserRecords {
 
@@ -25,7 +24,7 @@ public class UserRecordsImpl implements UserRecords {
 
     /**
      * Loads users from file.
-     * @throws IOException
+     * @throws IOException if file does not exist
      */
     public void loadFile() throws IOException {
         this.recordsValidation.userRecordsFileValidation();
@@ -39,7 +38,7 @@ public class UserRecordsImpl implements UserRecords {
     /**
      * Appends to file.
      *
-     * @throws IOException
+     * @throws IOException if file does not exist
      */
     public void updateFile() throws IOException {
         final String json = new GsonBuilder()
@@ -52,7 +51,6 @@ public class UserRecordsImpl implements UserRecords {
 
     /**
      * {@inheritDoc}
-     * @throws IOException
      */
     @Override
     public void addUser(final User user) throws IOException {
@@ -65,7 +63,6 @@ public class UserRecordsImpl implements UserRecords {
 
     /**
      * {@inheritDoc}
-     * @throws IOException
      */
     @Override
     public boolean isPresent(final String name) throws IOException {
@@ -84,7 +81,6 @@ public class UserRecordsImpl implements UserRecords {
 
     /**
      * {@inheritDoc}
-     * @throws IOException
      */
     @Override
     public void updateScore(final String name, final int score) throws IOException {

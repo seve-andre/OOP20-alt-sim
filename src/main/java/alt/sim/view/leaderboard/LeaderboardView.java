@@ -6,7 +6,7 @@ import alt.sim.view.common.CommonView;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;

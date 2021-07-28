@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class PageLoader {
+public final class PageLoader {
+
+    private PageLoader() { }
 
     /**
      * Loads page given as argument.

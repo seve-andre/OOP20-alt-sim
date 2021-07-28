@@ -1,11 +1,11 @@
 package alt.sim.controller.mapchoice;
 
-import java.io.IOException;
-
 import alt.sim.model.user.UserImpl;
 import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.model.user.validation.NameQuality;
 import alt.sim.model.user.validation.NameValidation;
+
+import java.io.IOException;
 
 public class MapChoiceControllerImpl implements MapChoiceController {
 
@@ -22,7 +22,6 @@ public class MapChoiceControllerImpl implements MapChoiceController {
 
     /**
      * {@inheritDoc}
-     * @throws IOException
      */
     @Override
     public boolean isNameTaken(final String name) throws IOException {
@@ -31,7 +30,6 @@ public class MapChoiceControllerImpl implements MapChoiceController {
 
     /**
      * {@inheritDoc}
-     * @throws IOException
      */
     @Override
     public void addUser(final String name) throws IOException {

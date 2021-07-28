@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class GameOverView {
 
     private final UserRecordsImpl userRecords = new UserRecordsImpl();
@@ -19,14 +17,14 @@ public class GameOverView {
     public void initialize() { }
 
     @FXML
-    public void onHomeClick(final ActionEvent event) throws IOException {
+    public void onHomeClick() {
         //this.userRecords.updateScore(MapController.getName(),0);
         //((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         PageLoader.loadPage(Page.HOME);
     }
 
     @FXML
-    public void onQuitClick(final ActionEvent event) throws IOException {
+    public void onQuitClick(final ActionEvent event) {
         //this.userRecords.updateScore(MapController.getName(),0);
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         Main.getStage().close();

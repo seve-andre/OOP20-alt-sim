@@ -3,9 +3,25 @@ package alt.sim.model.spawn;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum SpawnLocation {
+
+    /**
+     * Left spawn location.
+     */
     LEFT,
+
+    /**
+     * Top spawn location.
+     */
     TOP,
+
+    /**
+     * Right spawn location.
+     */
     RIGHT,
+
+    /**
+     * Bottom spawn location.
+     */
     BOTTOM;
 
     /**

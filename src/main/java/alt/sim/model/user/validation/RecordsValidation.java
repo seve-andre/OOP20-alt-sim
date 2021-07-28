@@ -1,10 +1,10 @@
 package alt.sim.model.user.validation;
 
+import alt.sim.model.user.records.RecordsFolder.RecordsPath;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import alt.sim.model.user.records.RecordsFolder.RecordsPath;
 
 public class RecordsValidation {
 
@@ -15,7 +15,7 @@ public class RecordsValidation {
     /**
      * Checks "hidden" folder existence by path.
      *
-     * @throws IOException
+     * @throws IOException if dir does not exist
      */
     public void checkDirExistence() throws IOException {
         if (!Files.isDirectory(RECORDS_DIR_PATH)) {
@@ -30,8 +30,8 @@ public class RecordsValidation {
      * Checks if given path is directory.
      * If not, deletes it.
      *
-     * @param path
-     * @throws IOException
+     * @param path of directory
+     * @throws IOException if directory does not exist
      */
     private void dirValidation(final Path path) throws IOException {
         this.checkDirExistence();
@@ -47,7 +47,7 @@ public class RecordsValidation {
      * Validates directory
      * that contains json file.
      *
-     * @throws IOException
+     * @throws IOException if directory does not exist
      */
     public void userRecordsDirValidation() throws IOException {
         this.dirValidation(USER_RECORDS_DIR_PATH);
@@ -57,8 +57,8 @@ public class RecordsValidation {
      * Checks if given path is a file.
      * If not, deletes it.
      *
-     * @param path
-     * @throws IOException
+     * @param path of file
+     * @throws IOException if directory does not exist
      */
     private void fileValidation(final Path path) throws IOException {
         this.userRecordsDirValidation();
@@ -73,7 +73,7 @@ public class RecordsValidation {
     /**
      * Validates json file path.
      *
-     * @throws IOException
+     * @throws IOException if file does not exist
      */
     public void userRecordsFileValidation() throws IOException {
         this.fileValidation(USER_RECORDS_FILE_PATH);

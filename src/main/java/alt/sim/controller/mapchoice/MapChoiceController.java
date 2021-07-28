@@ -1,30 +1,31 @@
 package alt.sim.controller.mapchoice;
 
-import java.io.IOException;
-
 import alt.sim.model.user.validation.NameValidation;
+
+import java.io.IOException;
 
 public interface MapChoiceController {
 
     /**
      * Checks given name quality.
-     * @param name
+     * @param name to check for quality
      * @return name quality result
+     * @throws IOException if name not present
      */
     NameValidation checkName(String name) throws IOException;
 
     /**
      * Checks if given name is taken.
-     * @param name
+     * @param name to check if taken
      * @return true if name is already taken
-     * @throws IOException
+     * @throws IOException if name not present
      */
     boolean isNameTaken(String name) throws IOException;
 
     /**
      * Adds given user to file.
-     * @param name
-     * @throws IOException
+     * @param name of the user
+     * @throws IOException if file does not exist
      */
     void addUser(String name) throws IOException;
 }

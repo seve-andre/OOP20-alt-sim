@@ -1,8 +1,8 @@
 package alt.sim.model.user.records;
 
-import java.io.IOException;
-
 import alt.sim.model.user.User;
+
+import java.io.IOException;
 
 public interface UserRecords {
 
@@ -23,7 +23,7 @@ public interface UserRecords {
      * Updates user score when game is over.
      * @param name of the user
      * @param score to update
-     * @throws IOException
+     * @throws IOException if file does not exist
      */
     void updateScore(String name, int score) throws IOException;
 }

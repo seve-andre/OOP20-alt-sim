@@ -12,7 +12,7 @@ public interface GameEngine {
     void processInput();
     /**
      * Update model state following input commands.
-     * @param elapsed
+     * @param elapsed time
      */
     void update(int elapsed);
     /**

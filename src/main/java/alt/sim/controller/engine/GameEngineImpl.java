@@ -1,9 +1,5 @@
 package alt.sim.controller.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.view.PlaneMouseMove;
@@ -14,6 +10,10 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -41,7 +41,6 @@ public class GameEngineImpl implements GameEngine {
         this.cont = 0;
 
         animationIsRunning = false;
-        this.blocked = false;
 
         path.getElements().add(new MoveTo(0, 0));
         //this.vet = this.plane.getPlaneMovement().getPlaneCoordinatesList();
@@ -59,7 +58,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     @Override
-    public void mainLoop() throws IllegalArgumentException {
+    public void mainLoop() {
         long lastTime = System.currentTimeMillis();
 
         while (true) {
@@ -74,8 +73,6 @@ public class GameEngineImpl implements GameEngine {
                 waitForNextFrame(current);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
 
             lastTime = current;
@@ -85,19 +82,15 @@ public class GameEngineImpl implements GameEngine {
     /**
      * Calculates how many milliseconds has to wait for next frame.
      *
-     * @param current
-     * @throws InterruptedException
-     * @throws IllegalArgumentException
+     * @param current time
      */
-    protected void waitForNextFrame(final long current) throws InterruptedException, IllegalArgumentException {
+    protected void waitForNextFrame(final long current) {
         long dt = System.currentTimeMillis() - current;
 
         if (dt < PERIOD) {
             try {
                 Thread.sleep(PERIOD - dt);
-            } catch (IllegalArgumentException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
+            } catch (IllegalArgumentException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         }
@@ -166,8 +159,8 @@ public class GameEngineImpl implements GameEngine {
                     path = new Path();
                     start = false;
                 }
-            } catch (Exception ex) {
-                System.out.println(ex);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

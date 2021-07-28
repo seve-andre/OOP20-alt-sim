@@ -11,17 +11,17 @@ public class HomeView {
     public void onStartClick() {
         PageLoader.loadPage(Page.MAP_CHOICE);
     }
-    
+
     @FXML
     public void onLeaderboardClick() {
         PageLoader.loadPage(Page.LEADERBOARD);
     }
-    
+
     @FXML
     public void onCreditsClick() {
         PageLoader.loadPage(Page.CREDITS);
     }
-    
+
     @FXML
     public void onExitClick() {
         CommonView.close();
