@@ -25,12 +25,12 @@ public final class CommonView {
     }
 
     /**
-     * Creates pause dialog.
+     * Creates pop up dialog.
      * @throws IOException
      */
-    public static void pause() throws IOException {
+    public static void showDialog(final Page page) throws IOException {
         Stage popupStage = new Stage(StageStyle.UNDECORATED);
-        Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/PauseDialog.fxml"));
+        Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/" + page.getName() + ".fxml"));
         popupStage.setScene(new Scene(root));
         popupStage.showAndWait();
     }
