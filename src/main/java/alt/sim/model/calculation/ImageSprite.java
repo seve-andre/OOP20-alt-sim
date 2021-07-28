@@ -22,7 +22,7 @@ public class ImageSprite {
 
     /**
      * Initializes a newly created ImageResized object.
-     * @param url
+     * @param url of the image
      */
     public ImageSprite(final String url) {
         this.urlSprite = (url);
