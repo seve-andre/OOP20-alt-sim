@@ -1,5 +1,11 @@
 package alt.sim.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -13,7 +19,6 @@ import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
-import alt.sim.view.pages.PageLoader;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
@@ -29,11 +34,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-
 public class Seaside {
+
     @FXML
     private AnchorPane pane = new AnchorPane();
     @FXML
@@ -50,10 +52,6 @@ public class Seaside {
     private Rectangle landingBoxRight;
     @FXML
     private Canvas canvas;
-
-    // Timer for Plane spawn;
-    private Timer spawnTimer;
-    private TimerTask spawnTask;
 
     private List<PathTransition> pathTransitionList = new ArrayList<>();
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
@@ -72,9 +70,8 @@ public class Seaside {
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
-    public void playSpawnTimer() {
+    public void playGame() {
         this.planes = SpawnModel.generatePlanes();
-        this.spawnTimer = new Timer();
 
         List<ImageView> planeImages = this.planes.stream()
                 .map(Plane::getImagePlane)
@@ -102,7 +99,7 @@ public class Seaside {
             engine.setEngineStart(true);
 
 
-            
+
             ParallelTransition parallelTransition = new ParallelTransition();
             parallelTransition.getChildren().addAll(this.pathTransitionList);
             /*for (final PathTransition pathTransition3 : this.pathTransitionList) {
@@ -121,7 +118,7 @@ public class Seaside {
                     }
                 }
             }
-            
+
             Thread t = new Thread(new ThreadEngine());
             t.start();
             //pane.getChildren().add(pathTransitionSpawn.getNode());
@@ -168,7 +165,7 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        
+
         strip = new BasicAirStrip("images/map_components/airstrip.png");
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
@@ -290,36 +287,8 @@ public class Seaside {
         /*pane.getChildren().addAll(plane.getImagePlane(), plane2.getImagePlane());
         pane.getChildren().addAll(plane3.getImagePlane(), plane4.getImagePlane());*/
 
-        playSpawnTimer();
+        playGame();
 
-        /*
-            playSpawnTimer();
-            playSpawnTimer();
-            playSpawnTimer();
-            playSpawnTimer();
-            playSpawnTimer();
-            playSpawnTimer();
-         */
-
-        // Avvio del GameLoop
-        /*class ThreadEngine implements Runnable {
-
-            @Override
-            public void run() {
-                try {
-                    engine.mainLoop();
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        Thread t = new Thread(new ThreadEngine());
-        t.start();
-
-        Platform.runLater( () -> {
-            new ThreadEngine().run();
-        });*/
     }
 
     public void terminateGame() {
@@ -347,7 +316,11 @@ public class Seaside {
         pane.setDisable(true);
 
         Platform.runLater(() -> {
-            PageLoader.loadPage(Page.GAMEOVER);
+            try {
+                CommonView.showDialog(Page.GAMEOVER);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -403,10 +376,8 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        //timeline.pause();
         UserRecordsController.updateScore(name.getText(), Integer.parseInt(score.getText()));
-        CommonView.pause();
-        //timeline.play();
+        CommonView.showDialog(Page.PAUSE);
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
