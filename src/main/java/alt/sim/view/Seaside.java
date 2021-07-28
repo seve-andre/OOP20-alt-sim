@@ -1,11 +1,5 @@
 package alt.sim.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -34,6 +28,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Seaside {
 
     @FXML
@@ -57,10 +57,6 @@ public class Seaside {
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
     private List<Plane> planes;
-    /*private Plane plane;
-    private Plane plane2;
-    private Plane plane3;
-    private Plane plane4;*/
     private AbstractAirStrip strip;
     private List<Point2D> planeCoordinates;
     private GraphicsContext gc;
@@ -98,13 +94,8 @@ public class Seaside {
             engine.setPlanes(planes);
             engine.setEngineStart(true);
 
-
-
             ParallelTransition parallelTransition = new ParallelTransition();
             parallelTransition.getChildren().addAll(this.pathTransitionList);
-            /*for (final PathTransition pathTransition3 : this.pathTransitionList) {
-                pt2.getChildren().add(pathTransition3);
-            }*/
             parallelTransition.play();
 
             class ThreadEngine implements Runnable {
@@ -121,39 +112,8 @@ public class Seaside {
 
             Thread t = new Thread(new ThreadEngine());
             t.start();
-            //pane.getChildren().add(pathTransitionSpawn.getNode());
-            //pathTransitionSpawn.play();
-
-            // Inserimento coordinate PathSpawn from LEFT
-            /*path2.getElements().add(new MoveTo(640, -50));
-            path2.getElements().add(new CubicCurveTo(180, 0, 700, 120, 700, 200));
-
-            pane.getChildren().add(plane.getImagePlane());
-
-            pathTransition2.setPath(path2);
-            pathTransition2.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-            pathTransition2.setNode(plane.getImagePlane());
-            pathTransition2.setDuration(Duration.millis(5000));
-            pathTransition2.setOnFinished(event -> plane.setState(State.WAITING));
-            //pathTransition2.play();
-
-
-            path.getElements().add(new MoveTo(-80, 360));
-            path.getElements().add(new CubicCurveTo(180, 0, 380, 120, 300, 120));
-
-
-            pathTransition.setPath(path);
-            pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-            pathTransition.setNode(planeSpawned.getImagePlane());
-            pathTransition.setDuration(Duration.millis(5000));
-            pathTransition.setOnFinished(event -> planeSpawned.setState(State.WAITING));*/
-            //pathTransition.play();
-
-            /*ParallelTransition pl = new ParallelTransition(pathTransition, pathTransition2);
-            //pl.setCycleCount(Timeline.INDEFINITE);
-            //pl.play();
-
-            PauseTransition pt = new PauseTransition(Duration.seconds(5));
+            
+            /*PauseTransition pt = new PauseTransition(Duration.seconds(5));
             //pt.setCycleCount(Timeline.INDEFINITE);
             SequentialTransition sq = new SequentialTransition(pl,pt);
             sq.setCycleCount(Timeline.INDEFINITE);
@@ -175,10 +135,7 @@ public class Seaside {
 
         newGame.startGame();
         gc = canvas.getGraphicsContext2D();
-        planeCoordinates = new ArrayList<Point2D>();
-
-        //imgViewPlaneLandingArea.setX((pane.getBoundsInLocal().getWidth() / 2) - imgViewPlaneLandingArea.getFitWidth());
-        //imgViewPlaneLandingArea.setY((pane.getBoundsInLocal().getHeight() / 2) - imgViewPlaneLandingArea.getFitHeight() / 2);
+        planeCoordinates = new ArrayList<>();
 
         // Spostando i 2 landingBoxArea
         //landingBoxLeft.setX(imgViewPlaneLandingArea.getX());
@@ -186,46 +143,16 @@ public class Seaside {
         //landingBoxRight.setX(imgViewPlaneLandingArea.getX() + 2.5);
         //landingBoxRight.setY(imgViewPlaneLandingArea.getY() + 20);
 
-        imgViewHelicopterLandingArea.setX((pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth());
-        imgViewHelicopterLandingArea.setY((pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2);
+        imgViewHelicopterLandingArea.setX(
+                (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
+        );
+        imgViewHelicopterLandingArea.setY(
+                (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
+        );
 
-        /*planes = new ArrayList<>();
-        plane = new Plane("images/map_components/airplane.png");
-        plane2 = new Plane("images/map_components/airplane.png");
-        plane3 = new Plane("images/map_components/airplane.png");
-        plane4 = new Plane("images/map_components/airplane.png");*/
         strip.setAirStripImage(imgViewPlaneLandingArea);
         ((BasicAirStrip) strip).setBoxLeft(landingBoxLeft);
         ((BasicAirStrip) strip).setBoxRight(landingBoxRight);
-
-        /*plane.getImagePlane().setFitWidth(64);
-        plane.getImagePlane().setFitHeight(64);
-        plane2.getImagePlane().setFitWidth(64);
-        plane2.getImagePlane().setFitHeight(64);
-        plane3.getImagePlane().setFitWidth(64);
-        plane3.getImagePlane().setFitHeight(64);
-        plane4.getImagePlane().setFitWidth(64);
-        plane4.getImagePlane().setFitHeight(64);
-
-        planes.add(plane);
-        planes.add(plane2);
-        planes.add(plane3);
-        planes.add(plane4);
-
-        plane2.getImagePlane().setX(900);
-        plane2.getImagePlane().setY(500);
-        plane3.getImagePlane().setX(1000);
-        plane3.getImagePlane().setY(100);
-        plane4.getImagePlane().setX(600);
-        plane4.getImagePlane().setY(600);
-
-        plane.connectToController(this);
-        plane2.connectToController(this);
-        plane3.connectToController(this);
-        plane4.connectToController(this);*/
-
-        //engine.setGraphicContext(gc);
-        //engine.setPlanes(planes);
 
         this.handlerMouseDragged = event -> {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
@@ -237,17 +164,23 @@ public class Seaside {
         };
 
         this.handlerMouseReleased = event -> {
-            Point2D puntoInizioPercorso;
-            double distanzaDalPlane = 0;
+            Point2D startingPoint;
+            double distanceFromPlane = 0;
 
             for (Plane planeSelected : planes) {
                 // Controllo che l'utente disegni un percorso con un minimo di punti
-                if (planeSelected.getIsPlaneSelectedForBeenMoved() && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
-                    puntoInizioPercorso = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
-                    distanzaDalPlane = puntoInizioPercorso.distance(new Point2D(planeSelected.getImagePlane().getBoundsInParent().getCenterX(), planeSelected.getImagePlane().getBoundsInParent().getCenterY()));
+                if (planeSelected.getIsPlaneSelectedForBeenMoved()
+                        && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
+                    startingPoint = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
+                    distanceFromPlane = startingPoint.distance(
+                            new Point2D(
+                                    planeSelected.getImagePlane().getBoundsInParent().getCenterX(),
+                                    planeSelected.getImagePlane().getBoundsInParent().getCenterY()
+                                    )
+                    );
 
                     // L'animazione parte solo se l'utente ha disegnato una rotta vicino al Plane
-                    if (distanzaDalPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE) {
+                    if (distanceFromPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE) {
 
                         // Quando viene rilasciato il Mouse se il Plane seguiva già un percoso,
                         // deve bloccarsi e seguire il percorso Nuovo
@@ -274,18 +207,10 @@ public class Seaside {
             planeCoordinates.clear();
         };
 
-        // Calcolare posizioni dove far spawnare i Plane:
-        //...
-
         name.setText(MapController.getName());
-        //timeline.setCycleCount(Animation.INDEFINITE);
-        //timeline.play();
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
-
-        /*pane.getChildren().addAll(plane.getImagePlane(), plane2.getImagePlane());
-        pane.getChildren().addAll(plane3.getImagePlane(), plane4.getImagePlane());*/
 
         playGame();
 
@@ -317,6 +242,7 @@ public class Seaside {
 
         Platform.runLater(() -> {
             try {
+                UserRecordsController.updateScore(name.getText(), getIntScore());
                 CommonView.showDialog(Page.GAMEOVER);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -359,10 +285,16 @@ public class Seaside {
         for (Plane planeSelected : planes) {
             try {
                 if (planeSelected.getPlaneLinesPath().size() > 0) {
-                    gc.moveTo(planeSelected.getPlaneLinesPath().get(0).getX(), planeSelected.getPlaneLinesPath().get(0).getY());
+                    gc.moveTo(
+                            planeSelected.getPlaneLinesPath().get(0).getX(), 
+                            planeSelected.getPlaneLinesPath().get(0).getY()
+                    );
 
                     for (int k = 1; k < planeSelected.getPlaneLinesPath().size(); k++) {
-                        gc.lineTo(planeSelected.getPlaneLinesPath().get(k).getX(), planeSelected.getPlaneLinesPath().get(k).getY());
+                        gc.lineTo(
+                                planeSelected.getPlaneLinesPath().get(k).getX(), 
+                                planeSelected.getPlaneLinesPath().get(k).getY()
+                        );
                     }
 
                     gc.setStroke(Color.BLUE);
@@ -376,7 +308,7 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        UserRecordsController.updateScore(name.getText(), Integer.parseInt(score.getText()));
+        UserRecordsController.updateScore(name.getText(), getIntScore());
         CommonView.showDialog(Page.PAUSE);
     }
 
@@ -409,5 +341,9 @@ public class Seaside {
 
     public void setScore(final int score) {
         this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
+    }
+
+    public int getIntScore() {
+        return Integer.parseInt(this.score.getText());
     }
 }
