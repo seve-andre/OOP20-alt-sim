@@ -33,6 +33,7 @@ public final class PageLoader {
 
         if (root != null) {
             Main.getStage().setScene(new Scene(root));
+            Main.getStage().centerOnScreen();
         }
     }
 
