@@ -100,8 +100,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     public void setEngineStart(final boolean engineStart) {
         this.engineStart = engineStart;
-
-        System.out.println("engineStart = " + engineStart);
     }
 
     private void checkCollision() {
@@ -109,6 +107,7 @@ public class GameEngineAreaTest implements GameEngine {
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         List<Plane> planesToRemove = new LinkedList<>();
 
+        outer:
         for (Plane planeMonitored : planes) {
             Bounds monitoredPlaneBounds = planeMonitored.getImagePlane().getBoundsInParent();
 
@@ -131,10 +130,11 @@ public class GameEngineAreaTest implements GameEngine {
                                 || monitoredPlaneBounds.getMinY() < 0
                                 || monitoredPlaneBounds.getMaxY() > boundaryMap.getHeight())) {
                     System.out.println("FUORI_BORDO");
+                    //engineStart = false;
                     //startExplosionPlane(planeMonitored);
-                    //transitionSeaside.terminateGame();
+                    transitionSeaside.terminateGame();
                     //planesToRemove.add(planeMonitored);
-                    break;
+                    break outer;
                 }
 
                // Check ready for landing Plane
@@ -170,7 +170,7 @@ public class GameEngineAreaTest implements GameEngine {
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         for (Plane planeWait : planes) {
             if (!planeWait.isFollowingPath() && planeWait.getStatusMovementAnimation().equals("WAITING")) {
-                //planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
+                // planeWait.loadRandomTransition(boundaryMap.getWidth(), boundaryMap.getHeight());
             }
         }
 
@@ -205,10 +205,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     public void setPlanes(final List<Plane> planes) {
         this.planes = planes;
-
-        for (Plane plane : planes) {
-            System.out.println("check plane: " + plane.hashCode());
-        }
     }
 
     public void setCoordinates(final List<Point2D> planeCoordinates) {
