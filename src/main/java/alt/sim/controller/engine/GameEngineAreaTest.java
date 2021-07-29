@@ -107,7 +107,7 @@ public class GameEngineAreaTest implements GameEngine {
         Bounds boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         List<Plane> planesToRemove = new LinkedList<>();
 
-g        for (Plane planeMonitored : planes) {
+        for (Plane planeMonitored : planes) {
             Bounds monitoredPlaneBounds = planeMonitored.getImagePlane().getBoundsInParent();
 
             for (Plane planeSelected : planes) {
