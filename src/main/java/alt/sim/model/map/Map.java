@@ -6,13 +6,13 @@ public interface Map {
      * Gets map width.
      * @return width
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * Gets map height.
      * @return height
      */
-    int getHeight();
+    double getHeight();
 
     /**
      * Gets X coordinate.

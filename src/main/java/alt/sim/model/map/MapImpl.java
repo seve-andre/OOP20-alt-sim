@@ -8,16 +8,16 @@ public class MapImpl implements Map {
      * {@inheritDoc}
      */
     @Override
-    public int getWidth() {
-        return (int) Main.getStage().getWidth();
+    public double getWidth() {
+        return Main.getStage().getWidth();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getHeight() {
-        return (int) Main.getStage().getHeight();
+    public double getHeight() {
+        return Main.getStage().getHeight();
     }
 
     /**
