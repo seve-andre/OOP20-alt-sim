@@ -1,28 +1,19 @@
 package alt.sim.model.game;
 
+import alt.sim.model.plane.Plane;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import alt.sim.controller.engine.GameEngineAreaTest;
-import alt.sim.model.plane.Plane;
-
 public class Game {
-    private  List<Plane> planes;
-    private GameEngineAreaTest engine;
-
-    // Implementazione Timer per spawn Plane
-    private Timer spawnTimer;
-    private TimerTask spawnTask;
-    private TimerTask task;
-
 
     private boolean endGame;
 
     public Game() {
         this.endGame = false;
-        this.planes = new ArrayList();
+        List<Plane> planes = new ArrayList<>();
     }
 
     public void startGame() {
@@ -30,8 +21,10 @@ public class Game {
     }
 
     public void playSpawnTimer() {
-        this.spawnTimer = new Timer();
-        this.spawnTask = new TimerTask() {
+        // Implementazione Timer per spawn Plane
+        Timer spawnTimer = new Timer();
+        //System.out.println("Spawn Plane");
+        TimerTask spawnTask = new TimerTask() {
 
             @Override
             public void run() {
