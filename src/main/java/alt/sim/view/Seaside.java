@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Seaside {
@@ -66,6 +67,8 @@ public class Seaside {
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
+    private ParallelTransition parallelTransition = new ParallelTransition();
+
     public void playGame() {
         this.planes = SpawnModel.generatePlanes();
 
@@ -94,7 +97,6 @@ public class Seaside {
             engine.setPlanes(planes);
             engine.setEngineStart(true);
 
-            ParallelTransition parallelTransition = new ParallelTransition();
             parallelTransition.getChildren().addAll(this.pathTransitionList);
             parallelTransition.play();
 
@@ -219,6 +221,7 @@ public class Seaside {
     public void terminateGame() {
         // Blocco del GameLoop
         engine.setEngineStart(false);
+        parallelTransition.stop();
 
         // Terminazione di tutte le animazioni del Plane in corso
         for (Plane planeSelected : planes) {
@@ -243,8 +246,9 @@ public class Seaside {
         Platform.runLater(() -> {
             try {
                 UserRecordsController.updateScore(name.getText(), getIntScore());
+                TimeUnit.SECONDS.sleep(1);
                 CommonView.showDialog(Page.GAMEOVER);
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         });
