@@ -1,11 +1,5 @@
 package alt.sim.view;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -33,6 +27,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Seaside {
 
@@ -77,6 +77,7 @@ public class Seaside {
         Platform.runLater(() -> {
 
             pane.getChildren().addAll(planeImages);
+            pane.getChildren().addAll(SpawnModel.generateIndicators());
             for (Plane plane : this.planes) {
                 plane.connectToController(this);
 
