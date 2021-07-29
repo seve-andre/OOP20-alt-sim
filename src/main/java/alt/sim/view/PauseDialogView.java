@@ -15,6 +15,7 @@ public class PauseDialogView {
     @FXML
     public void onResumeClick(final ActionEvent event) {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        Seaside.getParallelTransition().play();
     }
 
     @FXML

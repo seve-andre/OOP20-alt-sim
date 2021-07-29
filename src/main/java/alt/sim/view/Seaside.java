@@ -67,7 +67,8 @@ public class Seaside {
     private EventHandler<MouseEvent> handlerMouseReleased;
     private EventHandler<MouseEvent> handlerMouseDragged;
 
-    private ParallelTransition parallelTransition = new ParallelTransition();
+
+    private static ParallelTransition parallelTransition = new ParallelTransition();
 
     public void playGame() {
         this.planes = SpawnModel.generatePlanes();
@@ -99,6 +100,15 @@ public class Seaside {
 
             parallelTransition.getChildren().addAll(this.pathTransitionList);
             parallelTransition.play();
+            /*Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();*/
+
+            /*PauseTransition pt = new PauseTransition(Duration.seconds(4));
+            SequentialTransition sq = new SequentialTransition(parallelTransition, pt);
+            sq.setCycleCount(Timeline.INDEFINITE);
+            sq.play();*/
 
             class ThreadEngine implements Runnable {
 
@@ -114,13 +124,6 @@ public class Seaside {
 
             Thread t = new Thread(new ThreadEngine());
             t.start();
-
-            /*PauseTransition pt = new PauseTransition(Duration.seconds(5));
-            //pt.setCycleCount(Timeline.INDEFINITE);
-            SequentialTransition sq = new SequentialTransition(pl,pt);
-            sq.setCycleCount(Timeline.INDEFINITE);
-            sq.play();*/
-
         });
 
     }
@@ -224,7 +227,7 @@ public class Seaside {
         parallelTransition.stop();
 
         // Terminazione di tutte le animazioni del Plane in corso
-        for (Plane planeSelected : planes) {
+       for (Plane planeSelected : planes) {
             if (planeSelected.getPlaneMovementAnimation() != null) {
                 planeSelected.getPlaneMovementAnimation().stop();
             }
@@ -312,7 +315,7 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        // UserRecordsController.updateScore(name.getText(), getIntScore());
+        parallelTransition.pause();
         CommonView.showDialog(Page.PAUSE);
     }
 
@@ -349,5 +352,9 @@ public class Seaside {
 
     public int getIntScore() {
         return Integer.parseInt(this.score.getText());
+    }
+
+    public static ParallelTransition getParallelTransition() {
+        return parallelTransition;
     }
 }
