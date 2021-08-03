@@ -65,10 +65,10 @@ public class TransitionTest extends Application {
 
         // Inizio funzionamento della View
         // Calculating the Proportion --> (Image:Screen)
-        plane.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-        plane2.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-        plane3.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
-        plane4.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        //plane.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        //plane2.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        //plane3.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        //plane4.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
 
         // View Plane demonstrating:
         paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());

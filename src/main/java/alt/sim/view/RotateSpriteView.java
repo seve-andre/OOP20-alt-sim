@@ -37,13 +37,13 @@ public class RotateSpriteView extends Application {
         Canvas canvas = new Canvas(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
 
         // Calculating the Proportion --> (Image:Screen)
-        p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
+        //p1.getSpritePlane().getImageSpriteResized().resizeImageSprite(true);
 
         // View Plane demonstrating:
         paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
 
         // Insert Plane test into view:
-        paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
+        //paneRoot.getChildren().add(p1.getSpritePlane().getImageSpriteResized().getImageSprite());
 
         // Section Canvas
         paneRoot.getChildren().addAll(canvas);
