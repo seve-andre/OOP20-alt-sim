@@ -1,6 +1,5 @@
 
 #home-bg {
     -fx-background-image: url(../images/home/home_bg.png);
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
+    -fx-background-size: 960 540;
 }
