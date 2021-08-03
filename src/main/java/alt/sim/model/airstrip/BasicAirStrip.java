@@ -35,11 +35,8 @@ public class BasicAirStrip extends AbstractAirStrip {
     private boolean checkCollision(final Plane plane) {
         Bounds monitoredPlaneBounds = plane.getImagePlane().getBoundsInParent();
 
-        if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent())
-                || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
-            return true;
-        }
-        return false;
+        return monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent())
+                || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent());
     }
     /**
      * Setter method for left landing spot.
