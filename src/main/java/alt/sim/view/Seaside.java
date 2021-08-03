@@ -2,6 +2,7 @@ package alt.sim.view;
 
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.controller.game.GameController;
 import alt.sim.controller.user.records.UserRecordsController;
 import alt.sim.model.ExplosionAnimation;
 import alt.sim.model.PlaneMovement;
@@ -15,6 +16,7 @@ import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,9 +60,11 @@ public class Seaside {
     private List<PathTransition> pathTransitionList = new ArrayList<>();
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
-    private List<Plane> planes;
+    private static List<Plane> planes = SpawnModel.generatePlanes();
     private AbstractAirStrip strip;
     private List<Point2D> planeCoordinates;
+
+
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
 
@@ -69,20 +74,24 @@ public class Seaside {
 
 
     private static ParallelTransition parallelTransition = new ParallelTransition();
+    private PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
+    //private SequentialTransition sq = new SequentialTransition(parallelTransition, pauseTransition);
 
     public void playGame() {
-        this.planes = SpawnModel.generatePlanes();
-
-        List<ImageView> planeImages = this.planes.stream()
-                .map(Plane::getImagePlane)
-                .collect(Collectors.toUnmodifiableList());
 
 
         Platform.runLater(() -> {
 
+
+            planes = SpawnModel.generatePlanes();
+
+            List<ImageView> planeImages = planes.stream()
+                    .map(Plane::getImagePlane)
+                    .collect(Collectors.toUnmodifiableList());
+
             pane.getChildren().addAll(planeImages);
-            pane.getChildren().addAll(SpawnModel.generateIndicators());
-            for (Plane plane : this.planes) {
+            //pane.getChildren().addAll(SpawnModel.generateIndicators());
+            for (Plane plane : planes) {
                 plane.connectToController(this);
 
                 while (spawnLocationList.size() != 4) {
@@ -100,15 +109,6 @@ public class Seaside {
 
             parallelTransition.getChildren().addAll(this.pathTransitionList);
             parallelTransition.play();
-            /*Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
-            }));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();*/
-
-            /*PauseTransition pt = new PauseTransition(Duration.seconds(4));
-            SequentialTransition sq = new SequentialTransition(parallelTransition, pt);
-            sq.setCycleCount(Timeline.INDEFINITE);
-            sq.play();*/
 
             class ThreadEngine implements Runnable {
 
@@ -125,7 +125,6 @@ public class Seaside {
             Thread t = new Thread(new ThreadEngine());
             t.start();
         });
-
     }
 
     @FXML
@@ -218,7 +217,6 @@ public class Seaside {
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
 
         playGame();
-
     }
 
     public void terminateGame() {
@@ -227,19 +225,7 @@ public class Seaside {
         parallelTransition.stop();
 
         // Terminazione di tutte le animazioni del Plane in corso
-       for (Plane planeSelected : planes) {
-            if (planeSelected.getPlaneMovementAnimation() != null) {
-                planeSelected.getPlaneMovementAnimation().stop();
-            }
-
-            if (planeSelected.getLandingAnimation() != null) {
-                planeSelected.getLandingAnimation().stop();
-            }
-
-            if (planeSelected.getRandomTransition() != null) {
-                planeSelected.getRandomTransition().stop();
-            }
-        }
+        GameController.stop();
 
         // Disattivazione EventHandlerMouse, NON FUNZIONANO
         canvas.removeEventFilter(MouseEvent.ANY, handlerMouseDragged);
@@ -315,6 +301,7 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
+        GameController.pause();
         parallelTransition.pause();
         CommonView.showDialog(Page.PAUSE);
     }
@@ -326,6 +313,10 @@ public class Seaside {
             testExplosion.getImgExplosion().setY(planeCollided.getImagePlane().getBoundsInParent().getCenterY());
             testExplosion.startExplosion();
         });
+    }
+
+    public static List<Plane> getPlanes() {
+        return planes;
     }
 
     public Canvas getCanvas() {
