@@ -1,8 +1,9 @@
 package alt.sim.model.calculation;
 
-import alt.sim.view.MainPlaneView;
-import javafx.geometry.Point2D;
+import alt.sim.model.SpriteType;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *  Describes the Sprite entity, rather than the rappresentation of a dinamic object in game (Plane, Airstrip).
@@ -14,85 +15,98 @@ import javafx.scene.image.Image;
  *
  */
 public class Sprite {
+    // TO-DO da importare nella classe View o Screen
+    private static final double MIN_SCREEEN_RANGE_WIDTH = 1000;
+    private static final double MIN_SCREEEN_RANGE_HEIGHT = 800;
 
-    /** path of the image location that is showed in the class used. */
-    //private static String urlSprite;
+    private final double smallPlaneSizeWidth = 32;
+    private final double smallPlaneSizeHeight = 32;
 
-    //Aggiungiamo questo campo di TEST
-    private ImageSprite imageSpriteResized;
-    //private Point2D point;
-    private double x;
-    private double y;
+    private Image bufferedSprite;
+    private ImageView sprite;
 
-    /** 
-     * @param urlSprite contains url of the image to load
-     * @param isPreserveRatio specific if the preserveRatio of the image is active
-     */
-    public Sprite(final String urlSprite, final boolean isPreserveRatio) {
-        this.x = 0;
-        this.y = 0;
+    private double centerX;
+    private double centerY;
 
-        imageSpriteResized = new ImageSprite(urlSprite, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight(), isPreserveRatio);
-    }
-
-    public Sprite(final String urlSprite) {
-        this.x = 0;
-        this.y = 0;
-
-        imageSpriteResized = new ImageSprite(urlSprite);
-    }
-
-    public Sprite(final Point2D positionSprite) {
-        this.x = positionSprite.getX();
-        this.y = positionSprite.getY();
-
+    public Sprite(final SpriteType type) {
+        this(type.getURLImage());
     }
 
     /**
-     * @param imageSpriteToLoad to add in the imageSprite
-     * @param point where place the Sprite 
+     * @param urlSprite contains url of the image to load
      */
-    public Sprite(final Image imageSpriteToLoad, final Point2D point) {
-        //this.point = point;
+    public Sprite(final String urlSprite) {
+        this.bufferedSprite = new Image(urlSprite);
+        this.sprite = new ImageView(bufferedSprite);
 
-        this.x = point.getX();
-        this.y = point.getY();
+        this.centerX = 0;
+        this.centerY = 0;
+
+        //resize calculation:
+        resizeSpriteToMap(false);
     }
 
-    public ImageSprite getImageSpriteResized() {
-        return this.imageSpriteResized;
-    }
+    //----------------------------------------------------------------
 
-    public void setImageSpriteResized(final String newUrlImage) {
-        this.imageSpriteResized.setImageSprite(newUrlImage);
-    }
-
-    /*
-     * public void setPoint2D(final Point2D point) { this.point = point; }
+    /**
+     * Metodo per ridimensionare il l'immagine della Sprite a seconda
+     * della dimensione dello Schermo principale.
+     *
+     * @param isPreserveRatio: specifica se l'immagine ridimensionata, mantiene il rapporto originale
      */
+    private void resizeSpriteToMap(final boolean isPreserveRatio) {
+        sprite.setPreserveRatio(isPreserveRatio);
+
+        //if (Seaside.SCREEN_BOUND.getWidth() >= MIN_SCREEEN_RANGE_WIDTH && Seaside.SCREEN_BOUND.getHeight() >= MIN_SCREEEN_RANGE_HEIGHT) {
+            this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
+            this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
+        //} else {
+          //  this.sprite.setFitWidth(smallPlaneSizeWidth);
+           // this.sprite.setFitHeight(smallPlaneSizeHeight);
+        //}
+    }
+
+    public ImageView getSprite() {
+        return this.sprite;
+    }
 
     public void setX(final double x) {
-        this.x = x;
+        this.centerX = calculateCenterX(x);
+
+        this.sprite.setX(centerX);
     }
 
     public void setY(final double y) {
-        this.y = y;
+        this.centerY = calculateCenterY(y);
+
+        this.sprite.setY(centerY);
     }
 
-    public double getX() {
-        return this.x;
+    public double getCenterX() {
+        return this.centerX;
     }
 
-    public double getY() {
-        return this.y;
+    public double getCenterY() {
+        return this.centerY;
     }
 
-    public Point2D getPoint() { 
-        return new Point2D(this.getX(), this.getY()); 
+    private double calculateCenterX(final double x) {
+        return (x - (getLocalBound().getWidth() / 2));
     }
 
-    /*
-     * public static void setURLSprite(final String url) { Sprite.urlSprite =
-     * ClassLoader.getSystemResource(url).toExternalForm(); }
-     */
+    private double calculateCenterY(final double y) {
+        return (y - (getLocalBound().getHeight() / 2));
+    }
+
+    public Bounds getLocalBound() {
+        return this.sprite.getBoundsInLocal();
+    }
+
+    public Bounds getParentBound() {
+        return this.sprite.getBoundsInParent();
+    }
+
+    public void setSpritePlane(final String newUrlImage) {
+        this.sprite.setImage(new Image(newUrlImage));
+    }
 }
