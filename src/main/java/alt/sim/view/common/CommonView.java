@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -32,6 +33,7 @@ public final class CommonView {
         Stage popupStage = new Stage(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/" + page.getName() + ".fxml"));
         popupStage.setScene(new Scene(root));
+        popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.showAndWait();
     }
 

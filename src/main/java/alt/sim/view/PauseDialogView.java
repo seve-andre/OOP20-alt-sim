@@ -6,7 +6,6 @@ import javafx.animation.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class PauseDialogView {
 
@@ -15,9 +14,9 @@ public class PauseDialogView {
 
     @FXML
     public void onResumeClick(final ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        if (Seaside.getParallelTransition().getStatus().equals(Animation.Status.PAUSED)) {
-            Seaside.getParallelTransition().play();
+        ((Button) event.getSource()).getScene().getWindow().hide();
+        if (Seaside.getOnePlanePT().getStatus().equals(Animation.Status.PAUSED)) {
+            Seaside.getOnePlanePT().play();
         }
         GameController.resume();
     }
