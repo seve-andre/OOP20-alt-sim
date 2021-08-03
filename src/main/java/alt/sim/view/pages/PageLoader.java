@@ -10,8 +10,11 @@ import java.io.IOException;
 
 public final class PageLoader {
 
-    private static final int HEIGHT = 720;
-    private static final int WIDTH = 1280;
+    private static final double HEIGHT_GAME = 720;
+    private static final double WIDTH_GAME = 1280;
+
+    private static final double HEIGHT_HOME = 540;
+    private static final double WIDTH_HOME = 960;
 
     private PageLoader() { }
 
@@ -24,9 +27,13 @@ public final class PageLoader {
 
         if (page.getName().equals(Page.GAME.getName())) {
             page.setName(gameMap.getName());
-            Main.getStage().setHeight(HEIGHT);
-            Main.getStage().setWidth(WIDTH);
+            Main.getStage().setHeight(HEIGHT_GAME);
+            Main.getStage().setWidth(WIDTH_GAME);
+        } else {
+            Main.getStage().setHeight(HEIGHT_HOME);
+            Main.getStage().setWidth(WIDTH_HOME);
         }
+
         Parent root = null;
 
         try {
