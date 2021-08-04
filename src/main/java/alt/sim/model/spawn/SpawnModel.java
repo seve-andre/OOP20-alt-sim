@@ -70,7 +70,7 @@ public final class SpawnModel {
 
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setNode(plane.getImagePlane());
+        pathTransition.setNode(plane.getSprite());
         pathTransition.setDuration(Duration.millis(PATH_TRANSITION_DURATION));
         pathTransition.setOnFinished(event -> plane.setState(State.WAITING));
 
@@ -92,8 +92,8 @@ public final class SpawnModel {
         for (int i = 0; i < 4; i++) {
             Plane plane = new Plane("images/map_components/airplane.png");
             plane.setState(State.SPAWNING);
-            plane.getImagePlane().setFitWidth(64);
-            plane.getImagePlane().setFitHeight(64);
+            plane.getSprite().setFitWidth(64);
+            plane.getSprite().setFitHeight(64);
             planes.add(plane);
         }
 
