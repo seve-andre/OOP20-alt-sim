@@ -7,7 +7,11 @@ import java.util.List;
 
 public final class GameController {
 
-    private GameController() { }
+    private Seaside transitionSeaside;
+
+    public GameController(final Seaside transitionSeaside) {
+        this.transitionSeaside = transitionSeaside;
+    }
 
     private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         List<Plane> planes = Seaside.getPlanes();
@@ -56,5 +60,17 @@ public final class GameController {
 
     public static void stop() {
         pauseResumeOrStop(false, false, true);
+    }
+
+    public void checkScore(final int score) {
+         if (score < 2100) {
+            if (score >= 500 && score < 1000) {
+                transitionSeaside.setNumberPlanesToSpawn(2);
+            } else if (score >= 1000 && score <= 1500) {
+                transitionSeaside.setNumberPlanesToSpawn(3);
+            } else if (score >= 2000) {
+                transitionSeaside.setNumberPlanesToSpawn(4);
+            }
+        }
     }
 }
