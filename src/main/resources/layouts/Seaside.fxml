@@ -43,6 +43,16 @@
             <Image url="@../images/map_components/boat.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="510.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" rotate="-60.0">
+         <image>
+            <Image url="@../images/map_components/singleAirstrip.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="495.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/map_components/singleAirstrip.png" />
+         </image>
+      </ImageView>
       <Canvas fx:id="canvas" height="723.0" onMouseDragged="#handlerMouseDragged" onMouseReleased="#handlerMouseReleased" width="1284.0" />
       <Text layoutX="739.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME:">
          <font>
@@ -72,22 +82,12 @@
             <String fx:value="opacity" />
          </styleClass>
       </TextField>
-      <Rectangle fx:id="landingBoxLeft" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="3.0" layoutX="430.0" layoutY="274.0" rotate="-60.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
-      <Rectangle fx:id="landingBoxRight" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="3.0" layoutX="501.0" layoutY="251.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+      <Rectangle fx:id="landingBoxLeft" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="3.0" layoutX="430.0" layoutY="274.0" rotate="-60.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="30.0" />
+      <Rectangle fx:id="landingBoxRight" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="3.0" layoutX="501.0" layoutY="251.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="30.0" />
       <Button id="pause-btn" layoutX="1174.0" layoutY="40.0" mnemonicParsing="false" onAction="#onPauseClick" styleClass="red-btn" stylesheets="@../css/base.css" text="PAUSE" textFill="#d6d6cb">
          <font>
             <Font name="Consolas Bold" size="12.0" />
          </font>
       </Button>
-      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="510.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" rotate="-60.0">
-         <image>
-            <Image url="@../images/map_components/singleAirstrip.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="495.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/map_components/singleAirstrip.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
