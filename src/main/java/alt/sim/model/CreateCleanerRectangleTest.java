@@ -3,7 +3,6 @@ package alt.sim.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import alt.sim.view.MainPlaneView;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -31,7 +30,7 @@ public class CreateCleanerRectangleTest extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         paneRoot = new Pane();
-        paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        paneRoot.resize(800, 800);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
         gc = canvas.getGraphicsContext2D();
@@ -68,7 +67,7 @@ public class CreateCleanerRectangleTest extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
 
         stage.addEventHandler(KeyEvent.KEY_PRESSED, handlerKeyPressed);
-        Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        Scene scene = new Scene(paneRoot, 800, 800);
         stage.setScene(scene);
         stage.show();
     }

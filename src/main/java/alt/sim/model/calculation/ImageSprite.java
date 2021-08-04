@@ -1,7 +1,6 @@
 package alt.sim.model.calculation;
 
 import alt.sim.model.SpriteRedimensioned;
-import alt.sim.view.MainPlaneView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -35,7 +34,7 @@ public class ImageSprite {
 
         proportionImageResized = new SpriteRedimensioned();
         proportionImageResized.setRatioSpriteValue(widthImage, heightImage);
-        proportionImageResized.setRatioScreenValue(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        proportionImageResized.setRatioScreenValue(800, 800);
 
         // Resize the ImageView
         resizeImageSprite(true);
