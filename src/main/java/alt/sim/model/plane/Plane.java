@@ -153,8 +153,7 @@ public class Plane {
             }
 
             // DI TEST PER IL FUORIBORDO, da DECOMMENTARE!!!
-            controllerSeaside.insertPlaneInMap(this);
-            //controllerFuoriBordo.insertPlaneInMap(this);
+            //controllerSeaside.insertPlaneInMap(this);
 
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
