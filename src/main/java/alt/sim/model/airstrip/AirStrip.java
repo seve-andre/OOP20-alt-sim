@@ -13,7 +13,7 @@ public interface AirStrip {
      * Method that when a plane is on landing spot, lands him.
      * @param plane: the plane that should land
      */
-    void acceptPlane(Plane plane);
+    boolean acceptPlane(Plane plane);
 
     /**
      * Method that calculates the area which plane should land.
