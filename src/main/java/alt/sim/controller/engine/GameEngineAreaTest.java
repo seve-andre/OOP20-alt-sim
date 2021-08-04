@@ -89,7 +89,7 @@ public class GameEngineAreaTest implements GameEngine {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
 
             if (checkLanding(planeMonitored)) {
-                scoreGame += 100;
+                //scoreGame += 100;
                 planesToRemove.add(planeMonitored);
                 continue;
             }
@@ -115,13 +115,6 @@ public class GameEngineAreaTest implements GameEngine {
 
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(selectedPlaneBounds)) {
-
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setHeaderText("GAME_OVER");
-                        alert.show();
-                    });
-
                     System.out.println("GAME_OVER");
                     System.out.printf(
                             "Collision detected: between plane:%d at (%f, %f) and plane:%d at (%f, %f)\n",
@@ -132,8 +125,8 @@ public class GameEngineAreaTest implements GameEngine {
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
                     transitionSeaside.terminateGame();
-                    planesToRemove.add(planeMonitored);
-                    planesToRemove.add(planeSelected);
+                    //planesToRemove.add(planeMonitored);
+                    //planesToRemove.add(planeSelected);
                 }
             }
         }
