@@ -19,8 +19,9 @@ public class HelipadAirStrip extends AbstractAirStrip {
     }
 
     @Override
-    public void acceptPlane(final Plane plane) {
+    public boolean acceptPlane(final Plane plane) {
         //TODO enable plane acception
+        return false;
     }
 
     @Override
