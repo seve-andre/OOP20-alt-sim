@@ -23,5 +23,10 @@ public enum State {
     /**
      * (3) Plane is moving following User Path. 
      */
-    USER_MOVEMENT
+    USER_MOVEMENT,
+
+    /**
+     * (4) Plane is landing in AirStrip.
+     */
+    LANDED;
 }
