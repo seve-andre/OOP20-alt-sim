@@ -1,30 +1,70 @@
 package alt.sim.model.plane;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import javafx.util.Duration;
 
 public class ObservableState {
-    private SimpleStringProperty simpleStateProperty;
+    private final ObjectProperty<State> stateProperty;
+    //    private SimpleStringProperty simpleStateProperty;
+    private Timeline timeline;
+    private Plane planeObserved;
 
-    public ObservableState(final String stateValue) {
-        this.simpleStateProperty = new SimpleStringProperty(stateValue);
+    private final ChangeListener<? super State> listener;
+
+    public ObservableState(final Plane planeObserved, final State state){
+//        this.simpleStateProperty = new SimpleStringProperty(stateValue);
+        stateProperty = new SimpleObjectProperty<>(state);
+        this.planeObserved = planeObserved;
+
+        System.out.println("create Plane: " + planeObserved.hashCode() + " State = " + state);
+
+        listener = (observable, oldValue, newValue) -> {
+            //System.out.println("stateTest Changed!");
+            //System.out.println("Old state: " + oldValue);
+            //System.out.println("New state: " + newValue);
+
+            this.planeObserved.stopPlaneMovementAnimation();
+            this.planeObserved.stopRandomTransition();
+
+            this.timeline = new Timeline(new KeyFrame(Duration.millis(4000),
+                    e -> { }));
+
+            timeline.setCycleCount(1);
+            timeline.play();
+            timeline.setOnFinished(finish -> {
+                if (planeObserved.getState().equals(State.WAITING)) {
+                    Screen screenGame = Screen.getPrimary();
+                    Rectangle2D screenBound = screenGame.getVisualBounds();
+
+                    this.planeObserved.loadRandomTransition(screenBound.getWidth(), screenBound.getHeight());
+                }
+            });
+        };
 
         //Add Listener in State
-        this.getSimpleStateProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("stateTest Changed!");
-            System.out.println("oldValue: " + oldValue);
-            System.out.println("newValue: " + newValue + "\n");
-        });
+        stateProperty.addListener(listener);
     }
 
-    public void setSimpleStateValue(final String stateValue) {
-        this.simpleStateProperty.setValue(stateValue);
+    public void setState(final State state) {
+        stateProperty.setValue(state);
     }
 
-    public String getSimpleStateValue() {
-        return this.simpleStateProperty.getValue();
+    public State getState() {
+        return stateProperty.getValue();
     }
 
-    public SimpleStringProperty getSimpleStateProperty() {
-        return this.simpleStateProperty;
+    public ObjectProperty<State> getStateProperty() {
+        return stateProperty;
+    }
+
+    public void removeListener() {
+        stateProperty.removeListener(listener);
     }
 }
