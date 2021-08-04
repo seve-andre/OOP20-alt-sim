@@ -23,11 +23,6 @@
             <Image url="@../images/map_components/boat.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgViewPlaneLandingArea" fitHeight="277.0" fitWidth="301.0" layoutX="409.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/map_components/airstrip.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="11.0" fitWidth="35.0" layoutX="153.0" layoutY="576.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/map_components/boat.png" />
@@ -84,5 +79,15 @@
             <Font name="Consolas Bold" size="12.0" />
          </font>
       </Button>
+      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="510.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" rotate="-60.0">
+         <image>
+            <Image url="@../images/map_components/singleAirstrip.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="495.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/map_components/singleAirstrip.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

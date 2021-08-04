@@ -8,7 +8,6 @@ import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-
 import alt.sim.view.Seaside;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
@@ -52,7 +51,7 @@ public class GameEngineImpl implements GameEngine {
         this.pathTransition = new PathTransition();
         this.playedExplosion = false;
         this.engineStart = false;
-        this.strip = transitionSeaside.getStrip();
+        //this.strip = transitionSeaside.getStrip();
     }
 
     public GameEngineImpl() {
@@ -127,7 +126,7 @@ public class GameEngineImpl implements GameEngine {
                             "Collision detected: between plane:%d at (%f, %f) and plane:%d at (%f, %f)\n",
                             planeMonitored.hashCode(), monitoredPlaneBounds.getCenterX(), monitoredPlaneBounds.getCenterY(),
                             planeSelected.hashCode(), selectedPlaneBounds.getCenterX(), selectedPlaneBounds.getCenterY()
-                    );
+                            );
 
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
@@ -169,9 +168,9 @@ public class GameEngineImpl implements GameEngine {
 
                 System.out.println("COORDINATE ERROR " + planeSelected.hashCode() + ": " + planeSelected.getSprite().getBoundsInParent().getCenterX() + " , " + planeSelected.getSprite().getBoundsInParent().getCenterY());
                 System.out.println("selectedPlaneBounds.getMinX() < 0: " + selectedPlaneBounds.getMinX()
-                        + " selectedPlaneBounds.getMaxX() > boundaryMap.getWidth(): " + selectedPlaneBounds.getMaxX() + " | " +  boundaryMap.getWidth()
-                        + " selectedPlaneBounds.getMinY() < 0:  " + selectedPlaneBounds.getMinY()
-                        + " selectedPlaneBounds.getMaxY() > boundaryMap.getHeight()" + selectedPlaneBounds.getMaxY() + " | "  + boundaryMap.getHeight());
+                + " selectedPlaneBounds.getMaxX() > boundaryMap.getWidth(): " + selectedPlaneBounds.getMaxX() + " | " +  boundaryMap.getWidth()
+                + " selectedPlaneBounds.getMinY() < 0:  " + selectedPlaneBounds.getMinY()
+                + " selectedPlaneBounds.getMaxY() > boundaryMap.getHeight()" + selectedPlaneBounds.getMaxY() + " | "  + boundaryMap.getHeight());
 
                 startExplosionPlane(planeSelected);
                 transitionSeaside.terminateGame();

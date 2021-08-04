@@ -10,8 +10,7 @@ import javafx.scene.shape.Rectangle;
  * This class represents the standard airstrip which accepts classic planes.
  */
 public class BasicAirStrip extends AbstractAirStrip {
-    private Rectangle landingBoxLeft;
-    private Rectangle landingBoxRight;
+    private Rectangle landingBox;
     private Seaside transitionSeaside;
     //private List<plane> planes;
     //private List<plane> planesToRemove;
@@ -47,7 +46,7 @@ public class BasicAirStrip extends AbstractAirStrip {
     }*/
 
     //TO-DO: da eliminare una volta terminato i Test
-  /*  @Override
+    /*  @Override
     public void acceptPlane(final Plane plane) {
         if (checkCollision(plane) && !plane.isLanded()) {
             plane.setState(State.LANDED);
@@ -91,8 +90,7 @@ public class BasicAirStrip extends AbstractAirStrip {
     private boolean checkCollision(final Plane plane) {
         Bounds monitoredPlaneBounds = plane.getSprite().getBoundsInParent();
 
-        if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent())
-                || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
+        if (monitoredPlaneBounds.intersects(landingBox.getBoundsInParent())) {
             this.score += 100;
             System.out.println(score);
             return true;
@@ -100,30 +98,12 @@ public class BasicAirStrip extends AbstractAirStrip {
         return false;
     }
 
-    /*private boolean checkCollision(final Plane plane) {
-        Bounds monitoredPlaneBounds = plane.getSprite().getBoundsInParent();
-
-        if (monitoredPlaneBounds.intersects(landingBoxLeft.getBoundsInParent())
-                || monitoredPlaneBounds.intersects(landingBoxRight.getBoundsInParent())) {
-
-            return true;
-        }
-        return false;
-    }*/
-
     /**
      * Setter method for left landing spot.
-     * @param leftBox: the left rectangle
+     * @param box: the rectangle where planes should land
      */
-    public void setBoxLeft(final Rectangle leftBox) {
-        this.landingBoxLeft = leftBox;
-    }
-    /**
-     * Setter method for right landing spot.
-     * @param rightBox: the right rectangle
-     */
-    public void setBoxRight(final Rectangle rightBox) {
-        this.landingBoxRight = rightBox;
+    public void setBox(final Rectangle box) {
+        this.landingBox = box;
     }
 
     @Override

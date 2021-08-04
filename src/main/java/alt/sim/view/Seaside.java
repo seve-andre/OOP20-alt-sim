@@ -66,7 +66,7 @@ public class Seaside {
     private Canvas canvas;
 
     @FXML
-    void handlerMouseDragged(MouseEvent event) {
+    void handlerMouseDragged(final MouseEvent event) {
         if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
             planeCoordinates.add(new Point2D(event.getX(), event.getY()));
             gc.lineTo(event.getX(), event.getY());
@@ -76,7 +76,7 @@ public class Seaside {
     }
 
     @FXML
-    void handlerMouseReleased(MouseEvent event) {
+    void handlerMouseReleased(final MouseEvent event) {
         Point2D puntoInizioPercorso;
         double distanzaDalPlane = 0;
 
@@ -151,7 +151,8 @@ public class Seaside {
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
     private static List<Plane> planes = SpawnModel.generatePlanes();
-    private AbstractAirStrip strip;
+    private AbstractAirStrip stripLeft;
+    private AbstractAirStrip stripRight;
     private List<Point2D> planeCoordinates;
 
     private GraphicsContext gc;
@@ -322,7 +323,8 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        strip = new BasicAirStrip("images/map_components/airstrip.png", this);
+        stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
+        stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
         Game newGame = new Game();
         engine = new GameEngineAreaTest(this);
 
@@ -370,9 +372,10 @@ public class Seaside {
                 (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
                 );
 
-        strip.setAirStripImage(imgViewPlaneLandingArea);
-        ((BasicAirStrip) strip).setBoxLeft(landingBoxLeft);
-        ((BasicAirStrip) strip).setBoxRight(landingBoxRight);
+        stripLeft.setAirStripImage(imgViewPlaneLandingArea);
+        stripRight.setAirStripImage(imgViewPlaneLandingArea);
+        ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
+        ((BasicAirStrip) stripRight).setBox(landingBoxRight);
 
         this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(10), cycle -> {
             spawnPlane(numberPlanesToSpawnEachTime);
@@ -541,8 +544,12 @@ public class Seaside {
         });
     }
 
-    public AbstractAirStrip getStrip() {
-        return this.strip;
+    public AbstractAirStrip getStripLeft() {
+        return this.stripLeft;
+    }
+
+    public AbstractAirStrip getStripRight() {
+        return this.stripRight;
     }
 
     public AnchorPane getPane() {

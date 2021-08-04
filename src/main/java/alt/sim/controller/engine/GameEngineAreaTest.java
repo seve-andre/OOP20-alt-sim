@@ -8,14 +8,12 @@ import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-
 import alt.sim.view.Seaside;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 public class GameEngineAreaTest implements GameEngine {
@@ -31,7 +29,8 @@ public class GameEngineAreaTest implements GameEngine {
     private List<Plane> planesToRemove;
     private PathTransition pathTransition;
     private Bounds boundaryMap;
-    private AbstractAirStrip strip;
+    private AbstractAirStrip stripLeft;
+    private AbstractAirStrip stripRight;
 
     private boolean playedExplosion;
     private boolean engineStart;
@@ -52,7 +51,8 @@ public class GameEngineAreaTest implements GameEngine {
         this.pathTransition = new PathTransition();
         this.playedExplosion = false;
         this.engineStart = false;
-        this.strip = transitionSeaside.getStrip();
+        this.stripLeft = transitionSeaside.getStripLeft();
+        this.stripRight = transitionSeaside.getStripRight();
     }
 
     public GameEngineAreaTest() {
@@ -127,7 +127,7 @@ public class GameEngineAreaTest implements GameEngine {
                             "Collision detected: between plane:%d at (%f, %f) and plane:%d at (%f, %f)\n",
                             planeMonitored.hashCode(), monitoredPlaneBounds.getCenterX(), monitoredPlaneBounds.getCenterY(),
                             planeSelected.hashCode(), selectedPlaneBounds.getCenterX(), selectedPlaneBounds.getCenterY()
-                    );
+                            );
 
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
@@ -185,7 +185,7 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     private boolean checkLanding(final Plane planeSelected) {
-        return !planeSelected.isLanded() && strip.acceptPlane(planeSelected);
+        return !planeSelected.isLanded() && (stripLeft.acceptPlane(planeSelected) || stripRight.acceptPlane(planeSelected));
     }
 
     private void startExplosionPlane(final Plane plane) {
@@ -202,7 +202,7 @@ public class GameEngineAreaTest implements GameEngine {
         // Controllo ad ogni frame se Plane collide con qualche oggetto
         checkCollision();
 
-       /* if (scoreGame < 2100) {
+        /* if (scoreGame < 2100) {
             if (scoreGame >= 500 && scoreGame <= 1000) {
                 transitionSeaside.setNumberPlanesToSpawn(2);
             } else if (scoreGame >= 1000 && scoreGame <= 1500) {
@@ -215,7 +215,7 @@ public class GameEngineAreaTest implements GameEngine {
 
     @Override
     public void render() {
-       /* try {
+        /* try {
             if (engineStart && planes.get(0) != null) {
                 Bounds monitoredPlaneBounds = planes.get(0).getImgViewPlane().getBoundsInParent();
 
@@ -225,9 +225,9 @@ public class GameEngineAreaTest implements GameEngine {
                 rect.setStroke(Color.BLUE);
                 rect.setStrokeWidth(2);
 
-                *//*
-                 * Platform.runLater(() -> transitionFuoriBordo.drawBounds(rect) );
-                 *//*
+         *//*
+         * Platform.runLater(() -> transitionFuoriBordo.drawBounds(rect) );
+         *//*
             }
         } catch (Exception e) { }*/
     }
