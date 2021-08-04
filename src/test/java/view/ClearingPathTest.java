@@ -1,10 +1,9 @@
-package alt.sim.model;
+package view;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import alt.sim.model.plane.Plane;
-import alt.sim.view.MainPlaneView;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -41,12 +40,12 @@ public class ClearingPathTest extends Application {
         plane1 = new Plane("images/map_components/airplane.png");
         plane2 = new Plane("images/map_components/airplane.png");
 
-        paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
-        paneRoot.getChildren().add(plane1.getImagePlane());
-        paneRoot.getChildren().add(plane2.getImagePlane());
+        //paneRoot.resize(MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        paneRoot.getChildren().add(plane1.getSprite());
+        paneRoot.getChildren().add(plane2.getSprite());
 
-        plane2.getImagePlane().setX(500);
-        plane2.getImagePlane().setY(500);
+        plane2.getSprite().setX(500);
+        plane2.getSprite().setY(500);
         //plane2.connetToControllerClaringPathTest(this);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
@@ -103,7 +102,7 @@ public class ClearingPathTest extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, handlerMouseMoved);
 
-        Scene scene = new Scene(paneRoot, MainPlaneView.getScreenWidth(), MainPlaneView.getScreenHeight());
+        Scene scene = new Scene(paneRoot, 800, 800);
         stage.setScene(scene);
         stage.show();
     }
