@@ -1,5 +1,14 @@
 package alt.sim.view;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.game.GameController;
@@ -15,9 +24,14 @@ import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -32,11 +46,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class Seaside {
     @FXML
@@ -246,68 +255,68 @@ public class Seaside {
         final double halfHeight = height / 2.0;
 
         switch (side) {
-            case TOP:
-                indicatorTop.setX(halfWidth);
-                indicatorTop.setY(delta);
+        case TOP:
+            indicatorTop.setX(halfWidth);
+            indicatorTop.setY(delta);
 
-                fadeTop.setFromValue(1);
-                fadeTop.setToValue(0);
-                fadeTop.setDuration(Duration.millis(1000));
-                fadeTop.setCycleCount(3);
-                fadeTop.setNode(indicatorTop);
+            fadeTop.setFromValue(1);
+            fadeTop.setToValue(0);
+            fadeTop.setDuration(Duration.millis(1000));
+            fadeTop.setCycleCount(3);
+            fadeTop.setNode(indicatorTop);
 
-                fadeTop.play();
-                indicatorTop.setVisible(true);
+            fadeTop.play();
+            indicatorTop.setVisible(true);
 
 
-                break;
+            break;
 
-            case RIGHT:
-                indicatorRight.setX(width - delta);
-                indicatorRight.setY(halfHeight);
+        case RIGHT:
+            indicatorRight.setX(width - delta);
+            indicatorRight.setY(halfHeight);
 
-                fadeRight.setFromValue(1);
-                fadeRight.setToValue(0);
-                fadeRight.setDuration(Duration.millis(1000));
-                fadeRight.setCycleCount(3);
-                fadeRight.setNode(indicatorRight);
+            fadeRight.setFromValue(1);
+            fadeRight.setToValue(0);
+            fadeRight.setDuration(Duration.millis(1000));
+            fadeRight.setCycleCount(3);
+            fadeRight.setNode(indicatorRight);
 
-                fadeRight.play();
-                indicatorRight.setVisible(true);
+            fadeRight.play();
+            indicatorRight.setVisible(true);
 
-                break;
+            break;
 
-            case BOTTOM:
-                indicatorBottom.setX(halfWidth);
-                indicatorBottom.setY(height - delta);
+        case BOTTOM:
+            indicatorBottom.setX(halfWidth);
+            indicatorBottom.setY(height - delta);
 
-                fadeBottom.setFromValue(1);
-                fadeBottom.setToValue(0);
-                fadeBottom.setDuration(Duration.millis(1000));
-                fadeBottom.setCycleCount(3);
-                fadeBottom.setNode(indicatorBottom);
+            fadeBottom.setFromValue(1);
+            fadeBottom.setToValue(0);
+            fadeBottom.setDuration(Duration.millis(1000));
+            fadeBottom.setCycleCount(3);
+            fadeBottom.setNode(indicatorBottom);
 
-                fadeBottom.play();
-                indicatorBottom.setVisible(true);
+            fadeBottom.play();
+            indicatorBottom.setVisible(true);
 
-                break;
+            break;
 
-            case LEFT:
-                indicatorLeft.setX(delta);
-                indicatorLeft.setY(halfHeight);
+        case LEFT:
+            indicatorLeft.setX(delta);
+            indicatorLeft.setY(halfHeight);
 
-                fadeLeft.setFromValue(1);
-                fadeLeft.setToValue(0);
-                fadeLeft.setDuration(Duration.millis(1000));
-                fadeLeft.setCycleCount(3);
-                fadeLeft.setNode(indicatorLeft);
+            fadeLeft.setFromValue(1);
+            fadeLeft.setToValue(0);
+            fadeLeft.setDuration(Duration.millis(1000));
+            fadeLeft.setCycleCount(3);
+            fadeLeft.setNode(indicatorLeft);
 
-                fadeLeft.play();
-                indicatorLeft.setVisible(true);
-                break;
+            fadeLeft.play();
+            indicatorLeft.setVisible(true);
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
     }
 
@@ -356,10 +365,10 @@ public class Seaside {
 
         imgViewHelicopterLandingArea.setX(
                 (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
-        );
+                );
         imgViewHelicopterLandingArea.setY(
                 (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
-        );
+                );
 
         strip.setAirStripImage(imgViewPlaneLandingArea);
         ((BasicAirStrip) strip).setBoxLeft(landingBoxLeft);
@@ -467,13 +476,13 @@ public class Seaside {
                     gc.moveTo(
                             planeSelected.getPlaneLinesPath().get(0).getX(),
                             planeSelected.getPlaneLinesPath().get(0).getY()
-                    );
+                            );
 
                     for (int k = 1; k < planeSelected.getPlaneLinesPath().size(); k++) {
                         gc.lineTo(
                                 planeSelected.getPlaneLinesPath().get(k).getX(),
                                 planeSelected.getPlaneLinesPath().get(k).getY()
-                        );
+                                );
                     }
 
                     gc.setStroke(Color.BLUE);
@@ -550,5 +559,10 @@ public class Seaside {
 
     public static ParallelTransition getParallelTransition() {
         return parallelTransition;
+    }
+
+    public static Animation getOnePlanePT() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
