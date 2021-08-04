@@ -2,6 +2,7 @@ package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
 import alt.sim.model.user.User;
+import alt.sim.view.Seaside;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -14,6 +15,7 @@ public abstract class AbstractAirStrip implements AirStrip {
 
     private AirStripStatus status;
     private ImageView imageAirstrip;
+    private Seaside transitionSeasideFix;
 
     /**
      * When an airstrip is created, is ready to accept planes.
@@ -23,11 +25,19 @@ public abstract class AbstractAirStrip implements AirStrip {
         this.status = AirStripStatus.FREE;
     }
 
+    /**
+     * When an airstrip is created, is ready to accept planes.
+     */
+    public AbstractAirStrip(final String url, final Seaside transitionSeasideFix) {
+        this(url);
+        this.transitionSeasideFix = transitionSeasideFix;
+    }
+
     @Override
     public abstract Rectangle getLandSpot();
 
-    @Override
-    public abstract void acceptPlane(Plane plane);
+    //@Override
+    //public abstract void acceptPlane(Plane plane);
 
     @Override
     public void setScore(final User user, final int score) {
@@ -35,7 +45,8 @@ public abstract class AbstractAirStrip implements AirStrip {
     }
     /**
      * Getter method for the airstrip enum status property.
-     * @return the status of the airstrip
+     * @return the s@Override
+    tatus of the airstrip
      */
     public AirStripStatus getStatus() {
         return this.status;
@@ -62,4 +73,7 @@ public abstract class AbstractAirStrip implements AirStrip {
     public void setAirStripImage(final ImageView image) {
         this.imageAirstrip = image;
     }
+
+    //TODO: da eliminare una volta terminato i Test su package planeFix
+    public abstract boolean acceptPlane(Plane plane);
 }
