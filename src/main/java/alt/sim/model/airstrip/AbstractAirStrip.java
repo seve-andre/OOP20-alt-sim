@@ -73,4 +73,8 @@ public abstract class AbstractAirStrip implements AirStrip {
     //TODO: da eliminare una volta terminato i Test su package planeFix
     @Override
     public abstract boolean acceptPlane(Plane plane);
+
+    public Seaside getTransitionSeasideFix() {
+        return this.transitionSeasideFix;
+    }
 }
