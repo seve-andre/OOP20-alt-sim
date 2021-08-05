@@ -554,4 +554,8 @@ public class Seaside {
     public static ParallelTransition getOnePlanePT() {
         return parallelTransition;
     }
+
+    public void setNumberPlanesToSpawn(final int numberPlanesToSpawn) {
+        this.numberPlanesToSpawnEachTime = numberPlanesToSpawn;
+    }
 }
