@@ -1,4 +1,5 @@
-package view;
+package alt.sim.view;
+
 
 import java.util.ArrayList;
 import java.util.List;
