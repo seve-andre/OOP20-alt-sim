@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlerMouseClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.controller.PlaneController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlerMouseClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.controller.plane.PlaneController">
    <bottom>
       <Label fx:id="lblCoordinates" text="Coordinates" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>

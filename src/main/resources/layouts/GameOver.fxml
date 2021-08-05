@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 <Pane id="popup-bg" prefHeight="480.0" prefWidth="370.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/" 
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.GameOverView">
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.gameover.GameOverView">
     <Button id="button" layoutX="108.0" layoutY="179.0" onAction="#onHomeClick" 
     	styleClass="blue-btn" text="HOME" textFill="#d6d6cb">
         <font>
