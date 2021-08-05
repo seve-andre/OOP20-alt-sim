@@ -1,8 +1,6 @@
 package alt.sim.controller.engine;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import alt.sim.controller.game.GameController;
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -10,11 +8,11 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.PathTransition;
-import javafx.application.Platform;
 import javafx.geometry.Bounds;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.shape.Rectangle;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameEngineAreaTest implements GameEngine {
     private static final long PERIOD = 400L;
@@ -38,12 +36,14 @@ public class GameEngineAreaTest implements GameEngine {
     private Rectangle landingBoxLeft;
     private Rectangle landingBoxRight;
 
-    private int scoreGame = 1500;
+    private int scoreGame;
+    private GameController gamecontroller;
     //private Model model;
 
     public GameEngineAreaTest(final Seaside transitionSeaside) {
         this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
+        this.gamecontroller = new GameController(this.transitionSeaside);
         this.boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         this.planesToRemove = new LinkedList<>();
 
@@ -74,9 +74,7 @@ public class GameEngineAreaTest implements GameEngine {
 
             try {
                 waitForNextFrame(current);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IllegalArgumentException | InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -89,7 +87,7 @@ public class GameEngineAreaTest implements GameEngine {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
 
             if (checkLanding(planeMonitored)) {
-                //scoreGame += 100;
+                transitionSeaside.addScore(100);
                 planesToRemove.add(planeMonitored);
                 continue;
             }
@@ -125,8 +123,8 @@ public class GameEngineAreaTest implements GameEngine {
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
                     transitionSeaside.terminateGame();
-                    //planesToRemove.add(planeMonitored);
-                    //planesToRemove.add(planeSelected);
+                    planesToRemove.add(planeMonitored);
+                    planesToRemove.add(planeSelected);
                 }
             }
         }
@@ -151,11 +149,11 @@ public class GameEngineAreaTest implements GameEngine {
                     || selectedPlaneBounds.getCenterY() >= 0 && selectedPlaneBounds.getCenterY() <= deltaBound
                     || selectedPlaneBounds.getCenterY() >= Seaside.SCREEN_BOUND.getHeight() - deltaBound &&  selectedPlaneBounds.getCenterY() < (Seaside.SCREEN_BOUND.getHeight())) {
 
-                Platform.runLater(() -> {
+                /*Platform.runLater(() -> {
                     Alert alert = new Alert(AlertType.INFORMATION);
                     alert.setHeaderText("FUORI_BORDO");
                     alert.show();
-                });
+                });*/
 
                 System.out.println("COORDINATE ERROR " + planeSelected.hashCode() + ": " + planeSelected.getSprite().getBoundsInParent().getCenterX() + " , " + planeSelected.getSprite().getBoundsInParent().getCenterY());
                 //System.out.println("selectedPlaneBounds.getMinX() < 0: " + selectedPlaneBounds.getMinX()
@@ -194,16 +192,7 @@ public class GameEngineAreaTest implements GameEngine {
     public void update(final int elapsed) {
         // Controllo ad ogni frame se Plane collide con qualche oggetto
         checkCollision();
-
-        /* if (scoreGame < 2100) {
-            if (scoreGame >= 500 && scoreGame <= 1000) {
-                transitionSeaside.setNumberPlanesToSpawn(2);
-            } else if (scoreGame >= 1000 && scoreGame <= 1500) {
-                transitionSeaside.setNumberPlanesToSpawn(3);
-            } else if (scoreGame >= 2000) {
-                transitionSeaside.setNumberPlanesToSpawn(4);
-            }
-        }*/
+        this.gamecontroller.checkScore(transitionSeaside.getIntScore());
     }
 
     @Override
@@ -243,10 +232,8 @@ public class GameEngineAreaTest implements GameEngine {
         if (dt < PERIOD) {
             try {
                 Thread.sleep(PERIOD - dt);
-            } catch (IllegalArgumentException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
+            } catch (IllegalArgumentException | InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
