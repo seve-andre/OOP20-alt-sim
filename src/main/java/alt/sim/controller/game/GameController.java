@@ -7,14 +7,20 @@ import java.util.List;
 
 public final class GameController {
 
+    private static final int LIMIT_500 = 500;
+    private static final int LIMIT_1000 = 1000;
+    private static final int LIMIT_1500 = 1500;
+    private static final int LIMIT_2000 = 2000;
+    private static final int LIMIT_2100 = 2100;
     private Seaside transitionSeaside;
 
     public GameController(final Seaside transitionSeaside) {
         this.transitionSeaside = transitionSeaside;
     }
 
-    private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
-        List<Plane> planes = Seaside.getPlanes();
+    private void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+        List<Plane> planes = transitionSeaside.getPlanes();
+
         planes.forEach(plane -> {
             if (pause) {
                 if (plane.getPlaneMovementAnimation() != null) {
@@ -26,6 +32,7 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
+                transitionSeaside.getSpawnCountDown().pause();
             } else if (resume) {
                 if (plane.getPlaneMovementAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getPlaneMovementAnimation().play();
@@ -36,6 +43,7 @@ public final class GameController {
                 if (plane.getRandomTransition() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getRandomTransition().play();
                 }
+                transitionSeaside.getSpawnCountDown().play();
             } else if (stop) {
                 if (plane.getPlaneMovementAnimation() != null) {
                     plane.getPlaneMovementAnimation().stop();
@@ -46,29 +54,30 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().stop();
                 }
+                transitionSeaside.getSpawnCountDown().stop();
             }
         });
     }
 
-    public static void pause() {
+    public void pause() {
         pauseResumeOrStop(true, false, false);
     }
 
-    public static void resume() {
+    public void resume() {
         pauseResumeOrStop(false, true, false);
     }
 
-    public static void stop() {
+    public void stop() {
         pauseResumeOrStop(false, false, true);
     }
 
     public void checkScore(final int score) {
-         if (score < 2100) {
-            if (score >= 500 && score < 1000) {
+         if (score < LIMIT_2100) {
+            if (score >= LIMIT_500 && score < LIMIT_1000) {
                 transitionSeaside.setNumberPlanesToSpawn(2);
-            } else if (score >= 1000 && score <= 1500) {
+            } else if (score >= LIMIT_1000 && score <= LIMIT_1500) {
                 transitionSeaside.setNumberPlanesToSpawn(3);
-            } else if (score >= 2000) {
+            } else if (score >= LIMIT_2000) {
                 transitionSeaside.setNumberPlanesToSpawn(4);
             }
         }
