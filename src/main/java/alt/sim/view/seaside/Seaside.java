@@ -1,7 +1,12 @@
 package alt.sim.view.seaside;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -17,10 +22,15 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
-import alt.sim.model.sprite.SpriteType;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -343,10 +353,10 @@ public class Seaside {
 
         imgViewHelicopterLandingArea.setX(
                 (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
-        );
+                );
         imgViewHelicopterLandingArea.setY(
                 (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
-        );
+                );
 
         stripLeft.setAirStripImage(imgViewPlaneLandingArea);
         stripRight.setAirStripImage(imgViewPlaneLandingArea);

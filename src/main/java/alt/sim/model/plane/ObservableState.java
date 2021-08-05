@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -18,8 +17,8 @@ public class ObservableState {
 
     private final ChangeListener<? super State> listener;
 
-    public ObservableState(final Plane planeObserved, final State state){
-//        this.simpleStateProperty = new SimpleStringProperty(stateValue);
+    public ObservableState(final Plane planeObserved, final State state) {
+        //        this.simpleStateProperty = new SimpleStringProperty(stateValue);
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
