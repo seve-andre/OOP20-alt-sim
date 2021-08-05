@@ -1,4 +1,4 @@
-package alt.sim.view;
+package alt.sim.view.path;
 
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package alt.sim.view;
+package alt.sim.view.rectangle;
 
 
 import java.util.ArrayList;
