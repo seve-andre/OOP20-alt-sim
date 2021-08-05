@@ -1,35 +1,24 @@
 package alt.sim.view.seaside;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
+import alt.sim.controller.map.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.game.GameController;
-import alt.sim.controller.map.MapController;
 import alt.sim.controller.user.records.UserRecordsController;
+import alt.sim.model.animation.ExplosionAnimation;
+import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
-import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
-import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.spawn.SpawnLocation;
-import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
+import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -47,7 +36,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 public class Seaside {
+
     @FXML
     private AnchorPane pane = new AnchorPane();
     @FXML
@@ -117,6 +116,7 @@ public class Seaside {
         planeCoordinates.clear();
     }
 
+    private static final int SPAWN_DELAY = 6;
     /**
      * Campo contenente le informazioni globali sullo Schermo della Partita.
      */
@@ -148,25 +148,25 @@ public class Seaside {
     private FadeTransition fadeBottom;
 
     private List<PathTransition> pathTransitionList = new ArrayList<>();
+    private List<PathTransition> pathTransitionList2 = Plane.getPathTransitionList();
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
-    private static List<Plane> planes = new ArrayList<>();
+    private List<Plane> planes = new ArrayList<>();
     private AbstractAirStrip stripLeft;
     private AbstractAirStrip stripRight;
     private List<Point2D> planeCoordinates;
 
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
+    private GameController gameController = new GameController(this);
 
     // Sezione EventHandler<Mouse>
     //private EventHandler<MouseEvent> handlerMouseReleased;
     //private EventHandler<MouseEvent> handlerMouseDragged;
 
     private static ParallelTransition parallelTransition = new ParallelTransition();
-    private PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
-    //private SequentialTransition sq = new SequentialTransition(parallelTransition, pauseTransition);
 
-    public void playGame() {
+    /*public void playGame() {
         Platform.runLater(() -> {
             planes = SpawnModel.generatePlanes();
 
@@ -210,7 +210,7 @@ public class Seaside {
             Thread t = new Thread(new ThreadEngine());
             //t.start();
         });
-    }
+    }*/
 
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         Random r = new Random();
@@ -235,7 +235,6 @@ public class Seaside {
             }
         }
         engine.setPlanes(planes);
-        System.out.println("");
     }
 
     public void loadIndicatorAnimation(final SpawnLocation side) {
@@ -251,64 +250,40 @@ public class Seaside {
         final double halfHeight = height / 2.0;
 
         switch (side) {
-        case TOP:
-            indicatorTop.setX(halfWidth);
-            indicatorTop.setY(delta);
+            case TOP:
+                indicatorTop.setX(halfWidth);
+                indicatorTop.setY(delta);
 
-            fadeTop.setFromValue(1);
-            fadeTop.setToValue(0);
-            fadeTop.setDuration(Duration.millis(1000));
-            fadeTop.setCycleCount(3);
-            fadeTop.setNode(indicatorTop);
+                this.setFadeTransition(fadeTop, indicatorTop);
+                indicatorTop.setVisible(true);
+                break;
 
-            fadeTop.play();
-            indicatorTop.setVisible(true);
-            break;
+            case RIGHT:
+                indicatorRight.setX(width - delta);
+                indicatorRight.setY(halfHeight);
 
-        case RIGHT:
-            indicatorRight.setX(width - delta);
-            indicatorRight.setY(halfHeight);
+                this.setFadeTransition(fadeRight, indicatorRight);
+                indicatorRight.setVisible(true);
+                break;
 
-            fadeRight.setFromValue(1);
-            fadeRight.setToValue(0);
-            fadeRight.setDuration(Duration.millis(1000));
-            fadeRight.setCycleCount(3);
-            fadeRight.setNode(indicatorRight);
+            case BOTTOM:
+                indicatorBottom.setX(halfWidth);
+                indicatorBottom.setY(height - delta);
 
-            fadeRight.play();
-            indicatorRight.setVisible(true);
-            break;
+                this.setFadeTransition(fadeBottom, indicatorBottom);
+                indicatorBottom.setVisible(true);
+                break;
 
-        case BOTTOM:
-            indicatorBottom.setX(halfWidth);
-            indicatorBottom.setY(height - delta);
+            case LEFT:
+                indicatorLeft.setX(delta);
+                indicatorLeft.setY(halfHeight);
 
-            fadeBottom.setFromValue(1);
-            fadeBottom.setToValue(0);
-            fadeBottom.setDuration(Duration.millis(1000));
-            fadeBottom.setCycleCount(3);
-            fadeBottom.setNode(indicatorBottom);
+                this.setFadeTransition(fadeLeft, indicatorLeft);
+                indicatorLeft.setVisible(true);
+                break;
 
-            fadeBottom.play();
-            indicatorBottom.setVisible(true);
-            break;
-
-        case LEFT:
-            indicatorLeft.setX(delta);
-            indicatorLeft.setY(halfHeight);
-
-            fadeLeft.setFromValue(1);
-            fadeLeft.setToValue(0);
-            fadeLeft.setDuration(Duration.millis(1000));
-            fadeLeft.setCycleCount(3);
-            fadeLeft.setNode(indicatorLeft);
-
-            fadeLeft.play();
-            indicatorLeft.setVisible(true);
-            break;
-
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -336,15 +311,9 @@ public class Seaside {
         this.fadeRight = new FadeTransition();
         this.fadeBottom = new FadeTransition();
 
-        indicatorTop.setVisible(false);
-        indicatorLeft.setVisible(false);
-        indicatorRight.setVisible(false);
-        indicatorBottom.setVisible(false);
-
-        pane.getChildren().add(indicatorTop);
-        pane.getChildren().add(indicatorLeft);
-        pane.getChildren().add(indicatorRight);
-        pane.getChildren().add(indicatorBottom);
+        List<ImageView> indicatorList = List.of(indicatorTop, indicatorRight, indicatorBottom, indicatorLeft);
+        indicatorList.forEach(indicator -> indicator.setVisible(false));
+        pane.getChildren().addAll(indicatorList);
 
         // A inizio partita si spawnerà 1 Plane alla volta, poi successivamente,
         // ogni 500 punti raggiunti numberPlanesToSpawnEachTime incrementerà di 1 fino
@@ -353,17 +322,17 @@ public class Seaside {
 
         imgViewHelicopterLandingArea.setX(
                 (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
-                );
+        );
         imgViewHelicopterLandingArea.setY(
                 (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
-                );
+        );
 
         stripLeft.setAirStripImage(imgViewPlaneLandingArea);
         stripRight.setAirStripImage(imgViewPlaneLandingArea);
         ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
         ((BasicAirStrip) stripRight).setBox(landingBoxRight);
 
-        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(10), cycle -> {
+        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(SPAWN_DELAY), cycle -> {
             spawnPlane(numberPlanesToSpawnEachTime);
             System.out.println("numberPlanesToSpawnEachTime" + numberPlanesToSpawnEachTime);
         }));
@@ -394,12 +363,11 @@ public class Seaside {
         Thread t = new Thread(new ThreadEngine());
         t.start();
 
-        //-----------------------------------------------------
     }
 
     // TO-DO: NON Funziona da sostituire
     public void insertPlaneInMap(final Plane plane) {
-        if (!pane.getChildren().contains(plane)) {
+        if (!pane.getChildren().contains(plane.getSprite())) {
             pane.getChildren().add(plane.getSprite());
         }
     }
@@ -407,10 +375,14 @@ public class Seaside {
     public void terminateGame() {
         // Blocco del GameLoop
         engine.setEngineStart(false);
-        parallelTransition.stop();
+        pathTransitionList2.forEach(pathTransition -> {
+            if (!pathTransition.getStatus().equals(Status.STOPPED)) {
+                pathTransition.stop();
+            }
+        });
 
         // Terminazione di tutte le animazioni del Plane in corso
-        GameController.stop();
+        gameController.stop();
 
         // Disattivazione EventHandlerMouse, NON FUNZIONANO, da rimettere!!!
         //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseDragged);
@@ -420,9 +392,8 @@ public class Seaside {
         Platform.runLater(() -> {
             try {
                 UserRecordsController.updateScore(name.getText(), getIntScore());
-                TimeUnit.SECONDS.sleep(1);
                 CommonView.showDialog(Page.GAMEOVER);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -466,13 +437,13 @@ public class Seaside {
                     gc.moveTo(
                             planeSelected.getPlaneLinesPath().get(0).getX(),
                             planeSelected.getPlaneLinesPath().get(0).getY()
-                            );
+                    );
 
                     for (int k = 1; k < planeSelected.getPlaneLinesPath().size(); k++) {
                         gc.lineTo(
                                 planeSelected.getPlaneLinesPath().get(k).getX(),
                                 planeSelected.getPlaneLinesPath().get(k).getY()
-                                );
+                        );
                     }
 
                     gc.setStroke(Color.BLUE);
@@ -486,8 +457,8 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        GameController.pause();
-        parallelTransition.pause();
+        gameController.pause();
+        pathTransitionList2.forEach(Animation::pause);
         CommonView.showDialog(Page.PAUSE);
     }
 
@@ -500,7 +471,7 @@ public class Seaside {
         });
     }
 
-    public static List<Plane> getPlanes() {
+    public List<Plane> getPlanes() {
         return planes;
     }
 
@@ -543,7 +514,7 @@ public class Seaside {
         return this.pane;
     }
 
-    public void setScore(final int score) {
+    public void addScore(final int score) {
         this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
     }
 
@@ -557,5 +528,27 @@ public class Seaside {
 
     public void setNumberPlanesToSpawn(final int numberPlanesToSpawn) {
         this.numberPlanesToSpawnEachTime = numberPlanesToSpawn;
+    }
+
+    public void setFadeTransition(final FadeTransition fade, final ImageView indicator) {
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        fade.setDuration(Duration.millis(1000));
+        fade.setCycleCount(3);
+        fade.setNode(indicator);
+
+        fade.play();
+    }
+
+    public void addTransition(final PathTransition pathTransition2) {
+        this.pathTransitionList2.add(pathTransition2);
+    }
+
+    public Timeline getSpawnCountDown() {
+        return this.spawnCountDown;
+    }
+
+    public GameController getGameController() {
+        return this.gameController;
     }
 }
