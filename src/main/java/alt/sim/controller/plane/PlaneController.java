@@ -1,4 +1,4 @@
-package alt.sim.controller;
+package alt.sim.controller.plane;
 
 import alt.sim.model.plane.Plane;
 import javafx.fxml.FXML;

@@ -1,8 +1,5 @@
 package alt.sim.model.calculation;
 
-import alt.sim.model.Ratio;
-import alt.sim.model.RatioImpl;
-
 /**
  * Class to calculate the scaling of an image that we want to be scaled,
  * in proportion to the size of the screen on which it will be positioned.

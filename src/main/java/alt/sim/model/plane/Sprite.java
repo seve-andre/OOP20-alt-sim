@@ -1,6 +1,6 @@
 package alt.sim.model.plane;
 
-import alt.sim.model.SpriteType;
+import alt.sim.model.sprite.SpriteType;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,4 +1,4 @@
-package alt.sim.controller;
+package alt.sim.controller.map;
 
 import alt.sim.model.user.records.UserRecordsImpl;
 

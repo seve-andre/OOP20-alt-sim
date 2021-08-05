@@ -1,5 +1,7 @@
-package alt.sim.model;
+package alt.sim.model.sprite;
 
+import alt.sim.model.calculation.Ratio;
+import alt.sim.model.calculation.RatioImpl;
 import alt.sim.model.calculation.UtilityCalculation;
 
 public class SpriteRedimensioned {

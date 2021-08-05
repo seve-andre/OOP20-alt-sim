@@ -1,7 +1,7 @@
 package alt.sim.controller.game;
 
 import alt.sim.model.plane.Plane;
-import alt.sim.view.Seaside;
+import alt.sim.view.seaside.Seaside;
 
 import java.util.List;
 

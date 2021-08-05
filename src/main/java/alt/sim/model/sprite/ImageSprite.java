@@ -1,6 +1,5 @@
-package alt.sim.model.calculation;
+package alt.sim.model.sprite;
 
-import alt.sim.model.SpriteRedimensioned;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

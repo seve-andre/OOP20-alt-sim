@@ -1,6 +1,4 @@
-package alt.sim.model;
-
-import alt.sim.model.calculation.UtilityCalculation;
+package alt.sim.model.calculation;
 
 /**
  * Represent the Mathematical concept of Ratio with an antecedent value e consequent value.

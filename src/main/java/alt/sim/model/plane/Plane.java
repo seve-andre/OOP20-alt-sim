@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import alt.sim.model.ExplosionAnimation;
-import alt.sim.model.LandingAnimation;
-import alt.sim.model.SpriteType;
+import alt.sim.model.animation.ExplosionAnimation;
+import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
-import alt.sim.view.Seaside;
+import alt.sim.model.sprite.SpriteType;
+import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;

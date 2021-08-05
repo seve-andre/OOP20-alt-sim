@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.sprite;
 
 /**
  * Organization of the URL link of the Image with the Enum.

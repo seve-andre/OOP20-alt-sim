@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.animation;
 
 import javafx.geometry.Point2D;
 

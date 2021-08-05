@@ -8,7 +8,7 @@ import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-import alt.sim.view.Seaside;
+import alt.sim.view.seaside.Seaside;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;

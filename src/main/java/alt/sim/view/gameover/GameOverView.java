@@ -1,4 +1,4 @@
-package alt.sim.view;
+package alt.sim.view.gameover;
 
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;

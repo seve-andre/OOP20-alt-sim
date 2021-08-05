@@ -2,7 +2,7 @@ package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
 import alt.sim.model.user.User;
-import alt.sim.view.Seaside;
+import alt.sim.view.seaside.Seaside;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;

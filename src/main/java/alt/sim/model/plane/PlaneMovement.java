@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.plane;
 
 import java.util.ArrayList;
 import java.util.List;

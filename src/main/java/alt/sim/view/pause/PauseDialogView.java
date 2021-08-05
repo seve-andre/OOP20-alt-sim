@@ -1,7 +1,8 @@
-package alt.sim.view;
+package alt.sim.view.pause;
 
 import alt.sim.controller.game.GameController;
 import alt.sim.view.common.CommonView;
+import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

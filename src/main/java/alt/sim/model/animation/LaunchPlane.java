@@ -1,4 +1,4 @@
-package alt.sim.model;
+package alt.sim.model.animation;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

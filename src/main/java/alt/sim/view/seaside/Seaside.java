@@ -1,23 +1,23 @@
-package alt.sim.view;
+package alt.sim.view.seaside;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import alt.sim.controller.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.game.GameController;
+import alt.sim.controller.map.MapController;
 import alt.sim.controller.user.records.UserRecordsController;
-import alt.sim.model.ExplosionAnimation;
-import alt.sim.model.PlaneMovement;
-import alt.sim.model.SpriteType;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
+import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.spawn.SpawnModel;
+import alt.sim.model.sprite.SpriteType;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import javafx.animation.*;
