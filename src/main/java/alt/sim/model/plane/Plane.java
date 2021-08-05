@@ -70,6 +70,8 @@ public class Plane {
     private double lastPositionY;
     private double positionX;
     private double positionY;
+    private PathTransition spawnTransition;
+    private static List<PathTransition> pathTransitionList = new ArrayList<>();
 
     //private static final List<SpawnLocation> SPAWN_LOCATIONS;
 
@@ -104,9 +106,8 @@ public class Plane {
     }
 
     public void playSpawnAnimation(final SpawnLocation side) {
-        //System.out.println(this.hashCode() + " side: " + side);
 
-        PathTransition spawnTransition = new PathTransition();
+        spawnTransition = new PathTransition();
         Path pathSpawn = new Path();
 
         Platform.runLater(() -> {
@@ -122,6 +123,9 @@ public class Plane {
 
             final double width = boundryMap.getWidth();
             final double height = boundryMap.getHeight();
+
+            System.out.println(width);
+            System.out.println(height);
 
             final double halfWidth = width / 2.0;
             final double halfHeight = height / 2.0;
@@ -155,6 +159,7 @@ public class Plane {
             // DI TEST PER IL FUORIBORDO, da DECOMMENTARE!!!
             //controllerSeaside.insertPlaneInMap(this);
 
+            controllerSeaside.addTransition(spawnTransition);
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             spawnTransition.setNode(this.getSprite());
@@ -445,5 +450,9 @@ public class Plane {
 
     public boolean isLanded() {
         return obsState.getState() == State.LANDED;
+    }
+
+    public static List<PathTransition> getPathTransitionList() {
+        return pathTransitionList;
     }
 }
