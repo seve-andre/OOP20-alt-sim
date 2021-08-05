@@ -46,7 +46,6 @@ public final class SpawnModel {
             case LEFT:
                 path.getElements().add(new MoveTo(-X, HEIGHT_2));
                 path.getElements().add(new LineTo(X, HEIGHT_2));
-                //path.getElements().add(new CubicCurveTo(50, 400, 90, 450, 130, 360));
                 loadIndicator(0, HEIGHT_2);
                 break;
             case TOP:
@@ -75,10 +74,6 @@ public final class SpawnModel {
         pathTransition.setOnFinished(event -> plane.setState(State.WAITING));
 
         return pathTransition;
-    }
-
-    public PathTransition showImage(final ImageView indicator) {
-        return null;
     }
 
     /**
