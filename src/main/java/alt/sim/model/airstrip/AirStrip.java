@@ -2,7 +2,6 @@ package alt.sim.model.airstrip;
 
 import alt.sim.model.plane.Plane;
 import alt.sim.model.user.User;
-import javafx.scene.shape.Rectangle;
 
 /**
  * This interface manage main methods for all airstrips.
@@ -14,12 +13,6 @@ public interface AirStrip {
      * @param plane: the plane that should land
      */
     boolean acceptPlane(Plane plane);
-
-    /**
-     * Method that calculates the area which plane should land.
-     * @return the area planes can land on
-     */
-    Rectangle getLandSpot();
 
     /**
      * Method that set the score when a plane lands.

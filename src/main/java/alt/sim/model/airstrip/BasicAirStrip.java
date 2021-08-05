@@ -28,12 +28,6 @@ public class BasicAirStrip extends AbstractAirStrip {
         this.score = 0;
     }
 
-    @Override
-    public Rectangle getLandSpot() {
-        // TODO calculate land spot
-        return null;
-    }
-
     /*@Override
     public void acceptPlane(final Plane plane) {
         if (checkCollision(plane)) {

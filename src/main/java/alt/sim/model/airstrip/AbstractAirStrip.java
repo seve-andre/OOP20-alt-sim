@@ -5,7 +5,6 @@ import alt.sim.model.user.User;
 import alt.sim.view.seaside.Seaside;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 
 /**
  * This class is the middle between the interface and the specialized classes for the airstrips.
@@ -32,9 +31,6 @@ public abstract class AbstractAirStrip implements AirStrip {
         this(url);
         this.transitionSeasideFix = transitionSeasideFix;
     }
-
-    @Override
-    public abstract Rectangle getLandSpot();
 
     //@Override
     //public abstract void acceptPlane(Plane plane);
@@ -75,5 +71,6 @@ public abstract class AbstractAirStrip implements AirStrip {
     }
 
     //TODO: da eliminare una volta terminato i Test su package planeFix
+    @Override
     public abstract boolean acceptPlane(Plane plane);
 }
