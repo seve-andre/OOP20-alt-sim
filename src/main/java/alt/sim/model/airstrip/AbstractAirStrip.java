@@ -70,7 +70,6 @@ public abstract class AbstractAirStrip implements AirStrip {
         this.imageAirstrip = image;
     }
 
-    //TODO: da eliminare una volta terminato i Test su package planeFix
     @Override
     public abstract boolean acceptPlane(Plane plane);
 

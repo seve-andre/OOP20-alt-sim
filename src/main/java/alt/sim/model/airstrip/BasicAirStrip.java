@@ -12,8 +12,6 @@ import javafx.scene.shape.Rectangle;
 public class BasicAirStrip extends AbstractAirStrip {
     private Rectangle landingBox;
     private Seaside transitionSeaside;
-    //private List<plane> planes;
-    //private List<plane> planesToRemove;
     private int score;
 
     public BasicAirStrip(final String url) {
@@ -23,55 +21,16 @@ public class BasicAirStrip extends AbstractAirStrip {
     public BasicAirStrip(final String url, final Seaside transitionSeaside) {
         super(url, transitionSeaside);
         this.transitionSeaside = transitionSeaside;
-        //this.planes = this.transitionSeasideFix.getPlanes();
-        //this.planesToRemove = new LinkedList<>();
         this.score = 0;
     }
-
-    /*@Override
-    public void acceptPlane(final Plane plane) {
-        if (checkCollision(plane)) {
-            super.setStatus(AirStripStatus.BUSY);
-            plane.getLandingAnimation().play();
-            //TODO: super.setScore(UserImpl.getUser(), 50);
-            System.out.println("Plane landing...");
-        }
-        super.setStatus(AirStripStatus.FREE);
-    }*/
-
-    //TO-DO: da eliminare una volta terminato i Test
-    /*  @Override
-    public void acceptPlane(final Plane plane) {
-        if (checkCollision(plane) && !plane.isLanded()) {
-            plane.setState(State.LANDED);
-            super.setStatus(AirStripStatus.BUSY);
-
-            plane.getLandingAnimation().play();
-            plane.removedObservableStateListener();
-            //TO-DO planeRemoves(plane)
-            //planesToRemove.add(plane);
-            //transitionSeasideFix.removePlanes(planesToRemove);
-            //planes.removeAll(planesToRemove);
-            System.out.println("Plane" + plane.hashCode() + " landing...");
-            transitionSeaside.removePlane(plane);
-            return true;
-        }
-        super.setStatus(AirStripStatus.FREE);
-        return false;
-    }*/
 
     @Override
     public boolean acceptPlane(final Plane plane) {
         if (checkCollision(plane) && !plane.isLanded()) {
             plane.setState(State.LANDED);
             super.setStatus(AirStripStatus.BUSY);
-
             plane.getLandingAnimation().play();
             plane.removedObservableStateListener();
-            //TO-DO planeRemoves(plane)
-            //planesToRemove.add(plane);
-            //transitionSeaside.removePlanes(plane);
-            //planes.removeAll(planesToRemove);
             System.out.println("Plane" + plane.hashCode() + " landing...");
             transitionSeaside.removePlane(plane);
             return true;
@@ -80,7 +39,11 @@ public class BasicAirStrip extends AbstractAirStrip {
         return false;
     }
 
-    //TO-DO: da eliminare una volta terminato i Test
+    /**
+     * private method for collision between planes and strip.
+     * @param plane: the plane which should land
+     * @return true if the plane landed, false otherwise
+     */
     private boolean checkCollision(final Plane plane) {
         Bounds monitoredPlaneBounds = plane.getSprite().getBoundsInParent();
 
