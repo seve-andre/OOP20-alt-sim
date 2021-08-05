@@ -2,13 +2,14 @@ package alt.sim.view.pause;
 
 import alt.sim.controller.game.GameController;
 import alt.sim.view.common.CommonView;
-import alt.sim.view.seaside.Seaside;
-import javafx.animation.Animation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class PauseDialogView {
+
+    // get reference from GameController
+    private GameController gameController;
 
     @FXML
     public void initialize() { }
@@ -16,10 +17,7 @@ public class PauseDialogView {
     @FXML
     public void onResumeClick(final ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
-        if (Seaside.getOnePlanePT().getStatus().equals(Animation.Status.PAUSED)) {
-            Seaside.getOnePlanePT().play();
-        }
-        GameController.resume();
+        gameController.resume();
     }
 
     @FXML
