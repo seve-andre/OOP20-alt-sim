@@ -32,7 +32,9 @@ public class BasicAirStrip extends AbstractAirStrip {
             plane.getLandingAnimation().play();
             plane.removedObservableStateListener();
             System.out.println("Plane" + plane.hashCode() + " landing...");
-            transitionSeaside.removePlane(plane);
+            plane.getLandingAnimation().setOnFinished(finish -> transitionSeaside.removePlane(plane));
+            transitionSeaside.updateGameScore(100);
+
             return true;
         }
         super.setStatus(AirStripStatus.FREE);
@@ -48,10 +50,9 @@ public class BasicAirStrip extends AbstractAirStrip {
         Bounds monitoredPlaneBounds = plane.getSprite().getBoundsInParent();
 
         if (monitoredPlaneBounds.intersects(landingBox.getBoundsInParent())) {
-            this.score += 100;
-            System.out.println(score);
             return true;
         }
+
         return false;
     }
 

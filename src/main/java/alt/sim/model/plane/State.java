@@ -28,5 +28,10 @@ public enum State {
     /**
      * (4) Plane is landing in AirStrip.
      */
-    LANDED;
+    LANDED,
+
+    /**
+     * (5)
+     */
+    TERMINATED;
 }

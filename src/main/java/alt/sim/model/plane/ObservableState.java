@@ -1,5 +1,7 @@
 package alt.sim.model.plane;
 
+import alt.sim.model.game.Game;
+import alt.sim.view.seaside.Seaside;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
@@ -18,7 +20,7 @@ public class ObservableState {
     private final ChangeListener<? super State> listener;
 
     public ObservableState(final Plane planeObserved, final State state) {
-        //        this.simpleStateProperty = new SimpleStringProperty(stateValue);
+        // this.simpleStateProperty = new SimpleStringProperty(stateValue);
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
@@ -27,7 +29,10 @@ public class ObservableState {
         listener = (observable, oldValue, newValue) -> {
             //System.out.println("stateTest Changed!");
             //System.out.println("Old state: " + oldValue);
-            //System.out.println("New state: " + newValue);
+            System.out.println(planeObserved.hashCode() + " New state: " + newValue);
+            if(newValue == State.TERMINATED){
+                this.timeline.stop();
+            }
 
             this.planeObserved.stopPlaneMovementAnimation();
             this.planeObserved.stopRandomTransition();
@@ -42,7 +47,8 @@ public class ObservableState {
                     Screen screenGame = Screen.getPrimary();
                     Rectangle2D screenBound = screenGame.getVisualBounds();
 
-                    this.planeObserved.loadRandomTransition(screenBound.getWidth(), screenBound.getHeight());
+                    //this.planeObserved.loadRandomTransition(screenBound.getWidth(), screenBound.getHeight());
+                    this.planeObserved.loadRandomTransition(Seaside.getScreenWidth(), Seaside.getScreenHeight());
                 }
             });
         };
@@ -64,6 +70,7 @@ public class ObservableState {
     }
 
     public void removeListener() {
+        this.timeline.stop();
         stateProperty.removeListener(listener);
     }
 }

@@ -76,7 +76,7 @@ public class Plane {
     //private static final List<SpawnLocation> SPAWN_LOCATIONS;
 
     public Plane(final String urlImagePlane) {
-        /*this.spritePlane = new ImageView(new Image(urlImagePlane));
+        /* this.spritePlane = new ImageView(new Image(urlImagePlane));
         // Test Posizione ImageView
         System.out.println(this.spritePlane.getBoundsInParent().getMinX() + " , " + this.spritePlane.getBoundsInParent().getMinY()
                 + " /n " +
@@ -85,7 +85,6 @@ public class Plane {
 
         this.spritePlane = new Sprite(urlImagePlane);
         this.obsState = new ObservableState(this, State.SPAWNING);
-        //this.obsPosition = new ObservablePosition(this);
 
         this.linesPath = new ArrayList<>();
         this.linesPathToRemove = new ArrayList<>();
@@ -105,6 +104,20 @@ public class Plane {
         this(imageClassification.getURLImage());
     }
 
+    public void terminateAllAnimation(){
+        if(this.userTransition != null) {
+            this.userTransition.stop();
+            this.userTransition.setNode(null);
+        }
+
+        if(this.randomTransition != null) {
+            this.randomTransition.stop();
+            this.randomTransition.setNode(null);
+        }
+
+        obsState.removeListener();
+    }
+
     public void playSpawnAnimation(final SpawnLocation side) {
 
         spawnTransition = new PathTransition();
@@ -117,15 +130,13 @@ public class Plane {
 
             // TEST FUORIBORDO da DECOMMENTARE TERMIANTO IL TEST
             Bounds boundryMap = controllerSeaside.getPane().getBoundsInLocal();
-            //Bounds boundryMap = controllerFuoriBordo.getPane().getBoundsInLocal();
 
             final int delta = 50;
-
             final double width = boundryMap.getWidth();
             final double height = boundryMap.getHeight();
 
-            System.out.println(width);
-            System.out.println(height);
+            //System.out.println(width);
+            //System.out.println(height);
 
             final double halfWidth = width / 2.0;
             final double halfHeight = height / 2.0;
@@ -173,7 +184,7 @@ public class Plane {
     }
 
     public void loadRandomTransition(final double boundWidth, final double boundHeight) {
-        double randomPathLenght = 0;
+        double randomPathLength;
         final double velocityRandomMovement = 0.03;
         double durationRandomTransition = 0;
 
@@ -186,17 +197,15 @@ public class Plane {
 
         //PauseTransition waitingTransition = new PauseTransition();
         this.followingPath = true;
-
         double planeWidth = this.getSprite().getBoundsInParent().getWidth();
         double planeHeight = this.getSprite().getBoundsInParent().getHeight();
-
 
         randomTransition = new PathTransition();
         Path pathRandom = new Path();
 
         // Metodo per calcolo random position
-        double randomX = planeWidth * 0.5 + r.nextDouble() * (boundWidth - planeWidth);
-        double randomY = planeHeight * 0.5 + r.nextDouble() * (boundHeight - planeHeight);
+        double randomX = getRandomCoordinate(boundWidth, planeWidth);
+        double randomY = getRandomCoordinate(boundHeight, planeHeight);
         Point2D moveTo = new Point2D(randomX, randomY);
 
         //System.out.printf("Random position %d -> x: %f, y: %f\n", this.hashCode(), randomX, randomY);
@@ -209,8 +218,8 @@ public class Plane {
         randomTransition.setPath(pathRandom);
         randomTransition.setNode(this.getSprite());
         // Stabilire una velocità standard a seconda della lunghezza del percorso:
-        randomPathLenght = (moveFrom.distance(moveTo));
-        durationRandomTransition = randomPathLenght / velocityRandomMovement;
+        randomPathLength = (moveFrom.distance(moveTo));
+        durationRandomTransition = randomPathLength / velocityRandomMovement;
         randomTransition.setDuration(Duration.millis(durationRandomTransition));
         randomTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
 
@@ -218,18 +227,24 @@ public class Plane {
         randomTransition.play();
 
         this.getSprite().boundsInParentProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.getCenterX() >= 0 && newValue.getCenterY() >= 0) {
-                lastPositionX = newValue.getCenterX();
-                lastPositionY = newValue.getCenterY();
 
-                positionX = lastPositionX;
-                positionY = lastPositionY;
+            try {
+                if (newValue.getCenterX() > 0.0 && newValue.getCenterY() > 0.0) {
+                    lastPositionX = newValue.getCenterX();
+                    lastPositionY = newValue.getCenterY();
 
-                //System.out.println("newCenterX: " + positionX);
-                //System.out.println("newCenterY: " + positionY + "\n");
-            } else {
-                System.out.println("BUG-Coordianta: " + newValue.getCenterX() + " , " + newValue.getCenterY());
-            }
+                    positionX = lastPositionX;
+                    positionY = lastPositionY;
+
+                    //this.getSprite().setX(positionX);
+                    //this.getSprite().setY(positionY);
+
+                    //System.out.println("newCenterX: " + positionX);
+                    //System.out.println("newCenterY: " + positionY + "\n");
+                } else {
+                    System.out.println("BUG-Coordianta: " + newValue.getCenterX() + " , " + newValue.getCenterY());
+                }
+            } catch (StackOverflowError so) { System.out.println(so.getMessage()); }
         });
 
         randomTransition.setOnFinished(event -> {
@@ -240,7 +255,15 @@ public class Plane {
         });
     }
 
+    private double getRandomCoordinate(double boundCoordinate, double planeCoordinate) {
+        return planeCoordinate * 0.5 + r.nextDouble() * (boundCoordinate - planeCoordinate);
+    }
+
     public void loadPlaneMovementAnimation() {
+        if (this.getState() == State.SPAWNING) {
+            return;
+        }
+
         if (this.randomTransition.getStatus() == Status.RUNNING) {
             this.randomTransition.stop();
         }
@@ -282,6 +305,8 @@ public class Plane {
             this.followingPath = false;
             setState(State.WAITING);
         });
+
+
     }
 
     public ExplosionAnimation getExplosionAnimation() {
@@ -374,14 +399,41 @@ public class Plane {
     }
 
     // Aggiungo le coordinate campionate nel Plane
-    public void setPlaneLinesPath(final List<Point2D> linesPath) {
+    public synchronized void setPlaneLinesPath(final List<Point2D> linesPath) {
+        List<Point2D> linesPathClear;
+
+        for (Point2D lines:linesPath){
+            System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
+        }
+
         if (this.getIsPlaneSelectedForBeenMoved()) {
             this.linesPath.clear();
 
-            for (Point2D lines:linesPath) {
-                this.linesPath.add(new Point2D(lines.getX(), lines.getY()));
+            linesPathClear = removeDuplicateInLinesPath(linesPath);
+
+           for (Point2D linesClear:linesPathClear) {
+               System.out.println("coordinate passate dopo: " + linesClear.getX() + " , " + linesClear.getY());
+               this.linesPath.add(new Point2D(linesClear.getX(), linesClear.getY()));
             }
         }
+    }
+
+    public List<Point2D> removeDuplicateInLinesPath(final List<Point2D> linesPath){
+        List<Point2D> linesPathCopy = linesPath;
+        double xCopy;
+        double yCopy;
+
+        for (int k = 0; k < linesPath.size(); k++){
+            xCopy = linesPath.get(k).getX();
+            yCopy = linesPath.get(k).getY();
+
+            for (int j = 0; j < linesPath.size(); j++){
+                if (j != k && linesPath.get(j).getX() == xCopy && linesPath.get(j).getY() == yCopy){
+                    linesPathCopy.remove(j);
+                }
+            }
+        }
+        return linesPathCopy;
     }
 
 

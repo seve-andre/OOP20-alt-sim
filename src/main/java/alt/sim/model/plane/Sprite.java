@@ -71,15 +71,15 @@ public class Sprite {
     }
 
     public void setX(final double x) {
-        this.centerX = calculateCenterX(x);
+        //this.centerX = calculateCenterX(x);
 
-        this.sprite.setX(centerX);
+        this.sprite.setX(x);
     }
 
     public void setY(final double y) {
-        this.centerY = calculateCenterY(y);
+        //this.centerY = calculateCenterY(y);
 
-        this.sprite.setY(centerY);
+        this.sprite.setY(y);
     }
 
     public double getCenterX() {

@@ -1,47 +1,92 @@
 package alt.sim.model.game;
 
 import alt.sim.model.plane.Plane;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Game {
+    // Section Spawn Plane
+    private static final int MAX_PLANE_TO_SPAWN = 10;
 
-    private boolean endGame;
+    private int numberPlanesToSpawnEachTime;
+
+    // Section SPAWN
+    //------------------------------------------------------------------------
+    // Timer che al termine del count, fa spawnare un Plane
+    //private Timeline spawnCountDown;
+    private List<Plane> planes;
+    private List<Plane> planesToRemove;
+    private boolean inGame;
+    private boolean startEngine;
 
     public Game() {
-        this.endGame = false;
-        List<Plane> planes = new ArrayList<>();
+        this.inGame = false;
+        this.startEngine = false;
+        this.planes = new ArrayList<>();
+        this.planesToRemove = new ArrayList<>();
+        this.numberPlanesToSpawnEachTime = 4;
     }
 
     public void startGame() {
         playSpawnTimer();
     }
 
+    //TODO da implementare
     public void playSpawnTimer() {
         // Implementazione Timer per spawn Plane
-        Timer spawnTimer = new Timer();
-        //System.out.println("Spawn Plane");
-        TimerTask spawnTask = new TimerTask() {
+        //this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(10), cycle -> {
+            //spawnPlane(numberPlanesToSpawnEachTime);
+        //}));
 
-            @Override
-            public void run() {
-                //System.out.println("Spawn Plane");
-            }
-        };
-
-        spawnTimer.schedule(spawnTask, 5000L);
+        //spawnCountDown.setCycleCount(Animation.INDEFINITE);
+        //spawnCountDown.play();
     }
 
-
-    public void setEndGame(final boolean endGame) {
-        this.endGame = endGame;
+    // Section PLANES
+    //------------------------------------------------------------------------
+    public List<Plane> getPlanes() {
+        return this.planes;
     }
 
-    public boolean getEndGame() {
-        return this.endGame;
+    public List<Plane> getPlanesToRemove(){
+        return this.planesToRemove;
     }
 
+    public void addPlane(final Plane plane){
+        this.planes.add(plane);
+    }
+
+    public void addPlaneToRemove(final Plane planeToRemove){
+        this.planesToRemove.add(planeToRemove);
+    }
+
+    public void clearPlanes(){
+        this.planes.clear();
+        this.planesToRemove.clear();
+    }
+
+    public void updatePlanes() {
+        planes.removeAll(planesToRemove);
+    }
+
+    /*public void removePlanes(){
+        this.planes.removeAll(this.planesToRemove);
+        this.planesToRemove.clear();
+    }*/
+
+    //------------------------------------------------------------------------
+
+    public void setInGame(final boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public boolean isInGame() {
+        return this.inGame;
+    }
+
+    public void setStartEngine(final boolean startEngine) { this.startEngine = startEngine; }
+
+    public boolean getStartEngine() { return this.startEngine; }
 }

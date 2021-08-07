@@ -18,8 +18,14 @@ public final class GameController {
         this.transitionSeaside = transitionSeaside;
     }
 
+//<<<< Updated upstream
     private void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         List<Plane> planes = transitionSeaside.getPlanes();
+
+//==== TODO QUALI Conflicts ELIMINARE ???
+    //private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+        /*List<Plane> planes = Seaside.getPlanes();
+>>>> Stashed change
 
         planes.forEach(plane -> {
             if (pause) {
@@ -56,7 +62,7 @@ public final class GameController {
                 }
                 transitionSeaside.getSpawnCountDown().stop();
             }
-        });
+        });*/
     }
 
     public void pause() {
