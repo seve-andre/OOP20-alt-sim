@@ -8,7 +8,7 @@ public enum SpriteType {
     /** Plane image path.*/
     AIRPLANE("airplane", "images/map_components/airplane.png"),
     /** Airstrip image path.*/
-    AIRSTRIP("airstrip", "images/map_components/airstrip.png"),
+    AIRSTRIP("airstrip", "images/map_components/singleAirstrip.png"),
     /** Boat image path.*/
     BOAT("boat", "images/map_components/boat.png"),
     /** Helicopter image path.*/
