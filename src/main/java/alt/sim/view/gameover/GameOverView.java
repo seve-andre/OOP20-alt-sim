@@ -6,7 +6,6 @@ import alt.sim.view.pages.PageLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class GameOverView {
 
@@ -15,8 +14,8 @@ public class GameOverView {
 
     @FXML
     public void onHomeClick(final ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
         PageLoader.loadPage(Page.HOME);
+        ((Button) event.getSource()).getScene().getWindow().hide();
     }
 
     @FXML
