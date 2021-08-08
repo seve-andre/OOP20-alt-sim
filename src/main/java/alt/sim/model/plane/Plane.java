@@ -1,9 +1,5 @@
 package alt.sim.model.plane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
@@ -23,6 +19,10 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Defines the Plane idea
@@ -105,13 +105,13 @@ public class Plane {
         this(imageClassification.getURLImage());
     }
 
-    public void terminateAllAnimation(){
-        if(this.userTransition != null) {
+    public void terminateAllAnimation() {
+        if (this.userTransition != null) {
             this.userTransition.stop();
             this.userTransition.setNode(null);
         }
 
-        if(this.randomTransition != null) {
+        if (this.randomTransition != null) {
             this.randomTransition.stop();
             this.randomTransition.setNode(null);
         }
@@ -253,7 +253,7 @@ public class Plane {
         });
     }
 
-    private double getRandomCoordinate(double boundCoordinate, double planeCoordinate) {
+    private double getRandomCoordinate(final double boundCoordinate, final double planeCoordinate) {
         return planeCoordinate * 0.5 + r.nextDouble() * (boundCoordinate - planeCoordinate);
     }
 
