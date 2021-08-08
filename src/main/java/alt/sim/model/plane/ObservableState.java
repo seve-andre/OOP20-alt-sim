@@ -30,7 +30,7 @@ public class ObservableState {
             //System.out.println("stateTest Changed!");
             //System.out.println("Old state: " + oldValue);
             System.out.println(planeObserved.hashCode() + " New state: " + newValue);
-            if(newValue == State.TERMINATED){
+            if(newValue == State.TERMINATED && this.timeline != null){
                 this.timeline.stop();
             }
 
