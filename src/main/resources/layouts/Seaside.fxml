@@ -45,12 +45,12 @@
       </ImageView>
       <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="510.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" rotate="-60.0">
          <image>
-            <Image url="@../images/map_components/airstrip.png" />
+            <Image url="@../images/map_components/singleAirstrip.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="254.0" fitWidth="51.0" layoutX="495.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/map_components/airstrip.png" />
+            <Image url="@../images/map_components/singleAirstrip.png" />
          </image>
       </ImageView>
       <Canvas fx:id="canvas" height="720.0" onMouseDragged="#handlerMouseDragged" onMouseReleased="#handlerMouseReleased" width="1280.0" />
