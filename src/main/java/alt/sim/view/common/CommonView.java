@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public final class CommonView {
 
-
     private CommonView() { }
 
     /**
