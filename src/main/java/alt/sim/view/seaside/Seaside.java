@@ -14,6 +14,7 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
+import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
@@ -162,7 +163,7 @@ public class Seaside {
 
     private GraphicsContext gc;
     private GameEngineAreaTest engine;
-    private GameController gameController = new GameController(this);
+    private GameController gameController;
 
     private Game gameSession;
     private Score gameScore;
@@ -177,10 +178,8 @@ public class Seaside {
 
     private static ParallelTransition parallelTransition = new ParallelTransition();
 
-    /*public void playGame() {
-====
-   /* public void playGame() {
->>>> Stashed changes
+    /* public void playGame() {
+
         Platform.runLater(() -> {
             planes = SpawnModel.generatePlanes();
 
@@ -222,7 +221,7 @@ public class Seaside {
             }
 
             Thread t = new Thread(new ThreadEngine());
-            //t.start();
+            t.start();
         });
     }*/
 
@@ -310,6 +309,7 @@ public class Seaside {
 
     @FXML
     public void initialize() {
+        score.setText("2000");
         screenWidth = canvas.getWidth();
         screenHeight = canvas.getHeight();
 
@@ -317,6 +317,8 @@ public class Seaside {
 
         gameSession = new Game();
         gameScore = new Score();
+        gameController = new GameController(this, gameSession);
+
         stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
         stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
         engine = new GameEngineAreaTest(this, gameSession);
@@ -425,31 +427,14 @@ public class Seaside {
         //>>>> Stashed change
 
         // Terminazione di tutte le animazioni del Plane in corso
-        //gameController.stop();
-
-        // Disattivazione EventHandlerMouse, NON FUNZIONANO, da rimettere!!!
-        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseDragged);
-        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseReleased);
+        gameController.stop();
         pane.setDisable(true);
-
-        //STOP di ogni Animation of Plane
-        for (Plane plane:gameSession.getPlanes()){
-            plane.setState(State.TERMINATED);
-            plane.terminateAllAnimation();
-        }
-
-        //pane.getChildren().removeAll(gameSession.getPlanes());
-        //pane.getChildren().removeAll(gameSession.getPlanesToRemove());
 
         Platform.runLater(() -> {
             try {
-                //UserRecordsController.updateScore(name.getText(), getIntScore());
-
                 UserRecordsController.updateScore(name.getText(), getGameScore());
-                TimeUnit.SECONDS.sleep(1);
-
                 CommonView.showDialog(Page.GAMEOVER);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -513,7 +498,7 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        //gameController.pause();
+        gameController.pause();
         pathTransitionList2.forEach(Animation::pause);
         CommonView.showDialog(Page.PAUSE);
     }
@@ -575,15 +560,13 @@ public class Seaside {
     }
 
     public void addScore(final int score) {
-        this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
+        Platform.runLater(() -> {
+            this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
+        });
     }
 
     public int getIntScore() {
         return Integer.parseInt(this.score.getText());
-    }
-
-    public static ParallelTransition getOnePlanePT() {
-        return parallelTransition;
     }
 
     public void setNumberPlanesToSpawn(final int numberPlanesToSpawn) {
