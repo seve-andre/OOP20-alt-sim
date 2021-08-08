@@ -33,7 +33,7 @@ public class BasicAirStrip extends AbstractAirStrip {
             plane.removedObservableStateListener();
             System.out.println("Plane" + plane.hashCode() + " landing...");
             plane.getLandingAnimation().setOnFinished(finish -> transitionSeaside.removePlane(plane));
-            transitionSeaside.updateGameScore(100);
+            //transitionSeaside.updateGameScore(100);
 
             return true;
         }
