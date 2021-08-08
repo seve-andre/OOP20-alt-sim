@@ -8,16 +8,13 @@ import javafx.scene.control.Button;
 
 public class PauseDialogView {
 
-    // get reference from GameController
-    private GameController gameController;
-
     @FXML
     public void initialize() { }
 
     @FXML
     public void onResumeClick(final ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
-        gameController.resume();
+        GameController.resume();
     }
 
     @FXML
