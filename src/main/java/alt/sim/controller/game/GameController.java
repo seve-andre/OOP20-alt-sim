@@ -4,7 +4,6 @@ import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
-import javafx.animation.Animation;
 
 import java.util.List;
 
@@ -41,8 +40,10 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
+                if (plane.getState() == State.SPAWNING) {
+                    plane.getSpawnTransition().pause();
+                }
                 transitionSeaside.getSpawnCountDown().pause();
-                Plane.getPathTransitionList().forEach(Animation::pause);
             } else if (resume) {
                 if (plane.getPlaneMovementAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getPlaneMovementAnimation().play();
@@ -52,6 +53,9 @@ public final class GameController {
                 }
                 if (plane.getRandomTransition() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getRandomTransition().play();
+                }
+                if (plane.getState() == State.SPAWNING) {
+                    plane.getSpawnTransition().play();
                 }
                 transitionSeaside.getSpawnCountDown().play();
             } else if (stop) {
@@ -64,11 +68,13 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().stop();
                 }
+                if (plane.getState() == State.SPAWNING) {
+                    plane.getSpawnTransition().stop();
+                }
 
                 plane.setState(State.TERMINATED);
                 plane.terminateAllAnimation();
                 transitionSeaside.getSpawnCountDown().stop();
-                Plane.getPathTransitionList().forEach(Animation::stop);
             }
         });
     }
