@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public final class SpawnModel {
 
     private static final int PATH_TRANSITION_DURATION = 5000;
