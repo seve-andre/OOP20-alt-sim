@@ -119,7 +119,7 @@ public class Plane {
         obsState.removeListener();
     }
 
-    public void playSpawnAnimation(final SpawnLocation side) {
+    public PathTransition playSpawnAnimation(final SpawnLocation side) {
 
         spawnTransition = new PathTransition();
         Path pathSpawn = new Path();
@@ -179,6 +179,8 @@ public class Plane {
                 this.setState(State.WAITING);
             });
         });
+
+        return this.spawnTransition;
     }
 
     public void loadRandomTransition(final double boundWidth, final double boundHeight) {
