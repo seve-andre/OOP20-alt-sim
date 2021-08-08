@@ -84,8 +84,9 @@ public class Plane {
         );*/
 
         this.spritePlane = new Sprite(urlImagePlane);
-        this.obsState = new ObservableState(this, State.SPAWNING);
+        //TODO Test bug flash immagine plane durante partita.
 
+        this.obsState = new ObservableState(this, State.SPAWNING);
         this.linesPath = new ArrayList<>();
         this.linesPathToRemove = new ArrayList<>();
         this.isPlaneSelectedForBeenMoved = false;
@@ -134,9 +135,6 @@ public class Plane {
             final int delta = 50;
             final double width = boundryMap.getWidth();
             final double height = boundryMap.getHeight();
-
-            //System.out.println(width);
-            //System.out.println(height);
 
             final double halfWidth = width / 2.0;
             final double halfHeight = height / 2.0;
