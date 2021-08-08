@@ -1,6 +1,8 @@
 package alt.sim.controller.game;
 
+import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
 
 import java.util.List;
@@ -12,20 +14,20 @@ public final class GameController {
     private static final int LIMIT_1500 = 1500;
     private static final int LIMIT_2000 = 2000;
     private static final int LIMIT_2100 = 2100;
-    private Seaside transitionSeaside;
 
-    public GameController(final Seaside transitionSeaside) {
+    private Seaside transitionSeaside;
+    private Game gameModel;
+
+    public GameController(final Seaside transitionSeaside, final Game gameModel) {
         this.transitionSeaside = transitionSeaside;
+        this.gameModel = gameModel;
     }
 
-//<<<< Updated upstream
-    private void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
-        List<Plane> planes = transitionSeaside.getPlanes();
 
-//==== TODO QUALI Conflicts ELIMINARE ???
-    //private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
-        /*List<Plane> planes = Seaside.getPlanes();
->>>> Stashed change
+    private void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+        //TODO sostituzione con gameModel
+        //List<Plane> planes = transitionSeaside.getPlanes();
+        List<Plane> planes = gameModel.getPlanes();
 
         planes.forEach(plane -> {
             if (pause) {
@@ -60,9 +62,12 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().stop();
                 }
+
+                plane.setState(State.TERMINATED);
+                plane.terminateAllAnimation();
                 transitionSeaside.getSpawnCountDown().stop();
             }
-        });*/
+        });
     }
 
     public void pause() {
