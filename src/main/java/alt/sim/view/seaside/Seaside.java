@@ -1,24 +1,21 @@
 package alt.sim.view.seaside;
 
-import alt.sim.controller.map.MapController;
 import alt.sim.controller.engine.GameEngineAreaTest;
 import alt.sim.controller.game.GameController;
+import alt.sim.controller.map.MapController;
 import alt.sim.controller.user.records.UserRecordsController;
-import alt.sim.model.animation.ExplosionAnimation;
-import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
+import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.game.Game;
 import alt.sim.model.game.Score;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
-import alt.sim.model.spawn.SpawnModel;
 import alt.sim.view.common.CommonView;
 import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
-import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
@@ -47,7 +44,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Seaside {
@@ -309,7 +305,7 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        score.setText("2000");
+        //score.setText("2000");
         screenWidth = canvas.getWidth();
         screenHeight = canvas.getHeight();
 
@@ -395,11 +391,11 @@ public class Seaside {
         t.start();
     }
 
-    public static double getScreenWidth(){
+    public static double getScreenWidth() {
         return screenWidth;
     }
 
-    public static double getScreenHeight(){
+    public static double getScreenHeight() {
         return screenHeight;
     }
 
@@ -412,27 +408,29 @@ public class Seaside {
 
     public void terminateGame() {
         // Blocco del GameLoop
-        /*<<<< Updated upstream
-            engine.setEngineStart(false);
-            pathTransitionList2.forEach(pathTransition -> {
-             if (!pathTransition.getStatus().equals(Status.STOPPED)) {
-                 pathTransition.stop();
-                }
-            });
-        ====*/
-        //engine.setEngineStart(false);
+
+        engine.setEngineStart(false);
         gameSession.setInGame(false);
         numberPlanesToSpawnEachTime = 0;
         parallelTransition.stop();
         //>>>> Stashed change
 
         // Terminazione di tutte le animazioni del Plane in corso
-        gameController.stop();
+        GameController.stop();
+
+        // Disattivazione EventHandlerMouse, NON FUNZIONANO, da rimettere!!!
+        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseDragged);
+        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseReleased);
         pane.setDisable(true);
 
         Platform.runLater(() -> {
             try {
                 UserRecordsController.updateScore(name.getText(), getGameScore());
+                /*pane.getChildren().removeAll(planes.stream()
+                        .map(Plane::getSprite)
+                        .collect(Collectors.toList()));
+                planes.clear();*/
+                //UserRecordsController.updateScore(name.getText(), getIntScore());
                 CommonView.showDialog(Page.GAMEOVER);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -498,8 +496,8 @@ public class Seaside {
 
     @FXML
     public void onPauseClick() throws IOException {
-        gameController.pause();
-        pathTransitionList2.forEach(Animation::pause);
+        GameController.pause();
+        //pathTransitionList2.forEach(Animation::pause);
         CommonView.showDialog(Page.PAUSE);
     }
 
@@ -598,8 +596,8 @@ public class Seaside {
         return gameScore.getValue();
     }
 
-    public void updateGameScore(int delta) {
+    /*public void updateGameScore(int delta) {
         gameScore.updateValue(delta);
         Platform.runLater(() -> score.setText(Integer.toString(gameScore.getValue())));
-    }
+    }*/
 }

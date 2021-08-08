@@ -4,6 +4,7 @@ import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
+import javafx.animation.Animation;
 
 import java.util.List;
 
@@ -15,16 +16,16 @@ public final class GameController {
     private static final int LIMIT_2000 = 2000;
     private static final int LIMIT_2100 = 2100;
 
-    private Seaside transitionSeaside;
-    private Game gameModel;
+    private static Seaside transitionSeaside;
+    private static Game gameModel;
 
-    public GameController(final Seaside transitionSeaside, final Game gameModel) {
-        this.transitionSeaside = transitionSeaside;
-        this.gameModel = gameModel;
+    public GameController(final Seaside seaside, final Game game) {
+        transitionSeaside = seaside;
+        gameModel = game;
     }
 
 
-    private void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+    private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         //TODO sostituzione con gameModel
         //List<Plane> planes = transitionSeaside.getPlanes();
         List<Plane> planes = gameModel.getPlanes();
@@ -41,6 +42,7 @@ public final class GameController {
                     plane.getRandomTransition().pause();
                 }
                 transitionSeaside.getSpawnCountDown().pause();
+                Plane.getPathTransitionList().forEach(Animation::pause);
             } else if (resume) {
                 if (plane.getPlaneMovementAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getPlaneMovementAnimation().play();
@@ -66,19 +68,20 @@ public final class GameController {
                 plane.setState(State.TERMINATED);
                 plane.terminateAllAnimation();
                 transitionSeaside.getSpawnCountDown().stop();
+                Plane.getPathTransitionList().forEach(Animation::stop);
             }
         });
     }
 
-    public void pause() {
+    public static void pause() {
         pauseResumeOrStop(true, false, false);
     }
 
-    public void resume() {
+    public static void resume() {
         pauseResumeOrStop(false, true, false);
     }
 
-    public void stop() {
+    public static void stop() {
         pauseResumeOrStop(false, false, true);
     }
 
