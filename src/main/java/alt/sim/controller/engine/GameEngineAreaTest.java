@@ -45,14 +45,11 @@ public class GameEngineAreaTest implements GameEngine {
     private GameController gamecontroller;
     private Game gameSession;
 
-    //private int scoreGame = 1500;
-
-    //private Model model;
-
     public GameEngineAreaTest(final Seaside transitionSeaside, final Game gameSession) {
+        this.gameSession = gameSession;
         this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
-        this.gamecontroller = new GameController(this.transitionSeaside);
+        this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
         this.boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
         this.planesToRemove = new LinkedList<>();
 
@@ -62,7 +59,6 @@ public class GameEngineAreaTest implements GameEngine {
         this.engineStart = false;
         this.stripLeft = transitionSeaside.getStripLeft();
         this.stripRight = transitionSeaside.getStripRight();
-        this.gameSession = gameSession;
     }
 
     public GameEngineAreaTest() {
@@ -97,14 +93,8 @@ public class GameEngineAreaTest implements GameEngine {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
 
             if (checkLanding(planeMonitored)) {
-
-                //transitionSeaside.addScore(100);
-                //planesToRemove.add(planeMonitored);
-
-
-                //scoreGame += 100;
+                transitionSeaside.addScore(100);
                 gameSession.addPlaneToRemove(planeMonitored);
-
                 continue;
             }
 
@@ -141,10 +131,10 @@ public class GameEngineAreaTest implements GameEngine {
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
 
+                    //TODO deccomentare.
                     transitionSeaside.terminateGame();
                     planesToRemove.add(planeMonitored);
                     planesToRemove.add(planeSelected);
-
                     terminateGame(planeMonitored, planeSelected);
                     break;
 
@@ -248,14 +238,13 @@ public class GameEngineAreaTest implements GameEngine {
     public void update(final int elapsed) {
         // Controllo ad ogni frame se Plane collide con qualche oggetto
         checkCollision();
+        this.gamecontroller.checkScore(transitionSeaside.getIntScore());
 
-        //this.gamecontroller.checkScore(transitionSeaside.getIntScore());
 
-        int gameScore = transitionSeaside.getGameScore();
-
+        /*int gameScore = transitionSeaside.getGameScore();
         if (gameScore >= 500 && gameScore < 2100) {
             transitionSeaside.setNumberPlanesToSpawn(gameScore / 500 + 1);
-        }
+        }*/
 
     }
 
