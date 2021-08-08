@@ -307,6 +307,10 @@ public class Plane {
 
     }
 
+    public PathTransition getSpawnTransition() {
+        return this.spawnTransition;
+    }
+
     public ExplosionAnimation getExplosionAnimation() {
         return this.explosionAnimation;
     }
