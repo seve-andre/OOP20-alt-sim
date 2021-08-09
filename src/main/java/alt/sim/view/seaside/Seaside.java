@@ -425,12 +425,7 @@ public class Seaside {
 
         Platform.runLater(() -> {
             try {
-                UserRecordsController.updateScore(name.getText(), getGameScore());
-                /*pane.getChildren().removeAll(planes.stream()
-                        .map(Plane::getSprite)
-                        .collect(Collectors.toList()));
-                planes.clear();*/
-                //UserRecordsController.updateScore(name.getText(), getIntScore());
+                UserRecordsController.updateScore(name.getText(), getIntScore());
                 WindowView.showDialog(Page.GAMEOVER);
             } catch (IOException e) {
                 e.printStackTrace();
