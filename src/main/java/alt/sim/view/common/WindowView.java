@@ -13,9 +13,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public final class CommonView {
+public final class WindowView {
 
-    private CommonView() { }
+    private WindowView() { }
 
     /**
      * Goes back to homepage.
