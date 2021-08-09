@@ -1,6 +1,6 @@
 package alt.sim.view.home;
 
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.fxml.FXML;
@@ -24,16 +24,16 @@ public class HomeView {
 
     @FXML
     public void onExitClick() {
-        CommonView.close();
+        WindowView.close();
     }
 
     @FXML
     public void onMinimizeClick() {
-        CommonView.minimize();
+        WindowView.minimize();
     }
 
     @FXML
     public void onCloseClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }

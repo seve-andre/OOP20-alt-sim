@@ -2,7 +2,7 @@ package alt.sim.view.mapchoice;
 
 import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
 import alt.sim.model.user.validation.NameValidation;
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.fxml.FXML;
@@ -38,7 +38,7 @@ public class MapChoiceView {
 
     @FXML
     public void onGoBackClick() {
-        CommonView.goBack();
+        WindowView.goBack();
     }
 
     /**
@@ -98,11 +98,11 @@ public class MapChoiceView {
 
     @FXML
     public void onMinimizeClick() {
-        CommonView.minimize();
+        WindowView.minimize();
     }
 
     @FXML
     public void onCloseClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }

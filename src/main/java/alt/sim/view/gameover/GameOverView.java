@@ -1,6 +1,6 @@
 package alt.sim.view.gameover;
 
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
 import javafx.event.ActionEvent;
@@ -20,6 +20,6 @@ public class GameOverView {
 
     @FXML
     public void onQuitClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }

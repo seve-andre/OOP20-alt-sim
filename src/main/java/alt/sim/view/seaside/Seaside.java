@@ -13,7 +13,7 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -431,7 +431,7 @@ public class Seaside {
                         .collect(Collectors.toList()));
                 planes.clear();*/
                 //UserRecordsController.updateScore(name.getText(), getIntScore());
-                CommonView.showDialog(Page.GAMEOVER);
+                WindowView.showDialog(Page.GAMEOVER);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -497,8 +497,7 @@ public class Seaside {
     @FXML
     public void onPauseClick() throws IOException {
         GameController.pause();
-        //pathTransitionList2.forEach(Animation::pause);
-        CommonView.showDialog(Page.PAUSE);
+        WindowView.showDialog(Page.PAUSE);
     }
 
     public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {

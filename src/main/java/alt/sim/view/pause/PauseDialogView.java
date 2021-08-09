@@ -1,7 +1,7 @@
 package alt.sim.view.pause;
 
 import alt.sim.controller.game.GameController;
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,6 +19,6 @@ public class PauseDialogView {
 
     @FXML
     public void onQuitClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }

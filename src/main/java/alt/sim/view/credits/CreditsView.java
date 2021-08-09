@@ -1,6 +1,6 @@
 package alt.sim.view.credits;
 
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -36,16 +36,16 @@ public class CreditsView {
 
     @FXML
     public void onGoBackClick() {
-        CommonView.goBack();
+        WindowView.goBack();
     }
 
     @FXML
     public void onMinimizeClick() {
-        CommonView.minimize();
+        WindowView.minimize();
     }
 
     @FXML
     public void onCloseClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }

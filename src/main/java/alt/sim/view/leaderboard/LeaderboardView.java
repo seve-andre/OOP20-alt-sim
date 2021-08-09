@@ -2,7 +2,7 @@ package alt.sim.view.leaderboard;
 
 import alt.sim.controller.leaderboard.LeaderboardControllerImpl;
 import alt.sim.model.user.records.RecordsFolder;
-import alt.sim.view.common.CommonView;
+import alt.sim.view.common.WindowView;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -58,7 +58,7 @@ public class LeaderboardView {
 
     @FXML
     public void onGoBackClick() {
-        CommonView.goBack();
+        WindowView.goBack();
     }
 
     @FXML
@@ -68,11 +68,11 @@ public class LeaderboardView {
 
     @FXML
     public void onMinimizeClick() {
-        CommonView.minimize();
+        WindowView.minimize();
     }
 
     @FXML
     public void onCloseClick() {
-        CommonView.close();
+        WindowView.close();
     }
 }
