@@ -1,7 +1,6 @@
 package alt.sim.model.game;
 
 import alt.sim.model.plane.Plane;
-import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,19 +49,19 @@ public class Game {
         return this.planes;
     }
 
-    public List<Plane> getPlanesToRemove(){
+    public List<Plane> getPlanesToRemove() {
         return this.planesToRemove;
     }
 
-    public void addPlane(final Plane plane){
+    public void addPlane(final Plane plane) {
         this.planes.add(plane);
     }
 
-    public void addPlaneToRemove(final Plane planeToRemove){
+    public void addPlaneToRemove(final Plane planeToRemove) {
         this.planesToRemove.add(planeToRemove);
     }
 
-    public void clearPlanes(){
+    public void clearPlanes() {
         this.planes.clear();
         this.planesToRemove.clear();
     }
@@ -86,7 +85,11 @@ public class Game {
         return this.inGame;
     }
 
-    public void setStartEngine(final boolean startEngine) { this.startEngine = startEngine; }
+    public void setStartEngine(final boolean startEngine) {
+        this.startEngine = startEngine;
+    }
 
-    public boolean getStartEngine() { return this.startEngine; }
+    public boolean getStartEngine() {
+        return this.startEngine;
+    }
 }

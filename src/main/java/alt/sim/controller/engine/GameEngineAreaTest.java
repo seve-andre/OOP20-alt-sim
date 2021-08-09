@@ -1,9 +1,6 @@
 package alt.sim.controller.engine;
-import alt.sim.controller.game.GameController;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
+import alt.sim.controller.game.GameController;
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -15,6 +12,7 @@ import javafx.animation.PathTransition;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -158,7 +156,7 @@ public class GameEngineAreaTest implements GameEngine {
         //planesToRemove.clear();
     }
 
-    private void terminateGame(Plane first, Plane... more) {
+    private void terminateGame(final Plane first, final Plane... more) {
         gameSession.addPlaneToRemove(first);
         Collections.addAll(gameSession.getPlanesToRemove(), more);
         transitionSeaside.terminateGame();
