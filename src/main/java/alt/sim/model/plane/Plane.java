@@ -127,6 +127,7 @@ public class Plane {
         if (this.randomTransition != null) {
             this.randomTransition.pause();
         }
+
     }
 
     public void resumeAllAnimation() {
@@ -140,7 +141,6 @@ public class Plane {
     }
 
     public void playSpawnAnimation(final SpawnLocation side) {
-
         spawnTransition = new PathTransition();
         Path pathSpawn = new Path();
 
