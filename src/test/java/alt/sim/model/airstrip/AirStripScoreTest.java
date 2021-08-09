@@ -13,7 +13,7 @@ public class AirStripScoreTest {
     private static final int STANDARD_SCORE = 50;
     private static final int INVALID_SCORE = -100;
 
-    private AirStrip strip1 = new BasicAirStrip("images/map_components/airstrip.png");
+    private AirStrip strip1 = new BasicAirStrip("images/map_components/singleAirstrip.png");
     private AirStrip strip2 = new HelipadAirStrip("images/map_components/helipad.png");
     private User user1 = new UserImpl("Andrea", 0);
     private User user2 = new UserImpl("Daniel", 0);
