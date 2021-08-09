@@ -40,10 +40,12 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
-                if (plane.getState() == State.SPAWNING) {
+                if (plane.getState() == State.SPAWNING
+                        || plane.getState() == State.WAITING) {
                     plane.getSpawnTransition().pause();
                 }
-                transitionSeaside.getSpawnCountDown().pause();
+                plane.setState(State.TERMINATED);
+
             } else if (resume) {
                 if (plane.getPlaneMovementAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getPlaneMovementAnimation().play();
@@ -54,10 +56,10 @@ public final class GameController {
                 if (plane.getRandomTransition() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getRandomTransition().play();
                 }
-                if (plane.getState() == State.SPAWNING) {
+                if (plane.getState() == State.SPAWNING
+                        || plane.getState() == State.WAITING) {
                     plane.getSpawnTransition().play();
                 }
-                transitionSeaside.getSpawnCountDown().play();
             } else if (stop) {
                 if (plane.getPlaneMovementAnimation() != null) {
                     plane.getPlaneMovementAnimation().stop();
@@ -68,26 +70,29 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().stop();
                 }
-                if (plane.getState() == State.SPAWNING) {
+                if (plane.getState() == State.SPAWNING
+                        || plane.getState() == State.WAITING) {
                     plane.getSpawnTransition().stop();
                 }
 
                 plane.setState(State.TERMINATED);
                 plane.terminateAllAnimation();
-                transitionSeaside.getSpawnCountDown().stop();
             }
         });
     }
 
     public static void pause() {
+        transitionSeaside.getSpawnCountDown().pause();
         pauseResumeOrStop(true, false, false);
     }
 
     public static void resume() {
+        transitionSeaside.getSpawnCountDown().play();
         pauseResumeOrStop(false, true, false);
     }
 
     public static void stop() {
+        transitionSeaside.getSpawnCountDown().stop();
         pauseResumeOrStop(false, false, true);
     }
 
