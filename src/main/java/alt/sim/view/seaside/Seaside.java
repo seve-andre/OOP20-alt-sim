@@ -19,7 +19,6 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
-import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -52,8 +51,6 @@ public class Seaside {
     private AnchorPane pane;
     @FXML
     private ImageView imgViewHelicopterLandingArea;
-    @FXML
-    private ImageView imgViewPlaneLandingArea;
     @FXML
     private TextField name = new TextField();
     @FXML
@@ -250,11 +247,13 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        //score.setText("2000");
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         screenWidth = canvas.getWidth();
         screenHeight = canvas.getHeight();
 
-        System.out.println("screenSize: " + screenWidth + " , " + screenHeight);
+        System.out.println("ScreenSize: " + screenSize.getWidth() + " , " + screenSize.getHeight());
+        System.out.println("CanvasSize: " + screenWidth + " , " + screenHeight);
+        System.out.println("PaneSize: " + pane.getBoundsInLocal().getWidth() + " , " + pane.getBoundsInLocal().getHeight());
 
         gameSession = new Game();
         gameScore = new Score();
@@ -298,8 +297,6 @@ public class Seaside {
                 (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
         );
 
-        stripLeft.setAirStripImage(imgViewPlaneLandingArea);
-        stripRight.setAirStripImage(imgViewPlaneLandingArea);
         ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
         ((BasicAirStrip) stripRight).setBox(landingBoxRight);
 
@@ -344,7 +341,7 @@ public class Seaside {
         return screenHeight;
     }
 
-    // TO-DO: NON Funziona da sostituire
+    /* TODO: non Funziona da sostituire. */
     public void insertPlaneInMap(final Plane plane) {
         if (!pane.getChildren().contains(plane.getSprite())) {
             pane.getChildren().add(plane.getSprite());
@@ -352,21 +349,13 @@ public class Seaside {
     }
 
     public void terminateGame() {
-        // Blocco del GameLoop
-
         engine.setEngineStart(false);
         gameSession.setInGame(false);
         numberPlanesToSpawnEachTime = 0;
         parallelTransition.stop();
-        //>>>> Stashed change
 
-        // Terminazione di tutte le animazioni del Plane in corso
+        // Terminazione di tutte le animazioni del Plane in corso:
         GameController.stop();
-
-        // Disattivazione EventHandlerMouse, NON FUNZIONANO, da rimettere!!!
-        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseDragged);
-        //canvas.removeEventFilter(MouseEvent.ANY, handlerMouseReleased);
-        pane.setDisable(true);
 
         Platform.runLater(() -> {
             try {
@@ -430,6 +419,7 @@ public class Seaside {
                     gc.beginPath();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
