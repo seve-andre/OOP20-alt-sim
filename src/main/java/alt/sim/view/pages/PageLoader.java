@@ -1,6 +1,7 @@
 package alt.sim.view.pages;
 
 import alt.sim.Main;
+import alt.sim.view.common.WindowView;
 import alt.sim.view.mapchoice.GameMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,6 +40,8 @@ public final class PageLoader {
         try {
             root = FXMLLoader.load(ClassLoader.
                     getSystemResource("layouts/" + page.getName() + ".fxml"));
+
+            WindowView.makeWindowDraggable(root);
         } catch (final IOException e) {
             e.printStackTrace();
         }

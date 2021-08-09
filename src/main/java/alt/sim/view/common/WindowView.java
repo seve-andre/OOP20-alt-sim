@@ -50,4 +50,26 @@ public final class WindowView {
         Platform.exit();
         System.exit(0);
     }
+
+    /**
+     * Makes window draggable when stage style is transparent / undecorated.
+     * @param root to drag
+     */
+    public static void makeWindowDraggable(final Parent root) {
+        root.setOnMousePressed(pressEvent -> {
+            root.setOnMouseDragged(dragEvent -> {
+                Main.getStage().setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+                Main.getStage().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+            });
+        });
+
+        root.setOnMouseDragged(pressEvent -> {
+            root.setOnMouseDragged(dragEvent -> {
+                double xOffset = 0;
+                double yOffset = 0;
+                Main.getStage().setX(dragEvent.getScreenX() + xOffset);
+                Main.getStage().setY(dragEvent.getScreenY() + yOffset);
+            });
+        });
+    }
 }
