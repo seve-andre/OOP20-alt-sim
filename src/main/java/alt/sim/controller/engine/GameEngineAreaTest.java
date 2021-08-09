@@ -1,6 +1,10 @@
 package alt.sim.controller.engine;
 
 import alt.sim.controller.game.GameController;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -12,16 +16,11 @@ import javafx.animation.PathTransition;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 public class GameEngineAreaTest implements GameEngine {
     private static final long PERIOD = 400L;
 
     private Seaside transitionSeaside;
     // PER TEST FUORIBORDO, da decommentare alla fine
-    //private CheckCollisionFix transitionFuoriBordo;
     private SpawnObject spawn;
 
     // Sezione Coordinate campionate
@@ -37,7 +36,6 @@ public class GameEngineAreaTest implements GameEngine {
 
     private Rectangle landingBoxLeft;
     private Rectangle landingBoxRight;
-
 
     private int scoreGame;
     private GameController gamecontroller;
@@ -119,7 +117,7 @@ public class GameEngineAreaTest implements GameEngine {
 
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(selectedPlaneBounds)) {
-                    System.out.println("GAME_OVER");
+                    System.out.println("COLLISION GAME_OVER");
                     System.out.printf(
                             "Collision detected: between plane:%d at (%f, %f) and plane:%d at (%f, %f)\n",
                             planeMonitored.hashCode(), monitoredPlaneBounds.getCenterX(), monitoredPlaneBounds.getCenterY(),
@@ -128,18 +126,11 @@ public class GameEngineAreaTest implements GameEngine {
 
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
-
-                    //TODO deccomentare.
-                    transitionSeaside.terminateGame();
                     planesToRemove.add(planeMonitored);
                     planesToRemove.add(planeSelected);
                     terminateGame(planeMonitored, planeSelected);
+
                     break;
-
-                    //Replaced with...
-                    //planesToRemove.add(planeMonitored);
-                    //planesToRemove.add(planeSelected);
-
                 }
             }
         }
@@ -150,10 +141,6 @@ public class GameEngineAreaTest implements GameEngine {
             transitionSeaside.removePlanes(gameSession.getPlanesToRemove());
             gameSession.clearPlanes();
         }
-
-        //Replaced with...
-        //planes.removeAll(planesToRemove);
-        //planesToRemove.clear();
     }
 
     private void terminateGame(final Plane first, final Plane... more) {
@@ -170,51 +157,16 @@ public class GameEngineAreaTest implements GameEngine {
      */
     private synchronized boolean checkOutOfBounds(final Plane planeSelected) {
         Bounds selectedPlaneBounds = planeSelected.getSprite().getBoundsInParent();
-        final int deltaBound = 5; // value of how much range a Plane is outOfBounds
 
-        /*<<<<<<< Updated upstream
-        if (selectedPlaneBounds.getCenterX() >= 0 && selectedPlaneBounds.getCenterY() >= 0) {
-            if (selectedPlaneBounds.getCenterX() >= 0 && selectedPlaneBounds.getCenterX() <= deltaBound
-                    || selectedPlaneBounds.getCenterX() >= Seaside.SCREEN_BOUND.getWidth() - deltaBound && selectedPlaneBounds.getCenterX() < (Seaside.SCREEN_BOUND.getWidth())
-                    || selectedPlaneBounds.getCenterY() >= 0 && selectedPlaneBounds.getCenterY() <= deltaBound
-                    || selectedPlaneBounds.getCenterY() >= Seaside.SCREEN_BOUND.getHeight() - deltaBound &&  selectedPlaneBounds.getCenterY() < (Seaside.SCREEN_BOUND.getHeight())) {
-
-        =======*/
-        /*if (selectedPlaneBounds.getCenterX() > 0 && selectedPlaneBounds.getCenterY() > 0) {
-            if (selectedPlaneBounds.getCenterX() > 0 && selectedPlaneBounds.getCenterX() <= deltaBound
-                    || selectedPlaneBounds.getCenterX() >= Seaside.getScreenWidth() - deltaBound && selectedPlaneBounds.getCenterX() < (Seaside.getScreenWidth())
-                    || selectedPlaneBounds.getCenterY() > 0 && selectedPlaneBounds.getCenterY() <= deltaBound
-                    || selectedPlaneBounds.getCenterY() >= Seaside.getScreenHeight() - deltaBound &&  selectedPlaneBounds.getCenterY() < (Seaside.getScreenHeight())) {*/
         if (selectedPlaneBounds.getMinX() < 0
-                || selectedPlaneBounds.getMinX() > Seaside.getScreenWidth()
+                || selectedPlaneBounds.getMaxX() > Seaside.getScreenWidth()
                 || selectedPlaneBounds.getMinY() < 0
                 || selectedPlaneBounds.getMaxY() > Seaside.getScreenHeight()) {
-
-
-            System.out.println("FUORI_BORDO");
+            System.out.println("SIZE: " + Seaside.getScreenWidth() + " , " + Seaside.getScreenHeight());
+            System.out.println("FUORI BORDO");
             System.out.println("COORDINATE BOUNDS " + planeSelected.hashCode() + ": " + planeSelected.getSprite().getBoundsInParent().getCenterX() + " , " + planeSelected.getSprite().getBoundsInParent().getCenterY());
-            //System.out.println("selectedPlaneBounds.getMinX() < 0: " + selectedPlaneBounds.getMinX()
-            //        + " selectedPlaneBounds.getMaxX() > boundaryMap.getWidth(): " + selectedPlaneBounds.getMaxX() + " | " +  boundaryMap.getWidth()
-            //        + " selectedPlaneBounds.getMinY() < 0:  " + selectedPlaneBounds.getMinY()
-            //        + " selectedPlaneBounds.getMaxY() > boundaryMap.getHeight()" + selectedPlaneBounds.getMaxY() + " | "  + boundaryMap.getHeight());
-
-                /*startExplosionPlane(planeSelected);
-
-                //TODO da riportare
-                gameSession.addPlaneToRemove(planeSelected);
-                transitionSeaside.removePlanes(gameSession.getPlanesToRemove());
-                gameSession.removePlanes();
-                transitionSeaside.terminateGame();
-                gameSession.clearPlaneToRemove();*/
-
-            //planesToRemove.add(planeSelected);
-            //transitionSeaside.removePlanes(planesToRemove);
-            //planes.removeAll(planesToRemove);
-            //planesToRemove.clear();
             return true;
         }
-        //}
-
         return false;
     }
 
@@ -223,7 +175,6 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     private void startExplosionPlane(final Plane plane) {
-        //TO-DO da riportare
         transitionSeaside.startExplosionToPane(plane.getExplosionAnimation(), plane);
         playedExplosion = true;
     }
@@ -237,32 +188,10 @@ public class GameEngineAreaTest implements GameEngine {
         // Controllo ad ogni frame se Plane collide con qualche oggetto
         checkCollision();
         this.gamecontroller.checkScore(transitionSeaside.getIntScore());
-
-
-        /*int gameScore = transitionSeaside.getGameScore();
-        if (gameScore >= 500 && gameScore < 2100) {
-            transitionSeaside.setNumberPlanesToSpawn(gameScore / 500 + 1);
-        }*/
-
     }
 
     @Override
     public void render() {
-        /* try {
-            if (engineStart && planes.get(0) != null) {
-                Bounds monitoredPlaneBounds = planes.get(0).getImgViewPlane().getBoundsInParent();
-
-                Rectangle rect = new Rectangle(monitoredPlaneBounds.getMinX(), monitoredPlaneBounds.getMinY(), monitoredPlaneBounds.getWidth(), monitoredPlaneBounds.getHeight());
-                rect.setRotate(planes.get(0).getImgViewPlane().getRotate());
-                rect.setFill(null);
-                rect.setStroke(Color.BLUE);
-                rect.setStrokeWidth(2);
-
-         *//*
-         * Platform.runLater(() -> transitionFuoriBordo.drawBounds(rect) );
-         *//*
-            }
-        } catch (Exception e) { }*/
     }
 
     @Override
