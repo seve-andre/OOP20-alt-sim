@@ -1,6 +1,5 @@
 package alt.sim.model.plane;
 
-import alt.sim.model.game.Game;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,7 +29,7 @@ public class ObservableState {
             //System.out.println("stateTest Changed!");
             //System.out.println("Old state: " + oldValue);
             System.out.println(planeObserved.hashCode() + " New state: " + newValue);
-            if(newValue == State.TERMINATED && this.timeline != null){
+            if (newValue == State.TERMINATED && this.timeline != null) {
                 this.timeline.stop();
             }
 
