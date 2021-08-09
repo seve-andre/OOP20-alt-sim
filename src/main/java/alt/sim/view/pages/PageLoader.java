@@ -41,7 +41,9 @@ public final class PageLoader {
             root = FXMLLoader.load(ClassLoader.
                     getSystemResource("layouts/" + page.getName() + ".fxml"));
 
-            WindowView.makeWindowDraggable(root);
+            if (gameMap == null) {
+                WindowView.makeWindowDraggable(root);
+            }
         } catch (final IOException e) {
             e.printStackTrace();
         }
