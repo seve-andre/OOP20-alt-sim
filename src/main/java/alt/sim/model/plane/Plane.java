@@ -184,7 +184,7 @@ public class Plane {
     public void loadRandomTransition(final double boundWidth, final double boundHeight) {
         double randomPathLength;
         final double velocityRandomMovement = 0.03;
-        double durationRandomTransition = 0;
+        double durationRandomTransition;
 
         Point2D moveFrom = new Point2D(this.getSprite().getBoundsInParent().getCenterX(),
                 this.getSprite().getBoundsInParent().getCenterY());
@@ -242,7 +242,9 @@ public class Plane {
                 } else {
                     System.out.println("BUG-Coordianta: " + newValue.getCenterX() + " , " + newValue.getCenterY());
                 }
-            } catch (StackOverflowError so) { System.out.println(so.getMessage()); }
+            } catch (StackOverflowError so) {
+                System.out.println(so.getMessage());
+            }
         });
 
         randomTransition.setOnFinished(event -> {
@@ -404,7 +406,7 @@ public class Plane {
     public synchronized void setPlaneLinesPath(final List<Point2D> linesPath) {
         List<Point2D> linesPathClear;
 
-        for (Point2D lines:linesPath){
+        for (Point2D lines:linesPath) {
             System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
         }
 
@@ -420,17 +422,17 @@ public class Plane {
         }
     }
 
-    public List<Point2D> removeDuplicateInLinesPath(final List<Point2D> linesPath){
+    public List<Point2D> removeDuplicateInLinesPath(final List<Point2D> linesPath) {
         List<Point2D> linesPathCopy = linesPath;
         double xCopy;
         double yCopy;
 
-        for (int k = 0; k < linesPath.size(); k++){
+        for (int k = 0; k < linesPath.size(); k++) {
             xCopy = linesPath.get(k).getX();
             yCopy = linesPath.get(k).getY();
 
-            for (int j = 0; j < linesPath.size(); j++){
-                if (j != k && linesPath.get(j).getX() == xCopy && linesPath.get(j).getY() == yCopy){
+            for (int j = 0; j < linesPath.size(); j++) {
+                if (j != k && linesPath.get(j).getX() == xCopy && linesPath.get(j).getY() == yCopy) {
                     linesPathCopy.remove(j);
                 }
             }
