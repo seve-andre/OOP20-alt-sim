@@ -148,8 +148,6 @@ public class Seaside {
     private FadeTransition fadeRight;
     private FadeTransition fadeBottom;
 
-    private List<PathTransition> pathTransitionList = new ArrayList<>();
-    private List<PathTransition> pathTransitionList2 = Plane.getPathTransitionList();
     private List<SpawnLocation> spawnLocationList = new ArrayList<>();
 
     private List<Plane> planes = new ArrayList<>();
@@ -173,53 +171,6 @@ public class Seaside {
     //private EventHandler<MouseEvent> handlerMouseDragged;
 
     private static ParallelTransition parallelTransition = new ParallelTransition();
-
-    /* public void playGame() {
-
-        Platform.runLater(() -> {
-            planes = SpawnModel.generatePlanes();
-
-            List<ImageView> planeImages = planes.stream()
-                    .map(Plane::getSprite)
-                    .collect(Collectors.toUnmodifiableList());
-
-            pane.getChildren().addAll(planeImages);
-            //pane.getChildren().addAll(SpawnModel.generateIndicators());
-            for (Plane plane:planes) {
-                plane.connectToController(this);
-
-                while (spawnLocationList.size() != 4) {
-                    SpawnLocation random = SpawnLocation.getRandomSpawnLocation();
-                    if (!spawnLocationList.contains(random)) {
-                        spawnLocationList.add(random);
-                        this.pathTransitionList.add(SpawnModel.spawn(plane, random));
-                        break;
-                    }
-                }
-            }
-
-            engine.setPlanes(planes);
-            engine.setEngineStart(true);
-
-            parallelTransition.getChildren().addAll(this.pathTransitionList);
-            //parallelTransition.play();
-
-            class ThreadEngine implements Runnable {
-
-                @Override
-                public void run() {
-                    try {
-                        engine.mainLoop();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            Thread t = new Thread(new ThreadEngine());
-            t.start();
-        });
-    }*/
 
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         if (gameSession.isInGame()) {
@@ -573,10 +524,6 @@ public class Seaside {
         fade.setNode(indicator);
 
         fade.play();
-    }
-
-    public void addTransition(final PathTransition pathTransition2) {
-        this.pathTransitionList2.add(pathTransition2);
     }
 
     public Timeline getSpawnCountDown() {

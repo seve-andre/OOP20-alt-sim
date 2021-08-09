@@ -168,7 +168,6 @@ public class Plane {
             // DI TEST PER IL FUORIBORDO, da DECOMMENTARE!!!
             //controllerSeaside.insertPlaneInMap(this);
 
-            controllerSeaside.addTransition(spawnTransition);
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             spawnTransition.setNode(this.getSprite());
@@ -508,7 +507,4 @@ public class Plane {
         return obsState.getState() == State.LANDED;
     }
 
-    public static List<PathTransition> getPathTransitionList() {
-        return pathTransitionList;
-    }
 }
