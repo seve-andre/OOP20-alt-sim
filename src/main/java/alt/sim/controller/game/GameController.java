@@ -4,6 +4,9 @@ import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 
 import java.util.List;
 
@@ -25,9 +28,28 @@ public final class GameController {
 
 
     private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
-        //TODO sostituzione con gameModel
-        //List<Plane> planes = transitionSeaside.getPlanes();
         List<Plane> planes = gameModel.getPlanes();
+        List<FadeTransition> fadeTransition = transitionSeaside.getFadeTransition();
+
+        fadeTransition.forEach(fade -> {
+            if (pause) {
+                if (fade != null && fade.getStatus() == Animation.Status.RUNNING) {
+                    fade.pause();
+                }
+            }
+
+            if (resume) {
+                if (fade != null && fade.getStatus() == Animation.Status.PAUSED) {
+                    fade.play();
+                }
+            }
+
+            if (stop) {
+                if (fade != null) {
+                    fade.stop();
+                }
+            }
+        });
 
         planes.forEach(plane -> {
             if (pause) {
@@ -40,11 +62,10 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
-                if (plane.getState() == State.SPAWNING
-                        || plane.getState() == State.WAITING) {
+                if (plane.getState() == State.SPAWNING) {
                     plane.getSpawnTransition().pause();
                 }
-                plane.setState(State.TERMINATED);
+
 
             } else if (resume) {
                 if (plane.getPlaneMovementAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
@@ -53,11 +74,10 @@ public final class GameController {
                 if (plane.getLandingAnimation() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
                     plane.getLandingAnimation().play();
                 }
-                if (plane.getRandomTransition() != null && plane.getStatusMovementAnimation().equals("PAUSED")) {
+                if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().play();
                 }
-                if (plane.getState() == State.SPAWNING
-                        || plane.getState() == State.WAITING) {
+                if (plane.getState() == State.SPAWNING) {
                     plane.getSpawnTransition().play();
                 }
             } else if (stop) {
@@ -70,8 +90,7 @@ public final class GameController {
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().stop();
                 }
-                if (plane.getState() == State.SPAWNING
-                        || plane.getState() == State.WAITING) {
+                if (plane.getState() == State.SPAWNING) {
                     plane.getSpawnTransition().stop();
                 }
 

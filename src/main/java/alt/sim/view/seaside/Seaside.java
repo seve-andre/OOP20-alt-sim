@@ -199,20 +199,14 @@ public class Seaside {
             }
             System.out.println("");
         }
-
         engine.setPlanes(planes);
-
     }
 
     public void loadIndicatorAnimation(final SpawnLocation side) {
-        //ImageView indicatorImg = new ImageView("images/animations/indicator.png");
-        //FadeTransition fadeTransition = new FadeTransition();
-
         final int delta = 50;
 
         final double width = pane.getWidth();
         final double height = pane.getHeight();
-
         final double halfWidth = width / 2.0;
         final double halfHeight = height / 2.0;
 
@@ -524,6 +518,10 @@ public class Seaside {
         fade.setNode(indicator);
 
         fade.play();
+    }
+
+    public List<FadeTransition> getFadeTransition() {
+        return List.of(this.fadeTop, this.fadeLeft, this.fadeRight, this.fadeBottom);
     }
 
     public Timeline getSpawnCountDown() {
