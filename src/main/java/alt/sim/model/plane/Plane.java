@@ -119,6 +119,26 @@ public class Plane {
         obsState.removeListener();
     }
 
+    public void pauseAllAnimation() {
+        if (this.userTransition != null) {
+            this.userTransition.pause();
+        }
+
+        if (this.randomTransition != null) {
+            this.randomTransition.pause();
+        }
+    }
+
+    public void resumeAllAnimation() {
+        if (this.userTransition != null) {
+            this.userTransition.play();
+        }
+
+        if (this.randomTransition != null) {
+            this.randomTransition.play();
+        }
+    }
+
     public void playSpawnAnimation(final SpawnLocation side) {
 
         spawnTransition = new PathTransition();
