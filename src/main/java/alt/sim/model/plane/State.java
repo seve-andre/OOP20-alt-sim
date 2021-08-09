@@ -21,7 +21,7 @@ public enum State {
     RANDOM_MOVEMENT,
 
     /**
-     * (3) Plane is moving following User Path. 
+     * (3) Plane is moving following User Path.
      */
     USER_MOVEMENT,
 
@@ -31,7 +31,7 @@ public enum State {
     LANDED,
 
     /**
-     * (5)
+     * (5) Plane is stopped when game is over.
      */
     TERMINATED;
 }
