@@ -6,29 +6,24 @@ import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class ObservableState {
     private final ObjectProperty<State> stateProperty;
-    //    private SimpleStringProperty simpleStateProperty;
     private Timeline timeline;
     private Plane planeObserved;
 
     private final ChangeListener<? super State> listener;
 
     public ObservableState(final Plane planeObserved, final State state) {
-        // this.simpleStateProperty = new SimpleStringProperty(stateValue);
+        double timelineDuration = 4000;
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
         System.out.println("create Plane: " + planeObserved.hashCode() + " State = " + state);
 
         listener = (observable, oldValue, newValue) -> {
-            //System.out.println("stateTest Changed!");
-            //System.out.println("Old state: " + oldValue);
-            System.out.println(planeObserved.hashCode() + " New state: " + newValue);
+
             if (newValue == State.TERMINATED && this.timeline != null) {
                 this.timeline.stop();
             }
@@ -36,17 +31,13 @@ public class ObservableState {
             this.planeObserved.stopPlaneMovementAnimation();
             this.planeObserved.stopRandomTransition();
 
-            this.timeline = new Timeline(new KeyFrame(Duration.millis(4000),
+            this.timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration),
                     e -> { }));
 
             timeline.setCycleCount(1);
             timeline.play();
             timeline.setOnFinished(finish -> {
                 if (planeObserved.getState().equals(State.WAITING)) {
-                    Screen screenGame = Screen.getPrimary();
-                    Rectangle2D screenBound = screenGame.getVisualBounds();
-
-                    //this.planeObserved.loadRandomTransition(screenBound.getWidth(), screenBound.getHeight());
                     this.planeObserved.loadRandomTransition(Seaside.getScreenWidth(), Seaside.getScreenHeight());
                 }
             });
