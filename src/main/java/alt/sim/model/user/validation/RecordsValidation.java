@@ -30,16 +30,15 @@ public class RecordsValidation {
      * Checks if given path is directory.
      * If not, deletes it.
      *
-     * @param path of directory
      * @throws IOException if directory does not exist
      */
-    private void dirValidation(final Path path) throws IOException {
+    private void dirValidation() throws IOException {
         this.checkDirExistence();
-        if (!Files.isDirectory(path)) {
-            Files.deleteIfExists(path);
+        if (!Files.isDirectory(RecordsValidation.USER_RECORDS_DIR_PATH)) {
+            Files.deleteIfExists(RecordsValidation.USER_RECORDS_DIR_PATH);
         }
-        if (Files.notExists(path)) {
-            Files.createDirectory(path);
+        if (Files.notExists(RecordsValidation.USER_RECORDS_DIR_PATH)) {
+            Files.createDirectory(RecordsValidation.USER_RECORDS_DIR_PATH);
         }
     }
 
@@ -50,23 +49,22 @@ public class RecordsValidation {
      * @throws IOException if directory does not exist
      */
     public void userRecordsDirValidation() throws IOException {
-        this.dirValidation(USER_RECORDS_DIR_PATH);
+        this.dirValidation();
     }
 
     /**
      * Checks if given path is a file.
      * If not, deletes it.
      *
-     * @param path of file
      * @throws IOException if directory does not exist
      */
-    private void fileValidation(final Path path) throws IOException {
+    private void fileValidation() throws IOException {
         this.userRecordsDirValidation();
-        if (!Files.isRegularFile(path)) {
-            Files.deleteIfExists(path);
+        if (!Files.isRegularFile(RecordsValidation.USER_RECORDS_FILE_PATH)) {
+            Files.deleteIfExists(RecordsValidation.USER_RECORDS_FILE_PATH);
         }
-        if (Files.notExists(path)) {
-            Files.createFile(path);
+        if (Files.notExists(RecordsValidation.USER_RECORDS_FILE_PATH)) {
+            Files.createFile(RecordsValidation.USER_RECORDS_FILE_PATH);
         }
     }
 
@@ -76,6 +74,6 @@ public class RecordsValidation {
      * @throws IOException if file does not exist
      */
     public void userRecordsFileValidation() throws IOException {
-        this.fileValidation(USER_RECORDS_FILE_PATH);
+        this.fileValidation();
     }
 }

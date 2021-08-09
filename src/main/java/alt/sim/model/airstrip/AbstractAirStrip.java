@@ -32,9 +32,6 @@ public abstract class AbstractAirStrip implements AirStrip {
         this.transitionSeasideFix = transitionSeasideFix;
     }
 
-    //@Override
-    //public abstract void acceptPlane(Plane plane);
-
     @Override
     public void setScore(final User user, final int score) {
         user.setScore(score);

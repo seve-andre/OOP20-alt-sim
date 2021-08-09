@@ -6,7 +6,6 @@ import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 
 import java.util.List;
 

@@ -398,10 +398,6 @@ public class Seaside {
         });
     }
 
-    public List<Plane> getPlanes() {
-        return this.gameSession.getPlanes();
-    }
-
     public Canvas getCanvas() {
         return this.canvas;
     }
