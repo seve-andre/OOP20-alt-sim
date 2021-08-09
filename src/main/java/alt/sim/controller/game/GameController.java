@@ -26,7 +26,6 @@ public final class GameController {
         gameModel = game;
     }
 
-
     private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         List<Plane> planes = gameModel.getPlanes();
         List<FadeTransition> fadeTransition = transitionSeaside.getFadeTransition();
