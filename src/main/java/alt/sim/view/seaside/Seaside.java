@@ -8,7 +8,6 @@ import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.game.Game;
-import alt.sim.model.game.Score;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
@@ -18,7 +17,6 @@ import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
-import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -42,8 +40,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Seaside {
 
@@ -62,6 +60,118 @@ public class Seaside {
     @FXML
     private Canvas canvas;
 
+    private static final int SPAWN_DELAY = 6;
+
+    private static final int MAX_PLANE_TO_SPAWN = 8;
+
+    private int numberPlanesToSpawnEachTime;
+
+    // Timer: at the end of count down a new Plane gets spawned
+    private Timeline spawnCountDown;
+
+    private ImageView indicatorTop;
+    private ImageView indicatorLeft;
+    private ImageView indicatorRight;
+    private ImageView indicatorBottom;
+
+    private FadeTransition fadeTop;
+    private FadeTransition fadeLeft;
+    private FadeTransition fadeRight;
+    private FadeTransition fadeBottom;
+
+    private List<Plane> planes = new ArrayList<>();
+    private AbstractAirStrip stripLeft;
+    private AbstractAirStrip stripRight;
+    private List<Point2D> planeCoordinates;
+
+    private GraphicsContext gc;
+    private GameEngineAreaTest engine;
+
+    private Game gameSession;
+
+    private static double screenWidth;
+    private static double screenHeight;
+
+    @FXML
+    public void initialize() {
+        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
+        screenWidth = canvas.getWidth();
+        screenHeight = canvas.getHeight();
+
+        System.out.println("ScreenSize: " + screenSize.getWidth() + " , " + screenSize.getHeight());
+        System.out.println("CanvasSize: " + screenWidth + " , " + screenHeight);
+        System.out.println("PaneSize: " + pane.getBoundsInLocal().getWidth() + " , " + pane.getBoundsInLocal().getHeight());
+
+        gameSession = new Game();
+
+        stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
+        stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
+        engine = new GameEngineAreaTest(this, gameSession);
+
+        engine.setLandingBoxLeft(landingBoxLeft);
+        engine.setLandingBoxRight(landingBoxRight);
+
+        gc = canvas.getGraphicsContext2D();
+        planeCoordinates = new ArrayList<>();
+
+        this.indicatorTop = new ImageView(new Image("images/animations/indicator.png"));
+        this.indicatorLeft = new ImageView(new Image("images/animations/indicator.png"));
+        this.indicatorRight = new ImageView(new Image("images/animations/indicator.png"));
+        this.indicatorBottom = new ImageView(new Image("images/animations/indicator.png"));
+
+        this.fadeTop = new FadeTransition();
+        this.fadeLeft = new FadeTransition();
+        this.fadeRight = new FadeTransition();
+        this.fadeBottom = new FadeTransition();
+
+        List<ImageView> indicatorList = List.of(indicatorTop, indicatorRight, indicatorBottom, indicatorLeft);
+        indicatorList.forEach(indicator -> indicator.setVisible(false));
+        pane.getChildren().addAll(indicatorList);
+
+        // At the beginning of the game 1 plane gets spawned each time
+        // till 500 points are reached, than this variable will be incremented
+        // till reaching 4 planes
+        this.numberPlanesToSpawnEachTime = 1;
+
+        imgViewHelicopterLandingArea.setX(
+                (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
+        );
+        imgViewHelicopterLandingArea.setY(
+                (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
+        );
+
+        ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
+        ((BasicAirStrip) stripRight).setBox(landingBoxRight);
+
+        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(SPAWN_DELAY), cycle -> {
+            spawnPlane(numberPlanesToSpawnEachTime);
+            System.out.println("numberPlanesToSpawnEachTime" + numberPlanesToSpawnEachTime);
+        }));
+
+        spawnCountDown.setCycleCount(Animation.INDEFINITE);
+        spawnCountDown.play();
+        name.setText(MapController.getName());
+
+        gameSession.setInGame(true);
+        engine.setEngineStart(gameSession.isInGame());
+        engine.setPlanes(gameSession.getPlanes());
+
+        class ThreadEngine implements Runnable {
+
+            @Override
+            public void run() {
+                try {
+                    engine.mainLoop();
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        Thread t = new Thread(new ThreadEngine());
+        t.start();
+    }
+
     @FXML
     void handlerMouseDragged(final MouseEvent event) {
         if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
@@ -73,24 +183,26 @@ public class Seaside {
     }
 
     @FXML
-    void handlerMouseReleased(final MouseEvent event) {
-        Point2D puntoInizioPercorso;
-        double distanzaDalPlane = 0;
+    void handlerMouseReleased() {
+        Point2D pathStartingPoint;
+        double distanceFromPlane;
 
         for (Plane planeSelected:gameSession.getPlanes()) {
-            // Controllo che l'utente disegni un percorso con un minimo di punti
+
+            // Checks if user has drawn a path with a minimum amount of points
             if (planeSelected.getIsPlaneSelectedForBeenMoved()
                     && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
-                puntoInizioPercorso = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
-                distanzaDalPlane = puntoInizioPercorso
+                pathStartingPoint = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
+                distanceFromPlane = pathStartingPoint
                         .distance(new Point2D(planeSelected.getSprite().getBoundsInParent().getCenterX(),
                                 planeSelected.getSprite().getBoundsInParent().getCenterY()));
 
-                // L'animazione parte solo se l'utente ha disegnato una rotta vicino al Plane
-                if (distanzaDalPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE && planeSelected.getState() != State.SPAWNING) {
+                // Animation starts only if the user has drawn a path near the Plane
+                if (distanceFromPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE
+                        && planeSelected.getState() != State.SPAWNING) {
 
-                    // Quando viene rilasciato il Mouse se il Plane seguiva già un percorso,
-                    // deve bloccarsi e seguire il percorso Nuovo
+                    // When the mouse is released if Plane was already following a path,
+                    // it has to stop and follow the new one
                     if (planeSelected.getPlaneMovementAnimation() != null) {
                         planeSelected.stopPlaneMovementAnimation();
                     }
@@ -99,8 +211,8 @@ public class Seaside {
                     clearLinesDrawed();
                     restoreLinesRemoved();
 
-                    // Una volta caricate le coordinate e stoppate le animazioni in esecuzione
-                    // viene fatta partire quella del Plane
+                    // Once coordinates are loaded and running animations are stopped,
+                    // plane movement animation is loaded
                     planeSelected.loadPlaneMovementAnimation();
                 } else {
                     clearMap();
@@ -110,74 +222,19 @@ public class Seaside {
             }
         }
 
-        // La lista di Coordinate salvate vengono ripulite
+        // Saved-coordinates list gets cleared
         planeCoordinates.clear();
     }
 
-    private static final int SPAWN_DELAY = 6;
-    /**
-     * Campo contenente le informazioni globali sullo Schermo della Partita.
-     */
-    public static final Screen SCREEN_GAME = Screen.getPrimary();
-
-    /**
-     * Informazioni globali sui Bound dello Schermo.
-     */
-    public static final Rectangle2D SCREEN_BOUND = SCREEN_GAME.getVisualBounds();
-
-    // Section Spawn Plane
-    private static final int MAX_PLANE_TO_SPAWN = 8;
-
-    private int numberPlanesToSpawnEachTime;
-    //------------------------------------------------------------------------
-    // Timer che al termine del count, fa spawnare un Plane
-    private Timeline spawnCountDown;
-
-    //------------------------------------------------------------------------
-    // Sezione Indicator
-    private ImageView indicatorTop;
-    private ImageView indicatorLeft;
-    private ImageView indicatorRight;
-    private ImageView indicatorBottom;
-
-    private FadeTransition fadeTop;
-    private FadeTransition fadeLeft;
-    private FadeTransition fadeRight;
-    private FadeTransition fadeBottom;
-
-    private List<SpawnLocation> spawnLocationList = new ArrayList<>();
-
-    private List<Plane> planes = new ArrayList<>();
-    private AbstractAirStrip stripLeft;
-    private AbstractAirStrip stripRight;
-    private List<Point2D> planeCoordinates;
-
-    private GraphicsContext gc;
-    private GameEngineAreaTest engine;
-    private GameController gameController;
-
-    private Game gameSession;
-    private Score gameScore;
-
-    private static double screenWidth;
-    private static double screenHeight;
-
-
-    // Sezione EventHandler<Mouse>
-    //private EventHandler<MouseEvent> handlerMouseReleased;
-    //private EventHandler<MouseEvent> handlerMouseDragged;
-
-    private static ParallelTransition parallelTransition = new ParallelTransition();
 
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         if (gameSession.isInGame()) {
-            Random r = new Random();
 
             List<SpawnLocation> spawnLocation = new ArrayList<>(Arrays.asList(SpawnLocation.values()));
 
             for (int i = 0; i < numberPlaneSpawn; i++) {
                 if (gameSession.getPlanes().size() < MAX_PLANE_TO_SPAWN) {
-                    int locationIndex = r.nextInt(spawnLocation.size());
+                    int locationIndex = ThreadLocalRandom.current().nextInt(spawnLocation.size());
                     Plane newPlane = new Plane("images/map_components/airplane.png");
                     newPlane.connectToController(this);
                     newPlane.getSprite().setFitWidth(64);
@@ -187,14 +244,11 @@ public class Seaside {
                     System.out.println("side.random = " + spawnLocation.get(locationIndex));
                     spawnLocation.remove(locationIndex);
 
-                    //planes.add(newPlane);
                     gameSession.addPlane(newPlane);
                     engine.setPlanes(gameSession.getPlanes());
                     pane.getChildren().add(newPlane.getSprite());
-                    //insertPlaneInMap(newPlane);
                 }
             }
-            System.out.println("");
         }
         engine.setPlanes(planes);
     }
@@ -245,93 +299,6 @@ public class Seaside {
         }
     }
 
-    @FXML
-    public void initialize() {
-        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-        screenWidth = canvas.getWidth();
-        screenHeight = canvas.getHeight();
-
-        System.out.println("ScreenSize: " + screenSize.getWidth() + " , " + screenSize.getHeight());
-        System.out.println("CanvasSize: " + screenWidth + " , " + screenHeight);
-        System.out.println("PaneSize: " + pane.getBoundsInLocal().getWidth() + " , " + pane.getBoundsInLocal().getHeight());
-
-        gameSession = new Game();
-        gameScore = new Score();
-        gameController = new GameController(this, gameSession);
-
-        stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
-        stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
-        engine = new GameEngineAreaTest(this, gameSession);
-
-        engine.setLandingBoxLeft(landingBoxLeft);
-        engine.setLandingBoxRight(landingBoxRight);
-
-        gc = canvas.getGraphicsContext2D();
-        planeCoordinates = new ArrayList<>();
-
-        this.indicatorTop = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorLeft = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorRight = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorBottom = new ImageView(new Image("images/animations/indicator.png"));
-
-        this.fadeTop = new FadeTransition();
-        this.fadeLeft = new FadeTransition();
-        this.fadeRight = new FadeTransition();
-        this.fadeBottom = new FadeTransition();
-
-        List<ImageView> indicatorList = List.of(indicatorTop, indicatorRight, indicatorBottom, indicatorLeft);
-        indicatorList.forEach(indicator -> indicator.setVisible(false));
-        pane.getChildren().addAll(indicatorList);
-
-
-        // A inizio partita si spawnerà 1 Plane alla volta, poi successivamente,
-        // ogni 500 punti raggiunti numberPlanesToSpawnEachTime incrementerà di 1 fino
-        // ad un massimo di 4 Plane alla volta.
-        this.numberPlanesToSpawnEachTime = 1;
-        //System.out.println("pane Bounds: " + );
-
-        imgViewHelicopterLandingArea.setX(
-                (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
-        );
-        imgViewHelicopterLandingArea.setY(
-                (pane.getBoundsInLocal().getHeight() / 2) - imgViewHelicopterLandingArea.getFitHeight() / 2
-        );
-
-        ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
-        ((BasicAirStrip) stripRight).setBox(landingBoxRight);
-
-        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(SPAWN_DELAY), cycle -> {
-            spawnPlane(numberPlanesToSpawnEachTime);
-            System.out.println("numberPlanesToSpawnEachTime" + numberPlanesToSpawnEachTime);
-        }));
-
-        spawnCountDown.setCycleCount(Animation.INDEFINITE);
-        spawnCountDown.play();
-        name.setText(MapController.getName());
-
-        // TO-DO da decommentare altrimenti non spawnano i Plane
-        //playGame();
-
-        // Copiato da playGame!!!
-        gameSession.setInGame(true);
-        engine.setEngineStart(gameSession.isInGame());
-        engine.setPlanes(gameSession.getPlanes());
-
-        class ThreadEngine implements Runnable {
-
-            @Override
-            public void run() {
-                try {
-                    engine.mainLoop();
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        Thread t = new Thread(new ThreadEngine());
-        t.start();
-    }
 
     public static double getScreenWidth() {
         return screenWidth;
@@ -341,20 +308,12 @@ public class Seaside {
         return screenHeight;
     }
 
-    /* TODO: non Funziona da sostituire. */
-    public void insertPlaneInMap(final Plane plane) {
-        if (!pane.getChildren().contains(plane.getSprite())) {
-            pane.getChildren().add(plane.getSprite());
-        }
-    }
-
     public void terminateGame() {
         engine.setEngineStart(false);
         gameSession.setInGame(false);
         numberPlanesToSpawnEachTime = 0;
-        parallelTransition.stop();
 
-        // Terminazione di tutte le animazioni del Plane in corso:
+        // Stops all animations
         GameController.stop();
 
         Platform.runLater(() -> {
@@ -451,9 +410,7 @@ public class Seaside {
         final List<ImageView> imageViews = planes.stream()
                 .map(Plane::getSprite)
                 .collect(Collectors.toList());
-        Platform.runLater(() -> {
-            pane.getChildren().removeAll(imageViews);
-        });
+        Platform.runLater(() -> pane.getChildren().removeAll(imageViews));
     }
 
     public synchronized void removePlane(final Plane plane) {
@@ -487,9 +444,7 @@ public class Seaside {
     }
 
     public void addScore(final int score) {
-        Platform.runLater(() -> {
-            this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score));
-        });
+        Platform.runLater(() -> this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score)));
     }
 
     public int getIntScore() {
@@ -517,16 +472,4 @@ public class Seaside {
     public Timeline getSpawnCountDown() {
         return this.spawnCountDown;
     }
-
-    public GameController getGameController() {
-        return this.gameController;
-    }
-    public int getGameScore() {
-        return gameScore.getValue();
-    }
-
-    /*public void updateGameScore(int delta) {
-        gameScore.updateValue(delta);
-        Platform.runLater(() -> score.setText(Integer.toString(gameScore.getValue())));
-    }*/
 }
