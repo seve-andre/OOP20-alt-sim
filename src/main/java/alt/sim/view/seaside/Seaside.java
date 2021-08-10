@@ -263,7 +263,7 @@ public class Seaside {
 
         switch (side) {
             case TOP:
-                indicatorTop.setX(halfWidth);
+                indicatorTop.setX(halfWidth - (indicatorTop.getBoundsInLocal().getWidth() / 2));
                 indicatorTop.setY(delta);
 
                 this.setFadeTransition(fadeTop, indicatorTop);
@@ -272,14 +272,14 @@ public class Seaside {
 
             case RIGHT:
                 indicatorRight.setX(width - delta);
-                indicatorRight.setY(halfHeight);
+                indicatorRight.setY(halfHeight - (indicatorRight.getBoundsInLocal().getHeight() / 2));
 
                 this.setFadeTransition(fadeRight, indicatorRight);
                 indicatorRight.setVisible(true);
                 break;
 
             case BOTTOM:
-                indicatorBottom.setX(halfWidth);
+                indicatorBottom.setX(halfWidth - (indicatorBottom.getBoundsInLocal().getWidth() / 2));
                 indicatorBottom.setY(height - delta);
 
                 this.setFadeTransition(fadeBottom, indicatorBottom);
@@ -288,7 +288,7 @@ public class Seaside {
 
             case LEFT:
                 indicatorLeft.setX(delta);
-                indicatorLeft.setY(halfHeight);
+                indicatorLeft.setY(halfHeight - (indicatorLeft.getBoundsInLocal().getHeight() / 2));
 
                 this.setFadeTransition(fadeLeft, indicatorLeft);
                 indicatorLeft.setVisible(true);
