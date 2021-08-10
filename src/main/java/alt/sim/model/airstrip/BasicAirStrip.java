@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 public class BasicAirStrip extends AbstractAirStrip {
     private Rectangle landingBox;
     private Seaside transitionSeaside;
-    private int score;
 
     public BasicAirStrip(final String url) {
         super(url);
@@ -21,7 +20,6 @@ public class BasicAirStrip extends AbstractAirStrip {
     public BasicAirStrip(final String url, final Seaside transitionSeaside) {
         super(url, transitionSeaside);
         this.transitionSeaside = transitionSeaside;
-        this.score = 0;
     }
 
     @Override
@@ -33,8 +31,6 @@ public class BasicAirStrip extends AbstractAirStrip {
             plane.removedObservableStateListener();
             System.out.println("Plane" + plane.hashCode() + " landing...");
             plane.getLandingAnimation().setOnFinished(finish -> transitionSeaside.removePlane(plane));
-            //transitionSeaside.updateGameScore(100);
-
             return true;
         }
         super.setStatus(AirStripStatus.FREE);

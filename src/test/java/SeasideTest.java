@@ -12,7 +12,7 @@ public class SeasideTest extends Application {
     private Pane pane;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(final Stage stage) throws Exception {
         this.pane = new Pane();
         String urlImage = SpriteType.AIRPLANE.getURLImage();
         pane.resize(1000, 1000);
@@ -44,11 +44,11 @@ public class SeasideTest extends Application {
         stage.show();
     }
 
-    public void removePlane(final Plane plane){
+    public void removePlane(final Plane plane) {
         pane.getChildren().remove(plane.getSprite());
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 }
