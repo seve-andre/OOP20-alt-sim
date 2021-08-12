@@ -1,3 +1,4 @@
+package alt.sim.view.seaside;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.sprite.SpriteType;
 import javafx.application.Application;
