@@ -36,7 +36,6 @@ public class PlaneController {
 
         this.airlinePlane = new Plane("images/map_components/airplane.png");
 
-        //airlinePlane.getSpritePlane().getSprite().resizeImageSprite(true);
         root.getChildren().add(airlinePlane.getSprite());
     }
 }
