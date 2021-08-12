@@ -10,9 +10,6 @@ import javafx.scene.control.Button;
 public class GameOverView {
 
     @FXML
-    public void initialize() { }
-
-    @FXML
     public void onHomeClick(final ActionEvent event) {
         PageLoader.loadPage(Page.HOME);
         ((Button) event.getSource()).getScene().getWindow().hide();

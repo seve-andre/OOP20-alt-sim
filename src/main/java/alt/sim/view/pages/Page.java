@@ -51,8 +51,7 @@ public enum Page {
         return this.name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 }
-

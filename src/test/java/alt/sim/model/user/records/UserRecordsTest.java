@@ -42,7 +42,7 @@ public class UserRecordsTest {
     }
 
     @Test
-    public void isNameTaken() throws IOException {
+    void isNameTaken() throws IOException {
         assertTrue(this.userRecords.isPresent(user1));
         assertTrue(this.userRecords.isPresent(user2));
         String user3 = "Giacomo";

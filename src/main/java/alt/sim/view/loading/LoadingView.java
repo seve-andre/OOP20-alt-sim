@@ -32,11 +32,12 @@ public class LoadingView {
     private final Task<Void> task = new Task<>() {
         @Override
         public Void call() {
-            for (int i = 0; i < 10; i++) {
+            for (long i = 0; i < 10; i++) {
                 try {
                     Thread.sleep(LOADING_TIME);
                 } catch (final InterruptedException e) {
-                      break;
+                    Thread.currentThread().interrupt();
+                    break;
                 }
                 updateProgress(i + 1, 10);
             }

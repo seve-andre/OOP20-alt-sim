@@ -37,7 +37,7 @@ class LeaderboardTest {
     }
 
     @Test
-    public void testLeaderboard() {
+    void testLeaderboard() {
         List<String> topFive = getTopFive();
         System.out.println(topFive);
 
