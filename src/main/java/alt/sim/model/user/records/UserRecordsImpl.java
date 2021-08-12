@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.LinkedHashMap;
 
 public class UserRecordsImpl implements UserRecords {
@@ -18,7 +19,7 @@ public class UserRecordsImpl implements UserRecords {
     private final Path jsonPath = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
     private final RecordsValidation recordsValidation = new RecordsValidation();
 
-    private LinkedHashMap<String, Integer> users = new LinkedHashMap<>();
+    private Map<String, Integer> users = new LinkedHashMap<>();
 
     private final Type jsonTypeToken = new TypeToken<LinkedHashMap<String, Integer>>() { }.getType();
 
@@ -55,8 +56,8 @@ public class UserRecordsImpl implements UserRecords {
     @Override
     public void addUser(final User user) throws IOException {
         this.loadFile();
-        if (!this.users.containsKey(user.getName())) {
-            this.users.put(user.getName(), user.getScore());
+        if (!this.users.containsKey(user.getName().trim())) {
+            this.users.put(user.getName().trim(), user.getScore());
         }
         this.updateFile();
     }
@@ -70,7 +71,7 @@ public class UserRecordsImpl implements UserRecords {
         return this.users.containsKey(name);
     }
 
-    public LinkedHashMap<String, Integer> getUsers() {
+    public Map<String, Integer> getUsers() {
         try {
             this.loadFile();
         } catch (final IOException e) {
@@ -86,8 +87,7 @@ public class UserRecordsImpl implements UserRecords {
     public void updateScore(final String name, final int score) throws IOException {
         this.loadFile();
         if (this.users.containsKey(name)) {
-            this.users.remove(name);
-            this.users.put(name, score);
+            this.users.replace(name, score);
         }
         this.updateFile();
     }
