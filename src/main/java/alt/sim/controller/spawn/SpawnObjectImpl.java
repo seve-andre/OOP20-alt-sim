@@ -1,10 +1,10 @@
 package alt.sim.controller.spawn;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import alt.sim.model.container.PlaneContainer;
 import alt.sim.model.container.PlaneContainerImpl;
 import alt.sim.model.plane.Plane;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SpawnObjectImpl implements SpawnObject {
     private static final int SPAWN_FREQUENCY = 10000;
@@ -28,6 +28,7 @@ public class SpawnObjectImpl implements SpawnObject {
                     try {
                         Thread.sleep(SPAWN_FREQUENCY);
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                         e.printStackTrace();
                     }
                 }
