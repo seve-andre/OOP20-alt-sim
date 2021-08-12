@@ -1,13 +1,13 @@
 package alt.sim.controller.game;
 
+import java.util.List;
+
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-
-import java.util.List;
 
 public final class GameController {
 
@@ -17,12 +17,14 @@ public final class GameController {
     private static final int LIMIT_2000 = 2000;
     private static final int LIMIT_2100 = 2100;
 
-    private static Seaside transitionSeaside;
-    private static Game gameModel;
+    private static Seaside transitionSeaside = null;
+    private static Game gameModel = null;
 
     public GameController(final Seaside seaside, final Game game) {
-        transitionSeaside = seaside;
-        gameModel = game;
+        if (transitionSeaside == null) {
+            transitionSeaside = seaside;
+            gameModel = game;
+        }
     }
 
     private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
