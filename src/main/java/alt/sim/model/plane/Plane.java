@@ -106,7 +106,7 @@ public class Plane {
         this(imageClassification.getURLImage());
     }
 
-    public void terminateAllAnimation() {
+    public void terminateAllAnimations() {
         if (this.userTransition != null) {
             this.userTransition.stop();
             this.userTransition.setNode(null);
