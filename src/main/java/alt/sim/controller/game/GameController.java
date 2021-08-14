@@ -27,7 +27,7 @@ public final class GameController {
         }
     }
 
-    private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+        private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         List<Plane> planes = gameModel.getPlanes();
         List<FadeTransition> fadeTransition = transitionSeaside.getFadeTransition();
 
@@ -56,9 +56,9 @@ public final class GameController {
                 if (plane.getPlaneMovementAnimation() != null) {
                     plane.getPlaneMovementAnimation().pause();
                 }
-                if (plane.getLandingAnimation() != null) {
+               /* if (plane.getLandingAnimation() != null) {
                     plane.getLandingAnimation().pause();
-                }
+                }*/
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
@@ -95,7 +95,7 @@ public final class GameController {
                 }
 
                 plane.setState(State.TERMINATED);
-                plane.terminateAllAnimation();
+                plane.terminateAllAnimations();
             }
         });
     }
