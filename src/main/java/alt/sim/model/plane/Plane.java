@@ -2,7 +2,6 @@ package alt.sim.model.plane;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import alt.sim.model.animation.ExplosionAnimation;
@@ -14,7 +13,6 @@ import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -40,22 +38,20 @@ import javafx.util.Duration;
  */
 
 public class Plane {
-    private static Random r = new Random();
-    private Tipology type;
+    private static final int DURATION_VALUE = 2500;
+    private static final int POSITION_WIDTH = 500;
+    private static final int POSITION_HEIGHT = 500;
+
     private Sprite spritePlane;
     //private ImageView spritePlane;
 
     private ObservableState obsState;
-    private ObservablePosition obsPosition;
     // DA SISTEMARE
     private Seaside controllerSeaside;
 
     // Section Plane-Animation && Spawn:
     private LandingAnimation landingAnimation;
     private ExplosionAnimation explosionAnimation;
-    // Timer for Plane spawn;
-    private Timeline timeline;
-
     // Section PathTransition:
     private PathTransition userTransition;
     private PathTransition randomTransition;
@@ -66,13 +62,8 @@ public class Plane {
     private List<Point2D> linesPath;
     private List<Point2D> linesPathToRemove;
 
-    // TEST SALVATAGGIO COORDIANTE PLANE
-    private double lastPositionX;
-    private double lastPositionY;
-    private double positionX;
-    private double positionY;
     private PathTransition spawnTransition;
-    private static List<PathTransition> pathTransitionList = new ArrayList<>();
+
 
     //private static final List<SpawnLocation> SPAWN_LOCATIONS;
 
@@ -95,7 +86,7 @@ public class Plane {
 
         // Initialize Animation
         this.landingAnimation = new LandingAnimation(this.getSprite());
-        this.explosionAnimation = new ExplosionAnimation(new Point2D(500, 500));
+        this.explosionAnimation = new ExplosionAnimation(new Point2D(POSITION_WIDTH, POSITION_HEIGHT));
         this.randomTransition = new PathTransition();
 
         // Setting Handler for MouseClick STRATEGY da implementare
@@ -162,28 +153,28 @@ public class Plane {
 
             // Inserimento coordinate PathSpawn from side
             switch (side) {
-                case TOP:
-                    pathSpawn.getElements().add(new MoveTo(halfWidth, -delta));
-                    pathSpawn.getElements().add(new LineTo(halfWidth, delta));
-                    break;
+            case TOP:
+                pathSpawn.getElements().add(new MoveTo(halfWidth, -delta));
+                pathSpawn.getElements().add(new LineTo(halfWidth, delta));
+                break;
 
-                case RIGHT:
-                    pathSpawn.getElements().add(new MoveTo(width + delta, halfHeight));
-                    pathSpawn.getElements().add(new LineTo(width - delta, halfHeight));
-                    break;
+            case RIGHT:
+                pathSpawn.getElements().add(new MoveTo(width + delta, halfHeight));
+                pathSpawn.getElements().add(new LineTo(width - delta, halfHeight));
+                break;
 
-                case BOTTOM:
-                    pathSpawn.getElements().add(new MoveTo(halfWidth, height + delta));
-                    pathSpawn.getElements().add(new LineTo(halfWidth, height - delta));
-                    break;
+            case BOTTOM:
+                pathSpawn.getElements().add(new MoveTo(halfWidth, height + delta));
+                pathSpawn.getElements().add(new LineTo(halfWidth, height - delta));
+                break;
 
-                case LEFT:
-                    pathSpawn.getElements().add(new MoveTo(-delta, halfHeight));
-                    pathSpawn.getElements().add(new LineTo(delta, halfHeight));
-                    break;
+            case LEFT:
+                pathSpawn.getElements().add(new MoveTo(-delta, halfHeight));
+                pathSpawn.getElements().add(new LineTo(delta, halfHeight));
+                break;
 
-                default:
-                    break;
+            default:
+                break;
             }
 
             // DI TEST PER IL FUORIBORDO, da DECOMMENTARE!!!
@@ -192,7 +183,7 @@ public class Plane {
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             spawnTransition.setNode(this.getSprite());
-            spawnTransition.setDuration(Duration.millis(2500));
+            spawnTransition.setDuration(Duration.millis(DURATION_VALUE));
             spawnTransition.play();
 
             spawnTransition.setOnFinished(event -> {
@@ -248,11 +239,8 @@ public class Plane {
 
             try {
                 if (newValue.getCenterX() > 0.0 && newValue.getCenterY() > 0.0) {
-                    lastPositionX = newValue.getCenterX();
-                    lastPositionY = newValue.getCenterY();
-
-                    positionX = lastPositionX;
-                    positionY = lastPositionY;
+                    newValue.getCenterX();
+                    newValue.getCenterY();
 
                     //this.getSprite().setX(positionX);
                     //this.getSprite().setY(positionY);
@@ -435,9 +423,9 @@ public class Plane {
 
             linesPathClear = removeDuplicateInLinesPath(linesPath);
 
-           for (Point2D linesClear:linesPathClear) {
-               System.out.println("coordinate passate dopo: " + linesClear.getX() + " , " + linesClear.getY());
-               this.linesPath.add(new Point2D(linesClear.getX(), linesClear.getY()));
+            for (Point2D linesClear:linesPathClear) {
+                System.out.println("coordinate passate dopo: " + linesClear.getX() + " , " + linesClear.getY());
+                this.linesPath.add(new Point2D(linesClear.getX(), linesClear.getY()));
             }
         }
     }
@@ -480,10 +468,6 @@ public class Plane {
     }
 
     public void setPlaneLinesPathToRemove(final List<Point2D> linesPathToRemove) {
-        for (Point2D pointToRemove : linesPathToRemove) {
-            //System.out.println("linesPathToRemove: " + pointToRemove.getX() + " , " + pointToRemove.getY());
-        }
-
         this.linesPathToRemove = linesPathToRemove;
     }
 
