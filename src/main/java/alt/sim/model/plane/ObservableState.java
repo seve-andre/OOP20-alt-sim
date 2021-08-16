@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.util.Duration;
 
 public class ObservableState {
+    private static final int TIMELINE_DURATION = 4000;
     private final ObjectProperty<State> stateProperty;
     private Timeline timeline;
     private Plane planeObserved;
@@ -16,7 +17,6 @@ public class ObservableState {
     private final ChangeListener<? super State> listener;
 
     public ObservableState(final Plane planeObserved, final State state) {
-        double timelineDuration = 4000;
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
@@ -31,7 +31,7 @@ public class ObservableState {
             this.planeObserved.stopPlaneMovementAnimation();
             this.planeObserved.stopRandomTransition();
 
-            this.timeline = new Timeline(new KeyFrame(Duration.millis(timelineDuration),
+            this.timeline = new Timeline(new KeyFrame(Duration.millis(TIMELINE_DURATION),
                     e -> { }));
 
             timeline.setCycleCount(1);
