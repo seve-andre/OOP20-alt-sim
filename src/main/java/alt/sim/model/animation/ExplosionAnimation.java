@@ -12,6 +12,7 @@ import javafx.util.Duration;
 public class ExplosionAnimation {
     private static final int DURATION_KEYFRAME = 20;
     private static final int TRANSITION_ANIMATION_DURATION = 1000;
+    private static final int CYCLES = 50;
 
     private ImageView imgExplosion;
     private ScaleTransition scaleExplosionAnimation;
@@ -54,7 +55,7 @@ public class ExplosionAnimation {
         scaleExplosionAnimation.play();
 
         Timeline timer = new Timeline(keyframe);
-        timer.setCycleCount(50);
+        timer.setCycleCount(CYCLES);
         timer.play();
     }
 
