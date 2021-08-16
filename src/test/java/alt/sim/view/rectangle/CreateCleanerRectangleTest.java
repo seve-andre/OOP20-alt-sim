@@ -21,6 +21,14 @@ import javafx.stage.Stage;
 public class CreateCleanerRectangleTest extends Application {
     private static final double RECTANGLE_WIDTH = 50;
     private static final double RECTANGLE_HEIGHT = 30;
+    private static final double REC_WIDTH = 1900;
+    private static final double REC_HEIGHT = 1900;
+    private static final double PANE_WIDTH = 800;
+    private static final double PANE_HEIGHT = 800;
+    private static final int HEIGHT_LIMIT = 5;
+    private static final int WIDTH_LIMIT = 5;
+    private static final int HEIGHT_CENTER = 50;
+    private static final int WIDTH_CENTER = 50;
 
     private Pane paneRoot;
     private GraphicsContext gc;
@@ -31,7 +39,7 @@ public class CreateCleanerRectangleTest extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         paneRoot = new Pane();
-        paneRoot.resize(800, 800);
+        paneRoot.resize(PANE_WIDTH, PANE_HEIGHT);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
         gc = canvas.getGraphicsContext2D();
@@ -52,7 +60,7 @@ public class CreateCleanerRectangleTest extends Application {
             //clearCanvasLines(planeCoordinates);
             //planeCoordinates.clear();
 
-            gc.clearRect(0, 0, 1900, 1900);
+            gc.clearRect(0, 0, REC_WIDTH, REC_HEIGHT);
             gc.beginPath();
         };
 
@@ -68,7 +76,7 @@ public class CreateCleanerRectangleTest extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, handlerMouseReleased);
 
         stage.addEventHandler(KeyEvent.KEY_PRESSED, handlerKeyPressed);
-        Scene scene = new Scene(paneRoot, 800, 800);
+        Scene scene = new Scene(paneRoot, PANE_WIDTH, PANE_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -117,12 +125,12 @@ public class CreateCleanerRectangleTest extends Application {
         width = Math.abs(initialPoint.getX() - finalPoint.getX());
         height = Math.abs(initialPoint.getY() - finalPoint.getY());
 
-        if (height <= 5) {
-            height = 50;
+        if (height <= HEIGHT_LIMIT) {
+            height = HEIGHT_CENTER;
         }
 
-        if (width <= 5) {
-            width = 50;
+        if (width <= WIDTH_LIMIT) {
+            width = WIDTH_CENTER;
         }
 
         //return new Rectangle(puntoDiPartenzaX - (width / 2), puntoDiPartenzaY - (height / 2), width, height);
