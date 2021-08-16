@@ -15,18 +15,11 @@ import javafx.scene.image.ImageView;
  *
  */
 public class Sprite {
-    // TO-DO da importare nella classe View o Screen
-    private static final double MIN_SCREEEN_RANGE_WIDTH = 1000;
-    private static final double MIN_SCREEEN_RANGE_HEIGHT = 800;
-
     private final double smallPlaneSizeWidth = 32;
     private final double smallPlaneSizeHeight = 32;
 
     private Image bufferedSprite;
     private ImageView sprite;
-
-    private double centerX;
-    private double centerY;
 
     public Sprite(final SpriteType type) {
         this(type.getURLImage());
@@ -38,9 +31,6 @@ public class Sprite {
     public Sprite(final String urlSprite) {
         this.bufferedSprite = new Image(urlSprite);
         this.sprite = new ImageView(bufferedSprite);
-
-        this.centerX = 0;
-        this.centerY = 0;
 
         //resize calculation:
         resizeSpriteToMap(false);
@@ -58,11 +48,11 @@ public class Sprite {
         sprite.setPreserveRatio(isPreserveRatio);
 
         //if (Seaside.SCREEN_BOUND.getWidth() >= MIN_SCREEEN_RANGE_WIDTH && Seaside.SCREEN_BOUND.getHeight() >= MIN_SCREEEN_RANGE_HEIGHT) {
-            this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
-            this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
+        this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
+        this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
         //} else {
-          //  this.sprite.setFitWidth(smallPlaneSizeWidth);
-           // this.sprite.setFitHeight(smallPlaneSizeHeight);
+        //  this.sprite.setFitWidth(smallPlaneSizeWidth);
+        // this.sprite.setFitHeight(smallPlaneSizeHeight);
         //}
     }
 
@@ -88,14 +78,6 @@ public class Sprite {
 
     public double getCenterY() {
         return this.getParentBound().getCenterY();
-    }
-
-    private double calculateCenterX(final double x) {
-        return (x - (getLocalBound().getWidth() / 2));
-    }
-
-    private double calculateCenterY(final double y) {
-        return (y - (getLocalBound().getHeight() / 2));
     }
 
     public Bounds getLocalBound() {
