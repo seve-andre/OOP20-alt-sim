@@ -448,18 +448,7 @@ public class Plane {
         return linesPathCopy;
     }
 
-
-    /*
-     * public void resetPlaneLinesPath() { this.linesPath.clear(); }
-     */
-
-    /*
-     * public void resetPlaneLinesPath(final int idPlane) { resetPlaneLinesPath(); }
-     */
-
-
-    public List<Point2D> getPlaneLinesPath() {
-        //System.out.println("getPlaneLinesPath in Plane = " + this.linesPath);
+    public synchronized List<Point2D> getPlaneLinesPath() {
         return this.linesPath;
     }
 
