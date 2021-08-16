@@ -1,9 +1,8 @@
-package alt.sim.controller.engine;
+package alt.sim.view;
 
+import alt.sim.controller.engine.GameEngine;
 import alt.sim.controller.game.GameController;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
@@ -12,9 +11,7 @@ import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import alt.sim.view.seaside.Seaside;
-import javafx.animation.PathTransition;
 import javafx.geometry.Bounds;
-import javafx.scene.shape.Rectangle;
 
 public class GameEngineAreaTest implements GameEngine {
     private static final long PERIOD = 400L;
@@ -24,20 +21,10 @@ public class GameEngineAreaTest implements GameEngine {
     private SpawnObject spawn;
 
     // Sezione Coordinate campionate
-    private List<Plane> planes;
-    private List<Plane> planesToRemove;
-    private PathTransition pathTransition;
-    private Bounds boundaryMap;
     private AbstractAirStrip stripLeft;
     private AbstractAirStrip stripRight;
 
     private boolean playedExplosion;
-    private boolean engineStart;
-
-    private Rectangle landingBoxLeft;
-    private Rectangle landingBoxRight;
-
-    private int scoreGame;
     private GameController gamecontroller;
     private Game gameSession;
 
@@ -46,20 +33,11 @@ public class GameEngineAreaTest implements GameEngine {
         this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
         this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
-        this.boundaryMap = transitionSeaside.getCanvas().getBoundsInParent();
-        this.planesToRemove = new LinkedList<>();
 
         // Sezione campionamento e animazione
-        this.pathTransition = new PathTransition();
         this.playedExplosion = false;
-        this.engineStart = false;
         this.stripLeft = transitionSeaside.getStripLeft();
         this.stripRight = transitionSeaside.getStripRight();
-    }
-
-    public GameEngineAreaTest() {
-        this.spawn = new SpawnObjectImpl();
-        this.engineStart = false;
     }
 
     @Override
@@ -117,19 +95,9 @@ public class GameEngineAreaTest implements GameEngine {
 
                 // Check collision Plane
                 if (monitoredPlaneBounds.intersects(selectedPlaneBounds)) {
-                    System.out.println("COLLISION GAME_OVER");
-                    System.out.printf(
-                            "Collision detected: between plane:%d at (%f, %f) and plane:%d at (%f, %f)\n",
-                            planeMonitored.hashCode(), monitoredPlaneBounds.getCenterX(), monitoredPlaneBounds.getCenterY(),
-                            planeSelected.hashCode(), selectedPlaneBounds.getCenterX(), selectedPlaneBounds.getCenterY()
-                    );
-
                     startExplosionPlane(planeMonitored);
                     startExplosionPlane(planeSelected);
-                    planesToRemove.add(planeMonitored);
-                    planesToRemove.add(planeSelected);
                     terminateGame(planeMonitored, planeSelected);
-
                     break;
                 }
             }
@@ -162,9 +130,6 @@ public class GameEngineAreaTest implements GameEngine {
                 || selectedPlaneBounds.getMaxX() > Seaside.getScreenWidth()
                 || selectedPlaneBounds.getMinY() < 0
                 || selectedPlaneBounds.getMaxY() > Seaside.getScreenHeight()) {
-            System.out.println("SIZE: " + Seaside.getScreenWidth() + " , " + Seaside.getScreenHeight());
-            System.out.println("FUORI BORDO");
-            System.out.println("COORDINATE BOUNDS " + planeSelected.hashCode() + ": " + planeSelected.getSprite().getBoundsInParent().getCenterX() + " , " + planeSelected.getSprite().getBoundsInParent().getCenterY());
             return true;
         }
         return false;
@@ -216,33 +181,5 @@ public class GameEngineAreaTest implements GameEngine {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void setEngineStart(final boolean engineStart) {
-        this.engineStart = engineStart;
-    }
-
-    public void setPlaneToMove(final Plane plane) {
-        this.pathTransition.setNode(plane.getSprite());
-    }
-
-    public void setPlanes(final List<Plane> planes) {
-        this.planes = planes;
-    }
-
-    public void setLandingBoxLeft(final Rectangle rectBoxLeft) {
-        this.landingBoxLeft = rectBoxLeft;
-    }
-
-    public void setLandingBoxRight(final Rectangle rectBoxRight) {
-        this.landingBoxRight = rectBoxRight;
-    }
-
-    public void setPathTransition(final PathTransition pathTransition) {
-        this.pathTransition = pathTransition;
-    }
-
-    public void stopPathTransition() {
-        this.pathTransition.stop();
     }
 }

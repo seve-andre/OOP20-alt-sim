@@ -1,6 +1,6 @@
 package alt.sim.view.seaside;
 
-import alt.sim.controller.engine.GameEngineAreaTest;
+import alt.sim.controller.engine.GameEngineImpl;
 import alt.sim.controller.game.GameController;
 import alt.sim.controller.map.MapController;
 import alt.sim.controller.user.records.UserRecordsController;
@@ -21,7 +21,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
@@ -31,7 +30,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -85,7 +83,7 @@ public class Seaside {
     private List<Point2D> planeCoordinates;
 
     private GraphicsContext gc;
-    private GameEngineAreaTest engine;
+    private GameEngineImpl engine;
 
     private Game gameSession;
 
@@ -94,22 +92,13 @@ public class Seaside {
 
     @FXML
     public void initialize() {
-        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
         screenWidth = canvas.getWidth();
         screenHeight = canvas.getHeight();
-
-        System.out.println("ScreenSize: " + screenSize.getWidth() + " , " + screenSize.getHeight());
-        System.out.println("CanvasSize: " + screenWidth + " , " + screenHeight);
-        System.out.println("PaneSize: " + pane.getBoundsInLocal().getWidth() + " , " + pane.getBoundsInLocal().getHeight());
-
         gameSession = new Game();
 
         stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
         stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
-        engine = new GameEngineAreaTest(this, gameSession);
-
-        engine.setLandingBoxLeft(landingBoxLeft);
-        engine.setLandingBoxRight(landingBoxRight);
+        engine = new GameEngineImpl(this, gameSession);
 
         gc = canvas.getGraphicsContext2D();
         planeCoordinates = new ArrayList<>();
@@ -151,10 +140,7 @@ public class Seaside {
         spawnCountDown.setCycleCount(Animation.INDEFINITE);
         spawnCountDown.play();
         name.setText(MapController.getName());
-
         gameSession.setInGame(true);
-        engine.setEngineStart(gameSession.isInGame());
-        engine.setPlanes(gameSession.getPlanes());
 
         class ThreadEngine implements Runnable {
 
@@ -245,12 +231,10 @@ public class Seaside {
                     spawnLocation.remove(locationIndex);
 
                     gameSession.addPlane(newPlane);
-                    engine.setPlanes(gameSession.getPlanes());
                     pane.getChildren().add(newPlane.getSprite());
                 }
             }
         }
-        engine.setPlanes(planes);
     }
 
     public void loadIndicatorAnimation(final SpawnLocation side) {
@@ -309,7 +293,6 @@ public class Seaside {
     }
 
     public void terminateGame() {
-        engine.setEngineStart(false);
         gameSession.setInGame(false);
         numberPlanesToSpawnEachTime = 0;
 
@@ -423,7 +406,6 @@ public class Seaside {
             }
 
             pane.getChildren().remove(plane.getSprite());
-            engine.setPlanes(this.gameSession.getPlanes());
         });
     }
 
