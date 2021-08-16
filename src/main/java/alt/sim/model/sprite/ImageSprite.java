@@ -8,6 +8,9 @@ import javafx.scene.image.ImageView;
  */
 public class ImageSprite {
 
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 800;
+
     /** URL Path of the image to load. */
     //private static String urlSprite;
     private final String urlSprite;
@@ -33,7 +36,7 @@ public class ImageSprite {
 
         proportionImageResized = new SpriteRedimensioned();
         proportionImageResized.setRatioSpriteValue(widthImage, heightImage);
-        proportionImageResized.setRatioScreenValue(800, 800);
+        proportionImageResized.setRatioScreenValue(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // Resize the ImageView
         resizeImageSprite(true);
