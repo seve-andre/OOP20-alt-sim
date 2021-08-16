@@ -14,8 +14,8 @@ public class ExplosionAnimation {
     private static final int TRANSITION_ANIMATION_DURATION = 1000;
 
     private ImageView imgExplosion;
+    private ScaleTransition scaleExplosionAnimation;
     private KeyFrame keyframe;
-    private Timeline timer;
 
     private int contImage = 1;
 
@@ -27,14 +27,17 @@ public class ExplosionAnimation {
         this();
         imgExplosion.setX(positionAnimation.getX());
         imgExplosion.setY(positionAnimation.getY());
+
+        settingDefaultAnimationOptions();
     }
 
-    public void startExplosion() {
+    public void settingDefaultAnimationOptions() {
         keyframe = new KeyFrame(Duration.millis(DURATION_KEYFRAME), (ActionEvent loopEvent) -> {
             imgExplosion.imageProperty().set(new Image("images/animations/explosion_" + contImage + ".png"));
             contImage++;
         });
-        ScaleTransition scaleExplosionAnimation = new ScaleTransition();
+
+        scaleExplosionAnimation = new ScaleTransition();
         scaleExplosionAnimation.setNode(imgExplosion);
 
         scaleExplosionAnimation.setFromX(0);
@@ -45,15 +48,14 @@ public class ExplosionAnimation {
         scaleExplosionAnimation.setAutoReverse(true);
         scaleExplosionAnimation.setCycleCount(2);
         scaleExplosionAnimation.setDuration(Duration.millis(TRANSITION_ANIMATION_DURATION));
-        scaleExplosionAnimation.play();
-
-        timer = new Timeline(keyframe);
-        timer.setCycleCount(50);
-        timer.play();
     }
 
-    public Timeline getTimeline() {
-        return this.timer;
+    public void startExplosion() {
+        scaleExplosionAnimation.play();
+
+        Timeline timer = new Timeline(keyframe);
+        timer.setCycleCount(50);
+        timer.play();
     }
 
     public ImageView getImgExplosion() {
