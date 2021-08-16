@@ -1,16 +1,11 @@
 package alt.sim.model.game;
 
-import alt.sim.model.plane.Plane;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import alt.sim.model.plane.Plane;
+
 public class Game {
-    // Section Spawn Plane
-    private static final int MAX_PLANE_TO_SPAWN = 10;
-
-    private int numberPlanesToSpawnEachTime;
-
     // Section SPAWN
     //------------------------------------------------------------------------
     // Timer che al termine del count, fa spawnare un Plane
@@ -25,7 +20,6 @@ public class Game {
         this.startEngine = false;
         this.planes = new ArrayList<>();
         this.planesToRemove = new ArrayList<>();
-        this.numberPlanesToSpawnEachTime = 4;
     }
 
     public void startGame() {
@@ -36,7 +30,7 @@ public class Game {
     public void playSpawnTimer() {
         // Implementazione Timer per spawn Plane
         //this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(10), cycle -> {
-            //spawnPlane(numberPlanesToSpawnEachTime);
+        //spawnPlane(numberPlanesToSpawnEachTime);
         //}));
 
         //spawnCountDown.setCycleCount(Animation.INDEFINITE);
