@@ -31,6 +31,18 @@ public class ClearingPathTest extends Application {
     private boolean readyToEliminate = false;
     private int contatore = 0;
 
+    private static final double REC_WIDTH = 1900;
+    private static final double REC_HEIGHT = 1900;
+    private static final double PLANE_WIDTH = 500;
+    private static final double PLANE_HEIGHT = 500;
+    private static final double GRAPHIC_HEIGHT1 = 600;
+    private static final double GRAPHIC_HEIGHT2 = 800;
+    private static final int OFFSET = 200;
+    private static final int HEIGHT_LIMIT = 5;
+    private static final int HEIGHT_CENTER = 50;
+    private static final int SCENE_WIDTH = 800;
+    private static final int SCENE_HEIGHT = 800;
+
     @Override
     public void start(final Stage stage) throws Exception {
         contatore = 0;
@@ -45,14 +57,14 @@ public class ClearingPathTest extends Application {
         paneRoot.getChildren().add(plane1.getSprite());
         paneRoot.getChildren().add(plane2.getSprite());
 
-        plane2.getSprite().setX(500);
-        plane2.getSprite().setY(500);
+        plane2.getSprite().setX(PLANE_WIDTH);
+        plane2.getSprite().setY(PLANE_HEIGHT);
         //plane2.connetToControllerClaringPathTest(this);
 
         canvas = new Canvas(paneRoot.getWidth(), paneRoot.getHeight());
         gc = canvas.getGraphicsContext2D();
-        gc.lineTo(100, 600);
-        gc.lineTo(100, 800);
+        gc.lineTo(100, GRAPHIC_HEIGHT1);
+        gc.lineTo(100, GRAPHIC_HEIGHT2);
         gc.stroke();
 
         // Area Listeners
@@ -71,7 +83,7 @@ public class ClearingPathTest extends Application {
 
             if (readyToEliminate) {
                 //clearCanvasLines(planeCoordinatesToRemove.get(contatore));
-                gc.clearRect(0, 0, 1900, 1900);
+                gc.clearRect(0, 0, REC_WIDTH, REC_HEIGHT);
                 contatore++;
             }
 
@@ -103,7 +115,7 @@ public class ClearingPathTest extends Application {
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, handlerMouseDragged);
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, handlerMouseMoved);
 
-        Scene scene = new Scene(paneRoot, 800, 800);
+        Scene scene = new Scene(paneRoot, SCENE_WIDTH, SCENE_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -139,11 +151,11 @@ public class ClearingPathTest extends Application {
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
                             rectCleaning.getHeight());
                     gc.clearRect(rectCleaning.getX(), rectCleaning.getY(), rectCleaning.getWidth(),
-                            rectCleaning.getHeight() - 200);
-                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY(), rectCleaning.getWidth() + 200,
-                            rectCleaning.getHeight() + 200);
+                            rectCleaning.getHeight() - OFFSET);
+                    gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY(), rectCleaning.getWidth() + OFFSET,
+                            rectCleaning.getHeight() + OFFSET);
                     gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY(), rectCleaning.getWidth(),
-                            rectCleaning.getHeight() + 200);
+                            rectCleaning.getHeight() + OFFSET);
                     gc.clearRect(rectCleaning.getX() - 100, rectCleaning.getY() - 100, rectCleaning.getWidth(),
                             rectCleaning.getHeight());
                     gc.clearRect(rectCleaning.getX() + 100, rectCleaning.getY() + 100, rectCleaning.getWidth(),
@@ -197,8 +209,8 @@ public class ClearingPathTest extends Application {
         width = Math.abs(initialPoint.getX() - finalPoint.getX());
         height = Math.abs(initialPoint.getY() - finalPoint.getY());
 
-        if (height <= 5) {
-            height = 50;
+        if (height <= HEIGHT_LIMIT) {
+            height = HEIGHT_CENTER;
         }
 
         return new Rectangle(puntoDiPartenzaX, puntoDiPartenzaY, width, height);
