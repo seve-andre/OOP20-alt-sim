@@ -10,7 +10,6 @@ import javafx.util.Duration;
 
 public class ExplosionAnimation extends Animation {
     private static final int DURATION_KEYFRAME = 20;
-    private static final int TRANSITION_ANIMATION_DURATION = 1000;
     private static final int CYCLES = 50;
 
 
@@ -29,6 +28,7 @@ public class ExplosionAnimation extends Animation {
     /**
      * settingDefaultAnimationOptions and add explosion animation Settings.
      */
+    @Override
     public void settingDefaultAnimationOptions() {
         super.settingDefaultAnimationOptions();
         this.imgExplosion = new ImageView(new Image("images/animations/explosion_1.png"));
