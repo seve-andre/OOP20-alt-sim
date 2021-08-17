@@ -20,8 +20,7 @@ public class ObservableState {
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
-        System.out.println("create Plane: " + planeObserved.hashCode() + " State = " + state);
-
+        // initialize listener State:
         listener = (observable, oldValue, newValue) -> {
 
             if (newValue == State.TERMINATED && this.timeline != null) {
@@ -51,12 +50,11 @@ public class ObservableState {
         stateProperty.setValue(state);
     }
 
+    /**
+     * @return current state Plane value (SPAWNING, WAITING, RANDOM_MOVEMENT, USER_MOVEMENT, LANDED, TERMINATED).
+     */
     public State getState() {
         return stateProperty.getValue();
-    }
-
-    public ObjectProperty<State> getStateProperty() {
-        return stateProperty;
     }
 
     public void removeListener() {
