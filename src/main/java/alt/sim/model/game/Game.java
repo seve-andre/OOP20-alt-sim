@@ -1,48 +1,39 @@
 package alt.sim.model.game;
 
+import alt.sim.model.plane.Plane;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import alt.sim.model.plane.Plane;
-
 public class Game {
-    // Section SPAWN
-    //------------------------------------------------------------------------
-    // Timer che al termine del count, fa spawnare un Plane
-    //private Timeline spawnCountDown;
+    // Section Spawn Plane
+    private static final int MAX_PLANE_TO_SPAWN = 10;
+    private static final int SPAWN_DELAY = 10;
+
+    private int numberPlanesToSpawnEachTime;
     private List<Plane> planes;
     private List<Plane> planesToRemove;
     private boolean inGame;
-    private boolean startEngine;
 
     public Game() {
         this.inGame = false;
-        this.startEngine = false;
         this.planes = new ArrayList<>();
         this.planesToRemove = new ArrayList<>();
     }
 
-    public void startGame() {
-        playSpawnTimer();
-    }
-
-    //TODO da implementare
-    public void playSpawnTimer() {
-        // Implementazione Timer per spawn Plane
-        //this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(10), cycle -> {
-        //spawnPlane(numberPlanesToSpawnEachTime);
-        //}));
-
-        //spawnCountDown.setCycleCount(Animation.INDEFINITE);
-        //spawnCountDown.play();
-    }
-
     // Section PLANES
     //------------------------------------------------------------------------
+
+    /**
+     * @return list of planes in game GETTER.
+     */
     public List<Plane> getPlanes() {
         return this.planes;
     }
 
+    /**
+     * @return list of planesToRemove GETTER.
+     */
     public List<Plane> getPlanesToRemove() {
         return this.planesToRemove;
     }
@@ -64,26 +55,50 @@ public class Game {
         planes.removeAll(planesToRemove);
     }
 
-    /*public void removePlanes(){
+    public void removePlanes(){
         this.planes.removeAll(this.planesToRemove);
         this.planesToRemove.clear();
-    }*/
+    }
 
     //------------------------------------------------------------------------
+
 
     public void setInGame(final boolean inGame) {
         this.inGame = inGame;
     }
 
+    /**
+     * @return value of state of Game.
+     */
     public boolean isInGame() {
         return this.inGame;
     }
 
-    public void setStartEngine(final boolean startEngine) {
-        this.startEngine = startEngine;
+    /**
+     * @return number of Plane to spawn.
+     */
+    public int getNumberPlanesToSpawnEachTime() {
+        return numberPlanesToSpawnEachTime;
     }
 
-    public boolean getStartEngine() {
-        return this.startEngine;
+    /**
+     * define the number of Plane to spawn.
+     */
+    public void setNumberPlanesToSpawnEachTime(int numberPlanesToSpawnEachTime) {
+        this.numberPlanesToSpawnEachTime = numberPlanesToSpawnEachTime;
+    }
+
+    /**
+     * @return MAX number of Plane to spawn in Game.
+     */
+    public static int getMaxPlaneToSpawn() {
+        return MAX_PLANE_TO_SPAWN;
+    }
+
+    /**
+     * @return the creation of Plane delay.
+     */
+    public static int getSpawnDelay() {
+        return SPAWN_DELAY;
     }
 }
