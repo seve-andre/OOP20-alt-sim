@@ -272,7 +272,9 @@ public class Plane {
             } else if (this.userTransition.getStatus() == Status.STOPPED) {
                 return ("WAITING");
             }
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+          }
         return this.userTransition.getStatus().toString();
     }
 
