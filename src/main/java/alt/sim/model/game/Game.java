@@ -62,7 +62,6 @@ public class Game {
 
     //------------------------------------------------------------------------
 
-
     public void setInGame(final boolean inGame) {
         this.inGame = inGame;
     }

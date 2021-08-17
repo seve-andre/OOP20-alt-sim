@@ -56,32 +56,19 @@ public class Plane {
     private PathTransition randomTransition;
     private Path path;
     private boolean isPlaneSelectedForBeenMoved;
-    private boolean followingPath;
 
     private List<Point2D> linesPath;
-    private List<Point2D> linesPathToRemove;
-
     private PathTransition spawnTransition;
-
 
     //private static final List<SpawnLocation> SPAWN_LOCATIONS;
 
     public Plane(final String urlImagePlane) {
-        /* this.spritePlane = new ImageView(new Image(urlImagePlane));
-        // Test Posizione ImageView
-        System.out.println(this.spritePlane.getBoundsInParent().getMinX() + " , " + this.spritePlane.getBoundsInParent().getMinY()
-                + " /n " +
-                this.spritePlane.getBoundsInParent().getMaxX() + " , " + this.spritePlane.getBoundsInParent().getMaxY()
-        );*/
-
         this.spritePlane = new Sprite(urlImagePlane);
         //TODO Test bug flash immagine plane durante partita.
 
         this.obsState = new ObservableState(this, State.SPAWNING);
         this.linesPath = new ArrayList<>();
-        this.linesPathToRemove = new ArrayList<>();
         this.isPlaneSelectedForBeenMoved = false;
-        this.followingPath = false;
 
         // Initialize Animation
         this.landingAnimation = new LandingAnimation(this.getSprite());
@@ -108,27 +95,6 @@ public class Plane {
         }
 
         obsState.removeListener();
-    }
-
-    public void pauseAllAnimation() {
-        if (this.userTransition != null) {
-            this.userTransition.pause();
-        }
-
-        if (this.randomTransition != null) {
-            this.randomTransition.pause();
-        }
-
-    }
-
-    public void resumeAllAnimation() {
-        if (this.userTransition != null) {
-            this.userTransition.play();
-        }
-
-        if (this.randomTransition != null) {
-            this.randomTransition.play();
-        }
     }
 
     public void playSpawnAnimation(final SpawnLocation side) {
@@ -185,9 +151,8 @@ public class Plane {
             spawnTransition.setDuration(Duration.millis(DURATION_VALUE));
             spawnTransition.play();
 
-            spawnTransition.setOnFinished(event -> {
-                this.setState(State.WAITING);
-            });
+            spawnTransition.setOnFinished(event -> this.setState(State.WAITING));
+
         });
     }
 
@@ -204,7 +169,6 @@ public class Plane {
         }
 
         //PauseTransition waitingTransition = new PauseTransition();
-        this.followingPath = true;
         double planeWidth = this.getSprite().getBoundsInParent().getWidth();
         double planeHeight = this.getSprite().getBoundsInParent().getHeight();
 
@@ -215,10 +179,6 @@ public class Plane {
         double randomX = getRandomCoordinate(boundWidth, planeWidth);
         double randomY = getRandomCoordinate(boundHeight, planeHeight);
         Point2D moveTo = new Point2D(randomX, randomY);
-
-        //System.out.printf("Random position %d -> x: %f, y: %f\n", this.hashCode(), randomX, randomY);
-        // DA DECOMMENTARE
-        //Platform.runLater(() -> controllerSeasideFix.drawPoint(randomX, randomY));
 
         pathRandom.getElements().add(new MoveTo(moveFrom.getX(), moveFrom.getY()));
         pathRandom.getElements().add(new LineTo(randomX, randomY));
@@ -234,29 +194,8 @@ public class Plane {
         setState(State.RANDOM_MOVEMENT);
         randomTransition.play();
 
-        this.getSprite().boundsInParentProperty().addListener((observable, oldValue, newValue) -> {
-
-            try {
-                if (newValue.getCenterX() > 0.0 && newValue.getCenterY() > 0.0) {
-                    newValue.getCenterX();
-                    newValue.getCenterY();
-
-                    //this.getSprite().setX(positionX);
-                    //this.getSprite().setY(positionY);
-
-                    //System.out.println("newCenterX: " + positionX);
-                    //System.out.println("newCenterY: " + positionY + "\n");
-                } else {
-                    System.out.println("BUG-Coordianta: " + newValue.getCenterX() + " , " + newValue.getCenterY());
-                }
-            } catch (StackOverflowError so) {
-                System.out.println(so.getMessage());
-            }
-        });
-
         randomTransition.setOnFinished(event -> {
             if (getState() == State.RANDOM_MOVEMENT) {
-                followingPath = false;
                 setState(State.WAITING);
             }
         });
@@ -276,12 +215,11 @@ public class Plane {
         }
 
         // L'aereo sta seguendo un percorso...
-        this.followingPath = true;
         this.userTransition = new PathTransition();
 
-        double pathLenght = 0;
+        double pathLenght;
         final double velocityMovement = 0.03;
-        double duration = 0;
+        double duration;
 
         // aggiornare le coordinate da richiamare prima di questo metodo
         copyCoordinatesInPath();
@@ -309,11 +247,8 @@ public class Plane {
             linesPath.clear();
             controllerSeaside.clearLinesDrawed();
             controllerSeaside.restoreLinesRemoved();
-            this.followingPath = false;
             setState(State.WAITING);
         });
-
-
     }
 
     public PathTransition getSpawnTransition() {
@@ -322,10 +257,6 @@ public class Plane {
 
     public ExplosionAnimation getExplosionAnimation() {
         return this.explosionAnimation;
-    }
-
-    public boolean isFollowingPath() {
-        return this.followingPath;
     }
 
     public void stopPlaneMovementAnimation() {
@@ -341,7 +272,7 @@ public class Plane {
             } else if (this.userTransition.getStatus() == Status.STOPPED) {
                 return ("WAITING");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace(); }
         return this.userTransition.getStatus().toString();
     }
 
@@ -349,21 +280,10 @@ public class Plane {
         return this.userTransition;
     }
 
-    public void startRandomTransition() {
-        this.randomTransition.play();
-    }
-
     public void stopRandomTransition() {
         if (this.randomTransition != null) {
             this.randomTransition.stop();
         }
-    }
-
-    public String getStatusRandomTransition() {
-        if (randomTransition.getStatus() == Status.RUNNING) {
-            return ("RUNNING-RANDOM");
-        }
-        return ("STOPPED");
     }
 
     public PathTransition getRandomTransition() {
@@ -404,9 +324,7 @@ public class Plane {
 
         });
 
-        this.getSprite().setOnMouseReleased(event -> {
-            this.getSprite().setImage(new Image("images/map_components/airplane.png"));
-        });
+        this.getSprite().setOnMouseReleased(event -> this.getSprite().setImage(new Image("images/map_components/airplane.png")));
     }
 
     // Aggiungo le coordinate campionate nel Plane
@@ -429,8 +347,9 @@ public class Plane {
         }
     }
 
+    //TODO Test duplicate coordinates
     public List<Point2D> removeDuplicateInLinesPath(final List<Point2D> linesPath) {
-        List<Point2D> linesPathCopy = linesPath;
+        //List<Point2D> linesPathCopy = linesPath;
         double xCopy;
         double yCopy;
 
@@ -440,23 +359,16 @@ public class Plane {
 
             for (int j = 0; j < linesPath.size(); j++) {
                 if (j != k && linesPath.get(j).getX() == xCopy && linesPath.get(j).getY() == yCopy) {
-                    linesPathCopy.remove(j);
+                    linesPath.remove(j);
+                    j--;
                 }
             }
         }
-        return linesPathCopy;
+        return linesPath;
     }
 
     public synchronized List<Point2D> getPlaneLinesPath() {
         return this.linesPath;
-    }
-
-    public List<Point2D> getPlaneLinesPathToRemove() {
-        return this.linesPathToRemove;
-    }
-
-    public void setPlaneLinesPathToRemove(final List<Point2D> linesPathToRemove) {
-        this.linesPathToRemove = linesPathToRemove;
     }
 
     /**
