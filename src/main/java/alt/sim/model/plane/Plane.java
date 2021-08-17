@@ -39,8 +39,6 @@ import javafx.util.Duration;
 
 public class Plane {
     private static final int DURATION_VALUE = 2500;
-    private static final int POSITION_WIDTH = 500;
-    private static final int POSITION_HEIGHT = 500;
 
     private Sprite spritePlane;
     //private ImageView spritePlane;
