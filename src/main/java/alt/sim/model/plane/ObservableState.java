@@ -1,5 +1,6 @@
 package alt.sim.model.plane;
 
+import alt.sim.Main;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,7 +39,7 @@ public class ObservableState {
             timeline.play();
             timeline.setOnFinished(finish -> {
                 if (planeObserved.getState().equals(State.WAITING)) {
-                    this.planeObserved.loadRandomTransition(Seaside.getScreenWidth(), Seaside.getScreenHeight());
+                    this.planeObserved.loadRandomTransition(Main.getStage().getWidth(), Main.getStage().getHeight());
                 }
             });
         };
