@@ -1,9 +1,9 @@
 package alt.sim.model.game;
 
-import alt.sim.model.plane.Plane;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import alt.sim.model.plane.Plane;
 
 public class Game {
     // Section Spawn Plane
@@ -55,7 +55,7 @@ public class Game {
         planes.removeAll(planesToRemove);
     }
 
-    public void removePlanes(){
+    public void removePlanes() {
         this.planes.removeAll(this.planesToRemove);
         this.planesToRemove.clear();
     }
@@ -84,7 +84,7 @@ public class Game {
     /**
      * define the number of Plane to spawn.
      */
-    public void setNumberPlanesToSpawnEachTime(int numberPlanesToSpawnEachTime) {
+    public void setNumberPlanesToSpawnEachTime(final int numberPlanesToSpawnEachTime) {
         this.numberPlanesToSpawnEachTime = numberPlanesToSpawnEachTime;
     }
 
