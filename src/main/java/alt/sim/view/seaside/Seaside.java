@@ -422,7 +422,7 @@ public class Seaside {
         return this.spawnCountDown;
     }
 
-    private void handle(ActionEvent cycle) {
+    private void handle(final ActionEvent cycle) {
         spawnPlane(gameSession.getNumberPlanesToSpawnEachTime());
     }
 }
