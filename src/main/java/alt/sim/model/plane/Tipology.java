@@ -11,36 +11,30 @@ public enum Tipology {
      *  Defines the typology that a Plane has, with different values of (velocity, lenght, width)
      *  Two_seater Plane: not fast, but slim.
      */
-    TWO_SEATER(1.5, 7.16, 10.87),
+    TWO_SEATER(1.5),
 
     /**
      * Medium Plane.
      */
-    AIRPLANE(1, 19.65, 29),
+    AIRPLANE(1),
 
     /**
      * Airplane: classic civil big Plane: very heavy and slow.
      */
-    AIRLINER(0.5, 73, 64),
+    AIRLINER(0.5),
 
     /**
      * Military plane: the fastest among the Planes.
      */
-    FIGHTER(3, 15, 9.96);
+    FIGHTER(3);
 
     private final double velocity;
-    private final double lenght;
-    private final double width;
 
     /**
      * @param velocity defined the Plane velocity.
-     * @param lenght indicated the length of Plane.
-     * @param width indicated the width of Plane.
     */
-    Tipology(final double velocity, final double lenght, final double width) {
+    Tipology(final double velocity) {
         this.velocity = velocity;
-        this.lenght = Math.floor(lenght);
-        this.width = Math.floor(width);
     }
 
     /**
@@ -51,24 +45,10 @@ public enum Tipology {
     }
 
     /**
-     * @return Plane lenght.
-     */
-    public double getLenght() {
-        return this.lenght;
-    }
-
-    /**
-     * @return Plane width.
-     */
-    public double getWidth() {
-        return this.width;
-    }
-
-    /**
      * @return summary informations of Tipology class.
      */
     @Override
     public String toString() {
-        return this.name() + ":" + " velocity: " + this.velocity + " lenght: " + this.lenght + " width: " + this.width;
+        return this.name() + ":" + " velocity: " + this.velocity;
     }
 }
