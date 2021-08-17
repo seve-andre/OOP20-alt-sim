@@ -1,10 +1,9 @@
 package alt.sim.controller.engine;
 
+import alt.sim.Main;
 import alt.sim.controller.game.GameController;
 import java.util.Collections;
 
-import alt.sim.controller.spawn.SpawnObject;
-import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
@@ -16,8 +15,7 @@ public class GameEngineImpl implements GameEngine {
     private static final long PERIOD = 400L;
 
     private Seaside transitionSeaside;
-    // PER TEST FUORIBORDO, da decommentare alla fine
-    private SpawnObject spawn;
+    //private SpawnObject spawn;
 
     // Sezione Coordinate campionate
     private AbstractAirStrip stripLeft;
@@ -29,7 +27,7 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(final Seaside transitionSeaside, final Game gameSession) {
         this.gameSession = gameSession;
-        this.spawn = new SpawnObjectImpl();
+        //this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
         this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
 
@@ -125,13 +123,10 @@ public class GameEngineImpl implements GameEngine {
     private synchronized boolean checkOutOfBounds(final Plane planeSelected) {
         Bounds selectedPlaneBounds = planeSelected.getSprite().getBoundsInParent();
 
-        if (selectedPlaneBounds.getMinX() < 0
-                || selectedPlaneBounds.getMaxX() > Seaside.getScreenWidth()
+        return selectedPlaneBounds.getMinX() < 0
+                || selectedPlaneBounds.getMaxX() > Main.getStage().getWidth()
                 || selectedPlaneBounds.getMinY() < 0
-                || selectedPlaneBounds.getMaxY() > Seaside.getScreenHeight()) {
-            return true;
-        }
-        return false;
+                || selectedPlaneBounds.getMaxY() > Main.getStage().getHeight();
     }
 
     private boolean checkLanding(final Plane planeSelected) {
@@ -160,13 +155,13 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void initGame() {
-        spawn.startSpawn();
+        //.startSpawn();
     }
 
     /**
      * Calculates how many milliseconds has to wait for next frame.
      *
-     * @param current
+     * @param current time of wait for the next frame.
      * @throws InterruptedException
      * @throws IllegalArgumentException
      */

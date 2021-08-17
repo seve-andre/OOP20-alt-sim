@@ -56,9 +56,6 @@ public final class GameController {
                 if (plane.getPlaneMovementAnimation() != null) {
                     plane.getPlaneMovementAnimation().pause();
                 }
-               /* if (plane.getLandingAnimation() != null) {
-                    plane.getLandingAnimation().pause();
-                }*/
                 if (plane.getRandomTransition() != null) {
                     plane.getRandomTransition().pause();
                 }
@@ -118,11 +115,12 @@ public final class GameController {
     public void checkScore(final int score) {
          if (score < LIMIT_2100) {
             if (score >= LIMIT_500 && score < LIMIT_1000) {
-                transitionSeaside.setNumberPlanesToSpawn(2);
+                gameModel.setNumberPlanesToSpawnEachTime(2);
             } else if (score >= LIMIT_1000 && score <= LIMIT_1500) {
-                transitionSeaside.setNumberPlanesToSpawn(3);
+                gameModel.setNumberPlanesToSpawnEachTime(3);
+
             } else if (score >= LIMIT_2000) {
-                transitionSeaside.setNumberPlanesToSpawn(4);
+                gameModel.setNumberPlanesToSpawnEachTime(4);
             }
         }
     }

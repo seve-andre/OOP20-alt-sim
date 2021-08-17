@@ -1,5 +1,6 @@
 package alt.sim.view;
 
+import alt.sim.Main;
 import alt.sim.controller.engine.GameEngine;
 import alt.sim.controller.game.GameController;
 import java.util.Collections;
@@ -127,9 +128,9 @@ public class GameEngineAreaTest implements GameEngine {
         Bounds selectedPlaneBounds = planeSelected.getSprite().getBoundsInParent();
 
         if (selectedPlaneBounds.getMinX() < 0
-                || selectedPlaneBounds.getMaxX() > Seaside.getScreenWidth()
+                || selectedPlaneBounds.getMaxX() > Main.getStage().getWidth()
                 || selectedPlaneBounds.getMinY() < 0
-                || selectedPlaneBounds.getMaxY() > Seaside.getScreenHeight()) {
+                || selectedPlaneBounds.getMaxY() > Main.getStage().getHeight()) {
             return true;
         }
         return false;

@@ -86,7 +86,7 @@ public class Plane {
 
         // Initialize Animation
         this.landingAnimation = new LandingAnimation(this.getSprite());
-        this.explosionAnimation = new ExplosionAnimation(new Point2D(POSITION_WIDTH, POSITION_HEIGHT));
+        this.explosionAnimation = new ExplosionAnimation();
         this.randomTransition = new PathTransition();
 
         // Setting Handler for MouseClick STRATEGY da implementare
