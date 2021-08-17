@@ -1,7 +1,6 @@
 package alt.sim.model.plane;
 
 import alt.sim.Main;
-import alt.sim.view.seaside.Seaside;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
