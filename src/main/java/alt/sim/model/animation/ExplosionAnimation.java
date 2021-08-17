@@ -4,15 +4,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class ExplosionAnimation {
+public class ExplosionAnimation extends Animation {
     private static final int DURATION_KEYFRAME = 20;
     private static final int TRANSITION_ANIMATION_DURATION = 1000;
     private static final int CYCLES = 50;
+
 
     private ImageView imgExplosion;
     private ScaleTransition scaleExplosionAnimation;
@@ -21,20 +21,20 @@ public class ExplosionAnimation {
     private int contImage = 1;
 
     public ExplosionAnimation() {
-        this.imgExplosion = new ImageView(new Image("images/animations/explosion_1.png"));
-    }
-
-    public ExplosionAnimation(final Point2D positionAnimation) {
-        this();
-        imgExplosion.setX(positionAnimation.getX());
-        imgExplosion.setY(positionAnimation.getY());
+        super(new ImageView(new Image("images/animations/explosion_1.png")));
 
         settingDefaultAnimationOptions();
     }
 
+    /**
+     * settingDefaultAnimationOptions and add explosion animation Settings.
+     */
     public void settingDefaultAnimationOptions() {
+        super.settingDefaultAnimationOptions();
+        this.imgExplosion = new ImageView(new Image("images/animations/explosion_1.png"));
+
         keyframe = new KeyFrame(Duration.millis(DURATION_KEYFRAME), (ActionEvent loopEvent) -> {
-            imgExplosion.imageProperty().set(new Image("images/animations/explosion_" + contImage + ".png"));
+            this.imgExplosion.imageProperty().set(new Image("images/animations/explosion_" + contImage + ".png"));
             contImage++;
         });
 
@@ -48,10 +48,11 @@ public class ExplosionAnimation {
 
         scaleExplosionAnimation.setAutoReverse(true);
         scaleExplosionAnimation.setCycleCount(2);
-        scaleExplosionAnimation.setDuration(Duration.millis(TRANSITION_ANIMATION_DURATION));
+        scaleExplosionAnimation.setDuration(Duration.millis(Animation.getDurationAnimation()));
     }
 
-    public void startExplosion() {
+    @Override
+    public void start() {
         scaleExplosionAnimation.play();
 
         Timeline timer = new Timeline(keyframe);
@@ -59,6 +60,9 @@ public class ExplosionAnimation {
         timer.play();
     }
 
+    /**
+     * @return imgExplosion GETTER.
+     */
     public ImageView getImgExplosion() {
         return this.imgExplosion;
     }
