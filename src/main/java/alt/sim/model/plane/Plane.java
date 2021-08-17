@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
+import alt.sim.model.sprite.Sprite;
 import alt.sim.model.sprite.SpriteType;
 import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation.Status;
