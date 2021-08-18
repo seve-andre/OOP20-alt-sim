@@ -5,18 +5,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PlaneTest {
+    public static final int N_POINTS = 50;
+    private static final int RANDOM_BOUND = 50;
 
     @Test
     public void removeDuplicateInLinesPathTest() {
         //TODO Terminare TEST
-        List<Point2D> linesPath = new ArrayList<Point2D>();
+        List<Point2D> linesPath = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
-            linesPath.add(new Point2D(ThreadLocalRandom.current().nextDouble(50), ThreadLocalRandom.current().nextDouble(50)));
+        for (int i = 0; i < N_POINTS; i++) {
+            linesPath.add(new Point2D(ThreadLocalRandom.current().nextDouble(RANDOM_BOUND), ThreadLocalRandom.current().nextDouble(50)));
             System.out.println(linesPath.get(i).getX() + " , " + linesPath.get(i).getY());
         }
 
