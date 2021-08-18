@@ -5,7 +5,7 @@ package alt.sim.model.plane;
  * each type of Plane will have different characteristics as in reality,
  * a Fighter  is faster than an Airliner.
  */
-public enum Tipology {
+public enum PlaneType {
 
     /**
      *  Defines the typology that a Plane has, with different values of (velocity, lenght, width)
@@ -33,7 +33,7 @@ public enum Tipology {
     /**
      * @param velocity defined the Plane velocity.
     */
-    Tipology(final double velocity) {
+    PlaneType(final double velocity) {
         this.velocity = velocity;
     }
 
