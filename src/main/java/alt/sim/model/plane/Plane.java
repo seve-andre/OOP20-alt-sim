@@ -1,5 +1,6 @@
 package alt.sim.model.plane;
 
+import alt.sim.Main;
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
@@ -39,8 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class Plane {
-    private static final int DURATION_VALUE = 2500;
-
+    private static final int SPAWNTRANSITION_DURATION = 2500;
     private Sprite spritePlane;
     private ObservableState obsState;
     private Seaside controllerSeaside;
@@ -103,15 +103,9 @@ public class Plane {
         Path pathSpawn = new Path();
 
         Platform.runLater(() -> {
-            // planeSpawned resized
-            this.getSprite().setFitWidth(64);
-            this.getSprite().setFitHeight(64);
-
-            Bounds boundryMap = controllerSeaside.getPane().getBoundsInLocal();
-
             final int delta = 50;
-            final double width = boundryMap.getWidth();
-            final double height = boundryMap.getHeight();
+            final double width = Main.getStage().getWidth();
+            final double height = Main.getStage().getHeight();
 
             final double halfWidth = width / 2.0;
             final double halfHeight = height / 2.0;
@@ -145,7 +139,7 @@ public class Plane {
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             spawnTransition.setNode(this.getSprite());
-            spawnTransition.setDuration(Duration.millis(DURATION_VALUE));
+            spawnTransition.setDuration(Duration.millis(SPAWNTRANSITION_DURATION));
             spawnTransition.play();
 
             spawnTransition.setOnFinished(event -> this.setState(State.WAITING));
@@ -415,7 +409,7 @@ public class Plane {
      * @param newUrlImage the new Image to set into Plane
      */
     public void setSpritePlane(final String newUrlImage) {
-        this.spritePlane.getSprite().setImage(new Image(newUrlImage));
+        this.spritePlane.setSpritePlane(newUrlImage);
     }
 
     /**
