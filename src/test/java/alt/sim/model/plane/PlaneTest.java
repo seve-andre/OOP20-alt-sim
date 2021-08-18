@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlaneTest {
 
     @Test
     public void removeDuplicateInLinesPathTest() {
-        //TODO Terminare
+        //TODO Terminare TEST
         List<Point2D> linesPath = new ArrayList<Point2D>();
-        Random r = new Random(50);
 
         for (int i = 0; i < 50; i++) {
-            linesPath.add(new Point2D(r.nextDouble(), r.nextDouble()));
+            linesPath.add(new Point2D(ThreadLocalRandom.current().nextDouble(50), ThreadLocalRandom.current().nextDouble(50)));
             System.out.println(linesPath.get(i).getX() + " , " + linesPath.get(i).getY());
         }
 
