@@ -1,6 +1,7 @@
 package alt.sim.model.sprite;
 
-import javafx.geometry.Bounds;
+import alt.sim.Main;
+import alt.sim.view.seaside.Seaside;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,80 +15,51 @@ import javafx.scene.image.ImageView;
  *
  */
 public class Sprite {
-    private final double smallPlaneSizeWidth = 32;
-    private final double smallPlaneSizeHeight = 32;
-
-    private Image bufferedSprite;
     private ImageView sprite;
 
     /**
      * @param urlSprite contains url of the image to load
      */
     public Sprite(final String urlSprite) {
-        this.bufferedSprite = new Image(urlSprite);
-        this.sprite = new ImageView(bufferedSprite);
+        try {
+            Image bufferedSprite = new Image(urlSprite);
+            this.sprite = new ImageView(bufferedSprite);
+        }
+        catch(RuntimeException re) { System.out.println("Wrong bufferedSprite or sprite intialization: " + re.getMessage()); }
 
         //resize calculation:
-        resizeSpriteToMap(false);
-    }
-
-    public Sprite(final SpriteType type) {
-        this(type.getURLImage());
+        resizeSpriteToMap();
     }
 
     //----------------------------------------------------------------
 
     /**
-     * Metodo per ridimensionare il l'immagine della Sprite a seconda
-     * della dimensione dello Schermo principale.
-     *
-     * @param isPreserveRatio: specifica se l'immagine ridimensionata, mantiene il rapporto originale
+     * Method to resize the image of the Sprite according to the size of the Main Screen.
      */
-    private void resizeSpriteToMap(final boolean isPreserveRatio) {
-        sprite.setPreserveRatio(isPreserveRatio);
+    private void resizeSpriteToMap() {
+        double smallPlaneSizeHeight = 32;
+        double smallPlaneSizeWidth = 32;
 
-        //if (Seaside.SCREEN_BOUND.getWidth() >= MIN_SCREEEN_RANGE_WIDTH && Seaside.SCREEN_BOUND.getHeight() >= MIN_SCREEEN_RANGE_HEIGHT) {
-        this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
-        this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
-        //} else {
-        //  this.sprite.setFitWidth(smallPlaneSizeWidth);
-        // this.sprite.setFitHeight(smallPlaneSizeHeight);
-        //}
+        if (Main.getStage().getWidth() >= Seaside.getScreenMinWidth() && Main.getStage().getHeight() >= Seaside.getScreenMinHeight()) {
+            this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
+            this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
+        } else {
+            this.sprite.setFitWidth(smallPlaneSizeWidth);
+            this.sprite.setFitHeight(smallPlaneSizeHeight);
+        }
     }
 
-    public ImageView getSprite() {
-        return this.sprite;
-    }
-
-    public void setX(final double x) {
-        //this.centerX = calculateCenterX(x);
-
-        this.sprite.setX(x);
-    }
-
-    public void setY(final double y) {
-        //this.centerY = calculateCenterY(y);
-
-        this.sprite.setY(y);
-    }
-
-    public double getCenterX() {
-        return this.getParentBound().getCenterX();
-    }
-
-    public double getCenterY() {
-        return this.getParentBound().getCenterY();
-    }
-
-    public Bounds getLocalBound() {
-        return this.sprite.getBoundsInLocal();
-    }
-
-    public Bounds getParentBound() {
-        return this.sprite.getBoundsInParent();
-    }
-
+    /**
+     * @param newUrlImage the new Image to set into Sprite.
+     */
     public void setSpritePlane(final String newUrlImage) {
         this.sprite.setImage(new Image(newUrlImage));
+    }
+
+    /**
+     * @return the ImageView of the Sprite.
+     */
+    public ImageView getSprite() {
+        return this.sprite;
     }
 }

@@ -22,6 +22,7 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
+import alt.sim.model.sprite.SpriteType;
 import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import javafx.animation.Animation;
@@ -60,6 +61,10 @@ public class Seaside {
     @FXML
     private Canvas canvas;
 
+    private final static int FADE_DURATION_INDICATOR = 1000;
+    private final static int SCREEN_MIN_WIDTH = 1080;
+    private final static int SCREEN_MIN_HEIGHT = 720;
+
     // Timer: at the end of count down a new Plane gets spawned
     private Timeline spawnCountDown;
 
@@ -85,17 +90,17 @@ public class Seaside {
     public void initialize() {
         gameSession = new Game();
 
-        stripLeft = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
-        stripRight = new BasicAirStrip("images/map_components/singleAirstrip.png", this);
+        stripLeft = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
+        stripRight = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
         engine = new GameEngineImpl(this, gameSession);
 
         gc = canvas.getGraphicsContext2D();
         planeCoordinates = new ArrayList<>();
 
-        this.indicatorTop = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorLeft = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorRight = new ImageView(new Image("images/animations/indicator.png"));
-        this.indicatorBottom = new ImageView(new Image("images/animations/indicator.png"));
+        this.indicatorTop = new ImageView(new Image(SpriteType.INDICATOR.getURLImage()));
+        this.indicatorLeft = new ImageView(new Image(SpriteType.INDICATOR.getURLImage()));
+        this.indicatorRight = new ImageView(new Image(SpriteType.INDICATOR.getURLImage()));
+        this.indicatorBottom = new ImageView(new Image(SpriteType.INDICATOR.getURLImage()));
 
         this.fadeTop = new FadeTransition();
         this.fadeLeft = new FadeTransition();
@@ -105,6 +110,8 @@ public class Seaside {
         List<ImageView> indicatorList = List.of(indicatorTop, indicatorRight, indicatorBottom, indicatorLeft);
         indicatorList.forEach(indicator -> indicator.setVisible(false));
         pane.getChildren().addAll(indicatorList);
+
+        System.out.println("Main: " + Main.getStage().getWidth() + " , " + Main.getStage().getHeight());
 
         // At the beginning of the game 1 plane gets spawned each time
         // till 500 points are reached, than this variable will be incremented
@@ -219,15 +226,11 @@ public class Seaside {
             for (int i = 0; i < numberPlaneSpawn; i++) {
                 if (gameSession.getPlanes().size() < Game.getMaxPlaneToSpawn()) {
                     int locationIndex = ThreadLocalRandom.current().nextInt(spawnLocation.size());
-                    Plane newPlane = new Plane("images/map_components/airplane.png");
+                    Plane newPlane = new Plane(SpriteType.AIRPLANE.getURLImage());
                     newPlane.connectToController(this);
-                    newPlane.getSprite().setFitWidth(64);
-                    newPlane.getSprite().setFitHeight(64);
                     newPlane.playSpawnAnimation(spawnLocation.get(locationIndex));
                     loadIndicatorAnimation(spawnLocation.get(locationIndex));
-                    System.out.println("side.random = " + spawnLocation.get(locationIndex));
                     spawnLocation.remove(locationIndex);
-
                     gameSession.addPlane(newPlane);
                     pane.getChildren().add(newPlane.getSprite());
                 }
@@ -454,7 +457,7 @@ public class Seaside {
     public void setFadeTransition(final FadeTransition fade, final ImageView indicator) {
         fade.setFromValue(1);
         fade.setToValue(0);
-        fade.setDuration(Duration.millis(1000));
+        fade.setDuration(Duration.millis(FADE_DURATION_INDICATOR));
         fade.setCycleCount(3);
         fade.setNode(indicator);
 
@@ -473,6 +476,14 @@ public class Seaside {
      */
     public Timeline getSpawnCountDown() {
         return this.spawnCountDown;
+    }
+
+    public static int getScreenMinWidth() {
+        return SCREEN_MIN_WIDTH;
+    }
+
+    public static int getScreenMinHeight() {
+        return SCREEN_MIN_HEIGHT;
     }
 
     private void handle(final ActionEvent cycle) {

@@ -7,6 +7,8 @@ public enum SpriteType {
 
     /** Plane image path.*/
     AIRPLANE("images/map_components/airplane.png"),
+    /** Plane Selected image path */
+    AIRPLANE_SELECTED("images/map_components/airplaneSelected.png"),
     /** Airstrip image path.*/
     AIRSTRIP( "images/map_components/singleAirstrip.png"),
     /** Boat image path.*/
@@ -14,7 +16,9 @@ public enum SpriteType {
     /** Helicopter image path.*/
     HELICOPTER("images/map_components/helicopter.png"),
     /** Helipad image path.*/
-    HELIPAD("images/map_components/helipad.png");
+    HELIPAD("images/map_components/helipad.png"),
+    /** Indicator image path */
+    INDICATOR("images/map_components/indicator.png");
 
     private String urlImage;
 
@@ -26,8 +30,6 @@ public enum SpriteType {
      * @return String associated to URL Image.
      */
     public String getURLImage() {
-        this.urlImage = ClassLoader.getSystemResource(this.urlImage).toExternalForm();
-
         return this.urlImage;
     }
 }

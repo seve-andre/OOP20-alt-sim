@@ -65,7 +65,7 @@ public class GameEngineImpl implements GameEngine {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
 
             if (checkLanding(planeMonitored)) {
-                transitionSeaside.addScore(gameSession.getGameScoreLanding());
+                transitionSeaside.addScore(Game.getGameScoreLanding());
                 gameSession.addPlaneToRemove(planeMonitored);
                 continue;
             }
