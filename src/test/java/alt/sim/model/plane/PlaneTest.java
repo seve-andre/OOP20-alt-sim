@@ -1,14 +1,16 @@
 package alt.sim.model.plane;
 
-import javafx.geometry.Point2D;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.junit.jupiter.api.Test;
+
+import javafx.geometry.Point2D;
+
 public class PlaneTest {
-    public static final int N_POINTS = 50;
+
+    private static final int N_POINTS = 50;
     private static final int RANDOM_BOUND = 50;
 
     @Test
@@ -17,7 +19,12 @@ public class PlaneTest {
         List<Point2D> linesPath = new ArrayList<>();
 
         for (int i = 0; i < N_POINTS; i++) {
-            linesPath.add(new Point2D(ThreadLocalRandom.current().nextDouble(RANDOM_BOUND), ThreadLocalRandom.current().nextDouble(50)));
+            linesPath.add(
+                    new Point2D(
+                            ThreadLocalRandom.current().nextDouble(RANDOM_BOUND),
+                            ThreadLocalRandom.current().nextDouble(RANDOM_BOUND)
+                    )
+            );
             System.out.println(linesPath.get(i).getX() + " , " + linesPath.get(i).getY());
         }
 
