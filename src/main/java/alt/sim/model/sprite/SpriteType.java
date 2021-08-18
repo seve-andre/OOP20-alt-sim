@@ -6,22 +6,25 @@ package alt.sim.model.sprite;
 public enum SpriteType {
 
     /** Plane image path.*/
-    AIRPLANE("airplane", "images/map_components/airplane.png"),
+    AIRPLANE("images/map_components/airplane.png"),
     /** Airstrip image path.*/
-    AIRSTRIP("airstrip", "images/map_components/singleAirstrip.png"),
+    AIRSTRIP( "images/map_components/singleAirstrip.png"),
     /** Boat image path.*/
-    BOAT("boat", "images/map_components/boat.png"),
+    BOAT( "images/map_components/boat.png"),
     /** Helicopter image path.*/
-    HELICOPTER("helicopter", "images/map_components/helicopter.png"),
+    HELICOPTER("images/map_components/helicopter.png"),
     /** Helipad image path.*/
-    HELIPAD("helipad", "images/map_components/helipad.png");
+    HELIPAD("images/map_components/helipad.png");
 
     private String urlImage;
 
-    SpriteType(final String imageCategory, final String urlImage) {
+    SpriteType(final String urlImage) {
         this.urlImage = urlImage;
     }
 
+    /**
+     * @return String associated to URL Image.
+     */
     public String getURLImage() {
         this.urlImage = ClassLoader.getSystemResource(this.urlImage).toExternalForm();
 
