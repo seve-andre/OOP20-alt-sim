@@ -9,6 +9,7 @@ public class Game {
     // Section Spawn Plane
     private static final int MAX_PLANE_TO_SPAWN = 10;
     private static final int SPAWN_DELAY = 10;
+    private static final int GAME_SCORE_LANDING = 100;
 
     private int numberPlanesToSpawnEachTime;
     private List<Plane> planes;
@@ -99,5 +100,12 @@ public class Game {
      */
     public static int getSpawnDelay() {
         return SPAWN_DELAY;
+    }
+
+    /**
+     * @return the game score to update when a Plane is land.
+     */
+    public static int getGameScoreLanding() {
+        return GAME_SCORE_LANDING;
     }
 }
