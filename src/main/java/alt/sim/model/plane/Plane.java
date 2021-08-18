@@ -1,9 +1,5 @@
 package alt.sim.model.plane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
@@ -23,6 +19,10 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Defines the Plane idea
@@ -281,14 +281,12 @@ public class Plane {
      */
     public String getStatusMovementAnimation() {
         try {
-            if (this.userTransition == null) {
-                return ("WAITING");
-            } else if (this.userTransition.getStatus() == Status.STOPPED) {
+            if (this.userTransition == null || this.userTransition.getStatus() == Status.STOPPED) {
                 return ("WAITING");
             }
-        } catch (Exception e) { 
-            e.printStackTrace(); 
-          }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return this.userTransition.getStatus().toString();
     }
 
