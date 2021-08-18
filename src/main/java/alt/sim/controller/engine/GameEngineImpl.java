@@ -15,9 +15,8 @@ public class GameEngineImpl implements GameEngine {
     private static final long PERIOD = 400L;
 
     private Seaside transitionSeaside;
-    //private SpawnObject spawn;
 
-    // Sezione Coordinate campionate
+    // Sampled Coordinates Section
     private AbstractAirStrip stripLeft;
     private AbstractAirStrip stripRight;
 
@@ -27,11 +26,10 @@ public class GameEngineImpl implements GameEngine {
 
     public GameEngineImpl(final Seaside transitionSeaside, final Game gameSession) {
         this.gameSession = gameSession;
-        //this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;
         this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
 
-        // Sezione campionamento e animazione
+        //Animation and Sampling section
         this.playedExplosion = false;
         this.stripLeft = transitionSeaside.getStripLeft();
         this.stripRight = transitionSeaside.getStripRight();
@@ -59,6 +57,9 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
+    /**
+     * Check all the collision in Game (collision with the Airstrip, collision with borderMap, collision between Planes)
+     */
     private void checkCollision() {
         for (Plane planeMonitored : gameSession.getPlanes()) {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
@@ -108,6 +109,10 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
+    /**
+     * @param first first Plane passed to terminate.
+     * @param more list of Plane to terminate.
+     */
     private void terminateGame(final Plane first, final Plane... more) {
         gameSession.addPlaneToRemove(first);
         Collections.addAll(gameSession.getPlanesToRemove(), more);
@@ -129,10 +134,18 @@ public class GameEngineImpl implements GameEngine {
                 || selectedPlaneBounds.getMaxY() > Main.getStage().getHeight();
     }
 
+    /**
+     * @param planeSelected the Plane passed to the method for check if is in the Landing Area to land
+     * @return a boolean value of is ready to land or not.
+     */
     private boolean checkLanding(final Plane planeSelected) {
         return !planeSelected.isLanded() && (stripLeft.acceptPlane(planeSelected) || stripRight.acceptPlane(planeSelected));
     }
 
+    /**
+     *
+     * @param plane the Plane selected where execute the ExplosionAnimation.
+     */
     private void startExplosionPlane(final Plane plane) {
         transitionSeaside.startExplosionToPane(plane.getExplosionAnimation(), plane);
         playedExplosion = true;
@@ -142,9 +155,12 @@ public class GameEngineImpl implements GameEngine {
     public void processInput() {
     }
 
+    /**
+     * @param elapsed time of every frames update.
+     */
     @Override
     public void update(final int elapsed) {
-        // Controllo ad ogni frame se Plane collide con qualche oggetto
+        // checkCollision effectuated every frame period
         checkCollision();
         this.gamecontroller.checkScore(transitionSeaside.getIntScore());
     }
@@ -155,7 +171,6 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void initGame() {
-        //.startSpawn();
     }
 
     /**

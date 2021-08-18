@@ -42,10 +42,8 @@ public class Plane {
     private static final int DURATION_VALUE = 2500;
 
     private Sprite spritePlane;
-    //private ImageView spritePlane;
 
     private ObservableState obsState;
-    // DA SISTEMARE
     private Seaside controllerSeaside;
 
     // Section Plane-Animation && Spawn:
@@ -60,11 +58,8 @@ public class Plane {
     private List<Point2D> linesPath;
     private PathTransition spawnTransition;
 
-    //private static final List<SpawnLocation> SPAWN_LOCATIONS;
-
     public Plane(final String urlImagePlane) {
         this.spritePlane = new Sprite(urlImagePlane);
-        //TODO Test bug flash immagine plane durante partita.
 
         this.obsState = new ObservableState(this, State.SPAWNING);
         this.linesPath = new ArrayList<>();
@@ -75,7 +70,7 @@ public class Plane {
         this.explosionAnimation = new ExplosionAnimation();
         this.randomTransition = new PathTransition();
 
-        // Setting Handler for MouseClick STRATEGY da implementare
+        // Setting Handler for MouseClick STRATEGY to implement
         setOnClick();
     }
 
@@ -83,6 +78,9 @@ public class Plane {
         this(imageClassification.getURLImage());
     }
 
+    /**
+     * Terminate alla the Plane animations when the Game is over.
+     */
     public void terminateAllAnimations() {
         if (this.userTransition != null) {
             this.userTransition.stop();
@@ -97,16 +95,19 @@ public class Plane {
         obsState.removeListener();
     }
 
+    /**
+     * launch of spawn animation of the Plane.
+     * @param side the side position when make the Plane spawn (LEFT, RIGHT, BOTTOM, TOP).
+     */
     public void playSpawnAnimation(final SpawnLocation side) {
         spawnTransition = new PathTransition();
         Path pathSpawn = new Path();
 
         Platform.runLater(() -> {
-            // Ridimensionamento planeSpawned
+            // planeSpawned resized
             this.getSprite().setFitWidth(64);
             this.getSprite().setFitHeight(64);
 
-            // TEST FUORIBORDO da DECOMMENTARE TERMIANTO IL TEST
             Bounds boundryMap = controllerSeaside.getPane().getBoundsInLocal();
 
             final int delta = 50;
@@ -116,7 +117,7 @@ public class Plane {
             final double halfWidth = width / 2.0;
             final double halfHeight = height / 2.0;
 
-            // Inserimento coordinate PathSpawn from side
+            // Insert coordinates PathSpawn from side
             switch (side) {
             case TOP:
                 pathSpawn.getElements().add(new MoveTo(halfWidth, -delta));
@@ -142,9 +143,6 @@ public class Plane {
                 break;
             }
 
-            // DI TEST PER IL FUORIBORDO, da DECOMMENTARE!!!
-            //controllerSeaside.insertPlaneInMap(this);
-
             spawnTransition.setPath(pathSpawn);
             spawnTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
             spawnTransition.setNode(this.getSprite());
@@ -152,10 +150,14 @@ public class Plane {
             spawnTransition.play();
 
             spawnTransition.setOnFinished(event -> this.setState(State.WAITING));
-
         });
     }
 
+    /**
+     * RandomTransition used by the Plane when it haven't a specified Path to follow.
+     * @param boundWidth Width dimension of the Map used for calculate the random X position of RandomMovement.
+     * @param boundHeight Height dimension of the Map used for calculate the random Y position of RandomMovement.
+     */
     public void loadRandomTransition(final double boundWidth, final double boundHeight) {
         double randomPathLength;
         final double velocityRandomMovement = 0.03;
@@ -168,14 +170,13 @@ public class Plane {
             return;
         }
 
-        //PauseTransition waitingTransition = new PauseTransition();
         double planeWidth = this.getSprite().getBoundsInParent().getWidth();
         double planeHeight = this.getSprite().getBoundsInParent().getHeight();
 
         randomTransition = new PathTransition();
         Path pathRandom = new Path();
 
-        // Metodo per calcolo random position
+        // Calculation random position
         double randomX = getRandomCoordinate(boundWidth, planeWidth);
         double randomY = getRandomCoordinate(boundHeight, planeHeight);
         Point2D moveTo = new Point2D(randomX, randomY);
@@ -201,6 +202,11 @@ public class Plane {
         });
     }
 
+    /**
+     * @param boundCoordinate coordinate of the Map used to calculate the RandomTransition final position.
+     * @param planeCoordinate actual coordinate of the Plane used to set the intial Path of RandomTransition
+     * @return the coordinate calculated.
+     */
     private double getRandomCoordinate(final double boundCoordinate, final double planeCoordinate) {
         return planeCoordinate * 0.5 + ThreadLocalRandom.current().nextDouble() * (boundCoordinate - planeCoordinate);
     }
@@ -214,14 +220,14 @@ public class Plane {
             this.randomTransition.stop();
         }
 
-        // L'aereo sta seguendo un percorso...
+        // the Plane is following a Path
         this.userTransition = new PathTransition();
 
         double pathLenght;
         final double velocityMovement = 0.03;
         double duration;
 
-        // aggiornare le coordinate da richiamare prima di questo metodo
+        // update the coordinate befor call this method
         copyCoordinatesInPath();
 
         if (userTransition.getStatus() == Status.RUNNING) {
@@ -235,7 +241,7 @@ public class Plane {
         userTransition.setNode(this.getSprite());
         userTransition.setOrientation(OrientationType.ORTHOGONAL_TO_TANGENT);
 
-        // Stabilire una velocità standard a seconda della lunghezza del percorso:
+        // Stablished a standard velocity depended on Pathlenght.
         pathLenght = (linesPath.get(0).distance(linesPath.get(linesPath.size() - 1)));
         duration = pathLenght / velocityMovement;
         userTransition.setDuration(Duration.millis(duration));
@@ -251,10 +257,16 @@ public class Plane {
         });
     }
 
+    /**
+     * @return the SpawnTransition animation ready to played.
+     */
     public PathTransition getSpawnTransition() {
         return this.spawnTransition;
     }
 
+    /**
+     * @return the ExplosionAnimation ready to played.
+     */
     public ExplosionAnimation getExplosionAnimation() {
         return this.explosionAnimation;
     }
@@ -265,6 +277,9 @@ public class Plane {
         }
     }
 
+    /**
+     * @return the Movement status of the Plane Animation.
+     */
     public String getStatusMovementAnimation() {
         try {
             if (this.userTransition == null) {
@@ -278,6 +293,9 @@ public class Plane {
         return this.userTransition.getStatus().toString();
     }
 
+    /**
+     * @return the PathTransition animation ready to played.
+     */
     public PathTransition getPlaneMovementAnimation() {
         return this.userTransition;
     }
@@ -288,12 +306,15 @@ public class Plane {
         }
     }
 
+    /**
+     * @return the RandomTransition animation ready to played.
+     */
     public PathTransition getRandomTransition() {
         return this.randomTransition;
     }
 
     private void copyCoordinatesInPath() {
-        // Ripuliamo le coordinate presenti dal path prima
+        // Cleaning the coordinates presented
         this.path = new Path();
 
         for (int k = 0; k < this.linesPath.size(); k++) {
@@ -308,18 +329,23 @@ public class Plane {
         }
     }
 
+    /**
+     *
+     * @param controllerSeaside controlled to link with this class.
+     */
     public void connectToController(final Seaside controllerSeaside) {
         this.controllerSeaside = controllerSeaside;
     }
 
-    // Gestisce il cambio di immagine da Plane --> PlaneSelected quando si seleziona il Plane desiderato
+    /**
+     *     Managed the Plane image when is clicked by the Mouse Plane --> PlaneSelected.
+     */
     public void setOnClick() {
         this.getSprite().setOnMousePressed(event -> {
             setSpritePlane("images/map_components/airplaneSelected.png");
             isPlaneSelectedForBeenMoved = true;
 
             if (controllerSeaside.isMoreThanOneSelected()) {
-                System.out.println("image Plane cambiata");
                 controllerSeaside.clearPlaneSelectedForBeenMoved();
                 isPlaneSelectedForBeenMoved = true;
             }
@@ -329,7 +355,9 @@ public class Plane {
         this.getSprite().setOnMouseReleased(event -> this.getSprite().setImage(new Image("images/map_components/airplane.png")));
     }
 
-    // Aggiungo le coordinate campionate nel Plane
+    /**
+     * @param linesPath coordinates sampled added into Plane.
+     */
     public synchronized void setPlaneLinesPath(final List<Point2D> linesPath) {
         List<Point2D> linesPathClear;
 
@@ -337,7 +365,7 @@ public class Plane {
             System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
         }
 
-        if (this.getIsPlaneSelectedForBeenMoved()) {
+        if (this.isPlaneSelectedForBeenMoved()) {
             this.linesPath.clear();
 
             linesPathClear = removeDuplicateInLinesPath(linesPath);
@@ -350,8 +378,12 @@ public class Plane {
     }
 
     //TODO Test duplicate coordinates
+
+    /**
+     * @param linesPath list of coordinated sampled.
+     * @return a list of coordinated cleaned from duplicated.
+     */
     public List<Point2D> removeDuplicateInLinesPath(final List<Point2D> linesPath) {
-        //List<Point2D> linesPathCopy = linesPath;
         double xCopy;
         double yCopy;
 
@@ -369,6 +401,9 @@ public class Plane {
         return linesPath;
     }
 
+    /**
+     * @return the coordinate catched.
+     */
     public synchronized List<Point2D> getPlaneLinesPath() {
         return this.linesPath;
     }
@@ -380,28 +415,44 @@ public class Plane {
         return this.spritePlane.getSprite();
     }
 
-    // Da adattare a ImageView
+    /**
+     * @param newUrlImage the new Image to set into Plane
+     */
     public void setSpritePlane(final String newUrlImage) {
-        //this.spritePlane.getImageSpriteResized().setImageSprite(newUrlImage);
         this.spritePlane.getSprite().setImage(new Image(newUrlImage));
     }
 
+    /**
+     * @return the LandingAnimation ready to played.
+     */
     public ScaleTransition getLandingAnimation() {
         return landingAnimation.getLandingAnimation();
     }
 
+    /**
+     * @param isPlaneSelectedForBeenMoved set the boolean value to Plane specified if was selected for moved by User.
+     */
     public void setIsPlaneSelectedForBeenMoved(final boolean isPlaneSelectedForBeenMoved) {
         this.isPlaneSelectedForBeenMoved = isPlaneSelectedForBeenMoved;
     }
 
-    public boolean getIsPlaneSelectedForBeenMoved() {
+    /**
+     * @return the actual value of planeSelectedForBeenMoved.
+     */
+    public boolean isPlaneSelectedForBeenMoved() {
         return this.isPlaneSelectedForBeenMoved;
     }
 
+    /**
+     * @return the actual State of Plane.
+     */
     public synchronized State getState() {
         return obsState.getState();
     }
 
+    /**
+     * @param state value of Plane State during the Game.
+     */
     public synchronized void setState(final State state) {
         this.obsState.setState(state);
     }
@@ -410,8 +461,10 @@ public class Plane {
         this.obsState.removeListener();
     }
 
+    /**
+     * @return the check condition about Plane landing.
+     */
     public boolean isLanded() {
         return obsState.getState() == State.LANDED;
     }
-
 }

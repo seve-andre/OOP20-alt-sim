@@ -144,13 +144,19 @@ public class Seaside {
         t.start();
     }
 
+    /**
+     * when the Mouse is dragged, the planeCoordinates save the coordinates of Mouse.
+     * the GraphicContext gc draw the lines into the Canvas.
+     */
     @FXML
     void handlerMouseDragged(final MouseEvent event) {
-        if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT) {
-            planeCoordinates.add(new Point2D(event.getX(), event.getY()));
-            gc.lineTo(event.getX(), event.getY());
-            gc.setStroke(Color.BLUE);
-            gc.stroke();
+        for (Plane planeSelected : gameSession.getPlanes()) {
+            if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT && planeSelected.isPlaneSelectedForBeenMoved()) {
+                planeCoordinates.add(new Point2D(event.getX(), event.getY()));
+                gc.lineTo(event.getX(), event.getY());
+                gc.setStroke(Color.BLUE);
+                gc.stroke();
+            }
         }
     }
 
@@ -159,11 +165,12 @@ public class Seaside {
         Point2D pathStartingPoint;
         double distanceFromPlane;
 
-        for (Plane planeSelected:gameSession.getPlanes()) {
+        for (Plane planeSelected : gameSession.getPlanes()) {
 
             // Checks if user has drawn a path with a minimum amount of points
-            if (planeSelected.getIsPlaneSelectedForBeenMoved()
+            if (planeSelected.isPlaneSelectedForBeenMoved()
                     && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
+
                 pathStartingPoint = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
                 distanceFromPlane = pathStartingPoint
                         .distance(new Point2D(planeSelected.getSprite().getBoundsInParent().getCenterX(),
@@ -186,6 +193,8 @@ public class Seaside {
                     // Once coordinates are loaded and running animations are stopped,
                     // plane movement animation is loaded
                     planeSelected.loadPlaneMovementAnimation();
+                    clearPlaneSelectedForBeenMoved();
+
                 } else {
                     clearMap();
                 }
@@ -199,6 +208,9 @@ public class Seaside {
     }
 
 
+    /**
+     * @param numberPlaneSpawn passed the number of Plane to spawn, there are created and spawned calling the Plane method playSpawnTransition().
+     */
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         if (gameSession.isInGame()) {
 
@@ -223,6 +235,9 @@ public class Seaside {
         }
     }
 
+    /**
+     * @param side selected a side where collocated the indicator, there image are created and setted into the Map with FadeTransition animation.
+     */
     public void loadIndicatorAnimation(final SpawnLocation side) {
         final int delta = 50;
 
@@ -286,11 +301,14 @@ public class Seaside {
         });
     }
 
+    /**
+     * @return checked if there are more than one Plane selected for choose after the last Plane selected between the two.
+     */
     public boolean isMoreThanOneSelected() {
         int planeBeenSelected = 0;
 
         for (Plane planeSelected:gameSession.getPlanes()) {
-            if (planeSelected.getIsPlaneSelectedForBeenMoved()) {
+            if (planeSelected.isPlaneSelectedForBeenMoved()) {
                 planeBeenSelected++;
             }
         }
@@ -349,15 +367,22 @@ public class Seaside {
         WindowView.showDialog(Page.PAUSE);
     }
 
-    public void startExplosionToPane(final ExplosionAnimation testExplosion, final Plane planeCollided) {
+    /**
+     * @param explosionAnimation the Animation of the Explosion.
+     * @param planeCollided the Plane that collided and need the ExplosionAnimation.
+     */
+    public void startExplosionToPane(final ExplosionAnimation explosionAnimation, final Plane planeCollided) {
         Platform.runLater(() -> {
-            pane.getChildren().add(testExplosion.getImgExplosion());
-            testExplosion.getImgExplosion().setX(planeCollided.getSprite().getBoundsInParent().getCenterX());
-            testExplosion.getImgExplosion().setY(planeCollided.getSprite().getBoundsInParent().getCenterY());
-            testExplosion.start();
+            pane.getChildren().add(explosionAnimation.getImgExplosion());
+            explosionAnimation.getImgExplosion().setX(planeCollided.getSprite().getBoundsInParent().getCenterX());
+            explosionAnimation.getImgExplosion().setY(planeCollided.getSprite().getBoundsInParent().getCenterY());
+            explosionAnimation.start();
         });
     }
 
+    /**
+     * @param planes removes all the Planes in Game after the Game is over.
+     */
     public void removePlanes(final Collection<? extends Plane> planes) {
         final List<ImageView> imageViews = planes.stream()
                 .map(Plane::getSprite)
@@ -367,6 +392,9 @@ public class Seaside {
         gameSession.removePlanes();
     }
 
+    /**
+     * @param plane removes a single Planes in Game after Plane is landed.
+     */
     public synchronized void removePlane(final Plane plane) {
         Platform.runLater(() -> {
             System.out.println("Plane landing...");
@@ -384,26 +412,45 @@ public class Seaside {
         });
     }
 
+    /**
+     * @return the Left AirStrip component.
+     */
     public AbstractAirStrip getStripLeft() {
         return this.stripLeft;
     }
 
+    /**
+     * @return the Right AirStrip component.
+     */
     public AbstractAirStrip getStripRight() {
         return this.stripRight;
     }
 
+    /**
+     * @return the AnchorPane component.
+     */
     public AnchorPane getPane() {
         return this.pane;
     }
 
+    /**
+     * @param score set the Game Score into the Label.
+     */
     public void addScore(final int score) {
         Platform.runLater(() -> this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score)));
     }
 
+    /**
+     * @return Game Score of the Math.
+     */
     public int getIntScore() {
         return Integer.parseInt(this.score.getText());
     }
 
+    /**
+     * @param fade the FadeAnimation that need to be setted.
+     * @param indicator Image of indicator where apply the FadeTransition.
+     */
     public void setFadeTransition(final FadeTransition fade, final ImageView indicator) {
         fade.setFromValue(1);
         fade.setToValue(0);
@@ -414,10 +461,16 @@ public class Seaside {
         fade.play();
     }
 
+    /**
+     * @return the List of FadeTransition used depending the Side where the Plane will spawn.
+     */
     public List<FadeTransition> getFadeTransition() {
         return List.of(this.fadeTop, this.fadeLeft, this.fadeRight, this.fadeBottom);
     }
 
+    /**
+     * @return the countdown of Spawn between a Plane and another.
+     */
     public Timeline getSpawnCountDown() {
         return this.spawnCountDown;
     }
