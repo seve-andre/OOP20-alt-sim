@@ -42,7 +42,6 @@ public class Plane {
     private static final int DURATION_VALUE = 2500;
 
     private Sprite spritePlane;
-
     private ObservableState obsState;
     private Seaside controllerSeaside;
 
@@ -186,7 +185,7 @@ public class Plane {
 
         randomTransition.setPath(pathRandom);
         randomTransition.setNode(this.getSprite());
-        // Stabilire una velocità standard a seconda della lunghezza del percorso:
+        // Establish a standard speed depending on the length of the path:
         randomPathLength = (moveFrom.distance(moveTo));
         durationRandomTransition = randomPathLength / velocityRandomMovement;
         randomTransition.setDuration(Duration.millis(durationRandomTransition));
@@ -342,7 +341,7 @@ public class Plane {
      */
     public void setOnClick() {
         this.getSprite().setOnMousePressed(event -> {
-            setSpritePlane("images/map_components/airplaneSelected.png");
+            setSpritePlane(SpriteType.AIRPLANE_SELECTED.getURLImage());
             isPlaneSelectedForBeenMoved = true;
 
             if (controllerSeaside.isMoreThanOneSelected()) {
@@ -352,7 +351,7 @@ public class Plane {
 
         });
 
-        this.getSprite().setOnMouseReleased(event -> this.getSprite().setImage(new Image("images/map_components/airplane.png")));
+        this.getSprite().setOnMouseReleased(event -> this.getSprite().setImage(new Image(SpriteType.AIRPLANE.getURLImage())));
     }
 
     /**
@@ -362,7 +361,7 @@ public class Plane {
         List<Point2D> linesPathClear;
 
         for (Point2D lines:linesPath) {
-            System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
+            //System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
         }
 
         if (this.isPlaneSelectedForBeenMoved()) {
@@ -371,14 +370,13 @@ public class Plane {
             linesPathClear = removeDuplicateInLinesPath(linesPath);
 
             for (Point2D linesClear:linesPathClear) {
-                System.out.println("coordinate passate dopo: " + linesClear.getX() + " , " + linesClear.getY());
+                //System.out.println("coordinate passate dopo: " + linesClear.getX() + " , " + linesClear.getY());
                 this.linesPath.add(new Point2D(linesClear.getX(), linesClear.getY()));
             }
         }
     }
 
     //TODO Test duplicate coordinates
-
     /**
      * @param linesPath list of coordinated sampled.
      * @return a list of coordinated cleaned from duplicated.

@@ -20,10 +20,6 @@ public class Sprite {
     private Image bufferedSprite;
     private ImageView sprite;
 
-    public Sprite(final SpriteType type) {
-        this(type.getURLImage());
-    }
-
     /**
      * @param urlSprite contains url of the image to load
      */
@@ -33,6 +29,10 @@ public class Sprite {
 
         //resize calculation:
         resizeSpriteToMap(false);
+    }
+
+    public Sprite(final SpriteType type) {
+        this(type.getURLImage());
     }
 
     //----------------------------------------------------------------
