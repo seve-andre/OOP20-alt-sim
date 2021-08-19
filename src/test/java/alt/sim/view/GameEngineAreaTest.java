@@ -1,7 +1,6 @@
 package alt.sim.view;
 
 import alt.sim.Main;
-import alt.sim.controller.engine.GameEngine;
 import alt.sim.controller.game.GameController;
 import alt.sim.controller.seaside.SeasideController;
 
@@ -10,6 +9,7 @@ import java.util.Collections;
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
+import alt.sim.model.engine.GameEngine;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;

@@ -1,4 +1,4 @@
-package alt.sim.controller.engine;
+package alt.sim.model.engine;
 
 public interface GameEngine {
 
