@@ -24,7 +24,10 @@ public class GameEngineImpl implements GameEngine {
     private GameController gamecontroller;
     private Game gameSession;
 
-    public GameEngineImpl(final SeasideController transitionSeaside, final Game gameSession) {
+    //TODO SINGLETON-PATTERN
+    private static GameEngineImpl instance;
+
+    private GameEngineImpl(final SeasideController transitionSeaside, final Game gameSession) {
         this.gameSession = gameSession;
         this.transitionSeaside = transitionSeaside;
         this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
@@ -190,5 +193,18 @@ public class GameEngineImpl implements GameEngine {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * @param transitionSeaside field to pass at the constructor of GameEngineImpl class
+     * @param gameSession field to pass at the constructor of GameEngineImpl class
+     * @return a single instance of the actual GameEngineImpl class, implemented the Singleton pattern.
+     */
+    public static GameEngineImpl getInstance(final SeasideController transitionSeaside, final Game gameSession){
+        if(instance == null){
+            instance = new GameEngineImpl(transitionSeaside, gameSession);
+        }
+
+        return instance;
     }
 }

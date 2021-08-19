@@ -27,7 +27,7 @@ public final class GameController {
         }
     }
 
-        private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
+    private static void pauseResumeOrStop(final boolean pause, final boolean resume, final boolean stop) {
         List<Plane> planes = gameModel.getPlanes();
         List<FadeTransition> fadeTransition = transitionSeaside.getFadeTransition();
 
@@ -113,7 +113,7 @@ public final class GameController {
     }
 
     public void checkScore(final int score) {
-         if (score < LIMIT_2100) {
+        if (score < LIMIT_2100) {
             if (score >= LIMIT_500 && score < LIMIT_1000) {
                 gameModel.setNumberPlanesToSpawnEachTime(2);
             } else if (score >= LIMIT_1000 && score <= LIMIT_1500) {

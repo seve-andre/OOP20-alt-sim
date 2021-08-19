@@ -92,7 +92,7 @@ public class SeasideController {
 
         stripLeft = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
         stripRight = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
-        engine = new GameEngineImpl(this, gameSession);
+        engine = GameEngineImpl.getInstance(this, gameSession);
 
         gc = canvas.getGraphicsContext2D();
         planeCoordinates = new ArrayList<>();
