@@ -1,4 +1,4 @@
-package alt.sim.view;
+package alt.sim.view.engine;
 
 import alt.sim.Main;
 import alt.sim.controller.game.GameController;
