@@ -4,17 +4,17 @@ import java.util.Collections;
 
 import alt.sim.Main;
 import alt.sim.controller.game.GameController;
+import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-import alt.sim.view.seaside.Seaside;
 import javafx.geometry.Bounds;
 
 public class GameEngineImpl implements GameEngine {
     private static final long PERIOD = 400L;
 
-    private Seaside transitionSeaside;
+    private SeasideController transitionSeaside;
 
     // Sampled Coordinates Section
     private AbstractAirStrip stripLeft;
@@ -24,7 +24,7 @@ public class GameEngineImpl implements GameEngine {
     private GameController gamecontroller;
     private Game gameSession;
 
-    public GameEngineImpl(final Seaside transitionSeaside, final Game gameSession) {
+    public GameEngineImpl(final SeasideController transitionSeaside, final Game gameSession) {
         this.gameSession = gameSession;
         this.transitionSeaside = transitionSeaside;
         this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);

@@ -1,8 +1,8 @@
 package alt.sim.model.airstrip;
 
+import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-import alt.sim.view.seaside.Seaside;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
 
@@ -11,13 +11,13 @@ import javafx.scene.shape.Rectangle;
  */
 public class BasicAirStrip extends AbstractAirStrip {
     private Rectangle landingBox;
-    private Seaside transitionSeaside;
+    private SeasideController transitionSeaside;
 
     public BasicAirStrip(final String url) {
         super(url);
     }
 
-    public BasicAirStrip(final String url, final Seaside transitionSeaside) {
+    public BasicAirStrip(final String url, final SeasideController transitionSeaside) {
         super(url, transitionSeaside);
         this.transitionSeaside = transitionSeaside;
     }

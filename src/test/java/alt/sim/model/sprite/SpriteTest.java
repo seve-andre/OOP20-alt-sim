@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 import alt.sim.Main;
-import alt.sim.view.seaside.Seaside;
+import alt.sim.controller.seaside.SeasideController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -23,7 +23,7 @@ public class SpriteTest {
             assertNull(sprite, "Sprite wrong initialization");
             assertNull(bufferedSprite, "Image wrong initialization");
 
-            if (Main.getStage().getWidth() >= Seaside.getScreenMinWidth() && Main.getStage().getHeight() >= Seaside.getScreenMinHeight()) {
+            if (Main.getStage().getWidth() >= SeasideController.getScreenMinWidth() && Main.getStage().getHeight() >= SeasideController.getScreenMinHeight()) {
                 sprite.setFitWidth((smallPlaneSizeWidth * 2 + 1));
                 sprite.setFitHeight((smallPlaneSizeHeight * 2 + 1));
 

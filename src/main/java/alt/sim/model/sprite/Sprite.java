@@ -1,7 +1,7 @@
 package alt.sim.model.sprite;
 
 import alt.sim.Main;
-import alt.sim.view.seaside.Seaside;
+import alt.sim.controller.seaside.SeasideController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -41,7 +41,7 @@ public class Sprite {
         double smallPlaneSizeHeight = 32;
         double smallPlaneSizeWidth = 32;
 
-        if (Main.getStage().getWidth() >= Seaside.getScreenMinWidth() && Main.getStage().getHeight() >= Seaside.getScreenMinHeight()) {
+        if (Main.getStage().getWidth() >= SeasideController.getScreenMinWidth() && Main.getStage().getHeight() >= SeasideController.getScreenMinHeight()) {
             this.sprite.setFitWidth((smallPlaneSizeWidth * 2));
             this.sprite.setFitHeight((smallPlaneSizeHeight * 2));
         } else {

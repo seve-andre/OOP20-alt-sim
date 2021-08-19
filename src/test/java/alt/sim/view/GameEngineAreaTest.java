@@ -3,6 +3,8 @@ package alt.sim.view;
 import alt.sim.Main;
 import alt.sim.controller.engine.GameEngine;
 import alt.sim.controller.game.GameController;
+import alt.sim.controller.seaside.SeasideController;
+
 import java.util.Collections;
 
 import alt.sim.controller.spawn.SpawnObject;
@@ -11,13 +13,12 @@ import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
-import alt.sim.view.seaside.Seaside;
 import javafx.geometry.Bounds;
 
 public class GameEngineAreaTest implements GameEngine {
     private static final long PERIOD = 400L;
 
-    private Seaside transitionSeaside;
+    private SeasideController transitionSeaside;
     // PER TEST FUORIBORDO, da decommentare alla fine
     private SpawnObject spawn;
 
@@ -29,7 +30,7 @@ public class GameEngineAreaTest implements GameEngine {
     private GameController gamecontroller;
     private Game gameSession;
 
-    public GameEngineAreaTest(final Seaside transitionSeaside, final Game gameSession) {
+    public GameEngineAreaTest(final SeasideController transitionSeaside, final Game gameSession) {
         this.gameSession = gameSession;
         this.spawn = new SpawnObjectImpl();
         this.transitionSeaside = transitionSeaside;

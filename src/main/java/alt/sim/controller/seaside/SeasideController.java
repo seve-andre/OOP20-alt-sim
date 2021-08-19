@@ -1,4 +1,4 @@
-package alt.sim.view.seaside;
+package alt.sim.controller.seaside;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class Seaside {
+public class SeasideController {
 
     @FXML
     private AnchorPane pane;

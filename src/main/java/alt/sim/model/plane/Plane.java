@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import alt.sim.Main;
+import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
 import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.sprite.Sprite;
 import alt.sim.model.sprite.SpriteType;
-import alt.sim.view.seaside.Seaside;
 import javafx.animation.Animation.Status;
 import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
@@ -42,7 +42,7 @@ public class Plane {
     private static final int SPAWNTRANSITION_DURATION = 2500;
     private Sprite spritePlane;
     private ObservableState obsState;
-    private Seaside controllerSeaside;
+    private SeasideController controllerSeaside;
 
     // Section Plane-Animation && Spawn:
     private LandingAnimation landingAnimation;
@@ -323,7 +323,7 @@ public class Plane {
      *
      * @param controllerSeaside controlled to link with this class.
      */
-    public void connectToController(final Seaside controllerSeaside) {
+    public void connectToController(final SeasideController controllerSeaside) {
         this.controllerSeaside = controllerSeaside;
     }
 
