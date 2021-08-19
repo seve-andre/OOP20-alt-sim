@@ -1,6 +1,7 @@
 package alt.sim.controller.mapchoice;
 
-import alt.sim.model.user.UserImpl;
+import alt.sim.model.user.User;
+import alt.sim.model.user.builder.UserBuilderImpl;
 import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.model.user.validation.NameQuality;
 import alt.sim.model.user.validation.NameValidation;
@@ -33,6 +34,18 @@ public class MapChoiceControllerImpl implements MapChoiceController {
      */
     @Override
     public void addUser(final String name) throws IOException {
-        userRecordsImpl.addUser(new UserImpl(name, 0));
+        userRecordsImpl.addUser(buildNewUser(name));
+    }
+
+    /**
+     * Builds new basic user.
+     * @param name of the user
+     * @return User built by score and name
+     */
+    private User buildNewUser(final String name) {
+        return new UserBuilderImpl()
+                .name(name)
+                .score(0)
+                .build();
     }
 }
