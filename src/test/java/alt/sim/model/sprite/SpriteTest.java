@@ -1,12 +1,14 @@
 package alt.sim.model.sprite;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
+
 import alt.sim.Main;
 import alt.sim.view.seaside.Seaside;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SpriteTest {
 
