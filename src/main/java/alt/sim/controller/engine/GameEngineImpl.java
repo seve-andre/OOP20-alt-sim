@@ -1,9 +1,9 @@
 package alt.sim.controller.engine;
 
-import alt.sim.Main;
-import alt.sim.controller.game.GameController;
 import java.util.Collections;
 
+import alt.sim.Main;
+import alt.sim.controller.game.GameController;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
@@ -58,7 +58,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     /**
-     * Check all the collision in Game (collision with the Airstrip, collision with borderMap, collision between Planes)
+     * Check all the collision in Game (collision with the Airstrip, collision with borderMap, collision between Planes).
      */
     private void checkCollision() {
         for (Plane planeMonitored : gameSession.getPlanes()) {
