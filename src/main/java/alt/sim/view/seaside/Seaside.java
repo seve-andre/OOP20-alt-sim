@@ -61,9 +61,9 @@ public class Seaside {
     @FXML
     private Canvas canvas;
 
-    private final static int FADE_DURATION_INDICATOR = 1000;
-    private final static int SCREEN_MIN_WIDTH = 1080;
-    private final static int SCREEN_MIN_HEIGHT = 720;
+    private static final int FADE_DURATION_INDICATOR = 1000;
+    private static final  int SCREEN_MIN_WIDTH = 1080;
+    private static final  int SCREEN_MIN_HEIGHT = 720;
 
     // Timer: at the end of count down a new Plane gets spawned
     private Timeline spawnCountDown;
