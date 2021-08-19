@@ -1,5 +1,9 @@
 package alt.sim.model.plane;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 import alt.sim.Main;
 import alt.sim.model.animation.ExplosionAnimation;
 import alt.sim.model.animation.LandingAnimation;
@@ -12,7 +16,6 @@ import javafx.animation.PathTransition;
 import javafx.animation.PathTransition.OrientationType;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +23,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Defines the Plane idea
@@ -351,10 +350,6 @@ public class Plane {
      */
     public synchronized void setPlaneLinesPath(final List<Point2D> linesPath) {
         List<Point2D> linesPathClear;
-
-        for (Point2D lines:linesPath) {
-            //System.out.println("coordinate passate prima: " + lines.getX() + " , " + lines.getY());
-        }
 
         if (this.isPlaneSelectedForBeenMoved()) {
             this.linesPath.clear();
