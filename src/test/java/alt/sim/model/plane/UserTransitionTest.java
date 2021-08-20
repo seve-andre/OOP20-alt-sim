@@ -7,7 +7,7 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 public class UserTransitionTest {
-    private PathTransition transition;
+   /* private PathTransition transition;
     private PlaneTest planeUsed;
     private Path path;
 
@@ -36,13 +36,13 @@ public class UserTransitionTest {
         // update the coordinate befor call this method
         copyCoordinatesInPath();
 
-       /* if (this.transition.getStatus() == Animation.Status.RUNNING) {
+       *//* if (this.transition.getStatus() == Animation.Status.RUNNING) {
             this.transition.stop();
             planeUsed.getPlaneLinesPath().clear();
             //TODO da capire come implementare
             //controllerSeaside.clearLinesDrawed();
             //controllerSeaside.restoreLinesRemoved();
-        }*/
+        }*//*
 
         this.transition.setPath(path);
         this.transition.setNode(planeUsed.getSprite());
@@ -87,5 +87,5 @@ public class UserTransitionTest {
 
     public void setPlaneUsed(final PlaneTest planeUsed) {
         this.planeUsed = planeUsed;
-    }
+    }*/
 }
