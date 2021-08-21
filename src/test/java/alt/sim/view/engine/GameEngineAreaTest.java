@@ -1,11 +1,11 @@
 package alt.sim.view.engine;
 
-import alt.sim.Main;
-import alt.sim.controller.game.GameController;
-import alt.sim.controller.seaside.SeasideController;
-
 import java.util.Collections;
 
+import alt.sim.Main;
+import alt.sim.controller.airstrip.AirStripController;
+import alt.sim.controller.game.GameController;
+import alt.sim.controller.seaside.SeasideController;
 import alt.sim.controller.spawn.SpawnObject;
 import alt.sim.controller.spawn.SpawnObjectImpl;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -138,7 +138,8 @@ public class GameEngineAreaTest implements GameEngine {
     }
 
     private boolean checkLanding(final Plane planeSelected) {
-        return !planeSelected.isLanded() && (stripLeft.acceptPlane(planeSelected) || stripRight.acceptPlane(planeSelected));
+        return !planeSelected.isLanded() && (AirStripController.acceptPlane(stripLeft, transitionSeaside, planeSelected)
+                || AirStripController.acceptPlane(stripRight, transitionSeaside, planeSelected));
     }
 
     private void startExplosionPlane(final Plane plane) {

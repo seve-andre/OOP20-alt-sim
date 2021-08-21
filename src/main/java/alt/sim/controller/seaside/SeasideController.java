@@ -90,8 +90,8 @@ public class SeasideController {
     public void initialize() {
         gameSession = new Game();
 
-        stripLeft = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
-        stripRight = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage(), this);
+        stripLeft = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage());
+        stripRight = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage());
         engine = GameEngineImpl.getInstance(this, gameSession);
 
         gc = canvas.getGraphicsContext2D();

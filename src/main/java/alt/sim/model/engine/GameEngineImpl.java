@@ -3,6 +3,7 @@ package alt.sim.model.engine;
 import java.util.Collections;
 
 import alt.sim.Main;
+import alt.sim.controller.airstrip.AirStripController;
 import alt.sim.controller.game.GameController;
 import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.airstrip.AbstractAirStrip;
@@ -11,7 +12,7 @@ import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import javafx.geometry.Bounds;
 
-public class GameEngineImpl implements GameEngine {
+public final class GameEngineImpl implements GameEngine {
     private static final long PERIOD = 400L;
 
     private SeasideController transitionSeaside;
@@ -142,7 +143,8 @@ public class GameEngineImpl implements GameEngine {
      * @return a boolean value of is ready to land or not.
      */
     private boolean checkLanding(final Plane planeSelected) {
-        return !planeSelected.isLanded() && (stripLeft.acceptPlane(planeSelected) || stripRight.acceptPlane(planeSelected));
+        return !planeSelected.isLanded() && (AirStripController.acceptPlane(stripLeft, transitionSeaside, planeSelected)
+                || AirStripController.acceptPlane(stripRight, transitionSeaside, planeSelected));
     }
 
     /**
@@ -200,8 +202,8 @@ public class GameEngineImpl implements GameEngine {
      * @param gameSession field to pass at the constructor of GameEngineImpl class
      * @return a single instance of the actual GameEngineImpl class, implemented the Singleton pattern.
      */
-    public static GameEngineImpl getInstance(final SeasideController transitionSeaside, final Game gameSession){
-        if(instance == null){
+    public static GameEngineImpl getInstance(final SeasideController transitionSeaside, final Game gameSession) {
+        if (instance == null) {
             instance = new GameEngineImpl(transitionSeaside, gameSession);
         }
 

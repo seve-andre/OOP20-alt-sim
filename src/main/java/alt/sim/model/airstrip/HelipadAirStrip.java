@@ -1,9 +1,9 @@
 package alt.sim.model.airstrip;
 
-import alt.sim.model.plane.Plane;
+import javafx.scene.shape.Rectangle;
 
 /**
- * This class represents the helipad airstrip where only helipads can land on it.
+ * This class represents the helipad airstrip where only helicopters can land on it.
  */
 public class HelipadAirStrip extends AbstractAirStrip {
 
@@ -12,13 +12,13 @@ public class HelipadAirStrip extends AbstractAirStrip {
     }
 
     @Override
-    public boolean acceptPlane(final Plane helicopter) {
-        //Not implemented because helicopters don't exist!
-        return false;
+    public String toString() {
+        return "HelipadAirStrip [getStatus()=" + getStatus() + "]";
     }
 
     @Override
-    public String toString() {
-        return "HelipadAirStrip [getStatus()=" + getStatus() + "]";
+    public Rectangle getBox() {
+        //Helicopters not implemented, so helipad functions are disabled..
+        return null;
     }
 }

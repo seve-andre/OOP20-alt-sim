@@ -1,10 +1,9 @@
 package alt.sim.model.airstrip;
 
-import alt.sim.controller.seaside.SeasideController;
-import alt.sim.model.plane.Plane;
 import alt.sim.model.user.User;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 /**
  * This class is the middle between the interface and the specialized classes for the airstrips.
@@ -14,7 +13,6 @@ public abstract class AbstractAirStrip implements AirStrip {
 
     private AirStripStatus status;
     private ImageView imageAirstrip;
-    private SeasideController transitionSeasideFix;
 
     /**
      * When an airstrip is created, is ready to accept planes.
@@ -22,14 +20,6 @@ public abstract class AbstractAirStrip implements AirStrip {
     public AbstractAirStrip(final String url) {
         this.imageAirstrip = new ImageView(new Image(url));
         this.status = AirStripStatus.FREE;
-    }
-
-    /**
-     * When an airstrip is created, is ready to accept planes.
-     */
-    public AbstractAirStrip(final String url, final SeasideController transitionSeasideFix) {
-        this(url);
-        this.transitionSeasideFix = transitionSeasideFix;
     }
 
     @Override
@@ -68,9 +58,5 @@ public abstract class AbstractAirStrip implements AirStrip {
     }
 
     @Override
-    public abstract boolean acceptPlane(Plane plane);
-
-    public SeasideController getTransitionSeasideFix() {
-        return this.transitionSeasideFix;
-    }
+    public abstract Rectangle getBox();
 }
