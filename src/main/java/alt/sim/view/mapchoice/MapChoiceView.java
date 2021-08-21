@@ -43,34 +43,27 @@ public class MapChoiceView {
 
     /**
      * If ENTER key is pressed, name quality will be checked.
+     *
      * @param event enter key to invoke method
      * @throws IOException
      */
     @FXML
     public void onNameEnter(final KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
-            final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
-            if (result.equals(NameValidation.CORRECT)) {
-                infoTextField.setStyle("-fx-text-fill: #006500;");
-            }
-            infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
+            this.checkName();
         }
     }
 
     /**
      * Loads GameMap fxml when button is clicked.
+     *
      * @throws IOException
      */
     @FXML
     public void onPlayClick() throws IOException {
-        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
-        if (result.equals(NameValidation.CORRECT)) {
-            mapChoiceController.addUser(nameTextField.getText());
-            PageLoader.loadPage(Page.GAME, this.mapToPlay);
-        } else {
-            infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
-        }
+        this.playMap();
     }
+
 
     @FXML
     public void onSeasideClick() {
@@ -104,5 +97,33 @@ public class MapChoiceView {
     @FXML
     public void onCloseClick() {
         WindowView.close();
+    }
+
+    /**
+     * Checks name and gives info on validation.
+     *
+     * @throws IOException
+     */
+    private void checkName() throws IOException {
+        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
+
+        if (result.equals(NameValidation.CORRECT)) {
+            infoTextField.setStyle("-fx-text-fill: #006500;");
+        }
+        infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
+    }
+
+    /**
+     * Loads Map if name is correct.
+     * @throws IOException
+     */
+    private void playMap() throws IOException {
+        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
+        if (result.equals(NameValidation.CORRECT)) {
+            mapChoiceController.addUser(nameTextField.getText());
+            PageLoader.loadPage(Page.GAME, this.mapToPlay);
+        } else {
+            infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
+        }
     }
 }

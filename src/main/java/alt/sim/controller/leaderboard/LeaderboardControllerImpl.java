@@ -1,10 +1,11 @@
 package alt.sim.controller.leaderboard;
 
-import java.util.List;
-import java.util.Map;
-
 import alt.sim.model.leaderboard.Leaderboard;
 import alt.sim.model.user.records.UserRecordsImpl;
+import javafx.scene.control.TextField;
+
+import java.util.List;
+import java.util.Map;
 
 public class LeaderboardControllerImpl implements LeaderboardController {
 
@@ -24,4 +25,7 @@ public class LeaderboardControllerImpl implements LeaderboardController {
         return new UserRecordsImpl().getUsers();
     }
 
+    public void buildLeaderboard(final List<TextField> names, final List<TextField> scores) {
+        Leaderboard.buildLeaderboard(names, scores);
+    }
 }

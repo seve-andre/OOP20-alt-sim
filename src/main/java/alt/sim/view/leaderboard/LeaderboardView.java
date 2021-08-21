@@ -10,7 +10,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Sets up leaderboard view with names and points.
@@ -18,42 +17,35 @@ import java.util.Map;
 public class LeaderboardView {
 
     @FXML
-    private TextField nameFirstPlace = new TextField();
+    private TextField nameFirstPlace;
     @FXML
-    private TextField nameSecondPlace = new TextField();
+    private TextField nameSecondPlace;
     @FXML
-    private TextField nameThirdPlace = new TextField();
+    private TextField nameThirdPlace;
     @FXML
-    private TextField nameFourthPlace = new TextField();
+    private TextField nameFourthPlace;
     @FXML
-    private TextField nameFifthPlace = new TextField();
+    private TextField nameFifthPlace;
 
     @FXML
-    private TextField pointsFirstPlace = new TextField();
+    private TextField pointsFirstPlace;
     @FXML
-    private TextField pointsSecondPlace = new TextField();
+    private TextField pointsSecondPlace;
     @FXML
-    private TextField pointsThirdPlace = new TextField();
+    private TextField pointsThirdPlace;
     @FXML
-    private TextField pointsFourthPlace = new TextField();
+    private TextField pointsFourthPlace;
     @FXML
-    private TextField pointsFifthPlace = new TextField();
-
-    private final List<String> names = new LeaderboardControllerImpl().getTopFive();
-    private final Map<String, Integer> users = new LeaderboardControllerImpl().getUsers();
+    private TextField pointsFifthPlace;
 
     @FXML
     public void initialize() {
-
         List<TextField> textFieldsNames = List.of(
                 nameFirstPlace, nameSecondPlace, nameThirdPlace, nameFourthPlace, nameFifthPlace);
         List<TextField> textFieldsScores = List.of(
                 pointsFirstPlace, pointsSecondPlace, pointsThirdPlace, pointsFourthPlace, pointsFifthPlace);
 
-        for (int i = 0; i < names.size(); i++) {
-            textFieldsNames.get(i).setText(names.get(i));
-            textFieldsScores.get(i).setText(users.get(names.get(i)).toString());
-        }
+        new LeaderboardControllerImpl().buildLeaderboard(textFieldsNames, textFieldsScores);
     }
 
     @FXML
@@ -63,7 +55,7 @@ public class LeaderboardView {
 
     @FXML
     public void onGoToFileClick() throws IOException {
-        Desktop.getDesktop().open(Paths.get(RecordsFolder.RecordsPath.USER_RECORDS_FILE_PATH.getPath()).toFile());
+        openFile();
     }
 
     @FXML
@@ -74,5 +66,13 @@ public class LeaderboardView {
     @FXML
     public void onCloseClick() {
         WindowView.close();
+    }
+
+    /**
+     * Opens file containing users.
+     * @throws IOException if path is not correct
+     */
+    private void openFile() throws IOException {
+        Desktop.getDesktop().open(Paths.get(RecordsFolder.RecordsPath.USER_RECORDS_FILE_PATH.getPath()).toFile());
     }
 }
