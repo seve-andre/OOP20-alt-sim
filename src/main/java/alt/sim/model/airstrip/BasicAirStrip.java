@@ -1,5 +1,6 @@
 package alt.sim.model.airstrip;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -10,6 +11,14 @@ public class BasicAirStrip extends AbstractAirStrip {
 
     public BasicAirStrip(final String url) {
         super(url);
+    }
+
+    public BasicAirStrip(final ImageView airStripImage) {
+        super(airStripImage);
+    }
+
+    public BasicAirStrip() {
+        super();
     }
 
     /**

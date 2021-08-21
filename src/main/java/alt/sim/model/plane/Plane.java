@@ -76,6 +76,8 @@ public class Plane {
         this(imageClassification.getURLImage());
     }
 
+    public Plane() {    }
+
     /**
      * Terminate alla the Plane animations when the Game is over.
      */

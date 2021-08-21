@@ -22,6 +22,12 @@ public abstract class AbstractAirStrip implements AirStrip {
         this.status = AirStripStatus.FREE;
     }
 
+    public AbstractAirStrip(final ImageView airStripImage) {
+        this.imageAirstrip = airStripImage;
+    }
+
+    public AbstractAirStrip() {   }
+
     @Override
     public void setScore(final User user, final int score) {
         user.setScore(score);

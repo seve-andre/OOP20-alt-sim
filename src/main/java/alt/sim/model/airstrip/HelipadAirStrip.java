@@ -1,5 +1,6 @@
 package alt.sim.model.airstrip;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -9,6 +10,14 @@ public class HelipadAirStrip extends AbstractAirStrip {
 
     public HelipadAirStrip(final String url) {
         super(url);
+    }
+
+    public HelipadAirStrip(final ImageView helipadImage) {
+        super(helipadImage);
+    }
+
+    public HelipadAirStrip() {
+        super();
     }
 
     @Override
