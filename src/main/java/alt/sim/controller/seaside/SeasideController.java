@@ -51,7 +51,7 @@ public class SeasideController {
     @FXML
     private ImageView imgViewHelicopterLandingArea;
     @FXML
-    private TextField name = new TextField();
+    private TextField name;
     @FXML
     private TextField score;
     @FXML
@@ -110,8 +110,6 @@ public class SeasideController {
         List<ImageView> indicatorList = List.of(indicatorTop, indicatorRight, indicatorBottom, indicatorLeft);
         indicatorList.forEach(indicator -> indicator.setVisible(false));
         pane.getChildren().addAll(indicatorList);
-
-        System.out.println("Main: " + Main.getStage().getWidth() + " , " + Main.getStage().getHeight());
 
         // At the beginning of the game 1 plane gets spawned each time
         // till 500 points are reached, than this variable will be incremented
