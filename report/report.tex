@@ -17,7 +17,7 @@
 \\Relazione di progetto
 \\Programmazione ad Oggetti
 }
-\date{Giugno 2021}
+\date{Agosto 2021}
 
 \author{
 Severi Andrea
@@ -198,13 +198,47 @@ La classe \texttt{NameQuality} consente di controllare il nome inserito dall'ute
 \end{figure}
 
 \subsection{Foschi Andrea}
+\subsubsection{Piste di atterraggio}
+Mi sono personalmente occupato di una delle due componenti fondamentali del gioco: le piste di atterraggio. Tale componente si suddivide in due macrocategorie: quelle che gestiscono l’atterraggio degli aerei standard, e quelle che gestiscono l’atterraggio degli elicotteri (in realtà per quest’ultima categoria vi è nel codice una sola predisposizione a tale tipo di velivolo per implementazioni future, a causa della mancata implementazione degli elicotteri).
+\begin{figure}[H]
+    \begin{center}
+        \centering
+        \includegraphics[width=\textwidth]{img/Foschi/Airstrip.png}
+    \end{center}
+    \caption{Pista di atterraggio}
+    \label{img:airstrip}
+\end{figure}
+
+\subsubsection{Atterraggio degli aerei e verifica delle collisioni}
+Per fare in modo che la pista di atterraggio prenda in ingresso un aereo da far atterrare è stato necessario definire un controller del sistema. In questo modo la pista di atterraggio, tramite il metodo intersects() fornito da JavaFX, può accertare la collisione avvenuta e notificare l’evento alle altre componenti dell’applicazione. Si denota l’utilizzo dell’Enum AirStripStatus, che può assumere i seguenti valori:
+\begin{itemize}
+    \item \qq{\texttt{FREE}}: la pista è in grado di ricevere un aereo da far atterrare;
+    \item \qq{\texttt{BUSY}}: la pista sta facendo atterrare un aereo e non è in grado di riceverne altri;
+    \item \qq{\texttt{DISABLED}}: la pista è momentaneamente non disponibile.
+\end{itemize}
+\begin{figure}[H]
+    \begin{center}
+        \centering
+        \includegraphics[width=\textwidth]{img/Foschi/AirStripController.png}
+    \end{center}
+    \label{img:airstrip-controller}
+\end{figure}
+
+\clearpage
+
 \subsection{Rodilosso Daniel}
 
 \chapter{Sviluppo}
 \section{Testing automatizzato}
-%
+\subsection{Severi Andrea}
+\subsection{Foschi Andrea}
+\subsection{Rodilosso Daniel}
+
 \section{Metodologia di lavoro}
-%
+\subsection{Severi Andrea}
+\subsection{Foschi Andrea}
+\subsection{Rodilosso Daniel}
+
 \section{Note di sviluppo}
 \subsection{Severi Andrea}
 \subsection{Foschi Andrea}
@@ -213,11 +247,19 @@ La classe \texttt{NameQuality} consente di controllare il nome inserito dall'ute
 \chapter{Commenti finali}
 \section{Autovalutazione e lavori futuri}
 \subsection{Severi Andrea}
+Questo progetto mi ha sicuramente aiutato a crescere come sviluppatore e mi ha fatto appassionare maggiormente a un linguaggio che inizialmente reputavo difficile e temibile, tanto dall'aver acquistato volumi quali \href{https://www.amazon.it/Effective-Java-Joshua-Bloch/dp/0134685997}{\qq{\underline{\textit{Effective Java}}}} e \href{https://it.wikipedia.org/wiki/Design_Patterns}{\qq{\underline{\textit{Design Patterns}}}}. Sono consapevole del fatto che ho ancora molto da migliorare, ma cerco sempre di documentarmi al meglio per trovare tecniche e approcci migliori alla scrittura del codice. Ho sempre cercato di rispettare regole (lingua inglese, stile) e convenzioni, affinchè il codice sia leggibile e comprensibile da tutti. Per il futuro voglio sicuramente concentrarmi su uno studio più approfondito dei Design Patterns e su una scrittura più professionale del codice, magari creando nuovi progetti da zero o andando a rimodellare quello appena creato. Inoltre conoscere sempre di più la programmazione ad oggetti che tanto mi ha appassionato, con lo studio possibilmente anche di altri linguaggi.
+
 \subsection{Foschi Andrea}
 \subsection{Rodilosso Daniel}
 
+\clearpage
+
 \section{Difficoltà incontrate e commenti per i docenti}
 \subsection{Severi Andrea}
+Come gruppo, nonostante la comunicazione costante, è sicuramente mancata un po' sintonia, conoscendosi poco e sarebbe servita una migliore organizzazione, in modo tale da non riscrivere parti già fatte e concentrarsi sulle singole parti. Forse poteva servire per evitare di fallire la deadline precedente. 
+Il corso mi ha aiutato a ragionare molto di più sul problema da risolvere, piuttosto che buttarsi subito sulla scrittura di codice. Nonostante sia un corso difficile, ho apportato il massimo impegno e penso ciò verrà ripagato.
+Una cosa che non mi è piaciuta a pieno è stata la spiegazione su JavaFX, poichè non ero bene a conoscenza di ciò che realmente offre e che pensavo si dovesse implementare da zero. Nonostante questo, corso fatto molto bene.
+
 \subsection{Foschi Andrea}
 \subsection{Rodilosso Daniel}
 
