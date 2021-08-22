@@ -11,9 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0"
-      prefWidth="960.0" stylesheets="@../css/base.css" xmlns="https://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.credits.CreditsView">
+<VBox id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.credits.CreditsView">
       <Pane prefHeight="540.0" prefWidth="960.0">
             <Text fill="#d6d6cb" layoutX="411.0" layoutY="58.0" text="CREDITS">
                <font>
@@ -32,7 +30,7 @@
             <String fx:value="img-btn" />
          </styleClass>
       </Button>
-      <Text fill="#d6d6cb" layoutX="186.0" layoutY="147.0" text="SEVERI ANDREA" underline="true">
+      <Text fill="#d6d6cb" layoutX="163.0" layoutY="135.0" text="SEVERI ANDREA" underline="true">
          <font>
             <Font name="Consolas Bold" size="24.0" />
          </font>
@@ -42,63 +40,49 @@
             <Font name="Consolas Bold" size="24.0" />
          </font>
       </Text>
-      <Text fill="#d6d6cb" layoutX="184.0" layoutY="335.0" text="RODILOSSO DANIEL" underline="true">
+      <Text fill="#d6d6cb" layoutX="632.0" layoutY="330.0" text="RODILOSSO DANIEL" underline="true">
          <font>
             <Font name="Consolas Bold" size="24.0" />
          </font>
       </Text>
-      <Text fill="#d6d6cb" layoutX="636.0" layoutY="337.0" text="TODOROV ATANASOV" underline="true">
-         <font>
-            <Font name="Consolas Bold" size="24.0" />
-         </font>
-      </Text>
-      <Circle fill="#d6d6cb" layoutX="188.0" layoutY="186.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="200.0" layoutY="192.0" text="UX and UI">
+      <Circle fill="#d6d6cb" layoutX="167.0" layoutY="167.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="179.0" layoutY="173.0" text="UX and UI">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="188.0" layoutY="222.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="200.0" layoutY="229.0" text="AIRPLANE INDICATORS WHEN ENTERING THE MAP" wrappingWidth="200.0">
+      <Circle fill="#d6d6cb" layoutX="167.0" layoutY="203.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="179.0" layoutY="210.0" text="AIRPLANE INDICATORS WHEN ENTERING THE MAP" wrappingWidth="200.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="188.0" layoutY="371.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="200.0" layoutY="378.0" text="AIRPLANE MOVEMENTS AI AND ANIMATIONS"
-            wrappingWidth="200.0">
+      <Circle fill="#d6d6cb" layoutX="634.0" layoutY="436.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="646.0" layoutY="443.0" text="AIRPLANE MOVEMENTS AI AND ANIMATIONS" wrappingWidth="200.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="186.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="648.0" layoutY="192.0" text="LANDING AIRSTRIP and AIRPLANE LANDING"
-            wrappingWidth="200.0">
+      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="186.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="648.0" layoutY="192.0" text="LANDING AIRSTRIP and AIRPLANE LANDING" wrappingWidth="200.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="281.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="648.0" layoutY="288.0" text="POINTS DEPLOYMENT">
+      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="281.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="648.0" layoutY="288.0" text="COLLISIONS">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="374.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="648.0" layoutY="381.0" text="COLLISIONS">
+      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="374.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="648.0" layoutY="381.0" text="MATCH PLANES MANAGEMENT" wrappingWidth="200.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
       </Text>
-      <Circle fill="#d6d6cb" layoutX="636.0" layoutY="423.0" radius="4.0" stroke="BLACK" strokeType="INSIDE"
-              strokeWidth="0.0" />
-      <Text fill="#d6d6cb" layoutX="648.0" layoutY="429.0" text="PAUSE MENU THREADS MANAGEMENT THROUGHOUT THE GAME" wrappingWidth="230.0">
+      <Circle fill="#d6d6cb" layoutX="167.0" layoutY="383.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="179.0" layoutY="389.0" text="PAUSE MENU THREADS MANAGEMENT THROUGHOUT THE GAME" wrappingWidth="230.0">
          <font>
             <Font name="Consolas Bold" size="20.0" />
          </font>
@@ -129,5 +113,11 @@
                   </ImageView>
               </graphic>
           </Button>
+      <Circle fill="#d6d6cb" layoutX="167.0" layoutY="292.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Text fill="#d6d6cb" layoutX="179.0" layoutY="298.0" text="FILE CONTAINING USERS AND THEIR SCORES" wrappingWidth="200.0">
+         <font>
+            <Font name="Consolas Bold" size="20.0" />
+         </font>
+      </Text>
       </Pane>
 </VBox>
