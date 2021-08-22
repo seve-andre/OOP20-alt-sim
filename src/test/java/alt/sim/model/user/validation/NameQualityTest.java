@@ -12,10 +12,10 @@ class NameQualityTest {
 
     @Test
     void checkName() throws IOException {
-        assertEquals(NameValidation.CORRECT, nameQuality.checkName("ciao"));
-        assertEquals(NameValidation.WRONG, nameQuality.checkName("ciao@"));
-        assertEquals(NameValidation.EMPTY, nameQuality.checkName("    "));
-        assertEquals(NameValidation.TOO_LONG, nameQuality.checkName("ciaociaociaoc"));
+        assertEquals(NameResult.CORRECT, nameQuality.checkName("ciao"));
+        assertEquals(NameResult.WRONG, nameQuality.checkName("ciao@"));
+        assertEquals(NameResult.EMPTY, nameQuality.checkName("    "));
+        assertEquals(NameResult.TOO_LONG, nameQuality.checkName("ciaociaociaoc"));
     }
 
 }

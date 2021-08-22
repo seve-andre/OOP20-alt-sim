@@ -1,7 +1,7 @@
 package alt.sim.view.mapchoice;
 
 import alt.sim.controller.mapchoice.MapChoiceControllerImpl;
-import alt.sim.model.user.validation.NameValidation;
+import alt.sim.model.user.validation.NameResult;
 import alt.sim.view.common.WindowView;
 import alt.sim.view.pages.Page;
 import alt.sim.view.pages.PageLoader;
@@ -105,9 +105,9 @@ public class MapChoiceView {
      * @throws IOException
      */
     private void checkName() throws IOException {
-        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
+        final NameResult result = mapChoiceController.checkName(nameTextField.getText());
 
-        if (result.equals(NameValidation.CORRECT)) {
+        if (result.equals(NameResult.CORRECT)) {
             infoTextField.setStyle("-fx-text-fill: #006500;");
         }
         infoTextField.setText("NAME IS " + result.getResult().toUpperCase() + "!");
@@ -118,8 +118,8 @@ public class MapChoiceView {
      * @throws IOException
      */
     private void playMap() throws IOException {
-        final NameValidation result = mapChoiceController.checkName(nameTextField.getText());
-        if (result.equals(NameValidation.CORRECT)) {
+        final NameResult result = mapChoiceController.checkName(nameTextField.getText());
+        if (result.equals(NameResult.CORRECT)) {
             mapChoiceController.addUser(nameTextField.getText());
             PageLoader.loadPage(Page.GAME, this.mapToPlay);
         } else {

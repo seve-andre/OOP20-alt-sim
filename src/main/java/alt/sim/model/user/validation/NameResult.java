@@ -1,6 +1,6 @@
 package alt.sim.model.user.validation;
 
-public enum NameValidation {
+public enum NameResult {
 
     /**
      * Name is correct.
@@ -29,7 +29,7 @@ public enum NameValidation {
 
     private String result;
 
-    NameValidation(final String result) {
+    NameResult(final String result) {
         this.result = result;
     }
 

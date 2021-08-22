@@ -24,23 +24,23 @@ public final class NameQuality {
      * @param name to check for quality
      * @return enum value result
      */
-    public NameValidation checkName(final String name) throws IOException {
+    public NameResult checkName(final String name) throws IOException {
 
         final MapChoiceControllerImpl mapChoice = new MapChoiceControllerImpl();
         final String trimmedName = name.trim();
 
         if (name.isBlank()) {
-            return NameValidation.EMPTY;
+            return NameResult.EMPTY;
         }
 
         if (trimmedName.length() > MAX_LENGTH) {
-            return NameValidation.TOO_LONG;
+            return NameResult.TOO_LONG;
         }
 
         if (mapChoice.isNameTaken(trimmedName)) {
-            return NameValidation.TAKEN;
+            return NameResult.TAKEN;
         }
 
-        return pattern.matcher(trimmedName).find() ? NameValidation.CORRECT : NameValidation.WRONG;
+        return pattern.matcher(trimmedName).find() ? NameResult.CORRECT : NameResult.WRONG;
     }
 }

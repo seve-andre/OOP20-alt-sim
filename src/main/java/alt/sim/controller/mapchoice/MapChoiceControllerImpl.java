@@ -4,7 +4,7 @@ import alt.sim.model.user.User;
 import alt.sim.model.user.builder.UserBuilderImpl;
 import alt.sim.model.user.records.UserRecordsImpl;
 import alt.sim.model.user.validation.NameQuality;
-import alt.sim.model.user.validation.NameValidation;
+import alt.sim.model.user.validation.NameResult;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class MapChoiceControllerImpl implements MapChoiceController {
      * {@inheritDoc}
      */
     @Override
-    public NameValidation checkName(final String name) throws IOException {
+    public NameResult checkName(final String name) throws IOException {
         return nameQuality.checkName(name);
     }
 
