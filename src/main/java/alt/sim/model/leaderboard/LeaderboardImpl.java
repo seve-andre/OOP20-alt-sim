@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LeaderboardImpl implements Leaderboard {
 
@@ -29,9 +30,9 @@ public class LeaderboardImpl implements Leaderboard {
         List<String> names = getTopFive();
         Map<String, Integer> users = new UserRecordsImpl().getUsers();
 
-        for (int i = 0; i < names.size(); i++) {
+        IntStream.range(0, names.size()).forEach(i -> {
             textFieldsNames.get(i).setText(names.get(i));
             textFieldsScores.get(i).setText(users.get(names.get(i)).toString());
-        }
+        });
     }
 }
