@@ -49,6 +49,7 @@
                 <li>Movimento degli aerei (disegno della rotta)</li>
                 <li>Implementazione I.A Aerei</li>
                 <li>Animazione dei velivoli</li>
+                <li>Gestione dei vari aerei in partita</li>
             </ul> 
     </li>
     <li>
@@ -56,6 +57,8 @@
             <ul>
                 <li>Ambiente di gioco</li>
                 <li>Gestione degli aerei in entrata nella mappa, con inserimento indicatori</li>
+                <li>Implementazione delle fasi di: inizio, pausa e fine partita</li>
+                <li>Gestione file punteggi</li>
             </ul> 
     </li>
     <li>
@@ -63,14 +66,7 @@
             <ul>
                 <li>Piste di atterraggio</li>
                 <li>Atterraggio degli aerei e punteggio</li>
-            </ul> 
-    </li>
-    <li>
-        <strong>Atanasov</strong>
-            <ul>
-                <li>Gestione dei vari aerei in partita</li>
                 <li>Gestione collisione degli aerei</li>
-                <li>Implementazione delle fasi di: inizio, pausa e fine partita</li>
             </ul> 
     </li>
 </ul>
