@@ -15,7 +15,11 @@ public enum AirStripStatus {
     /**
      * The airstrip is busy because a plane is landing right now.
      */
-    BUSY("A plane is landing...");
+    BUSY("A plane is landing..."),
+    /**
+     * The airstrip is currently unavailable.
+     */
+    DISABLED("This strip cannot be used.");
 
     private String status;
 
