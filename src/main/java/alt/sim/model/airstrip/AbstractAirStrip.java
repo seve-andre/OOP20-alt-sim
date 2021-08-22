@@ -34,8 +34,7 @@ public abstract class AbstractAirStrip implements AirStrip {
     }
     /**
      * Getter method for the airstrip enum status property.
-     * @return the s@Override
-    tatus of the airstrip
+     * @return the status of the airstrip
      */
     public AirStripStatus getStatus() {
         return this.status;
