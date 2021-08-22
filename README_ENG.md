@@ -52,6 +52,7 @@
                 <li>UI and UX</li>
                 <li>Airplane indicators when entering the map</li>
                 <li>File management (saving, loading, displaying)</li>
+                <li>Pause Menu Threads Management throughout the game</li>
             </ul> 
     </li>
     <li>
@@ -59,13 +60,7 @@
             <ul>
                 <li>Landing Airstrip and Airplane landing</li>
                 <li>Points deployment</li>
-            </ul> 
-    </li>
-    <li>
-        <strong>Atanasov</strong>
-            <ul>
-                <li>Collisions between airplanes</li>
-                <li>Pause Menu Threads Management throughout the game</li>
+                <li>Airplanes collisions</li>
             </ul> 
     </li>
 </ul>
