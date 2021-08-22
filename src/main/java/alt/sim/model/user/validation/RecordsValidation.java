@@ -1,16 +1,19 @@
 package alt.sim.model.user.validation;
 
+import alt.sim.model.user.records.adapter.FileOperations;
+import alt.sim.model.user.records.adapter.FileOperationsAdapter;
 import alt.sim.model.user.records.RecordsFolder.RecordsPath;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class RecordsValidation {
+public class RecordsValidation extends FileOperationsAdapter {
 
     private static final Path USER_RECORDS_FILE_PATH = Path.of(RecordsPath.USER_RECORDS_FILE_PATH.getPath());
     private static final Path USER_RECORDS_DIR_PATH = Path.of(RecordsPath.USER_RECORDS_DIR_PATH.getPath());
     private static final Path RECORDS_DIR_PATH = Path.of(RecordsPath.RECORDS_DIR_PATH.getPath());
+
+    private final FileOperations fileOperations = new FileOperationsAdapter();
 
     /**
      * Checks "hidden" folder existence by path.
@@ -18,12 +21,7 @@ public class RecordsValidation {
      * @throws IOException if dir does not exist
      */
     public void checkDirExistence() throws IOException {
-        if (!Files.isDirectory(RECORDS_DIR_PATH)) {
-            Files.deleteIfExists(RECORDS_DIR_PATH);
-        }
-        if (Files.notExists(RECORDS_DIR_PATH)) {
-            Files.createDirectory(RECORDS_DIR_PATH);
-        }
+        fileOperations.createDirectory(RECORDS_DIR_PATH);
     }
 
     /**
@@ -34,12 +32,7 @@ public class RecordsValidation {
      */
     private void dirValidation() throws IOException {
         this.checkDirExistence();
-        if (!Files.isDirectory(RecordsValidation.USER_RECORDS_DIR_PATH)) {
-            Files.deleteIfExists(RecordsValidation.USER_RECORDS_DIR_PATH);
-        }
-        if (Files.notExists(RecordsValidation.USER_RECORDS_DIR_PATH)) {
-            Files.createDirectory(RecordsValidation.USER_RECORDS_DIR_PATH);
-        }
+        fileOperations.createDirectory(USER_RECORDS_DIR_PATH);
     }
 
     /**
@@ -60,12 +53,7 @@ public class RecordsValidation {
      */
     private void fileValidation() throws IOException {
         this.userRecordsDirValidation();
-        if (!Files.isRegularFile(RecordsValidation.USER_RECORDS_FILE_PATH)) {
-            Files.deleteIfExists(RecordsValidation.USER_RECORDS_FILE_PATH);
-        }
-        if (Files.notExists(RecordsValidation.USER_RECORDS_FILE_PATH)) {
-            Files.createFile(RecordsValidation.USER_RECORDS_FILE_PATH);
-        }
+        fileOperations.createFile(USER_RECORDS_FILE_PATH);
     }
 
     /**
