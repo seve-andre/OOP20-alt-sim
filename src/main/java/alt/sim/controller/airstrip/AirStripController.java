@@ -20,7 +20,9 @@ public final class AirStripController {
      */
     public static boolean acceptPlane(final AbstractAirStrip strip, final SeasideController transitionSeaside,
             final Plane plane) {
-        if (checkCollision(strip, plane) && !plane.isLanded() && strip.getStatus().equals(AirStripStatus.FREE)) {
+        if (strip.getStatus().equals(AirStripStatus.DISABLED) || strip.getStatus().equals(AirStripStatus.BUSY)) {
+            return false;
+        } else if (checkCollision(strip, plane) && !plane.isLanded() && strip.getStatus().equals(AirStripStatus.FREE)) {
             plane.setState(State.LANDED);
             strip.setStatus(AirStripStatus.BUSY);
             plane.getLandingAnimation().play();
