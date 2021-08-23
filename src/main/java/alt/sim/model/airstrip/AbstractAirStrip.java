@@ -17,16 +17,19 @@ public abstract class AbstractAirStrip implements AirStrip {
     /**
      * When an airstrip is created, is ready to accept planes.
      */
-    public AbstractAirStrip(final String url) {
-        this.imageAirstrip = new ImageView(new Image(url));
+    public AbstractAirStrip() {
         this.status = AirStripStatus.FREE;
     }
 
-    public AbstractAirStrip(final ImageView airStripImage) {
-        this.imageAirstrip = airStripImage;
+    public AbstractAirStrip(final String url) {
+        this();
+        this.imageAirstrip = new ImageView(new Image(url));
     }
 
-    public AbstractAirStrip() {   }
+    public AbstractAirStrip(final ImageView airStripImage) {
+        this();
+        this.imageAirstrip = airStripImage;
+    }
 
     @Override
     public void setScore(final User user, final int score) {
