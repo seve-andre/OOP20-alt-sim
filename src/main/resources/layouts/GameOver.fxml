@@ -5,26 +5,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="popup-bg" prefHeight="480.0" prefWidth="370.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/" 
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.gameover.GameOverView">
-    <Button id="button" layoutX="108.0" layoutY="179.0" onAction="#onHomeClick" 
-    	styleClass="blue-btn" text="HOME" textFill="#d6d6cb">
+<Pane id="popup-bg" prefHeight="338.0" prefWidth="306.0" stylesheets="@../css/base.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alt.sim.view.gameover.GameOverView">
+    <Button id="button" layoutX="77.0" layoutY="225.0" onAction="#onQuitClick" styleClass="red-btn" text="QUIT" textFill="#d6d6cb">
         <font>
             <Font name="Consolas Bold" size="18.0" />
         </font>
     </Button>
-    <Button id="button" layoutX="108.0" layoutY="297.0" onAction="#onQuitClick" 
-    	styleClass="red-btn" text="QUIT" textFill="#d6d6cb">
-        <font>
-            <Font name="Consolas Bold" size="18.0" />
-        </font>
-    </Button>
-    <Text fill="#d6d6cb" layoutX="95.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME OVER">
+    <Text fill="#d6d6cb" layoutX="65.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME OVER">
         <font>
             <Font name="Consolas Bold" size="36.0" />
         </font>
     </Text>
-   <Text fill="#d6d6cb" layoutX="107.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks for playing!!">
+   <Text fill="#d6d6cb" layoutX="76.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks for playing!!">
       <font>
          <Font name="Consolas Bold" size="14.0" />
       </font>
