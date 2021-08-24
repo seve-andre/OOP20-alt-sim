@@ -14,7 +14,6 @@ public class AirStripStatusTest {
 
     private Plane plane1 = new Plane();
     private Plane plane2 = new Plane();
-    //private Plane plane3 = new Plane();
 
     private SeasideController transitionSeaside = new SeasideController();
 
@@ -24,7 +23,5 @@ public class AirStripStatusTest {
         assertFalse(AirStripController.acceptPlane(strip, transitionSeaside, plane1));
         strip.setStatus(AirStripStatus.DISABLED);
         assertFalse(AirStripController.acceptPlane(strip, transitionSeaside, plane2));
-        strip.setStatus(AirStripStatus.FREE);
-        //assertTrue(AirStripController.acceptPlane(strip, transitionSeaside, plane3));
     }
 }
