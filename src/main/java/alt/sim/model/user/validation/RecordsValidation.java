@@ -30,7 +30,7 @@ public class RecordsValidation extends FileOperationsAdapter {
      *
      * @throws IOException if directory does not exist
      */
-    private void dirValidation() throws IOException {
+    private void validateDir() throws IOException {
         this.checkDirExistence();
         fileOperations.createDirectory(USER_RECORDS_DIR_PATH);
     }
@@ -42,7 +42,7 @@ public class RecordsValidation extends FileOperationsAdapter {
      * @throws IOException if directory does not exist
      */
     public void userRecordsDirValidation() throws IOException {
-        this.dirValidation();
+        this.validateDir();
     }
 
     /**
@@ -51,7 +51,7 @@ public class RecordsValidation extends FileOperationsAdapter {
      *
      * @throws IOException if directory does not exist
      */
-    private void fileValidation() throws IOException {
+    private void validateFile() throws IOException {
         this.userRecordsDirValidation();
         fileOperations.createFile(USER_RECORDS_FILE_PATH);
     }
@@ -62,6 +62,6 @@ public class RecordsValidation extends FileOperationsAdapter {
      * @throws IOException if file does not exist
      */
     public void userRecordsFileValidation() throws IOException {
-        this.fileValidation();
+        this.validateFile();
     }
 }
