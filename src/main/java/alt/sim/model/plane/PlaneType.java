@@ -11,22 +11,22 @@ public enum PlaneType {
      *  Defines the typology that a Plane has, with different values of (velocity, lenght, width)
      *  Two_seater Plane: not fast, but slim.
      */
-    TWO_SEATER(1.5),
+    TWO_SEATER(1),
 
     /**
      * Medium Plane.
      */
-    AIRPLANE(1),
+    AIRPLANE(0.04),
 
     /**
      * Airplane: classic civil big Plane: very heavy and slow.
      */
-    AIRLINER(0.5),
+    AIRLINER(0.02),
 
     /**
      * Military plane: the fastest among the Planes.
      */
-    FIGHTER(3);
+    FIGHTER(1.5);
 
     private final double velocity;
 
