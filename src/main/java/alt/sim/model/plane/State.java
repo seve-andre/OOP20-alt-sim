@@ -33,5 +33,5 @@ public enum State {
     /**
      * (5) Plane is stopped when game is over.
      */
-    TERMINATED;
+    TERMINATED
 }
