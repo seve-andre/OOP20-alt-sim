@@ -1,15 +1,16 @@
 package alt.sim.controller.seaside;
 
 import alt.sim.Main;
-import alt.sim.controller.game.GameController;
+import alt.sim.controller.game.GameControllerImpl;
 import alt.sim.controller.map.MapController;
 import alt.sim.controller.user.records.UserRecordsController;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.BasicAirStrip;
 import alt.sim.model.animation.ExplosionAnimation;
+import alt.sim.model.engine.GameEngine;
 import alt.sim.model.engine.GameEngineImpl;
-import alt.sim.model.game.Game;
-import alt.sim.model.plane.Plane;
+import alt.sim.model.game.GameImpl;
+import alt.sim.model.plane.PlaneImpl;
 import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
@@ -44,7 +45,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-public class SeasideController {
+public class SeasideController implements Seaside {
+
 
     @FXML
     private AnchorPane pane;
@@ -83,12 +85,12 @@ public class SeasideController {
     private List<Point2D> planeCoordinates;
 
     private GraphicsContext gc;
-    private GameEngineImpl engine;
-    private Game gameSession;
+    private GameEngine engine;
+    private GameImpl gameSession;
 
     @FXML
     public void initialize() {
-        gameSession = new Game();
+        gameSession = new GameImpl();
 
         stripLeft = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage());
         stripRight = new BasicAirStrip(SpriteType.AIRSTRIP.getURLImage());
@@ -111,11 +113,6 @@ public class SeasideController {
         indicatorList.forEach(indicator -> indicator.setVisible(false));
         pane.getChildren().addAll(indicatorList);
 
-        // At the beginning of the game 1 plane gets spawned each time
-        // till 500 points are reached, than this variable will be incremented
-        // till reaching 4 planes
-        gameSession.setNumberPlanesToSpawnEachTime(1);
-
         imgViewHelicopterLandingArea.setX(
                 (pane.getBoundsInLocal().getWidth() / 2) - imgViewHelicopterLandingArea.getFitWidth()
                 );
@@ -126,7 +123,7 @@ public class SeasideController {
         ((BasicAirStrip) stripLeft).setBox(landingBoxLeft);
         ((BasicAirStrip) stripRight).setBox(landingBoxRight);
 
-        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(Game.getSpawnDelay()), this::handle));
+        this.spawnCountDown = new Timeline(new KeyFrame(Duration.seconds(GameImpl.getSpawnDelay()), this::handle));
 
         spawnCountDown.setCycleCount(Animation.INDEFINITE);
         spawnCountDown.play();
@@ -155,7 +152,7 @@ public class SeasideController {
      */
     @FXML
     void handlerMouseDragged(final MouseEvent event) {
-        for (Plane planeSelected : gameSession.getPlanes()) {
+        for (PlaneImpl planeSelected : gameSession.getPlanes()) {
             if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT && planeSelected.isPlaneSelectedForBeenMoved()) {
                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
                 gc.lineTo(event.getX(), event.getY());
@@ -165,12 +162,15 @@ public class SeasideController {
         }
     }
 
+    /**
+     * when the Mouse is released, are checked all the Plane for play tha different Movement.
+     */
     @FXML
     void handlerMouseReleased() {
         Point2D pathStartingPoint;
         double distanceFromPlane;
 
-        for (Plane planeSelected : gameSession.getPlanes()) {
+        for (PlaneImpl planeSelected : gameSession.getPlanes()) {
 
             // Checks if user has drawn a path with a minimum amount of points
             if (planeSelected.isPlaneSelectedForBeenMoved()
@@ -212,10 +212,8 @@ public class SeasideController {
         planeCoordinates.clear();
     }
 
-
     /**
-     * @param numberPlaneSpawn passed the number of Plane to spawn, there are created
-     * and spawned calling the Plane method playSpawnTransition().
+     * {@inheritDoc}
      */
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         if (gameSession.isInGame()) {
@@ -223,9 +221,9 @@ public class SeasideController {
             List<SpawnLocation> spawnLocation = new ArrayList<>(Arrays.asList(SpawnLocation.values()));
 
             for (int i = 0; i < numberPlaneSpawn; i++) {
-                if (gameSession.getPlanes().size() < Game.getMaxPlaneToSpawn()) {
+                if (gameSession.getPlanes().size() < GameImpl.getMaxPlaneToSpawn()) {
                     int locationIndex = ThreadLocalRandom.current().nextInt(spawnLocation.size());
-                    Plane newPlane = new Plane(SpriteType.AIRPLANE.getURLImage());
+                    PlaneImpl newPlane = new PlaneImpl(SpriteType.AIRPLANE);
                     newPlane.connectToController(this);
                     newPlane.playSpawnAnimation(spawnLocation.get(locationIndex));
                     loadIndicatorAnimation(spawnLocation.get(locationIndex));
@@ -238,7 +236,7 @@ public class SeasideController {
     }
 
     /**
-     * @param side selected a side where collocated the indicator, there image are created and setted into the Map with FadeTransition animation.
+     * {@inheritDoc}
      */
     public void loadIndicatorAnimation(final SpawnLocation side) {
         final int delta = 50;
@@ -286,12 +284,15 @@ public class SeasideController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void terminateGame() {
+        GameEngineImpl.terminateInstance();
         gameSession.setInGame(false);
-        gameSession.setNumberPlanesToSpawnEachTime(0);
 
         // Stops all animations
-        GameController.stop();
+        GameControllerImpl.stop();
 
         Platform.runLater(() -> {
             try {
@@ -304,12 +305,12 @@ public class SeasideController {
     }
 
     /**
-     * @return checked if there are more than one Plane selected for choose after the last Plane selected between the two.
+     * {@inheritDoc}
      */
     public boolean isMoreThanOneSelected() {
         int planeBeenSelected = 0;
 
-        for (Plane planeSelected:gameSession.getPlanes()) {
+        for (PlaneImpl planeSelected:gameSession.getPlanes()) {
             if (planeSelected.isPlaneSelectedForBeenMoved()) {
                 planeBeenSelected++;
             }
@@ -318,12 +319,18 @@ public class SeasideController {
         return planeBeenSelected >= 2;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void clearPlaneSelectedForBeenMoved() {
-        for (Plane planeSelected : gameSession.getPlanes()) {
+        for (PlaneImpl planeSelected : gameSession.getPlanes()) {
             planeSelected.setIsPlaneSelectedForBeenMoved(false);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void clearLinesDrawed() {
         final double dimensionRectangleCleanerWidth = Main.getStage().getWidth();
         final double dimensionRectangleCleanerHeight = Main.getStage().getHeight();
@@ -331,14 +338,20 @@ public class SeasideController {
         gc.clearRect(0, 0, dimensionRectangleCleanerWidth, dimensionRectangleCleanerHeight);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void clearMap() {
         gc.beginPath();
         clearLinesDrawed();
         restoreLinesRemoved();
     }
 
+    /**
+     * When are eliminated all the lines drawed, this method restore the lines of the Planes that were not to be removed from the Map.
+     */
     public void restoreLinesRemoved() {
-        for (Plane planeSelected : gameSession.getPlanes()) {
+        for (PlaneImpl planeSelected : gameSession.getPlanes()) {
             try {
                 if (planeSelected.getPlaneLinesPath().size() > 0) {
                     gc.moveTo(
@@ -363,9 +376,13 @@ public class SeasideController {
         }
     }
 
+    /**
+     * Implements the logic of pause bottom.
+     * @throws IOException exception.
+     */
     @FXML
     public void onPauseClick() throws IOException {
-        GameController.pause();
+        GameControllerImpl.pause();
         WindowView.showDialog(Page.PAUSE);
     }
 
@@ -373,7 +390,7 @@ public class SeasideController {
      * @param explosionAnimation the Animation of the Explosion.
      * @param planeCollided the Plane that collided and need the ExplosionAnimation.
      */
-    public void startExplosionToPane(final ExplosionAnimation explosionAnimation, final Plane planeCollided) {
+    public void startExplosionPane(final ExplosionAnimation explosionAnimation, final PlaneImpl planeCollided) {
         Platform.runLater(() -> {
             pane.getChildren().add(explosionAnimation.getImgExplosion());
             explosionAnimation.getImgExplosion().setX(planeCollided.getSprite().getBoundsInParent().getCenterX());
@@ -383,11 +400,11 @@ public class SeasideController {
     }
 
     /**
-     * @param planes removes all the Planes in Game after the Game is over.
+     * {@inheritDoc}
      */
-    public void removePlanes(final Collection<? extends Plane> planes) {
+    public void removePlanes(final Collection<? extends PlaneImpl> planes) {
         final List<ImageView> imageViews = planes.stream()
-                .map(Plane::getSprite)
+                .map(PlaneImpl::getSprite)
                 .collect(Collectors.toList());
         Platform.runLater(() -> pane.getChildren().removeAll(imageViews));
 
@@ -397,15 +414,13 @@ public class SeasideController {
     /**
      * @param plane removes a single Planes in Game after Plane is landed.
      */
-    public synchronized void removePlane(final Plane plane) {
+    public synchronized void removePlane(final PlaneImpl plane) {
         Platform.runLater(() -> {
-            System.out.println("Plane landing...");
             this.gameSession.getPlanes().removeIf(obj -> obj.hashCode() == plane.hashCode());
 
-            Iterator<Plane> iter = this.gameSession.getPlanes().iterator();
+            Iterator<PlaneImpl> iter = this.gameSession.getPlanes().iterator();
             while (iter.hasNext()) {
                 if (iter.next().hashCode() == plane.hashCode()) {
-                    System.out.println("Plane remove: " + iter.hashCode());
                     iter.remove();
                 }
             }
@@ -436,7 +451,7 @@ public class SeasideController {
     }
 
     /**
-     * @param score set the Game Score into the Label.
+     * {@inheritDoc}
      */
     public void addScore(final int score) {
         Platform.runLater(() -> this.score.setText(String.valueOf(Integer.parseInt(this.score.getText()) + score)));
@@ -477,14 +492,23 @@ public class SeasideController {
         return this.spawnCountDown;
     }
 
+    /**
+     * @return the Min value width used for resize the Plane sprite.
+     */
     public static int getScreenMinWidth() {
         return SCREEN_MIN_WIDTH;
     }
 
+    /**
+     * @return the Min value height used for resize the Plane sprite.
+     */
     public static int getScreenMinHeight() {
         return SCREEN_MIN_HEIGHT;
     }
 
+    /**
+     * @param cycle the event used for specify the cycle logic.
+     */
     private void handle(final ActionEvent cycle) {
         spawnPlane(gameSession.getNumberPlanesToSpawnEachTime());
     }

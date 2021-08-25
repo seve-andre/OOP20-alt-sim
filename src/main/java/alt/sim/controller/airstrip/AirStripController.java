@@ -3,7 +3,7 @@ package alt.sim.controller.airstrip;
 import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.airstrip.AbstractAirStrip;
 import alt.sim.model.airstrip.AirStripStatus;
-import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.PlaneImpl;
 import alt.sim.model.plane.State;
 import javafx.geometry.Bounds;
 
@@ -19,7 +19,8 @@ public final class AirStripController {
      * @return true if plane landed, false otherwise
      */
     public static boolean acceptPlane(final AbstractAirStrip strip, final SeasideController transitionSeaside,
-            final Plane plane) {
+            final PlaneImpl plane) {
+
         if (strip.getStatus().equals(AirStripStatus.DISABLED) || strip.getStatus().equals(AirStripStatus.BUSY)) {
             return false;
         } else if (checkCollision(strip, plane) && !plane.isLanded() && strip.getStatus().equals(AirStripStatus.FREE)) {
@@ -40,7 +41,7 @@ public final class AirStripController {
      * @param plane: the plane interested
      * @return true if the collision is dected, false otherwise
      */
-    private static boolean checkCollision(final AbstractAirStrip strip, final Plane plane) {
+    private static boolean checkCollision(final AbstractAirStrip strip, final PlaneImpl plane) {
         Bounds monitoredPlaneBounds = plane.getSprite().getBoundsInParent();
         return monitoredPlaneBounds.intersects(strip.getBox().getBoundsInParent());
     }
@@ -50,7 +51,7 @@ public final class AirStripController {
      * @param plane: the plane that has landed
      * @param transitionSeaside: the controller of the seaside map
      */
-    private static void clearMap(final Plane plane, final SeasideController transitionSeaside) {
+    private static void clearMap(final PlaneImpl plane, final SeasideController transitionSeaside) {
         plane.getLandingAnimation().setOnFinished(finish -> {
             transitionSeaside.removePlane(plane);
             transitionSeaside.clearLinesDrawed();
