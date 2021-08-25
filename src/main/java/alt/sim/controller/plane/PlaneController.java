@@ -1,15 +1,17 @@
 package alt.sim.controller.plane;
 
-import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.PlaneImpl;
+import alt.sim.model.sprite.SpriteType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
+@Deprecated
 public class PlaneController {
 
     //Connecting Model with Controller
-    private Plane airlinePlane;
+    private PlaneImpl airlinePlane;
 
     @FXML
     private BorderPane root;
@@ -34,7 +36,7 @@ public class PlaneController {
     void initialize() {
         assert root != null : "fx:id=\"root\" was not injected: check your FXML file 'PlaneMovement.fxml'.";
 
-        this.airlinePlane = new Plane("images/map_components/airplane.png");
+        this.airlinePlane = new PlaneImpl(SpriteType.AIRPLANE);
 
         root.getChildren().add(airlinePlane.getSprite());
     }
