@@ -30,6 +30,10 @@ public class UserImpl implements User {
         return this.score;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void setScore(final int score) {
         if (score > 0) {
@@ -37,6 +41,10 @@ public class UserImpl implements User {
         }
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void resetScore() {
         this.score = 0;

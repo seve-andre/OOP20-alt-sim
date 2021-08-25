@@ -22,8 +22,12 @@ public class UserRecordsImpl extends FileOperationsAdapter implements UserRecord
 
     private Map<String, Integer> users = new LinkedHashMap<>();
 
+    // token needed by Gson to store java.util.Map to file
     private final Type jsonTypeToken = new TypeToken<LinkedHashMap<String, Integer>>() { }.getType();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadFile(final Path path) throws IOException {
         this.recordsValidation.userRecordsFileValidation();
@@ -34,6 +38,9 @@ public class UserRecordsImpl extends FileOperationsAdapter implements UserRecord
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateFile(final Path path) throws IOException {
         final String json = new GsonBuilder()

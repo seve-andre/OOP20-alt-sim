@@ -8,6 +8,9 @@ import java.util.List;
 
 public class FileOperationsAdapter implements FileOperations {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void createFile(final Path filePath) throws IOException {
         if (!Files.isRegularFile(filePath)) {
@@ -18,6 +21,9 @@ public class FileOperationsAdapter implements FileOperations {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void createDirectory(final Path dirPath) throws IOException {
         if (!Files.isDirectory(dirPath)) {
@@ -28,11 +34,17 @@ public class FileOperationsAdapter implements FileOperations {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadFile(final Path filePath) throws IOException {
         Files.readAllLines(filePath);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateFile(final Path filePath) throws IOException {
         List<String> lines = List.of();

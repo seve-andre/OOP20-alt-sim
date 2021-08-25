@@ -56,7 +56,6 @@ public final class PageLoader {
 
     /**
      * Method overloading.
-     *
      * @param page to load
      */
     public static void loadPage(final Page page) {

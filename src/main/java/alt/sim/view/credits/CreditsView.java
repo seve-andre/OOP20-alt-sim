@@ -10,10 +10,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
-/**
- * Not the best, awt should be replaced.
- */
 public class CreditsView {
 
     @FXML

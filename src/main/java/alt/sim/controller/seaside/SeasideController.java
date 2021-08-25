@@ -1,14 +1,5 @@
 package alt.sim.controller.seaside;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
-
 import alt.sim.Main;
 import alt.sim.controller.game.GameController;
 import alt.sim.controller.map.MapController;
@@ -43,6 +34,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class SeasideController {
 
@@ -214,7 +214,8 @@ public class SeasideController {
 
 
     /**
-     * @param numberPlaneSpawn passed the number of Plane to spawn, there are created and spawned calling the Plane method playSpawnTransition().
+     * @param numberPlaneSpawn passed the number of Plane to spawn, there are created
+     * and spawned calling the Plane method playSpawnTransition().
      */
     public synchronized void spawnPlane(final int numberPlaneSpawn) {
         if (gameSession.isInGame()) {

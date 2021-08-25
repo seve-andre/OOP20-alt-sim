@@ -1,13 +1,13 @@
 package alt.sim.controller.game;
 
-import java.util.List;
-
 import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.game.Game;
 import alt.sim.model.plane.Plane;
 import alt.sim.model.plane.State;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+
+import java.util.List;
 
 public final class GameController {
 
@@ -97,16 +97,25 @@ public final class GameController {
         });
     }
 
+    /**
+     * Pauses game and planes animations.
+     */
     public static void pause() {
         transitionSeaside.getSpawnCountDown().pause();
         pauseResumeOrStop(true, false, false);
     }
 
+    /**
+     * Resumes game and planes animations.
+     */
     public static void resume() {
         transitionSeaside.getSpawnCountDown().play();
         pauseResumeOrStop(false, true, false);
     }
 
+    /**
+     * Stops game and planes animations.
+     */
     public static void stop() {
         transitionSeaside.getSpawnCountDown().stop();
         pauseResumeOrStop(false, false, true);
