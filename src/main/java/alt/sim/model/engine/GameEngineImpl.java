@@ -4,11 +4,11 @@ import java.util.Collections;
 
 import alt.sim.Main;
 import alt.sim.controller.airstrip.AirStripController;
-import alt.sim.controller.game.GameController;
+import alt.sim.controller.game.GameControllerImpl;
 import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.airstrip.AbstractAirStrip;
-import alt.sim.model.game.Game;
-import alt.sim.model.plane.Plane;
+import alt.sim.model.game.GameImpl;
+import alt.sim.model.plane.PlaneImpl;
 import alt.sim.model.plane.State;
 import javafx.geometry.Bounds;
 
@@ -22,16 +22,14 @@ public final class GameEngineImpl implements GameEngine {
     private AbstractAirStrip stripRight;
 
     private boolean playedExplosion;
-    private GameController gamecontroller;
-    private Game gameSession;
+    private GameControllerImpl gamecontroller;
+    private GameImpl gameSession;
+    private static GameEngine instance = null;
 
-    //TODO SINGLETON-PATTERN
-    private static GameEngineImpl instance;
-
-    private GameEngineImpl(final SeasideController transitionSeaside, final Game gameSession) {
+    public GameEngineImpl(final SeasideController transitionSeaside, final GameImpl gameSession) {
         this.gameSession = gameSession;
         this.transitionSeaside = transitionSeaside;
-        this.gamecontroller = new GameController(this.transitionSeaside, this.gameSession);
+        this.gamecontroller = new GameControllerImpl(this.transitionSeaside, this.gameSession);
 
         //Animation and Sampling section
         this.playedExplosion = false;
@@ -39,6 +37,9 @@ public final class GameEngineImpl implements GameEngine {
         this.stripRight = transitionSeaside.getStripRight();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mainLoop() {
         long lastTime = System.currentTimeMillis();
@@ -65,11 +66,11 @@ public final class GameEngineImpl implements GameEngine {
      * Check all the collision in Game (collision with the Airstrip, collision with borderMap, collision between Planes).
      */
     private void checkCollision() {
-        for (Plane planeMonitored : gameSession.getPlanes()) {
+        for (PlaneImpl planeMonitored : gameSession.getPlanes()) {
             Bounds monitoredPlaneBounds = planeMonitored.getSprite().getBoundsInParent();
 
             if (checkLanding(planeMonitored)) {
-                transitionSeaside.addScore(Game.getGameScoreLanding());
+                transitionSeaside.addScore(GameImpl.getGameScoreLanding());
                 gameSession.addPlaneToRemove(planeMonitored);
                 continue;
             }
@@ -84,7 +85,7 @@ public final class GameEngineImpl implements GameEngine {
                 break;
             }
 
-            for (Plane planeSelected : gameSession.getPlanes()) {
+            for (PlaneImpl planeSelected : gameSession.getPlanes()) {
                 if (playedExplosion) {
                     break;
                 }
@@ -115,12 +116,13 @@ public final class GameEngineImpl implements GameEngine {
 
     /**
      * @param first first Plane passed to terminate.
-     * @param more list of Plane to terminate.
+     * @param more  list of Plane to terminate.
      */
-    private void terminateGame(final Plane first, final Plane... more) {
+    private void terminateGame(final PlaneImpl first, final PlaneImpl... more) {
         gameSession.addPlaneToRemove(first);
         Collections.addAll(gameSession.getPlanesToRemove(), more);
         transitionSeaside.terminateGame();
+        terminateInstance();
     }
 
     /**
@@ -129,7 +131,7 @@ public final class GameEngineImpl implements GameEngine {
      * @param planeSelected is the Plane select for check
      * @return true if the collision is verified, false otherwise
      */
-    private synchronized boolean checkOutOfBounds(final Plane planeSelected) {
+    private synchronized boolean checkOutOfBounds(final PlaneImpl planeSelected) {
         Bounds selectedPlaneBounds = planeSelected.getSprite().getBoundsInParent();
 
         return selectedPlaneBounds.getMinX() < 0
@@ -142,26 +144,28 @@ public final class GameEngineImpl implements GameEngine {
      * @param planeSelected the Plane passed to the method for check if is in the Landing Area to land
      * @return a boolean value of is ready to land or not.
      */
-    private boolean checkLanding(final Plane planeSelected) {
+    private boolean checkLanding(final PlaneImpl planeSelected) {
         return !planeSelected.isLanded() && (AirStripController.acceptPlane(stripLeft, transitionSeaside, planeSelected)
                 || AirStripController.acceptPlane(stripRight, transitionSeaside, planeSelected));
     }
 
     /**
-     *
      * @param plane the Plane selected where execute the ExplosionAnimation.
      */
-    private void startExplosionPlane(final Plane plane) {
-        transitionSeaside.startExplosionToPane(plane.getExplosionAnimation(), plane);
+    private void startExplosionPlane(final PlaneImpl plane) {
+        transitionSeaside.startExplosionPane(plane.getExplosionAnimation(), plane);
         playedExplosion = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void processInput() {
     }
 
     /**
-     * @param elapsed time of every frames update.
+     * {@inheritDoc}
      */
     @Override
     public void update(final int elapsed) {
@@ -170,10 +174,16 @@ public final class GameEngineImpl implements GameEngine {
         this.gamecontroller.checkScore(transitionSeaside.getIntScore());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initGame() {
     }
@@ -199,14 +209,21 @@ public final class GameEngineImpl implements GameEngine {
 
     /**
      * @param transitionSeaside field to pass at the constructor of GameEngineImpl class
-     * @param gameSession field to pass at the constructor of GameEngineImpl class
+     * @param gameSession       field to pass at the constructor of GameEngineImpl class
      * @return a single instance of the actual GameEngineImpl class, implemented the Singleton pattern.
      */
-    public static GameEngineImpl getInstance(final SeasideController transitionSeaside, final Game gameSession) {
+    public static synchronized GameEngine getInstance(final SeasideController transitionSeaside, final GameImpl gameSession) {
         if (instance == null) {
             instance = new GameEngineImpl(transitionSeaside, gameSession);
         }
 
         return instance;
+    }
+
+    /**
+     * terminate the instance field when the Game is over.
+     */
+    public static void terminateInstance() {
+        instance = null;
     }
 }
