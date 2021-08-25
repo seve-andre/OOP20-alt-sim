@@ -12,11 +12,11 @@ public class ObservableState {
     private static final int TIMELINE_DURATION = 4000;
     private final ObjectProperty<State> stateProperty;
     private Timeline timeline;
-    private Plane planeObserved;
+    private PlaneImpl planeObserved;
 
     private final ChangeListener<? super State> listener;
 
-    public ObservableState(final Plane planeObserved, final State state) {
+    public ObservableState(final PlaneImpl planeObserved, final State state) {
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
@@ -57,6 +57,9 @@ public class ObservableState {
         return stateProperty.getValue();
     }
 
+    /**
+     * remove the listener field stopping the timeline loop.
+     */
     public void removeListener() {
         this.timeline.stop();
         stateProperty.removeListener(listener);
