@@ -1,28 +1,26 @@
 package alt.sim.model.sprite;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import alt.sim.Main;
 import alt.sim.controller.seaside.SeasideController;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SpriteTest {
+
+    private static final int SCREEN_WIDTH = 1080;
+    private static final int SCREEN_HEIGHT = 720;
 
     @Test
     public void resizeSpriteToMapTest() {
         try {
-            double GameWidth = 1080;
-            double GameHeight = 720;
             final double smallPlaneSizeWidth = 32;
             final double smallPlaneSizeHeight = 32;
 
             double spriteWidth = 0;
             double spriteHeight = 0;
 
-            if (GameWidth >= SeasideController.getScreenMinWidth() && GameHeight >= SeasideController.getScreenMinHeight()) {
+            if (SCREEN_WIDTH >= SeasideController.getScreenMinWidth() && SCREEN_HEIGHT >= SeasideController.getScreenMinHeight()) {
                 spriteWidth = (smallPlaneSizeWidth * 2);
                 spriteHeight = (smallPlaneSizeHeight * 2);
 

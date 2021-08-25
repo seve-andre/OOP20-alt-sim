@@ -2,13 +2,11 @@ package alt.sim.model.airstrip;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import alt.sim.model.plane.PlaneImpl;
-import alt.sim.model.sprite.SpriteType;
 import org.junit.jupiter.api.Test;
 
 import alt.sim.controller.airstrip.AirStripController;
 import alt.sim.controller.seaside.SeasideController;
-import alt.sim.model.plane.Plane;
+import alt.sim.model.plane.PlaneImpl;
 
 public class AirStripStatusTest {
 

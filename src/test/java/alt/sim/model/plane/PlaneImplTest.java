@@ -13,12 +13,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import alt.sim.model.sprite.SpriteType;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point2D;
 
 public class PlaneImplTest {
 
+    private static final int TIME_TO_TIMEOUT = 4500;
     private static final int N_POINTS = 50;
     private static final int RANDOM_BOUND = 10;
 
@@ -50,26 +49,23 @@ public class PlaneImplTest {
         Assertions.assertTrue(linesPath.size() <= intialSize);
     }
 
-    public List<Point2D> removeDuplicatesTest(List<Point2D> linesPathDuplicated) {
-        linesPathDuplicated = linesPathDuplicated.stream()
+    public List<Point2D> removeDuplicatesTest(final List<Point2D> linesPathDuplicated) {
+        return linesPathDuplicated.stream()
                 .distinct()
-                .collect(Collectors.toList());;
-
-                return linesPathDuplicated;
+                .collect(Collectors.toList());
     }
 
 
 
     @Test()
     public void isMoreThanOneSelectedTest() {
-        List<Boolean> planeSelected = new ArrayList(
+        List<Boolean> planeSelected = new ArrayList<Boolean>(
                 Arrays.asList(true, false, false, false, false));
 
         int planeBeenSelected = 0;
-        boolean isTestCorrect = false;
 
         for (Boolean b:planeSelected) {
-            if (b == true) {
+            if (b) {
                 planeBeenSelected++;
             }
         }
@@ -86,21 +82,7 @@ public class PlaneImplTest {
 
     @Test()
     public void planeStatusTest() {
-        assertTimeout(ofMillis(4500), () -> {
-
-            final ChangeListener<? super State> listener;
-            SimpleObjectProperty stateProperty = new SimpleObjectProperty<>(State.SPAWNING);
-
-
-            // initialize listener State:
-            listener = (observable, oldValue, newValue) -> {
-                System.out.println(newValue);
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            };
+        assertTimeout(ofMillis(TIME_TO_TIMEOUT), () -> {
         });
     }
 }

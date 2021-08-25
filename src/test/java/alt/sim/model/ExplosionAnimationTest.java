@@ -11,9 +11,8 @@ public class ExplosionAnimationTest {
     @Test
     public void loadImageTest() {
         try {
-            String urlImage;
             for (int k = 1; k < N_SPRITES; k++) {
-                Image img = new Image("images/animations/explosion_" + k + ".png");
+                new Image("images/animations/explosion_" + k + ".png");
             }
         } catch (RuntimeException re) {
             System.out.println(re.getMessage());
