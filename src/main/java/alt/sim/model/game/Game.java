@@ -1,111 +1,59 @@
 package alt.sim.model.game;
 
-import java.util.ArrayList;
+import alt.sim.model.plane.PlaneImpl;
+
 import java.util.List;
 
-import alt.sim.model.plane.Plane;
-
-public class Game {
-    // Section Spawn Plane
-    private static final int MAX_PLANE_TO_SPAWN = 10;
-    private static final int SPAWN_DELAY = 10;
-    private static final int GAME_SCORE_LANDING = 100;
-
-    private int numberPlanesToSpawnEachTime;
-    private List<Plane> planes;
-    private List<Plane> planesToRemove;
-    private boolean inGame;
-
-    public Game() {
-        this.inGame = false;
-        this.planes = new ArrayList<>();
-        this.planesToRemove = new ArrayList<>();
-    }
-
-    // Section PLANES
-    //------------------------------------------------------------------------
+public interface Game {
 
     /**
      * @return list of planes in game GETTER.
      */
-    public List<Plane> getPlanes() {
-        return this.planes;
-    }
+    List<PlaneImpl> getPlanes();
 
     /**
      * @return list of planesToRemove GETTER.
      */
-    public List<Plane> getPlanesToRemove() {
-        return this.planesToRemove;
-    }
-
-    public void addPlane(final Plane plane) {
-        this.planes.add(plane);
-    }
-
-    public void addPlaneToRemove(final Plane planeToRemove) {
-        this.planesToRemove.add(planeToRemove);
-    }
-
-    public void clearPlanes() {
-        this.planes.clear();
-        this.planesToRemove.clear();
-    }
-
-    public void updatePlanes() {
-        planes.removeAll(planesToRemove);
-    }
-
-    public void removePlanes() {
-        this.planes.removeAll(this.planesToRemove);
-        this.planesToRemove.clear();
-    }
-
-    //------------------------------------------------------------------------
-
-    public void setInGame(final boolean inGame) {
-        this.inGame = inGame;
-    }
+    List<PlaneImpl> getPlanesToRemove();
 
     /**
-     * @return value of state of Game.
+     * @param plane inserted into the plane List.
      */
-    public boolean isInGame() {
-        return this.inGame;
-    }
+    void addPlane(final PlaneImpl plane);
+
+    /**
+     * @param planeToRemove inserted into the planeToRemove List.
+     */
+    void addPlaneToRemove(final PlaneImpl planeToRemove);
+
+    /**
+     * Clear both the plane List(planes && planeToRemove)
+     */
+    void clearPlanes();
+
+    /**
+     * Removing all the planesTo remove from planes List.
+     */
+    void updatePlanes();
+
+    /**
+     * Removing all the planesTo remove from planes List and clear the planesToRemove List.
+     */
+    void removePlanes();
+
+    /**
+     * @param inGame setted for choose if the Game is started or not.
+     */
+    void setInGame(final boolean inGame);
 
     /**
      * @return number of Plane to spawn.
      */
-    public int getNumberPlanesToSpawnEachTime() {
-        return numberPlanesToSpawnEachTime;
-    }
+    int getNumberPlanesToSpawnEachTime();
 
     /**
-     * define the number of Plane to spawn.
+     *
+     * @param numberPlanesToSpawnEachTime Define the number of Plane to spawn.
      */
-    public void setNumberPlanesToSpawnEachTime(final int numberPlanesToSpawnEachTime) {
-        this.numberPlanesToSpawnEachTime = numberPlanesToSpawnEachTime;
-    }
-
-    /**
-     * @return MAX number of Plane to spawn in Game.
-     */
-    public static int getMaxPlaneToSpawn() {
-        return MAX_PLANE_TO_SPAWN;
-    }
-
-    /**
-     * @return the creation of Plane delay.
-     */
-    public static int getSpawnDelay() {
-        return SPAWN_DELAY;
-    }
-
-    /**
-     * @return the game score to update when a Plane is land.
-     */
-    public static int getGameScoreLanding() {
-        return GAME_SCORE_LANDING;
-    }
+    void setNumberPlanesToSpawnEachTime(final int numberPlanesToSpawnEachTime);
 }
