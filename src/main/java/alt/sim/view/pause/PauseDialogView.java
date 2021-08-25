@@ -1,6 +1,6 @@
 package alt.sim.view.pause;
 
-import alt.sim.controller.game.GameController;
+import alt.sim.controller.game.GameControllerImpl;
 import alt.sim.view.common.WindowView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ public class PauseDialogView {
     @FXML
     public void onResumeClick(final ActionEvent event) {
         ((Button) event.getSource()).getScene().getWindow().hide();
-        GameController.resume();
+        GameControllerImpl.resume();
     }
 
     @FXML
