@@ -6,7 +6,7 @@ package alt.sim.model.animation;
 public interface AnimationPlane {
 
     /**
-     * intializa the animation and starting it.
+     * initialize the animation and starting it.
      */
     void start();
 }
