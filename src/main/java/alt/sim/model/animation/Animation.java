@@ -8,7 +8,6 @@ public class Animation implements AnimationPlane {
     private static final int DURATION_LANDING_ANIMATION = 1000;
 
     private ImageView spriteAnimated;
-    //TODO fare factory su animazioni possibili ?
     private ScaleTransition scaleAnimation;
 
     public Animation(final ImageView spriteAnimated) {
@@ -48,7 +47,7 @@ public class Animation implements AnimationPlane {
     }
 
     /**
-     * setting the default options and launch the Scale Animation.
+     * {@inheritDoc}
      */
     @Override
     public void start() {
