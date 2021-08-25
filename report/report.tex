@@ -134,7 +134,7 @@ Questo perché la View stessa viene disegnata e implementata tramite un file .fx
 Ciò genera da una parte un ottimizzazione per la realizzazione dei due componenti, dall’altra però va inevitabilmente a creare un forte legame di dipendenza.
 In fatti nel caso in cui successivamente si volesse cambiare libreria grafica sostituendo JavaFx, la parte di Controller, andrebbe interamente riscritta, rendendo meno semplice la sostituzione in blocco della View stessa.
 \\
-AltSim implementa Seaside ed è il Controller centrale del sistema, ad esso sono infatti collegati i vari Controller degli oggetti chiave dell’applicazione (Plane, Map, Airstrip ***). 
+AltSim implementa Seaside ed è il Controller centrale del sistema, ad esso sono infatti collegati i vari Controller degli oggetti chiave dell’applicazione (Plane, Map, Airstrip).
 All’interno di Seaside l’utente sarà in grado di disegnare e controllare la rotta dei vari Plane che entreranno in partita.
 Una particolare attenzione merita il GameEngine.
 Esso si occuperà di monitorare i vari oggetti durante la partita (come ad esempio per il caso di Plane, verificare se collide con un altro Plane, o essendo in prossimità della AirStrip far atterrare il Plane stesso) e intraprendere le azioni di aggiornamento e notifica adeguati. Abbiamo riscontrato che un vantaggio di utilizzare questa architettura è che è possibile inserire altre Entità o modifiche all’interno del nostro gioco senza impattare la complessità di progettazione.
@@ -188,7 +188,7 @@ Per quanto riguarda la realizzazione della classifica ho pensato a un semplice a
 \end{figure}
 
 \subsubsection{NameQuality}
-La classe \texttt{NameQuality} consente di controllare il nome inserito dall'utente nel menù principale e di valutarne la qualità, facendo affidamento all'enum \texttt{NameResult}. Al fine di ottenere nomi semplici e di lunghezza finita, ho deciso di implementare un pattern regex, il quale restringe la scelta del nome a un lunghezza massima di 12 lettere e l'utilizzo di soli numeri e lettere. In tal modo, l'input viene verificato tramite espressione regolare e viene ottenuto uno dei seguenti valori:
+La classe \texttt{NameQuality} consente di controllare il nome inserito dall'utente nel menù principale e di valutarne la qualità, facendo affidamento all'enum \texttt{NameResult}. Al fine di ottenere nomi semplici e di lunghezza finita, ho deciso di implementare un pattern regex, il quale restringe la scelta del nome a un lunghezza massima di 12 caratteri e l'utilizzo di soli numeri e lettere. In tal modo, l'input viene verificato tramite espressione regolare e viene ottenuto uno dei seguenti valori:
 \begin{itemize}
     \item \qq{\texttt{CORRECT}}: il nome segue i canoni imposti
     \item \qq{\texttt{EMPTY}}: il nome è vuoto o contiene soli spazi
@@ -243,7 +243,7 @@ La prima dinamica da affrontare è stato il movimento stesso del Plane:
 \\
 L’utente deve essere in grado di disegnare la propria rotta come più desidera e il Plane selezionato, essere in grado di seguirla.
 \\
-In una prima parte si è pensato far gestire lo scorrere delle coordinate campionate da Mouse, al GameEngineImpl che gestisce il gameloop 
+In una prima parte si è pensato far gestire lo scorrere delle coordinate campionate da Mouse, al GameEngineImpl che gestisce il gameloop
 di gioco.
 Prendendo una coppia di coordinate X e Y a tempo di frame, in questo modo si sarebbe vista un’animazione di movimento.
 \\
@@ -251,7 +251,7 @@ Notando che l’ImageView della Sprite del Plane non seguiva però correttamente
 libreria interna a JavaFx che risolveva efficacemente e con più precisione questo insorgere: la javafx.animation(in particolare la classe 
 PathTransition).
 \\
-Le animazioni di movimento del Plane tutte e 3 facente parti della classe PathTransition hanno avuto il ruolo di occuparsi di:
+Le animazioni di movimento del Plane tutte e tre facenti parte della classe PathTransition hanno avuto il ruolo di occuparsi di:
 	SpawnTransition: animazione eseguita durante lo spawn dei Plane in mappa
 	RandomTransition: animazione causale del Plane quando è senza percorso.
 	UserTransition: animazione disegnata dall’utente.
@@ -281,7 +281,8 @@ Questa funzionalità del differenziamento dei Plane però non è stata raggiunta
 La logica di View e Controller è racchiusa in questa classe, 
 Possiamo considerarli due oggetti uniti tra di loro, la vista viene rappresentata da un file.fxml mentre il controller ne eredita lo 
 scheletro di quest’ultimo quando viene lanciata l’applicazione.
-compito di questa classe è far visualizzare la partita con tutti i suoi componenti e le animazioni che devono eseguire.
+\\
+Compito di questa classe è far visualizzare la partita con tutti i suoi componenti e le animazioni che devono eseguire.
 Riallacciandoci ai movimenti del Plane, tramite gli Event:
 \begin{itemize}
     \item handlerMouseDragged()
@@ -295,6 +296,7 @@ video.
 \\
 La classe Timeline permette invece di impostare un timer tramite il metodo setCycleCount(Animation.INDEFINITE);
 Questo permette al SeasideController di avviare lo spawn continuativo dei Plane ogni tot. secondi.
+\\
 Tramite l’enumeration SpawnLocation viene assegnato una tra le quattro posizioni nella Mappa dove spawneranno i Plane e i loro indicatori di 
 avviso.
 \\
@@ -334,7 +336,7 @@ L’istanza della classe viene lanciata dalla classe ThreadEngine, dovendo esser
 di applicare il pattern Singleton su di essa.
 \\
 Tramite il metodo principale mainLoop(), si avvia il ciclo di gioco, che ad ogni periodo, specificato sempre all’interno della classe, 
-permette di eseguire le 3 fasi di gioco importanti (init, update, render).
+permette di eseguire le tre fasi di gioco importanti (init, update, render).
 GameEngineImpl ogni periodo verifica:
 \begin{itemize}
 	\item se un Plane ha superato il bordo mappa, facendo esplodere il Plane e terminando la partita.
@@ -360,10 +362,10 @@ libreria, purtroppo però non si è riusciti nell’intento.
 
 \subsubsection{ObservableState}
 Per gestire i vari stati del Plane durante la partita
-Mi sono fatto aiutare dalle Properties rese disponibili da Javafx che mi hanno permesso di realizzare questi controlli facilmente.
+mi sono fatto aiutare dalle Properties rese disponibili da Javafx che mi hanno permesso di realizzare questi controlli facilmente.
 Inserendo questo ascoltatore sullo stato del Plane, mi ha permesso di modificare ed essere notificato ogni qualvolta avviene un cambio di 
 stato permettendo di gestirlo in tempo ed eseguire le routine che sono collegate.
-Nel caso del movimento randomico, questo deve attivarsi solamente quando il Plane è in stato di \qq{\texttt{WAITING}} da più di quattro secondi.
+Nel caso del movimento casuale, questo deve attivarsi solamente quando il Plane è in stato di \qq{\texttt{WAITING}} da più di quattro secondi.
 Senza un corretto ascoltatore come questo non sarebbe stato possibile avviare il timer al cambio di stato del Plane ed avviare successivamente 
 lo spostamento casuale dell’Aereo.
 \begin{figure}[H]
@@ -500,12 +502,12 @@ Ho accresciuto molto le mie conoscenze su Java e sul buon programmare in general
 Queste conoscenze purtroppo le ho apprese nella parte finale del progetto.
 In fatti mi rendo conto di alcune parti sviluppate con meno qualità rispetto ad altre.
 Ammetto di non essere soddisfatto del mio operato quando vedo alcune parti gestite da me dove non ho applicato correttamente il pattern MVC o dove sono mancanti, questo assieme allo studio dei pattern in maniera più approfondita mi avrebbe permesso di portare il progetto ad una 
-qualità maggiore. Ciò nonostante questo ha accresciuto in me l’interesse per la parte di analisi in java, ponendomi come sfida quello di approfondirli ancora 
+qualità maggiore. Ciò nonostante questo ha fatto crescere in me l’interesse per la parte di analisi in Java, ponendomi come sfida quello di approfondirli ancora 
 di più e farne invece che di una parte occasionale, una costante.
-Con la parte di View, la sua realizzazione e messa in funzione posso ammettere di essermi rimboccato le maniche e aver aiutato alla 
+Con la parte di View, la sua realizzazione e messa in funzione posso ammettere di essermi rimboccato le maniche e aver aiutato nella 
 realizzazione in generale dell’applicazione, inserendo animazioni e logiche di gioco più carine. 
-All’interno del gruppo mi sono trovato bene, nella prima fase di orientamento dovevo capire bene cosa fare e ammetto questo mi ha fatto perdere delle settimane di produzione, però poi ho ingranato recuperando strada facendo. Il Team si è dimostrato sempre disponibile e collaborativo,
-Abbiamo sempre discusso sulle parti di realizzazione e fix apertamente con mentalità rivolta al risolvere assieme tutti i problemi che sono comparsi. Mi dispiace infine per l’uscita finale del compagno Atanasov Atanas Todorov, che ha comunque, con le sua parti realizzate, collaborato e permesso la riuscita del progetto.
+All’interno del gruppo mi sono trovato bene, nella prima fase di orientamento dovevo capire bene cosa fare e ammetto che questo mi ha fatto perdere delle settimane di produzione, però poi ho ingranato recuperando strada facendo. Il Team si è dimostrato sempre disponibile e collaborativo,
+Abbiamo sempre discusso sulle parti di realizzazione e fix apertamente con mentalità rivolta al risolvere assieme tutti i problemi che sono comparsi. Mi dispiace infine per l’uscita finale del compagno Atanasov Atanas Todorov, che ha comunque, con le sue parti realizzate, collaborato e permesso la riuscita del progetto.
 
 % 4.2
 \section{Difficoltà incontrate e commenti per i docenti}
