@@ -12,7 +12,7 @@ public class GameImpl implements Game {
     private static final int GAME_SCORE_LANDING = 100;
     private static final int COORDINATES_LIMIT = 200;
     private static final int MIN_COORDINATES_LENGTH = 5;
-    private static final int MAX_DISTANCE_DRAWINGPATH_VALUE = 150;
+    private static final int MAX_DISTANCE_DRAW_PATH_VALUE = 150;
 
     private int numberPlanesToSpawnEachTime;
     private List<PlaneImpl> planes;
@@ -133,8 +133,8 @@ public class GameImpl implements Game {
         return MIN_COORDINATES_LENGTH;
     }
 
-    public static int getMaxDistanceDrawingpathValue() {
-        return MAX_DISTANCE_DRAWINGPATH_VALUE;
+    public static int getMaxDistanceDrawPathValue() {
+        return MAX_DISTANCE_DRAW_PATH_VALUE;
     }
 
     public static int getCoordinatesLimit() {

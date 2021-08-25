@@ -181,7 +181,7 @@ public class SeasideController implements Seaside {
                                 planeSelected.getSprite().getBoundsInParent().getCenterY()));
 
                 // Animation starts only if the user has drawn a path near the Plane
-                if (distanceFromPlane <= GameImpl.getMaxDistanceDrawingpathValue()
+                if (distanceFromPlane <= GameImpl.getMaxDistanceDrawPathValue()
                         && planeSelected.getState() != State.SPAWNING) {
 
                     // When the mouse is released if Plane was already following a path,
