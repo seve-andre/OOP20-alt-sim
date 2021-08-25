@@ -83,6 +83,8 @@ public class PlaneImpl implements Plane {
         }
     }
 
+    public PlaneImpl() { }
+
     /**
      * Terminate alla the Plane animations when the Game is over.
      */

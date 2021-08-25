@@ -2,6 +2,8 @@ package alt.sim.model.airstrip;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import alt.sim.model.plane.PlaneImpl;
+import alt.sim.model.sprite.SpriteType;
 import org.junit.jupiter.api.Test;
 
 import alt.sim.controller.airstrip.AirStripController;
@@ -12,8 +14,8 @@ public class AirStripStatusTest {
 
     private AbstractAirStrip strip = new BasicAirStrip();
 
-    private Plane plane1 = new Plane();
-    private Plane plane2 = new Plane();
+    private PlaneImpl plane1 = new PlaneImpl();
+    private PlaneImpl plane2 = new PlaneImpl();
 
     private SeasideController transitionSeaside = new SeasideController();
 
