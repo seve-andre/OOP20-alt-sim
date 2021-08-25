@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 
 public class GameEngineAreaTest {
 
-    private static final int X_POSITION = 1061;
+    private static final int X_POSITION = 1281;
     private static final int Y_POSITION = 500;
     private static final int MAX_WIDTH = 1080;
     private static final int MAX_HEIGHT = 720;

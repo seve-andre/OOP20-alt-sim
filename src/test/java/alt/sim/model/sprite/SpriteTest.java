@@ -8,7 +8,7 @@ import alt.sim.controller.seaside.SeasideController;
 
 public class SpriteTest {
 
-    private static final int SCREEN_WIDTH = 1080;
+    private static final int SCREEN_WIDTH = 1280;
     private static final int SCREEN_HEIGHT = 720;
 
     @Test
