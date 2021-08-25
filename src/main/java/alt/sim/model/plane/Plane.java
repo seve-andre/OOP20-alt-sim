@@ -14,14 +14,14 @@ public interface Plane {
      * launch of spawn animation of the Plane.
      * @param side the side position when make the Plane spawn (LEFT, RIGHT, BOTTOM, TOP).
      */
-    void playSpawnAnimation(final SpawnLocation side);
+    void playSpawnAnimation(SpawnLocation side);
 
     /**
      * RandomTransition used by the Plane when it haven't a specified Path to follow.
      * @param boundWidth Width dimension of the Map used for calculate the random X position of RandomMovement.
      * @param boundHeight Height dimension of the Map used for calculate the random Y position of RandomMovement.
      */
-    void loadRandomTransition(final double boundWidth, final double boundHeight);
+    void loadRandomTransition(double boundWidth, double boundHeight);
 
     /**
      * Load the userTransition movement, that permits at the Plane to follow the Path drawed by User.
@@ -51,12 +51,12 @@ public interface Plane {
     /**
      * @param linesPath coordinates sampled added into Plane.
      */
-    void setPlaneLinesPath(final List<Point2D> linesPath);
+    void setPlaneLinesPath(List<Point2D> linesPath);
 
     /**
      * @param newUrlImage the new Image to set into Plane.
      */
-    void setSpritePlane(final String newUrlImage);
+    void setSpritePlane(String newUrlImage);
 
     /**
      * removed the ObservableState for terminate the movement when Game terminated.
