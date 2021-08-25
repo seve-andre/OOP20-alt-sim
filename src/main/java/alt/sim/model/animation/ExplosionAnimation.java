@@ -26,7 +26,7 @@ public class ExplosionAnimation extends Animation {
     }
 
     /**
-     * settingDefaultAnimationOptions and add explosion animation Settings.
+     * {@inheritDoc}
      */
     @Override
     public void settingDefaultAnimationOptions() {
@@ -51,6 +51,9 @@ public class ExplosionAnimation extends Animation {
         scaleExplosionAnimation.setDuration(Duration.millis(Animation.getDurationAnimation()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         scaleExplosionAnimation.play();
