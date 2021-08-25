@@ -1,11 +1,12 @@
 package alt.sim.model;
 
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javafx.scene.image.Image;
+
 public class ExplosionAnimationTest {
-    private final static int N_SPRITES = 50;
+    private static final int N_SPRITES = 50;
 
     @Test
     public void loadImageTest() {

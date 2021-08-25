@@ -1,23 +1,29 @@
 package alt.sim.view.engine;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+
 public class GameEngineAreaTest {
 
+    private static final int X_POSITION = 1061;
+    private static final int Y_POSITION = 500;
+    private static final int MAX_WIDTH = 1080;
+    private static final int MAX_HEIGHT = 720;
+    private static final int RECTANGLE_WIDTH = 20;
+    private static final int RECTANGLE_LENGTH = 20;
     @Test
     public void checkOutOfBoundsTest() {
-       Rectangle rect = new Rectangle(0, 0, 20, 20);
-        double rectPositionX = 1061;
-        double rectPositionY = 500;
+        Rectangle rect = new Rectangle(0, 0, RECTANGLE_WIDTH, RECTANGLE_LENGTH);
+        double rectPositionX = X_POSITION;
+        double rectPositionY = Y_POSITION;
 
         double rectMinWidth = rectPositionX;
         double rectMaxWidth = rectPositionX + rect.getWidth();
@@ -28,9 +34,9 @@ public class GameEngineAreaTest {
 
 
         if (rectMinWidth < 0
-                || rectMaxWidth > 1080
+                || rectMaxWidth > MAX_WIDTH
                 || rectMinHeight < 0
-                || rectMaxHeight > 720) {
+                || rectMaxHeight > MAX_HEIGHT) {
             outOfBounds = true;
             System.out.println("FUORI BORDO");
         } else {
@@ -44,27 +50,27 @@ public class GameEngineAreaTest {
 
     @Test
     public void removePlanesTest() {
-            Pane pane = new Pane();
+        Pane pane = new Pane();
 
-            Rectangle r1 = new Rectangle(0, 0, 20, 20);
-            Rectangle r2 = new Rectangle(0, 0, 20, 20);
-            Rectangle r3 = new Rectangle(0, 0, 20, 20);
+        Rectangle r1 = new Rectangle(0, 0, RECTANGLE_WIDTH, RECTANGLE_LENGTH);
+        Rectangle r2 = new Rectangle(0, 0, RECTANGLE_WIDTH, RECTANGLE_LENGTH);
+        Rectangle r3 = new Rectangle(0, 0, RECTANGLE_WIDTH, RECTANGLE_LENGTH);
 
-            List<Rectangle> rectangles = new ArrayList<>(
-                    Arrays.asList(r1, r2, r2, r3, r3, r3)
-            );
-            final List<Rectangle> rects = rectangles.stream()
-                    .distinct()
-                    .collect(Collectors.toList());
+        List<Rectangle> rectangles = new ArrayList<>(
+                Arrays.asList(r1, r2, r2, r3, r3, r3)
+                );
+        final List<Rectangle> rects = rectangles.stream()
+                .distinct()
+                .collect(Collectors.toList());
 
-            //Check duplicate object in pane
-            rectangles = rects;
+        //Check duplicate object in pane
+        rectangles = rects;
 
-            for (Rectangle r : rectangles) {
-                pane.getChildren().add(r);
-            }
+        for (Rectangle r : rectangles) {
+            pane.getChildren().add(r);
+        }
 
-            pane.getChildren().removeAll(rectangles);
-            Assertions.assertEquals(0, pane.getChildren().size());
+        pane.getChildren().removeAll(rectangles);
+        Assertions.assertEquals(0, pane.getChildren().size());
     }
 }

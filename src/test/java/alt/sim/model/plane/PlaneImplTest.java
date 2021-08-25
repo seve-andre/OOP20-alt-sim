@@ -1,21 +1,21 @@
 package alt.sim.model.plane;
 
-import alt.sim.model.sprite.SpriteType;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.Point2D;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static java.time.Duration.ofMillis;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import alt.sim.model.sprite.SpriteType;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.geometry.Point2D;
 
 public class PlaneImplTest {
 
@@ -31,8 +31,8 @@ public class PlaneImplTest {
                     new Point2D(
                             ThreadLocalRandom.current().nextInt(RANDOM_BOUND),
                             ThreadLocalRandom.current().nextInt(RANDOM_BOUND)
-                    )
-            );
+                            )
+                    );
         }
 
         int intialSize = linesPath.size();
@@ -43,8 +43,8 @@ public class PlaneImplTest {
         for (int k = 0; k < linesPath.size() - 1; k++) {
             Point2D compareValue = linesPath.get(k);
 
-            Assertions.assertFalse(compareValue.getX() == linesPath.get(k + 1).getX() &&
-                    compareValue.getY() == linesPath.get(k + 1).getY());
+            Assertions.assertFalse(compareValue.getX() == linesPath.get(k + 1).getX()
+                    && compareValue.getY() == linesPath.get(k + 1).getY());
         }
 
         Assertions.assertTrue(linesPath.size() <= intialSize);
@@ -55,7 +55,7 @@ public class PlaneImplTest {
                 .distinct()
                 .collect(Collectors.toList());;
 
-        return linesPathDuplicated;
+                return linesPathDuplicated;
     }
 
 
@@ -74,11 +74,11 @@ public class PlaneImplTest {
             }
         }
 
-        Assertions.assertTrue( planeBeenSelected <= 1 && planeBeenSelected >= 0);
+        Assertions.assertTrue(planeBeenSelected <= 1 && planeBeenSelected >= 0);
     }
 
     @Test()
-    public void generatePlaneTest(){
+    public void generatePlaneTest() {
         String urlAirplane = SpriteType.AIRPLANE.getURLImage();
 
         Assertions.assertSame(true, urlAirplane.contains("images/map_components/"));
