@@ -11,7 +11,6 @@ import alt.sim.model.engine.GameEngine;
 import alt.sim.model.engine.GameEngineImpl;
 import alt.sim.model.game.GameImpl;
 import alt.sim.model.plane.PlaneImpl;
-import alt.sim.model.plane.PlaneMovement;
 import alt.sim.model.plane.State;
 import alt.sim.model.spawn.SpawnLocation;
 import alt.sim.model.sprite.SpriteType;
@@ -153,7 +152,7 @@ public class SeasideController implements Seaside {
     @FXML
     void handlerMouseDragged(final MouseEvent event) {
         for (PlaneImpl planeSelected : gameSession.getPlanes()) {
-            if (planeCoordinates.size() < PlaneMovement.COORDINATES_LIMIT && planeSelected.isPlaneSelectedForBeenMoved()) {
+            if (planeCoordinates.size() < GameImpl.getCoordinatesLimit() && planeSelected.isPlaneSelectedForBeenMoved()) {
                 planeCoordinates.add(new Point2D(event.getX(), event.getY()));
                 gc.lineTo(event.getX(), event.getY());
                 gc.setStroke(Color.BLUE);
@@ -174,7 +173,7 @@ public class SeasideController implements Seaside {
 
             // Checks if user has drawn a path with a minimum amount of points
             if (planeSelected.isPlaneSelectedForBeenMoved()
-                    && planeCoordinates.size() > PlaneMovement.MIN_COORDINATES_LENGTH) {
+                    && planeCoordinates.size() > GameImpl.getMinCoordinatesLength()) {
 
                 pathStartingPoint = new Point2D(planeCoordinates.get(0).getX(), planeCoordinates.get(0).getY());
                 distanceFromPlane = pathStartingPoint
@@ -182,7 +181,7 @@ public class SeasideController implements Seaside {
                                 planeSelected.getSprite().getBoundsInParent().getCenterY()));
 
                 // Animation starts only if the user has drawn a path near the Plane
-                if (distanceFromPlane <= PlaneMovement.MAX_DISTANCE_DRAWINGPATH_VALUE
+                if (distanceFromPlane <= GameImpl.getMaxDistanceDrawingpathValue()
                         && planeSelected.getState() != State.SPAWNING) {
 
                     // When the mouse is released if Plane was already following a path,
