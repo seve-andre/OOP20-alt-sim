@@ -17,6 +17,8 @@ public class ObservableState {
     private final ChangeListener<? super State> listener;
 
     public ObservableState(final PlaneImpl planeObserved, final State state) {
+        final int deltaBound = 35;
+
         stateProperty = new SimpleObjectProperty<>(state);
         this.planeObserved = planeObserved;
 
@@ -37,7 +39,7 @@ public class ObservableState {
             timeline.play();
             timeline.setOnFinished(finish -> {
                 if (planeObserved.getState().equals(State.WAITING)) {
-                    this.planeObserved.loadRandomTransition(Main.getStage().getWidth(), Main.getStage().getHeight());
+                    this.planeObserved.loadRandomTransition(Main.getStage().getWidth() - deltaBound, Main.getStage().getHeight() - deltaBound);
                 }
             });
         };
