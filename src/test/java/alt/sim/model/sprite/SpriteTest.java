@@ -1,8 +1,5 @@
 package alt.sim.model.sprite;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 
 import alt.sim.Main;
@@ -10,33 +7,37 @@ import alt.sim.controller.seaside.SeasideController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class SpriteTest {
 
     @Test
     public void resizeSpriteToMapTest() {
         try {
-            Image bufferedSprite = new Image(SpriteType.AIRSTRIP.getURLImage());
-            ImageView sprite = new ImageView();
+            double GameWidth = 1080;
+            double GameHeight = 720;
             final double smallPlaneSizeWidth = 32;
             final double smallPlaneSizeHeight = 32;
 
-            assertNull(sprite, "Sprite wrong initialization");
-            assertNull(bufferedSprite, "Image wrong initialization");
+            double spriteWidth = 0;
+            double spriteHeight = 0;
 
-            if (Main.getStage().getWidth() >= SeasideController.getScreenMinWidth() && Main.getStage().getHeight() >= SeasideController.getScreenMinHeight()) {
-                sprite.setFitWidth((smallPlaneSizeWidth * 2 + 1));
-                sprite.setFitHeight((smallPlaneSizeHeight * 2 + 1));
+            if (GameWidth >= SeasideController.getScreenMinWidth() && GameHeight >= SeasideController.getScreenMinHeight()) {
+                spriteWidth = (smallPlaneSizeWidth * 2);
+                spriteHeight = (smallPlaneSizeHeight * 2);
 
-                assertNotEquals(sprite.getBoundsInLocal().getWidth(), (smallPlaneSizeWidth * 2));
-                assertNotEquals(sprite.getBoundsInLocal().getHeight(), (smallPlaneSizeWidth * 2));
+                assertEquals(spriteWidth, (smallPlaneSizeWidth * 2));
+                assertEquals(spriteHeight, (smallPlaneSizeWidth * 2));
 
             } else {
-                sprite.setFitWidth(smallPlaneSizeWidth);
-                sprite.setFitHeight(smallPlaneSizeHeight);
+                spriteWidth = (smallPlaneSizeWidth);
+                spriteHeight = (smallPlaneSizeHeight);
 
-                assertNotEquals(sprite.getBoundsInLocal().getWidth(), (smallPlaneSizeWidth));
-                assertNotEquals(sprite.getBoundsInLocal().getHeight(), (smallPlaneSizeWidth));
+                assertEquals(spriteWidth, (smallPlaneSizeWidth));
+                assertEquals(spriteHeight, (smallPlaneSizeWidth));
             }
+
+            System.out.println("spriteWidth: " + spriteWidth + " spriteHeight: " + spriteHeight);
 
         } catch (RuntimeException re) {
             re.printStackTrace();
