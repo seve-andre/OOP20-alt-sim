@@ -19,15 +19,15 @@ public interface Game {
     /**
      * @param plane inserted into the plane List.
      */
-    void addPlane(final PlaneImpl plane);
+    void addPlane(PlaneImpl plane);
 
     /**
      * @param planeToRemove inserted into the planeToRemove List.
      */
-    void addPlaneToRemove(final PlaneImpl planeToRemove);
+    void addPlaneToRemove(PlaneImpl planeToRemove);
 
     /**
-     * Clear both the plane List(planes && planeToRemove)
+     * Clear both the plane List(planes && planeToRemove).
      */
     void clearPlanes();
 
@@ -44,7 +44,7 @@ public interface Game {
     /**
      * @param inGame setted for choose if the Game is started or not.
      */
-    void setInGame(final boolean inGame);
+    void setInGame(boolean inGame);
 
     /**
      * @return number of Plane to spawn.
@@ -55,5 +55,5 @@ public interface Game {
      *
      * @param numberPlanesToSpawnEachTime Define the number of Plane to spawn.
      */
-    void setNumberPlanesToSpawnEachTime(final int numberPlanesToSpawnEachTime);
+    void setNumberPlanesToSpawnEachTime(int numberPlanesToSpawnEachTime);
 }

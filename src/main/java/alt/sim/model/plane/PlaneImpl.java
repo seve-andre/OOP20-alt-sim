@@ -1,10 +1,5 @@
 package alt.sim.model.plane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
-
 import alt.sim.Main;
 import alt.sim.controller.seaside.SeasideController;
 import alt.sim.model.animation.ExplosionAnimation;
@@ -24,6 +19,11 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 /**
  * Defines the Plane idea
@@ -77,9 +77,10 @@ public class PlaneImpl implements Plane {
     public PlaneImpl(final SpriteType imageClassification) {
         this(imageClassification.getURLImage());
 
-        switch(imageClassification.name()) {
-            case "AIRPLANE": this.type = PlaneType.AIRPLANE; break;
-            case "AIRLINER": this.type = PlaneType.AIRLINER; break;
+        if ("AIRPLANE".equals(imageClassification.name())) {
+            this.type = PlaneType.AIRPLANE;
+        } else if ("AIRLINER".equals(imageClassification.name())) {
+            this.type = PlaneType.AIRLINER;
         }
     }
 
