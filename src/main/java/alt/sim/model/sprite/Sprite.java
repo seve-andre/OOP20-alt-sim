@@ -25,7 +25,7 @@ public class Sprite {
             Image bufferedSprite = new Image(urlSprite);
             this.sprite = new ImageView(bufferedSprite);
         } catch (RuntimeException re) {
-            System.out.println("Wrong bufferedSprite or sprite intialization: " + re.getMessage());
+            System.out.println("Wrong bufferedSprite or sprite initialization: " + re.getMessage());
         }
 
         //resize calculation:
