@@ -8,7 +8,7 @@
     AirLine Traffic Simulator is a videogame inspired by <a href="https://www.youtube.com/watch?v=KTH084KeFBc"><strong>Flight Control</strong></a>
     for AirLine traffic management. User goal is to <strong>land as many airplanes as possible</strong> without any collisions (cause game ending). 
     Airplanes spawn into the map progressively. <strong>User is in charge of airplanes movement</strong>, mouse drawing their routes. Game difficulty 
-    increases with increasing number of airplanes landed    
+    increases with increasing number of airplanes landed.
   </p>
 
 <h2>Mandatory features</h2>
@@ -64,3 +64,5 @@
             </ul> 
     </li>
 </ul>
+<br />
+<a href="https://github.com/andreafoschi00/OOP20-alt-sim-C-Sharp">OOP20-alt-sim-C# project</a>
