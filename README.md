@@ -9,8 +9,8 @@
     e ha come obiettivo la gestione del traffico aereo. L'obiettivo del giocatore è l'<strong>atterraggio del maggior numero possibile di aerei</strong>, i quali compariranno 
     progressivamente sulla mappa, evitando di farli collidere l'uno con l'altro (causando la fine del gioco). <strong>Il giocatore gestirà personalmente la direzione 
     di ogni velivolo</strong>, disegnandone il percorso che dovrà seguire ciascun aereo, con il mouse. La difficoltà di gioco aumenterà con l’aumentare del numero di 
-    aerei che saranno fatti atterrare    
-  </p>
+    aerei che saranno fatti atterrare.  
+</p>
 
 <h2>Funzionalità necessarie</h2>
  <ul>
@@ -70,3 +70,5 @@
             </ul> 
     </li>
 </ul>
+<br />
+<a href="https://github.com/andreafoschi00/OOP20-alt-sim-C-Sharp">Progetto OOP20-alt-sim-C#</a>
