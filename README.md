@@ -1,10 +1,8 @@
 # AirLine Traffic Simulator
-<div align="center">
-    <img align="left" src="https://github.com/seve-andre/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
-    <p align="right">
-        <a href="https://github.com/seve-andre/OOP20-alt-sim/blob/master/README_ITA.md"><strong>Italian version »</strong></a>
-    </p>
-</div>
+<img align="left" src="https://github.com/seve-andre/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
+<p align="right">
+    <a href="https://github.com/seve-andre/OOP20-alt-sim/blob/master/README_ITA.md"><strong>Italian version »</strong></a>
+</p>
 <br />
 
 AirLine Traffic Simulator is a videogame inspired by [Flight Control](https://www.youtube.com/watch?v=KTH084KeFBc)
