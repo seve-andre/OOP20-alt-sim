@@ -1,7 +1,7 @@
 # AirLine Traffic Simulator
-<img align="left" src="https://github.com/seve-andre/OOP20-alt-sim/blob/master/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
+<img align="left" src="https://github.com/seve-andre/airline-traffic-simulator/blob/main/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
 <p align="right">
-    <a href="https://github.com/seve-andre/OOP20-alt-sim/blob/master/README_ITA.md"><strong>Italian version »</strong></a>
+    <a href="https://github.com/seve-andre/airline-traffic-simulator/blob/main/README_ITA.md"><strong>Italian version »</strong></a>
 </p>
 <br />
 
