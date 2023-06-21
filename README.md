@@ -1,10 +1,10 @@
-# AirLine Traffic Simulator
 <img align="left" src="https://github.com/seve-andre/airline-traffic-simulator/blob/main/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
 <p align="right">
     <a href="https://github.com/seve-andre/airline-traffic-simulator/blob/main/README_ITA.md"><strong>Italian version »</strong></a>
 </p>
 <br />
 
+# AirLine Traffic Simulator
 AirLine Traffic Simulator is a videogame inspired by [Flight Control](https://www.youtube.com/watch?v=KTH084KeFBc)
 for AirLine traffic management. User goal is to **land as many airplanes as possible** without any collisions (cause game ending). 
 Airplanes spawn into the map progressively. **User is in charge of airplanes movement**, mouse drawing their routes. Game difficulty 
