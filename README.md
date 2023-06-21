@@ -1,4 +1,4 @@
-<img align="left" src="https://github.com/seve-andre/airline-traffic-simulator/blob/main/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
+<img align="left" src="https://github.com/seve-andre/airline-traffic-simulator/blob/main/src/main/resources/images/logos/logo.png?raw=true" alt="Airline Traffic Simulator logo" title="Airline Traffic Simulator logo" />
 <p align="right">
     <a href="https://github.com/seve-andre/airline-traffic-simulator/blob/main/README_ITA.md"><strong>Italian version »</strong></a>
 </p>
