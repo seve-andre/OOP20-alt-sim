@@ -1,10 +1,10 @@
-# AirLine Traffic Simulator
 <img align="left" src="https://github.com/seve-andre/airline-traffic-simulator/blob/main/src/main/resources/images/logos/logo.png?raw=true" alt="logo">
 <p align="right">
     <a href="https://github.com/seve-andre/airline-traffic-simulator"><strong>Go to main page »</strong></a>
 </p>
 <br />
 
+# AirLine Traffic Simulator
 AirLine Traffic Simulator è un videogioco che si ispira a [Flight Control](https://www.youtube.com/watch?v=KTH084KeFBc) e ha come obiettivo la gestione del traffico aereo. L'obiettivo del giocatore è l'**atterraggio del maggior numero possibile di aerei**, i quali compariranno progressivamente sulla mappa, evitando di farli collidere l'uno con l'altro (causando la fine del gioco). **Il giocatore gestirà personalmente la direzione 
 di ogni velivolo**, disegnandone il percorso che dovrà seguire ciascun aereo, con il mouse. La difficoltà di gioco aumenterà con l’aumentare del numero di aerei che saranno fatti atterrare.  
 
